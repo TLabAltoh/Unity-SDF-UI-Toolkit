@@ -75,6 +75,15 @@ namespace Nobi.UiRoundedCorners
 
         public void AddCorner(Corner corner)
         {
+            if(polygons.Count == 0)
+            {
+                polygons.Add(new Polygon
+                {
+                    offset = Vector2.zero,
+                    corners = new List<Corner>()
+                });
+            }
+
             polygons[polygons.Count - 1].corners.Add(corner);
         }
     }

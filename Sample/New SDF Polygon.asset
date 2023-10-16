@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98edeb66ba562841a36fec1b31ec9d7, type: 3}
+  m_Name: New SDF Polygon
+  m_EditorClassIdentifier: 
+  width: 512
+  height: 512
+  sdfWidth: 256
+  sdfHeight: 256
+  maxInside: 25
+  maxOutside: 25
+  postProcessDistance: 10
+  circles:
+  - center: {x: -178.05426, y: -108.88688}
+    radius: 50
+  - center: {x: -97.0416, y: 91.511314}
+    radius: 50
+  - center: {x: 122.84991, y: 92.669685}
+    radius: 50
+  polygons:
+  - offset: {x: 0, y: 0}
+    corners:
+    - position: {x: -12.55697, y: -180.70589}
+      radius: 25
+    - position: {x: -39.175415, y: 0}
+      radius: 25
+    - position: {x: 206.17722, y: -49.809956}
+      radius: 25
+  editMode: 2
+  previewMode: 2
+  radius: 25
+  showAnchors: 1
+  showSegments: 1
+  rasterizedTex: {fileID: 0}
+  sdfTex: {fileID: 2800000, guid: d9d0f9f14146bcc498ebf43af91840fa, type: 2}
+  savePath: Assets/Plugins/Unity-UI-Rounded-Corners-Extension/Sample/sample.asset

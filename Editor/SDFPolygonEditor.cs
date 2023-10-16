@@ -308,6 +308,8 @@ namespace Nobi.UiRoundedCorners.Editor
 
                 if (Mathf.Abs(input.x - m_center.x) < m_area.width * 0.5f && Mathf.Abs(input.y - m_center.y) < m_area.height * 0.5f)
                 {
+                    serializedObject.ApplyModifiedProperties();
+
                     switch (instance.editMode)
                     {
                         case EditMode.CIRCLE:
@@ -321,6 +323,8 @@ namespace Nobi.UiRoundedCorners.Editor
                         case EditMode.NONE:
                             break;
                     }
+
+                    serializedObject.Update();
                 }
 
                 EditorUtility.SetDirty(instance);
