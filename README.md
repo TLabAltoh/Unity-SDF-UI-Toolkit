@@ -34,5 +34,8 @@ git clone https://github.com/TLabAltoh/Unityr-UI-Rounded-Corners-Extension.git
 ## Create SDF Texture
 Select Create ---> SDF Polygon to add a Scriptable Object to the asset. For detailed instructions, please refer to [this video](https://youtu.be/poQhoVtyI5Y)
 
+## Fxaa Support
+When creating a Custom Shape, Fxaa is used to reduce aliasing at the boundaries.
+
 ## Lisence
 This repository is MIT licensed.
