@@ -23,6 +23,7 @@ using UnityEditor;
 using Unity.Jobs;
 using Unity.Collections;
 using CatlikeCoding.SDFToolkit;
+using Nobi.UiRoundedCorners.RasterizeJob;
 
 namespace Nobi.UiRoundedCorners.Editor
 {
@@ -123,6 +124,8 @@ namespace Nobi.UiRoundedCorners.Editor
             }            
             EditorGUILayout.Space();
 
+            // Vector Editor
+
             instance.previewMode = (PreviewMode)EditorGUILayout.Popup("Preview Mode", (int)instance.previewMode, m_previewModeOptions);
             instance.editMode = (EditMode)EditorGUILayout.Popup("Edito Mode", (int)instance.editMode, m_editModeOptions);
 
@@ -134,6 +137,17 @@ namespace Nobi.UiRoundedCorners.Editor
 
             prop = serializedObject.FindProperty("radius");
             EditorGUILayout.PropertyField(prop, new GUIContent("Radius"));
+
+            // Rasterize settings
+
+            prop = serializedObject.FindProperty("fixedThreshold");
+            EditorGUILayout.PropertyField(prop, new GUIContent("FixedThreshold"));
+
+            prop = serializedObject.FindProperty("relativeThreshold");
+            EditorGUILayout.PropertyField(prop, new GUIContent("RelativeThreshold"));
+
+            prop = serializedObject.FindProperty("subpixelBlending");
+            EditorGUILayout.PropertyField(prop, new GUIContent("SubpixelBlending"));
 
             EditorGUILayout.BeginHorizontal();
             if(GUILayout.Button("Rasterize"))
@@ -181,93 +195,6 @@ namespace Nobi.UiRoundedCorners.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
-        }
-
-        private struct RasterizePolygonJob : IJobParallelFor
-        {
-            [ReadOnly] public NativeArray<Vector2> polygon;
-            [ReadOnly] public float xRatio;
-            [ReadOnly] public float yRatio;
-            [ReadOnly] public int sdfWidth;
-            [ReadOnly] public int sdfHeight;
-
-            public NativeArray<byte> result;
-
-            public void Execute(int index)
-            {
-                int idxY = sdfHeight - index / sdfWidth - 1;
-                int idxX = index % sdfWidth;
-
-                float texX = idxX * xRatio;
-                float texY = idxY * yRatio;
-
-                float sum = 0;
-
-                for(int i = 0; i < polygon.Length; i++)
-                {
-                    Vector2 point0 = polygon[(i + 0) % polygon.Length];
-                    Vector2 point1 = polygon[(i + 1) % polygon.Length];
-                    float dx0 = point0.x - texX;
-                    float dy0 = point0.y - texY;
-                    float dx1 = point1.x - texX;
-                    float dy1 = point1.y - texY;
-
-                    float dot = (dx0 * dx1 + dy0 * dy1) / (Mathf.Sqrt(dx0 * dx0 + dy0 * dy0) * Mathf.Sqrt(dx1 * dx1 + dy1 * dy1));
-                    dot = Mathf.Clamp(dot, -1.0f, 1.0f);
-                    float theta = Mathf.Acos(dot);
-                    theta *= Mathf.Sign(dx0 * dy1 - dy0 * dx1);
-                    sum += theta;
-                }
-
-                if(Mathf.Abs(sum) > Mathf.PI)
-                {
-                    result[index] = 255;
-                }
-            }
-        }
-
-        private struct RasterizeCircleJob: IJobParallelFor
-        {
-            [ReadOnly] public NativeArray<Circle> circles;
-            [ReadOnly] public float xRatio;
-            [ReadOnly] public float yRatio;
-            [ReadOnly] public int sdfWidth;
-            [ReadOnly] public int sdfHeight;
-
-            public NativeArray<byte> result;
-
-            public void Execute(int index)
-            {
-                int idxY = sdfHeight - index / sdfWidth - 1;
-                int idxX = index % sdfWidth;
-
-                float texX = idxX * xRatio;
-                float texY = idxY * yRatio;
-
-                for (int i = 0; i < circles.Length; i++)
-                {
-                    Circle circle = circles[i];
-                    float dx = circle.center.x - texX;
-                    float dy = circle.center.y - texY;
-
-                    if(dx * dx + dy * dy < circle.radius * circle.radius)
-                    {
-                        result[index] = 255;
-                    }
-                }
-            }
-        }
-
-        private struct CopyR8ToARGB32 : IJobParallelFor
-        {
-            [ReadOnly] public int channelSize;
-            [ReadOnly] public NativeArray<byte> source;
-            public NativeArray<byte> result;
-
-            public void Execute(int index)
-            {
-                result[index] = source[index / channelSize];
-            }
         }
 
         private void GetGUIRect()
@@ -381,6 +308,8 @@ namespace Nobi.UiRoundedCorners.Editor
             AssetDatabase.Refresh();
 
             EditorUtility.SetDirty(instance);
+
+            Debug.Log("Save texture: " + savePath);
         }
 
         private string GetDiskPath(string assetPath)
@@ -430,8 +359,10 @@ namespace Nobi.UiRoundedCorners.Editor
             Vector2 halfSize = new Vector2(instance.width * 0.5f, instance.height * 0.5f);
             Vector2 offset = Vector2.zero;
 
-            NativeArray<byte> result = new NativeArray<byte>(instance.sdfHeight * instance.sdfWidth, Allocator.TempJob);
+            NativeArray<byte> rasterized = new NativeArray<byte>(instance.sdfHeight * instance.sdfWidth, Allocator.TempJob);
             JobHandle handle;
+
+            Debug.Log("Start circle rasterize");
 
             NativeArray<Circle> circlesN = new NativeArray<Circle>(instance.circles.Count, Allocator.TempJob);
             for (int i = 0; i < circlesN.Length; i++)
@@ -444,15 +375,15 @@ namespace Nobi.UiRoundedCorners.Editor
 
             RasterizeCircleJob rasterizeCircle = new RasterizeCircleJob
             {
-                circles = circlesN,
-                xRatio = 1.0f / instance.sdfWidth * instance.width,
-                yRatio = 1.0f / instance.sdfHeight * instance.height,
-                sdfWidth = instance.sdfWidth,
-                sdfHeight = instance.sdfHeight,
-                result = result
+                CIRCLES = circlesN,
+                X_RATIO = 1.0f / instance.sdfWidth * instance.width,
+                Y_RATIO = 1.0f / instance.sdfHeight * instance.height,
+                SDF_WIDTH = instance.sdfWidth,
+                SDF_HEIGHT = instance.sdfHeight,
+                result = rasterized
             };
 
-            handle = rasterizeCircle.Schedule(result.Length, 1);
+            handle = rasterizeCircle.Schedule(rasterized.Length, 1);
 
             JobHandle.ScheduleBatchedJobs();
 
@@ -461,6 +392,8 @@ namespace Nobi.UiRoundedCorners.Editor
             circlesN.Dispose();
 
             Debug.Log("Finish circle rasterize");
+
+            Debug.Log("Start polygon rasterize");
 
             foreach (Polygon polygon in instance.polygons)
             {
@@ -533,15 +466,15 @@ namespace Nobi.UiRoundedCorners.Editor
 
                 RasterizePolygonJob rasterizePolygon = new RasterizePolygonJob
                 {
-                    polygon = pointsN,
-                    xRatio = 1.0f / instance.sdfWidth * instance.width,
-                    yRatio = 1.0f / instance.sdfHeight * instance.height,
-                    sdfWidth = instance.sdfWidth,
-                    sdfHeight = instance.sdfHeight,
-                    result = result
+                    POLYGON = pointsN,
+                    X_RATIO = 1.0f / instance.sdfWidth * instance.width,
+                    Y_RATIO = 1.0f / instance.sdfHeight * instance.height,
+                    SDF_WIDTH = instance.sdfWidth,
+                    SDF_HEIGHT = instance.sdfHeight,
+                    result = rasterized
                 };
 
-                handle = rasterizePolygon.Schedule(result.Length, 1);
+                handle = rasterizePolygon.Schedule(rasterized.Length, 1);
 
                 JobHandle.ScheduleBatchedJobs();
 
@@ -552,12 +485,50 @@ namespace Nobi.UiRoundedCorners.Editor
 
             Debug.Log("Finish polygon rasterize");
 
-            NativeArray<byte> rawData = new NativeArray<byte>(result.Length * CHANNEL_SIZE, Allocator.TempJob);
+            Debug.Log("Start Fxaa effect");
+
+            NativeArray<byte> aaData = new NativeArray<byte>(rasterized.Length, Allocator.TempJob);
+            NativeArray<float> edgeStepSizes = new NativeArray<float>(10, Allocator.TempJob);
+            edgeStepSizes[0] = 1.0f;
+            edgeStepSizes[1] = 1.0f;
+            edgeStepSizes[2] = 1.0f;
+            edgeStepSizes[3] = 1.0f;
+            edgeStepSizes[4] = 1.5f;
+            edgeStepSizes[5] = 2.0f;
+            edgeStepSizes[6] = 2.0f;
+            edgeStepSizes[7] = 2.0f;
+            edgeStepSizes[8] = 2.0f;
+            edgeStepSizes[9] = 4.0f;
+
+            FxaaEffect fxaaEffect = new FxaaEffect
+            {
+                SOURCE = rasterized,
+                EDGE_STEP_SIZES = edgeStepSizes,
+                FXAA_CONFIG = new Vector4(instance.fixedThreshold, instance.relativeThreshold, instance.subpixelBlending, 0.0f),
+                LAST_EDGE_STEP_GUESS = 8.0f,
+                WIDTH = instance.sdfWidth,
+                HEIGHT = instance.sdfHeight,
+
+                result = aaData
+            };
+
+            handle = fxaaEffect.Schedule(aaData.Length, 1);
+
+            JobHandle.ScheduleBatchedJobs();
+
+            handle.Complete();
+
+            rasterized.Dispose();
+            edgeStepSizes.Dispose();
+
+            Debug.Log("Finish Fxaa effect");
+
+            NativeArray<byte> rawData = new NativeArray<byte>(aaData.Length * CHANNEL_SIZE, Allocator.TempJob);
 
             CopyR8ToARGB32 copyR8ToARGB32 = new CopyR8ToARGB32
             {
-                channelSize = CHANNEL_SIZE,
-                source = result,
+                SOURCE = aaData,
+                CHANNEL_SIZE = CHANNEL_SIZE,
                 result = rawData
             };
 
@@ -570,7 +541,7 @@ namespace Nobi.UiRoundedCorners.Editor
             instance.rasterizedTex.LoadRawTextureData(rawData);
             instance.rasterizedTex.Apply();
 
-            result.Dispose();
+            aaData.Dispose();
             rawData.Dispose();
 
             EditorUtility.SetDirty(instance);

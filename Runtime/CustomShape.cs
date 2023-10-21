@@ -58,8 +58,8 @@ namespace Nobi.UiRoundedCorners
 			float baseEdge = Mathf.Min(halfRect.x, halfRect.y);
 			m_material.SetTexture(PROP_SDFTEX, sdfTexture);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSES, radius * baseEdge);
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth * baseEdge);
+			m_material.SetFloat(PROP_RADIUSES, radius);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 			m_material.SetColor(PROP_OUTLINECOLOR, outlineColor);
 		}
 	}

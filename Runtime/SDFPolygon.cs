@@ -52,6 +52,10 @@ namespace Nobi.UiRoundedCorners
         [SerializeField, Range(0.0f, 512.0f)] public float maxOutside = 10.0f;
         [SerializeField, Range(0.0f, 512.0f)] public float postProcessDistance = 10.0f;
 
+        [SerializeField, Range(0.0f, 1.0f)] public float fixedThreshold = 0.0312f;
+        [SerializeField, Range(0.0f, 1.0f)] public float relativeThreshold = 0.063f;
+        [SerializeField, Range(0.0f, 1.0f)] public float subpixelBlending = 0.75f;
+
         [SerializeField] public List<Circle> circles;
         [SerializeField] public List<Polygon> polygons;
 

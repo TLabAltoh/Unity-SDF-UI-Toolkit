@@ -16,9 +16,12 @@ MonoBehaviour:
   height: 512
   sdfWidth: 256
   sdfHeight: 256
-  maxInside: 25
-  maxOutside: 25
-  postProcessDistance: 10
+  maxInside: 50
+  maxOutside: 50
+  postProcessDistance: 50
+  fixedThreshold: 0.0312
+  relativeThreshold: 0.063
+  subpixelBlending: 0.75
   circles:
   - center: {x: -178.05426, y: -108.88688}
     radius: 50
@@ -36,10 +39,10 @@ MonoBehaviour:
     - position: {x: 206.17722, y: -49.809956}
       radius: 25
   editMode: 2
-  previewMode: 2
-  radius: 25
+  previewMode: 1
+  radius: 50
   showAnchors: 1
   showSegments: 1
   rasterizedTex: {fileID: 0}
-  sdfTex: {fileID: 2800000, guid: d9d0f9f14146bcc498ebf43af91840fa, type: 2}
+  sdfTex: {fileID: 0}
   savePath: Assets/Plugins/Unity-UI-Rounded-Corners-Extension/Sample/sample.asset
