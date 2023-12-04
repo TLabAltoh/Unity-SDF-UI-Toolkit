@@ -8,6 +8,7 @@ using Unity.Collections;
 
 namespace Nobi.UiRoundedCorners.RasterizeJob
 {
+#if UNITY_EDITOR
     public struct RasterizePolygonJob : IJobParallelFor
     {
         [ReadOnly] public NativeArray<Vector2> POLYGON;
@@ -363,4 +364,5 @@ namespace Nobi.UiRoundedCorners.RasterizeJob
             result[index] = SOURCE[index / CHANNEL_SIZE];
         }
     }
+#endif
 }
