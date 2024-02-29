@@ -5,10 +5,6 @@
 **/
 
 using UnityEngine;
-using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Nobi.UiRoundedCorners
 {
@@ -22,15 +18,16 @@ namespace Nobi.UiRoundedCorners
 		private static readonly int PROP_RADIUSES = Shader.PropertyToID("_r");
 		private static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_outlineColor");
 		private static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_outlineWidth");
+		private static readonly string SHAPE_NAME = "CustomShape";
 
-		[SerializeField, Range(0.0f, 1.0f)] public float radius = 0.4f;
+		[SerializeField] public float radius = 40;
 		[SerializeField] public Texture2D sdfTexture;
 
 		protected override void OnValidate()
 		{
 			base.OnValidate();
 
-			Validate("CustomShape");
+			Validate(SHAPE_NAME);
 			Refresh();
 		}
 
@@ -38,7 +35,7 @@ namespace Nobi.UiRoundedCorners
 		{
 			base.OnEnable();
 
-			Validate("CustomShape");
+			Validate(SHAPE_NAME);
 			Refresh();
 		}
 
@@ -55,7 +52,6 @@ namespace Nobi.UiRoundedCorners
 		protected override void Refresh()
 		{
 			Vector2 halfRect = ((RectTransform)transform).rect.size * .5f;
-			float baseEdge = Mathf.Min(halfRect.x, halfRect.y);
 			m_material.SetTexture(PROP_SDFTEX, sdfTexture);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
 			m_material.SetFloat(PROP_RADIUSES, radius);

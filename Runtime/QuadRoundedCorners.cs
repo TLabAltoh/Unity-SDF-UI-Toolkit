@@ -5,10 +5,6 @@
 **/
 
 using UnityEngine;
-using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Nobi.UiRoundedCorners
 {
@@ -31,7 +27,8 @@ namespace Nobi.UiRoundedCorners
 		}
 	}
 
-	[ExecuteInEditMode] [DisallowMultipleComponent]
+	[ExecuteInEditMode]
+	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
 	public class QuadRoundedCorners : CustomRoundedCorners
 	{
@@ -39,17 +36,18 @@ namespace Nobi.UiRoundedCorners
 		private static readonly int PROP_RADIUSES = Shader.PropertyToID("_r");
 		private static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_outlineColor");
 		private static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_outlineWidth");
+		private static readonly string SHAPE_NAME = "Quad";
 
-		[SerializeField, Range(0.0f, 1.0f)] public float radiusX = 0.4f;
-		[SerializeField, Range(0.0f, 1.0f)] public float radiusY = 0.4f;
-		[SerializeField, Range(0.0f, 1.0f)] public float radiusZ = 0.4f;
-		[SerializeField, Range(0.0f, 1.0f)] public float radiusW = 0.4f;
+		[SerializeField] public float radiusX = 40;
+		[SerializeField] public float radiusY = 40;
+		[SerializeField] public float radiusZ = 40;
+		[SerializeField] public float radiusW = 40;
 
 		protected override void OnValidate()
 		{
 			base.OnValidate();
 
-			Validate("Quad");
+			Validate(SHAPE_NAME);
 			Refresh();
 		}
 
@@ -57,27 +55,26 @@ namespace Nobi.UiRoundedCorners
 		{
 			base.OnEnable();
 
-			Validate("Quad");
+			Validate(SHAPE_NAME);
 			Refresh();
 		}
 
-        protected override void OnRectTransformDimensionsChange()
-        {
-            base.OnRectTransformDimensionsChange();
-        }
+		protected override void OnRectTransformDimensionsChange()
+		{
+			base.OnRectTransformDimensionsChange();
+		}
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+		}
 
-        protected override void Refresh()
+		protected override void Refresh()
 		{
 			Vector2 halfRect = ((RectTransform)transform).rect.size * .5f;
-			float baseEdge = Mathf.Min(halfRect.x, halfRect.y);
-			m_material.SetVector(PROP_RADIUSES, new Vector4(radiusX, radiusY, radiusZ, radiusW) * baseEdge);
+			m_material.SetVector(PROP_RADIUSES, new Vector4(radiusX, radiusY, radiusZ, radiusW));
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth * baseEdge);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 			m_material.SetColor(PROP_OUTLINECOLOR, outlineColor);
 		}
 	}

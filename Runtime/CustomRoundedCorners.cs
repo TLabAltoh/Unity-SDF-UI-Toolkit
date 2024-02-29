@@ -1,19 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Nobi.UiRoundedCorners
 {
-    public class CustomRoundedCorners : MonoBehaviour
-    {
-		[SerializeField, Range(0.0f, 1.0f)] public float outlineWidth = 0.1f;
+	public class CustomRoundedCorners : MonoBehaviour
+	{
+		[SerializeField] public float outlineWidth = 10;
 		[SerializeField] public Color outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 
-        protected Material m_material;
+		protected Material m_material;
 
-        [HideInInspector, SerializeField] protected MaskableGraphic m_image;
+		[HideInInspector, SerializeField] protected MaskableGraphic m_image;
 
 		protected virtual void Validate(string shape)
 		{
@@ -68,7 +65,7 @@ namespace Nobi.UiRoundedCorners
 
 		protected virtual void OnDestroy()
 		{
-			m_image.material = null;      //This makes so that when the component is removed, the UI m_material returns to null
+			m_image.material = null;      // This makes so that when the component is removed, the UI m_material returns to null
 
 			DestroyHelper.Destroy(m_material);
 			m_image = null;

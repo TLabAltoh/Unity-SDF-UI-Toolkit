@@ -1,20 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 namespace Nobi.UiRoundedCorners.Editor
 {
-#if UNITY_EDITOR
 	[CustomEditor(typeof(CustomShape))]
 	public class CustomShapeEditor : UnityEditor.Editor
 	{
-		private CustomShape script;
+		private CustomShape m_instance;
 
 		private void OnEnable()
 		{
-			script = (CustomShape)target;
+			m_instance = (CustomShape)target;
 		}
 
 		public override void OnInspectorGUI()
@@ -36,11 +33,10 @@ namespace Nobi.UiRoundedCorners.Editor
 
 			serializedObject.ApplyModifiedProperties();
 
-			if (!script.TryGetComponent<MaskableGraphic>(out var _))
+			if (!m_instance.TryGetComponent<MaskableGraphic>(out var _))
 			{
-				EditorGUILayout.HelpBox("This script requires an MaskableGraphic (Image or RawImage) component on the same gameobject", MessageType.Warning);
+				EditorGUILayout.HelpBox("This m_instance requires an MaskableGraphic (Image or RawImage) component on the same gameobject", MessageType.Warning);
 			}
 		}
 	}
-#endif
 }

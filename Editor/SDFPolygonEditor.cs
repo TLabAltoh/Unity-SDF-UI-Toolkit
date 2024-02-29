@@ -13,13 +13,9 @@
 #define DEBUG
 //#undef DEBUG
 
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using Unity.Jobs;
 using Unity.Collections;
 using CatlikeCoding.SDFToolkit;
@@ -27,11 +23,10 @@ using Nobi.UiRoundedCorners.RasterizeJob;
 
 namespace Nobi.UiRoundedCorners.Editor
 {
-#if UNITY_EDITOR
     [CustomEditor(typeof(SDFPolygon))]
     public class SDFPolygonEditor : UnityEditor.Editor
     {
-        private SDFPolygon instance;
+        private SDFPolygon m_instance;
 #if DEBUG
         const float DISC_RADIUS = 5.0f;
 #endif
@@ -56,141 +51,120 @@ namespace Nobi.UiRoundedCorners.Editor
         private Rect m_area;
         private Vector2 m_center;
 
+        private void OnEnable()
+        {
+            m_instance = target as SDFPolygon;
+        }
+
         public override void OnInspectorGUI()
         {
-            if (instance == null)
-            {
-                instance = target as SDFPolygon;
-            }
-
             serializedObject.Update();
 
-            SerializedProperty prop;
-            
-            prop = serializedObject.FindProperty("width");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Vector Width"));
-
-            prop = serializedObject.FindProperty("height");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Vector Height"));
-
-            prop = serializedObject.FindProperty("sdfWidth");
-            EditorGUILayout.PropertyField(prop, new GUIContent("SDF Width"));
-
-            prop = serializedObject.FindProperty("sdfHeight");
-            EditorGUILayout.PropertyField(prop, new GUIContent("SDF Height"));
+            serializedObject.TryDrawProperty("width", "Vector Width");
+            serializedObject.TryDrawProperty("height", "Vector Height");
+            serializedObject.TryDrawProperty("sdfWidth", "SDF Width");
+            serializedObject.TryDrawProperty("sdfHeight", "SDF Height");
 
             EditorGUILayout.Space();
 
-            prop = serializedObject.FindProperty("maxInside");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Max Inside"));
-
-            prop = serializedObject.FindProperty("maxOutside");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Max Outside"));
-
-            prop = serializedObject.FindProperty("postProcessDistance");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Post Process Distance"));
+            serializedObject.TryDrawProperty("rasterizeSettings", "Rasterize Settings");
+            serializedObject.TryDrawProperty("fxaaSettings", "FXAA Settings");
 
             EditorGUILayout.Space();
 
-            prop = serializedObject.FindProperty("circles");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Circles"));
-
-            prop = serializedObject.FindProperty("polygons");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Polygons"));
+            serializedObject.TryDrawProperty("circles", "Circles");
+            serializedObject.TryDrawProperty("polygons", "Polygons");
 
             EditorGUILayout.Space();
+
             GetGUIRect();
 
-            AddSegment();            
+            AddSegment();
 
             EditorGUILayout.Space();
-            switch (instance.previewMode)
+
+            serializedObject.TryGetEnumValue("previewMode", out int index);
+
+            switch ((PreviewMode)index)
             {
                 case PreviewMode.VECTOR:
                     DrawMesh();
                     break;
                 case PreviewMode.RASTRIZED:
-                    if (instance.rasterizedTex)
+                    if (serializedObject.TryGetObject("rasterizedTex", out Texture2D texture0))
                     {
-                        EditorGUI.DrawPreviewTexture(m_area, instance.rasterizedTex);
+                        EditorGUI.DrawPreviewTexture(m_area, texture0);
                     }
                     break;
                 case PreviewMode.SDF:
-                    if (instance.sdfTex)
+                    if (serializedObject.TryGetObject("sdfTex", out Texture2D texture1))
                     {
-                        EditorGUI.DrawPreviewTexture(m_area, instance.sdfTex);
+                        EditorGUI.DrawPreviewTexture(m_area, texture1);
                     }
                     break;
-            }            
+            }
             EditorGUILayout.Space();
 
             // Vector Editor
 
-            instance.previewMode = (PreviewMode)EditorGUILayout.Popup("Preview Mode", (int)instance.previewMode, m_previewModeOptions);
-            instance.editMode = (EditMode)EditorGUILayout.Popup("Edito Mode", (int)instance.editMode, m_editModeOptions);
+            serializedObject.TryDrawEnumProperty("previewMode", "Preview Mode", m_previewModeOptions);
+            serializedObject.TryDrawEnumProperty("editMode", "Edito Mode", m_editModeOptions);
 
-            prop = serializedObject.FindProperty("showAnchors");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Show Anchors"));
-
-            prop = serializedObject.FindProperty("showSegments");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Show Segments"));
-
-            prop = serializedObject.FindProperty("radius");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Radius"));
-
-            // Rasterize settings
-
-            prop = serializedObject.FindProperty("fixedThreshold");
-            EditorGUILayout.PropertyField(prop, new GUIContent("FixedThreshold"));
-
-            prop = serializedObject.FindProperty("relativeThreshold");
-            EditorGUILayout.PropertyField(prop, new GUIContent("RelativeThreshold"));
-
-            prop = serializedObject.FindProperty("subpixelBlending");
-            EditorGUILayout.PropertyField(prop, new GUIContent("SubpixelBlending"));
+            serializedObject.TryDrawProperty("showAnchors", "Show Anchors");
+            serializedObject.TryDrawProperty("showSegments", "Show Segments");
+            serializedObject.TryDrawProperty("radius", "Radius");
 
             EditorGUILayout.BeginHorizontal();
-            if(GUILayout.Button("Rasterize"))
+            if (GUILayout.Button("Rasterize"))
             {
                 Rasterize();
             }
 
             if (GUILayout.Button("GenerateSDF"))
             {
-                if (instance.rasterizedTex)
-                {
-                    GenerateSDF();
-                }
+                GenerateSDF();
             }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();
 
-            prop = serializedObject.FindProperty("savePath");
-            EditorGUILayout.PropertyField(prop, new GUIContent("Save Path"));
+            serializedObject.TryDrawProperty("savePath", "Save Path");
 
             EditorGUILayout.Space();
 
             if (GUILayout.Button("Save"))
             {
-                if(instance.savePath == "" || !instance.sdfTex || !DirectoryExists(instance.savePath))
+                if (serializedObject.TryGetStringValue("savePath", out string savePath) && serializedObject.TryGetObject("sdfTex", out Texture2D sdfTex))
                 {
-                    if (SelectSavePath())
+                    if (!AssetUtil.DirectoryExists(savePath))
                     {
-                        SaveTexture();
+                        if (AssetUtil.SelectSavePath(savePath, out savePath))
+                        {
+                            AssetUtil.SaveTexture(savePath, ref sdfTex);
+                        }
                     }
-                }
-                else
-                {
-                    SaveTexture();
+                    else
+                    {
+                        AssetUtil.SaveTexture(savePath, ref sdfTex);
+                    }
+
+                    serializedObject.TrySetValue("savePath", savePath);
                 }
             }
 
-            if(GUILayout.Button("Save as"))
+            if (GUILayout.Button("Save as"))
             {
-                if (SelectSavePath())
+                if (serializedObject.TryGetStringValue("savePath", out string savePath) && serializedObject.TryGetObject("sdfTex", out Texture2D sdfTex))
                 {
-                    SaveTexture();
+                    if (!AssetUtil.DirectoryExists(m_instance.savePath))
+                    {
+                        if (AssetUtil.SelectSavePath(savePath, out savePath))
+                        {
+                            AssetUtil.SaveTexture(savePath, ref sdfTex);
+                        }
+                    }
+
+                    serializedObject.TrySetValue("savePath", savePath);
                 }
             }
 
@@ -199,32 +173,14 @@ namespace Nobi.UiRoundedCorners.Editor
 
         private void GetGUIRect()
         {
-            float margin = 0.8f;
-            float width = Screen.width * margin;
-            float height = width * instance.height / instance.width;
-            float xoffset = Screen.width * (1 - margin) * 0.25f;
-
-            m_area = GUILayoutUtility.GetRect(width, height, GUILayout.ExpandWidth(false));
-            m_area.xMax += xoffset;
-            m_area.xMin += xoffset;
+            m_area = EditorUtil.DrawPreviewArea(m_instance.width, m_instance.height);
 
             m_center = new Vector2(m_area.xMin + m_area.xMax, m_area.yMin + m_area.yMax) * 0.5f;
-
-            // Draw bounds
-            Handles.DrawLine(new Vector2(m_area.xMax + 1, m_area.yMin - 1), new Vector2(m_area.xMax + 1, m_area.yMax + 1));
-            Handles.DrawLine(new Vector2(m_area.xMin - 1, m_area.yMax + 1), new Vector2(m_area.xMax + 1, m_area.yMax + 1));
-            Handles.DrawLine(new Vector2(m_area.xMin - 1, m_area.yMax + 1), new Vector2(m_area.xMin - 1, m_area.yMin - 1));
-            Handles.DrawLine(new Vector2(m_area.xMax + 1, m_area.yMin - 1), new Vector2(m_area.xMin - 1, m_area.yMin - 1));
         }
 
         private Vector2 Transrate(Vector2 pos)
         {
-            return new Vector2(((pos.x - m_center.x) / m_area.width * instance.width), ((pos.y - m_center.y) / m_area.height * instance.height));
-        }
-
-        private void Undo()
-        {
-            UnityEditor.Undo.RecordObject(instance, "Add Segment");
+            return new Vector2(((pos.x - m_center.x) / m_area.width * m_instance.width), ((pos.y - m_center.y) / m_area.height * m_instance.height));
         }
 
         private void AddSegment()
@@ -233,352 +189,113 @@ namespace Nobi.UiRoundedCorners.Editor
             {
                 Vector2 input = Event.current.mousePosition;
 
-                if (Mathf.Abs(input.x - m_center.x) < m_area.width * 0.5f && Mathf.Abs(input.y - m_center.y) < m_area.height * 0.5f)
+                if (EditorUtil.InputAreaCheck(m_area, input))
                 {
-                    serializedObject.ApplyModifiedProperties();
+                    serializedObject.TryGetFloatValue("radius", out float radius);
 
-                    switch (instance.editMode)
+                    switch (m_instance.editMode)
                     {
                         case EditMode.CIRCLE:
-                            Undo();
-                            instance.AddCircle(new Circle() { center = Transrate(input), radius = instance.radius });
+                            Circle circle = new Circle() { center = Transrate(input), radius = radius };
+                            serializedObject.TryAddArrayElement("circles", circle);
                             break;
                         case EditMode.POLYGON:
-                            Undo();
-                            instance.AddCorner(new Corner() { position = Transrate(input), radius = instance.radius });
+                            Corner corner = new Corner() { position = Transrate(input), radius = radius };
+                            if (serializedObject.TryGetValueList("polygons", out List<Polygon> polygons))
+                            {
+                                if (polygons.Count == 0)
+                                {
+                                    polygons.Add(new Polygon
+                                    {
+                                        offset = Vector2.zero,
+                                        corners = new List<Corner>()
+                                    });
+                                }
+
+                                polygons[polygons.Count - 1].corners.Add(corner);
+
+                                serializedObject.TrySetValue("polygons", polygons);
+                            }
                             break;
                         case EditMode.NONE:
                             break;
                     }
-
-                    serializedObject.Update();
-                }
-
-                EditorUtility.SetDirty(instance);
-            }
-        }
-
-        private Vector2 TexToRect(Vector2 coord)
-        {
-            return new Vector2(coord.x / instance.width * m_area.width, coord.y / instance.height * m_area.height);
-        }
-
-        private float TexToRect(float size)
-        {
-            return size / instance.width * m_area.width;
-        }
-
-        private string GetFileName(string path, bool ignore)
-        {
-            string fileName = Path.GetFileName(instance.savePath);
-            if (ignore)
-            {
-                string[] split = fileName.Split('.');
-                if (split.Length > 1 && !split[split.Length - 1].Contains('\\') && !split[split.Length - 1].Contains('/'))
-                {
-                    return split[split.Length - 2];
                 }
             }
-            return fileName;
-        }
-
-        public void SaveTexture()
-        {
-            string savePath = instance.savePath;
-            if (Path.GetExtension(instance.savePath) != ".asset")
-            {
-                savePath += ".asset";
-            }
-
-            Texture2D asset = AssetDatabase.LoadAssetAtPath<Texture2D>(savePath);
-
-            instance.sdfTex.name = GetFileName(savePath, true);
-
-            if (asset != null)
-            {
-                asset.name = instance.sdfTex.name;
-                EditorUtility.CopySerialized(instance.sdfTex, asset);
-            }
-            else
-            {
-                AssetDatabase.CreateAsset(instance.sdfTex, savePath);
-            }
-
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-
-            EditorUtility.SetDirty(instance);
-
-            Debug.Log("Save texture: " + savePath);
-        }
-
-        private string GetDiskPath(string assetPath)
-        {
-            string assetDir = assetPath.Substring(0, assetPath.Length - 1 - Path.GetFileName(assetPath).Length);
-            return Directory.GetCurrentDirectory() + "\\" + assetDir.Replace("/", "\\");
-        }
-
-        private bool DirectoryExists(string assetPath)
-        {
-            if (assetPath.Length < "Assets".Length - 1)
-            {
-                return false;
-            }
-
-            return Directory.Exists(GetDiskPath(assetPath));
-        }
-
-        public bool SelectSavePath()
-        {
-            string initialPath = instance.savePath != null && DirectoryExists(instance.savePath) ? instance.savePath : "Assets";
-            string fullPath = EditorUtility.SaveFilePanel("Save Path", initialPath, "", "asset");
-            if(fullPath == "")
-            {
-                return false;
-            }
-            string savePath = fullPath.Remove(0, Directory.GetCurrentDirectory().Length + 1);
-            instance.savePath = savePath;
-            return true;
         }
 
         private void GenerateSDF()
         {
-            instance.sdfTex = new Texture2D(instance.sdfWidth, instance.sdfHeight, TEX_FORMAT, false);
+            Vector2Int textureSize = GetSDFTextureSize();
 
-            SDFTextureGenerator.Generate(instance.rasterizedTex, instance.sdfTex, instance.maxInside, instance.maxOutside, instance.postProcessDistance, RGBFillMode.Distance);
+            serializedObject.TryGetObject("rasterizedTex", out Texture2D rasterizedTex);
+            serializedObject.TryGetValue("rasterizeSettings", out RasterizeSettings rasterizeSettings);
 
-            instance.sdfTex.Apply();
+            Texture2D sdfTex = new Texture2D(textureSize.x, textureSize.y, TEX_FORMAT, false);
 
-            EditorUtility.SetDirty(instance);
+            SDFTextureGenerator.Generate(rasterizedTex, sdfTex, rasterizeSettings.maxInside, rasterizeSettings.maxOutside, rasterizeSettings.postProcessDistance, RGBFillMode.Distance);
+
+            sdfTex.Apply();
+
+            serializedObject.TrySetValue("sdfTex", sdfTex);
         }
 
         private void Rasterize()
         {
-            instance.rasterizedTex = new Texture2D(instance.sdfWidth, instance.sdfHeight, TEX_FORMAT, false);
+            Vector2Int textureSize = GetTextureSize(), sdfTextureSize = GetSDFTextureSize();
 
-            Vector2 halfSize = new Vector2(instance.width * 0.5f, instance.height * 0.5f);
-            Vector2 offset = Vector2.zero;
+            Texture2D rasterizedTex = new Texture2D(sdfTextureSize.x, sdfTextureSize.y, TEX_FORMAT, false);
 
-            NativeArray<byte> rasterized = new NativeArray<byte>(instance.sdfHeight * instance.sdfWidth, Allocator.TempJob);
+            Vector2 offset, halfSize = new Vector2(textureSize.x * 0.5f, textureSize.y * 0.5f);
+
+            NativeArray<byte> rasterized = new NativeArray<byte>(sdfTextureSize.x * sdfTextureSize.y, Allocator.TempJob);
+
             JobHandle handle;
 
-            Debug.Log("Start circle rasterize");
-
-            NativeArray<Circle> circlesN = new NativeArray<Circle>(instance.circles.Count, Allocator.TempJob);
-            for (int i = 0; i < circlesN.Length; i++)
+            if (serializedObject.TryGetValueList("circles", out List<Circle> circles))
             {
-                circlesN[i] = new Circle {
-                    center = instance.circles[i].center + halfSize,
-                    radius = instance.circles[i].radius
-                };
-            }
+                Debug.Log("Start circle rasterize");
 
-            RasterizeCircleJob rasterizeCircle = new RasterizeCircleJob
-            {
-                CIRCLES = circlesN,
-                X_RATIO = 1.0f / instance.sdfWidth * instance.width,
-                Y_RATIO = 1.0f / instance.sdfHeight * instance.height,
-                SDF_WIDTH = instance.sdfWidth,
-                SDF_HEIGHT = instance.sdfHeight,
-                result = rasterized
-            };
-
-            handle = rasterizeCircle.Schedule(rasterized.Length, 1);
-
-            JobHandle.ScheduleBatchedJobs();
-
-            handle.Complete();
-
-            circlesN.Dispose();
-
-            Debug.Log("Finish circle rasterize");
-
-            Debug.Log("Start polygon rasterize");
-
-            foreach (Polygon polygon in instance.polygons)
-            {
-                List<Vector3> points = new List<Vector3>();
-                List<Corner> corners = polygon.corners;
-                offset = polygon.offset + halfSize;
-                for (int i = 0; i < corners.Count; i++)
+                NativeArray<CircleN> circlesN = new NativeArray<CircleN>(circles.Count, Allocator.TempJob);
+                for (int i = 0; i < circlesN.Length; i++)
                 {
-                    int j = (i + 1) % corners.Count;
-                    int k = (i + 2) % corners.Count;
-                    Corner corner0 = corners[i];
-                    Corner corner1 = corners[j];
-                    Corner corner2 = corners[k];
-
-                    Vector2 p0 = corner0.position;
-                    Vector2 p1 = corner1.position;
-                    Vector2 p2 = corner2.position;
-                    float radius = Mathf.Max(corner1.radius, 0.0f);
-
-                    if (radius == 0.0f)
+                    circlesN[i] = new CircleN
                     {
-                        points.Add(p1 + offset);
-                        continue;
-                    }
-
-                    Vector2 vec0To1 = p1 - p0;
-                    Vector2 vec2To1 = p1 - p2;
-
-                    float angle = Vector2.Angle(vec0To1, vec2To1) * Mathf.Deg2Rad * 0.5f;
-                    float tan = Mathf.Abs(Mathf.Tan(angle));
-                    float segment = radius / tan;
-
-                    float pp0 = vec0To1.magnitude;
-                    float pp2 = vec2To1.magnitude;
-
-                    float min = Mathf.Min(pp0, pp2);
-                    if (segment > min)
-                    {
-                        segment = min;
-                        radius = segment * tan;
-                    }
-
-                    float po = Mathf.Sqrt(radius * radius + segment * segment);
-
-                    Vector2 c0 = p1 - vec0To1 * segment / pp0;
-                    Vector2 c2 = p1 - vec2To1 * segment / pp2;
-
-                    Vector2 c = c0 + c2 - p1;
-                    Vector2 d = p1 - c;
-                    Vector2 o = p1 - d * po / d.magnitude;
-
-                    float sweepAngle = Vector2.SignedAngle(c0 - o, c2 - o) * Mathf.Deg2Rad;
-
-                    Vector2 from = c0 - o;
-
-                    points.Add(c0 + offset);
-                    float delta = Mathf.Sign(sweepAngle) * 0.1f;
-                    for (float theta = 0.0f; Mathf.Abs(theta) < Mathf.Abs(sweepAngle); theta += delta)
-                    {
-                        points.Add(o + (Vector2)(Quaternion.Euler(0f, 0f, theta * Mathf.Rad2Deg) * from) + offset);
-                    }
-                    points.Add(c2 + offset);
+                        center = circles[i].center + halfSize,
+                        radius = circles[i].radius
+                    };
                 }
 
-                NativeArray<Vector2> pointsN = new NativeArray<Vector2>(points.Count, Allocator.TempJob);
-                for (int i = 0; i < pointsN.Length; i++)
+                RasterizeCircleJob rasterizeCircle = new RasterizeCircleJob
                 {
-                    pointsN[i] = points[i];
-                }
-
-                RasterizePolygonJob rasterizePolygon = new RasterizePolygonJob
-                {
-                    POLYGON = pointsN,
-                    X_RATIO = 1.0f / instance.sdfWidth * instance.width,
-                    Y_RATIO = 1.0f / instance.sdfHeight * instance.height,
-                    SDF_WIDTH = instance.sdfWidth,
-                    SDF_HEIGHT = instance.sdfHeight,
+                    CIRCLES = circlesN,
+                    X_RATIO = 1.0f / sdfTextureSize.x * textureSize.x,
+                    Y_RATIO = 1.0f / sdfTextureSize.y * textureSize.y,
+                    SDF_WIDTH = sdfTextureSize.x,
+                    SDF_HEIGHT = sdfTextureSize.y,
                     result = rasterized
                 };
 
-                handle = rasterizePolygon.Schedule(rasterized.Length, 1);
+                handle = rasterizeCircle.Schedule(rasterized.Length, 1);
 
                 JobHandle.ScheduleBatchedJobs();
 
                 handle.Complete();
 
-                pointsN.Dispose();
+                circlesN.Dispose();
+
+                Debug.Log("Finish circle rasterize");
             }
 
-            Debug.Log("Finish polygon rasterize");
-
-            Debug.Log("Start Fxaa effect");
-
-            NativeArray<byte> aaData = new NativeArray<byte>(rasterized.Length, Allocator.TempJob);
-            NativeArray<float> edgeStepSizes = new NativeArray<float>(10, Allocator.TempJob);
-            edgeStepSizes[0] = 1.0f;
-            edgeStepSizes[1] = 1.0f;
-            edgeStepSizes[2] = 1.0f;
-            edgeStepSizes[3] = 1.0f;
-            edgeStepSizes[4] = 1.5f;
-            edgeStepSizes[5] = 2.0f;
-            edgeStepSizes[6] = 2.0f;
-            edgeStepSizes[7] = 2.0f;
-            edgeStepSizes[8] = 2.0f;
-            edgeStepSizes[9] = 4.0f;
-
-            FxaaEffect fxaaEffect = new FxaaEffect
+            if (serializedObject.TryGetValueList("polygons", out List<Polygon> polygons))
             {
-                SOURCE = rasterized,
-                EDGE_STEP_SIZES = edgeStepSizes,
-                FXAA_CONFIG = new Vector4(instance.fixedThreshold, instance.relativeThreshold, instance.subpixelBlending, 0.0f),
-                LAST_EDGE_STEP_GUESS = 8.0f,
-                WIDTH = instance.sdfWidth,
-                HEIGHT = instance.sdfHeight,
+                Debug.Log("Start polygon rasterize");
 
-                result = aaData
-            };
-
-            handle = fxaaEffect.Schedule(aaData.Length, 1);
-
-            JobHandle.ScheduleBatchedJobs();
-
-            handle.Complete();
-
-            rasterized.Dispose();
-            edgeStepSizes.Dispose();
-
-            Debug.Log("Finish Fxaa effect");
-
-            NativeArray<byte> rawData = new NativeArray<byte>(aaData.Length * CHANNEL_SIZE, Allocator.TempJob);
-
-            CopyR8ToARGB32 copyR8ToARGB32 = new CopyR8ToARGB32
-            {
-                SOURCE = aaData,
-                CHANNEL_SIZE = CHANNEL_SIZE,
-                result = rawData
-            };
-
-            handle = copyR8ToARGB32.Schedule(rawData.Length, 1);
-
-            JobHandle.ScheduleBatchedJobs();
-
-            handle.Complete();
-
-            instance.rasterizedTex.LoadRawTextureData(rawData);
-            instance.rasterizedTex.Apply();
-
-            aaData.Dispose();
-            rawData.Dispose();
-
-            EditorUtility.SetDirty(instance);
-        }
-
-        private void DrawMesh()
-        {
-            Handles.color = Color.black;
-            Handles.DrawAAConvexPolygon(
-                new Vector2(m_area.xMax, m_area.yMin), new Vector2(m_area.xMax, m_area.yMax),
-                new Vector2(m_area.xMin, m_area.yMax), new Vector2(m_area.xMax, m_area.yMax),
-                new Vector2(m_area.xMin, m_area.yMax), new Vector2(m_area.xMin, m_area.yMin),
-                new Vector2(m_area.xMax, m_area.yMin), new Vector2(m_area.xMin, m_area.yMin));
-            Handles.color = Color.white;
-
-            List<Vector2> anchors = new List<Vector2>();
-
-            if (instance.circles != null)
-            {
-                // Drawing in editor window
-                foreach (Circle circle in instance.circles)
-                {
-                    Vector2 anchor = TexToRect(circle.center) + m_center;
-                    Handles.DrawSolidDisc(anchor, Vector3.forward, TexToRect(circle.radius));
-                    anchors.Add(anchor);
-                }
-            }
-
-            if (instance.polygons != null)
-            {
-                foreach (Polygon polygon in instance.polygons)
+                foreach (Polygon polygon in polygons)
                 {
                     List<Vector3> points = new List<Vector3>();
-
-                    // Drawing in editor window
                     List<Corner> corners = polygon.corners;
-                    Vector2 offset = TexToRect(polygon.offset) + m_center;
+                    offset = polygon.offset + halfSize;
                     for (int i = 0; i < corners.Count; i++)
                     {
                         int j = (i + 1) % corners.Count;
@@ -587,10 +304,224 @@ namespace Nobi.UiRoundedCorners.Editor
                         Corner corner1 = corners[j];
                         Corner corner2 = corners[k];
 
-                        Vector2 p0 = TexToRect(corner0.position);
-                        Vector2 p1 = TexToRect(corner1.position);
-                        Vector2 p2 = TexToRect(corner2.position);
-                        float radius = Mathf.Max(TexToRect(corner1.radius), 0.0f);
+                        Vector2 p0 = corner0.position;
+                        Vector2 p1 = corner1.position;
+                        Vector2 p2 = corner2.position;
+                        float radius = Mathf.Max(corner1.radius, 0.0f);
+
+                        if (radius == 0.0f)
+                        {
+                            points.Add(p1 + offset);
+                            continue;
+                        }
+
+                        Vector2 vec0To1 = p1 - p0;
+                        Vector2 vec2To1 = p1 - p2;
+
+                        float angle = Vector2.Angle(vec0To1, vec2To1) * Mathf.Deg2Rad * 0.5f;
+                        float tan = Mathf.Abs(Mathf.Tan(angle));
+                        float segment = radius / tan;
+
+                        float pp0 = vec0To1.magnitude;
+                        float pp2 = vec2To1.magnitude;
+
+                        float min = Mathf.Min(pp0, pp2);
+                        if (segment > min)
+                        {
+                            segment = min;
+                            radius = segment * tan;
+                        }
+
+                        float po = Mathf.Sqrt(radius * radius + segment * segment);
+
+                        Vector2 c0 = p1 - vec0To1 * segment / pp0;
+                        Vector2 c2 = p1 - vec2To1 * segment / pp2;
+
+                        Vector2 c = c0 + c2 - p1;
+                        Vector2 d = p1 - c;
+                        Vector2 o = p1 - d * po / d.magnitude;
+
+                        float sweepAngle = Vector2.SignedAngle(c0 - o, c2 - o) * Mathf.Deg2Rad;
+
+                        Vector2 from = c0 - o;
+
+                        points.Add(c0 + offset);
+                        float delta = Mathf.Sign(sweepAngle) * 0.1f;
+                        for (float theta = 0.0f; Mathf.Abs(theta) < Mathf.Abs(sweepAngle); theta += delta)
+                        {
+                            points.Add(o + (Vector2)(Quaternion.Euler(0f, 0f, theta * Mathf.Rad2Deg) * from) + offset);
+                        }
+                        points.Add(c2 + offset);
+                    }
+
+                    NativeArray<Vector2> pointsN = new NativeArray<Vector2>(points.Count, Allocator.TempJob);
+                    for (int i = 0; i < pointsN.Length; i++)
+                    {
+                        pointsN[i] = points[i];
+                    }
+
+                    RasterizePolygonJob rasterizePolygon = new RasterizePolygonJob
+                    {
+                        POLYGON = pointsN,
+                        X_RATIO = 1.0f / sdfTextureSize.x * textureSize.x,
+                        Y_RATIO = 1.0f / sdfTextureSize.y * textureSize.y,
+                        SDF_WIDTH = sdfTextureSize.x,
+                        SDF_HEIGHT = sdfTextureSize.y,
+                        result = rasterized
+                    };
+
+                    handle = rasterizePolygon.Schedule(rasterized.Length, 1);
+
+                    JobHandle.ScheduleBatchedJobs();
+
+                    handle.Complete();
+
+                    pointsN.Dispose();
+                }
+
+                Debug.Log("Finish polygon rasterize");
+            }
+
+            if (serializedObject.TryGetValue("fxaaSettings", out FXAASettings fxaaSettings))
+            {
+                Debug.Log("Start Fxaa effect");
+
+                NativeArray<byte> aaData = new NativeArray<byte>(rasterized.Length, Allocator.TempJob);
+                NativeArray<float> edgeStepSizes = new NativeArray<float>(10, Allocator.TempJob);
+                edgeStepSizes[0] = 1.0f;
+                edgeStepSizes[1] = 1.0f;
+                edgeStepSizes[2] = 1.0f;
+                edgeStepSizes[3] = 1.0f;
+                edgeStepSizes[4] = 1.5f;
+                edgeStepSizes[5] = 2.0f;
+                edgeStepSizes[6] = 2.0f;
+                edgeStepSizes[7] = 2.0f;
+                edgeStepSizes[8] = 2.0f;
+                edgeStepSizes[9] = 4.0f;
+
+                FxaaEffect fxaaEffect = new FxaaEffect
+                {
+                    SOURCE = rasterized,
+                    EDGE_STEP_SIZES = edgeStepSizes,
+                    FXAA_CONFIG = new Vector4(fxaaSettings.fixedThreshold, fxaaSettings.relativeThreshold, fxaaSettings.subpixelBlending, 0.0f),
+                    LAST_EDGE_STEP_GUESS = 8.0f,
+                    WIDTH = sdfTextureSize.x,
+                    HEIGHT = sdfTextureSize.y,
+
+                    result = aaData
+                };
+
+                handle = fxaaEffect.Schedule(aaData.Length, 1);
+
+                JobHandle.ScheduleBatchedJobs();
+
+                handle.Complete();
+
+                edgeStepSizes.Dispose();
+
+                Debug.Log("Finish Fxaa effect");
+
+                NativeArray<byte> rawData = new NativeArray<byte>(aaData.Length * CHANNEL_SIZE, Allocator.TempJob);
+
+                CopyR8ToARGB32 copyR8ToARGB32 = new CopyR8ToARGB32
+                {
+                    SOURCE = aaData,
+                    CHANNEL_SIZE = CHANNEL_SIZE,
+                    result = rawData
+                };
+
+                handle = copyR8ToARGB32.Schedule(rawData.Length, 1);
+
+                JobHandle.ScheduleBatchedJobs();
+
+                handle.Complete();
+
+                rasterizedTex.LoadRawTextureData(rawData);
+                rasterizedTex.Apply();
+
+                serializedObject.TrySetValue("rasterizedTex", rasterizedTex);
+
+                aaData.Dispose();
+                rawData.Dispose();
+            }
+
+            rasterized.Dispose();
+        }
+
+        private Vector2Int GetTextureSize()
+        {
+            Vector2Int textureSize = new Vector2Int();
+
+            if (serializedObject.TryGetIntValue("width", out int x))
+            {
+                textureSize.x = x;
+            }
+
+            if (serializedObject.TryGetIntValue("height", out int y))
+            {
+                textureSize.y = y;
+            }
+
+            return textureSize;
+        }
+
+        private Vector2Int GetSDFTextureSize()
+        {
+            Vector2Int textureSize = new Vector2Int();
+
+            if (serializedObject.TryGetIntValue("sdfWidth", out int x))
+            {
+                textureSize.x = x;
+            }
+
+            if (serializedObject.TryGetIntValue("sdfHeight", out int y))
+            {
+                textureSize.y = y;
+            }
+
+            return textureSize;
+        }
+
+        private void DrawMesh()
+        {
+            List<Vector2> anchors = new List<Vector2>();
+
+            Vector2Int textureSize = GetTextureSize();
+
+            serializedObject.TryGetBoolValue("showSegments", out bool showSegments);
+            serializedObject.TryGetBoolValue("showAnchors", out bool showAnchors);
+
+            if (serializedObject.TryGetValueList("circles", out List<Circle> circles))
+            {
+                foreach (Circle circle in circles)
+                {
+                    Vector2 anchor = EditorUtil.TexturePositionToRectPosition(m_area, textureSize, circle.center) + m_center;
+                    Handles.DrawSolidDisc(anchor, Vector3.forward, EditorUtil.TextureUnitToRectUnit(m_area, textureSize, circle.radius));
+                    anchors.Add(anchor);
+                }
+            }
+
+            if (serializedObject.TryGetValueList("polygons", out List<Polygon> polygons))
+            {
+                foreach (Polygon polygon in polygons)
+                {
+                    List<Vector3> points = new List<Vector3>();
+
+                    // Drawing in editor window
+                    List<Corner> corners = polygon.corners;
+                    Vector2 offset = EditorUtil.TexturePositionToRectPosition(m_area, textureSize, polygon.offset) + m_center;
+                    for (int i = 0; i < corners.Count; i++)
+                    {
+                        int j = (i + 1) % corners.Count;
+                        int k = (i + 2) % corners.Count;
+                        Corner corner0 = corners[i];
+                        Corner corner1 = corners[j];
+                        Corner corner2 = corners[k];
+
+                        Vector2 p0 = EditorUtil.TexturePositionToRectPosition(m_area, textureSize, corner0.position);
+                        Vector2 p1 = EditorUtil.TexturePositionToRectPosition(m_area, textureSize, corner1.position);
+                        Vector2 p2 = EditorUtil.TexturePositionToRectPosition(m_area, textureSize, corner2.position);
+                        float radius = Mathf.Max(EditorUtil.TextureUnitToRectUnit(m_area, textureSize, corner1.radius), 0.0f);
 
                         if (radius == 0.0f)
                         {
@@ -651,9 +582,9 @@ namespace Nobi.UiRoundedCorners.Editor
 #endif
                         points.Add(c0 + offset);
                         float delta = Mathf.Sign(sweepAngle) * 0.1f;
-                        for(float theta = 0.0f; Mathf.Abs(theta) < Mathf.Abs(sweepAngle); theta += delta)
+                        for (float theta = 0.0f; Mathf.Abs(theta) < Mathf.Abs(sweepAngle); theta += delta)
                         {
-                            if (instance.showSegments)
+                            if (showSegments)
                             {
                                 Handles.color = Color.green;
                                 Handles.DrawSolidDisc(o + (Vector2)(Quaternion.Euler(0f, 0f, theta * Mathf.Rad2Deg) * from) + offset, -Vector3.forward, DISC_RADIUS * 0.5f);
@@ -662,8 +593,7 @@ namespace Nobi.UiRoundedCorners.Editor
                             points.Add(o + (Vector2)(Quaternion.Euler(0f, 0f, theta * Mathf.Rad2Deg) * from) + offset);
                         }
                         points.Add(c2 + offset);
-
-                        if (instance.showSegments)
+                        if (showSegments)
                         {
                             Handles.color = Color.red;
                             Handles.DrawSolidDisc(c0 + offset, -Vector3.forward, DISC_RADIUS);
@@ -673,16 +603,15 @@ namespace Nobi.UiRoundedCorners.Editor
                         }
 
                         anchors.Add(p1 + offset);
-                        // Handles.DrawSolidArc(o + offset, Vector3.forward, from.normalized, sweepAngle * Mathf.Rad2Deg, radius);
                     }
                     Handles.DrawAAConvexPolygon(points.ToArray());
                 }
             }
 
-            if (instance.showAnchors)
+            if (showAnchors)
             {
                 Handles.color = Color.blue;
-                foreach(Vector2 anchor in anchors)
+                foreach (Vector2 anchor in anchors)
                 {
                     Handles.DrawSolidDisc(anchor, -Vector3.forward, DISC_RADIUS);
                 }
@@ -690,5 +619,4 @@ namespace Nobi.UiRoundedCorners.Editor
             }
         }
     }
-#endif
 }

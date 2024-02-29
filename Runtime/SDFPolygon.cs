@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Nobi.UiRoundedCorners
 {
-#if UNITY_EDITOR
     [System.Serializable]
-    public struct Circle
+    public class Circle
     {
         public Vector2 center;
         public float radius;
@@ -40,6 +39,22 @@ namespace Nobi.UiRoundedCorners
         SDF
     };
 
+    [System.Serializable]
+    public class RasterizeSettings
+    {
+        [SerializeField, Range(0.0f, 512.0f)] public float maxInside = 10.0f;
+        [SerializeField, Range(0.0f, 512.0f)] public float maxOutside = 10.0f;
+        [SerializeField, Range(0.0f, 512.0f)] public float postProcessDistance = 10.0f;
+    }
+
+    [System.Serializable]
+    public class FXAASettings
+    {
+        [SerializeField, Range(0.0f, 1.0f)] public float fixedThreshold = 0.0312f;
+        [SerializeField, Range(0.0f, 1.0f)] public float relativeThreshold = 0.063f;
+        [SerializeField, Range(0.0f, 1.0f)] public float subpixelBlending = 0.75f;
+    }
+
     [CreateAssetMenu()]
     public class SDFPolygon : ScriptableObject
     {
@@ -48,13 +63,8 @@ namespace Nobi.UiRoundedCorners
         [SerializeField, Range(1, 1024)] public int sdfWidth = 256;
         [SerializeField, Range(1, 1024)] public int sdfHeight = 256;
 
-        [SerializeField, Range(0.0f, 512.0f)] public float maxInside = 10.0f;
-        [SerializeField, Range(0.0f, 512.0f)] public float maxOutside = 10.0f;
-        [SerializeField, Range(0.0f, 512.0f)] public float postProcessDistance = 10.0f;
-
-        [SerializeField, Range(0.0f, 1.0f)] public float fixedThreshold = 0.0312f;
-        [SerializeField, Range(0.0f, 1.0f)] public float relativeThreshold = 0.063f;
-        [SerializeField, Range(0.0f, 1.0f)] public float subpixelBlending = 0.75f;
+        [SerializeField] public RasterizeSettings rasterizeSettings;
+        [SerializeField] public FXAASettings fxaaSettings;
 
         [SerializeField] public List<Circle> circles;
         [SerializeField] public List<Polygon> polygons;
@@ -71,25 +81,5 @@ namespace Nobi.UiRoundedCorners
         [SerializeField] public Texture2D sdfTex;
 
         [SerializeField] public string savePath = "";
-
-        public void AddCircle(Circle circle)
-        {
-            circles.Add(circle);
-        }
-
-        public void AddCorner(Corner corner)
-        {
-            if(polygons.Count == 0)
-            {
-                polygons.Add(new Polygon
-                {
-                    offset = Vector2.zero,
-                    corners = new List<Corner>()
-                });
-            }
-
-            polygons[polygons.Count - 1].corners.Add(corner);
-        }
     }
-#endif
 }

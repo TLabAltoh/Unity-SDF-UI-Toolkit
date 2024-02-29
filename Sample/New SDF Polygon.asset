@@ -14,35 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 512
   height: 512
-  sdfWidth: 256
-  sdfHeight: 256
-  maxInside: 50
-  maxOutside: 50
-  postProcessDistance: 50
-  fixedThreshold: 0.0312
-  relativeThreshold: 0.063
-  subpixelBlending: 0.75
+  sdfWidth: 1024
+  sdfHeight: 1024
+  rasterizeSettings:
+    maxInside: 50
+    maxOutside: 50
+    postProcessDistance: 50
+  fxaaSettings:
+    fixedThreshold: 0.121
+    relativeThreshold: 0.127
+    subpixelBlending: 0.536
   circles:
-  - center: {x: -178.05426, y: -108.88688}
+  - center: {x: -95.062996, y: -155.85675}
     radius: 50
-  - center: {x: -97.0416, y: 91.511314}
+  - center: {x: -12.803349, y: 71.22865}
     radius: 50
-  - center: {x: 122.84991, y: 92.669685}
+  - center: {x: 50.88154, y: -120.59504}
     radius: 50
+  - center: {x: 93.338135, y: 34.556473}
+    radius: 50
+  - center: {x: -172.01556, y: 54.303032}
+    radius: 50
+  - center: {x: -150.01553, y: 173.05028}
+    radius: 10
   polygons:
   - offset: {x: 0, y: 0}
     corners:
-    - position: {x: -12.55697, y: -180.70589}
-      radius: 25
-    - position: {x: -39.175415, y: 0}
-      radius: 25
-    - position: {x: 206.17722, y: -49.809956}
-      radius: 25
-  editMode: 2
-  previewMode: 1
-  radius: 50
+    - position: {x: 19.039095, y: 213.68594}
+      radius: 5
+    - position: {x: 164.98363, y: 210.86502}
+      radius: 5
+    - position: {x: 145.0821, y: 127.647385}
+      radius: 5
+  - offset: {x: 0, y: 0}
+    corners:
+    - position: {x: -214.47217, y: -186.88705}
+      radius: 10
+    - position: {x: -194.57063, y: -74.04958}
+      radius: 10
+    - position: {x: -68.527626, y: -62.76584}
+      radius: 10
+  editMode: 0
+  previewMode: 0
+  radius: 10
   showAnchors: 1
   showSegments: 1
   rasterizedTex: {fileID: 0}
   sdfTex: {fileID: 0}
-  savePath: Assets/Plugins/Unity-UI-Rounded-Corners-Extension/Sample/sample.asset
+  savePath: Assets/TLab/Unityr-UI-Rounded-Corners-Extension/Sample/sample.asset

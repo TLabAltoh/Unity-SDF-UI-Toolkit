@@ -12,7 +12,8 @@ using UnityEditor;
 
 namespace Nobi.UiRoundedCorners
 {
-	[ExecuteInEditMode] [DisallowMultipleComponent]
+	[ExecuteInEditMode]
+	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
 	public class CrossRoundedCorners : CustomRoundedCorners
 	{
@@ -21,7 +22,7 @@ namespace Nobi.UiRoundedCorners
 		private static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_outlineColor");
 		private static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_outlineWidth");
 
-		[SerializeField, Range(0.0f, 1.0f)] public float radius = 0.4f;
+		[SerializeField] public float radius = 40;
 
 		protected override void OnValidate()
 		{
@@ -52,10 +53,9 @@ namespace Nobi.UiRoundedCorners
 		protected override void Refresh()
 		{
 			Vector2 halfRect = ((RectTransform)transform).rect.size * .5f;
-			float baseEdge = Mathf.Min(halfRect.x, halfRect.y);
-			m_material.SetFloat(PROP_RADIUSES, radius * baseEdge);
+			m_material.SetFloat(PROP_RADIUSES, radius);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth * baseEdge);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 			m_material.SetColor(PROP_OUTLINECOLOR, outlineColor);
 		}
 	}

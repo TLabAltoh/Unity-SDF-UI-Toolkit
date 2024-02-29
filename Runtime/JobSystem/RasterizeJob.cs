@@ -8,7 +8,12 @@ using Unity.Collections;
 
 namespace Nobi.UiRoundedCorners.RasterizeJob
 {
-#if UNITY_EDITOR
+    public struct CircleN
+    {
+        public Vector2 center;
+        public float radius;
+    }
+
     public struct RasterizePolygonJob : IJobParallelFor
     {
         [ReadOnly] public NativeArray<Vector2> POLYGON;
@@ -54,7 +59,7 @@ namespace Nobi.UiRoundedCorners.RasterizeJob
 
     public struct RasterizeCircleJob : IJobParallelFor
     {
-        [ReadOnly] public NativeArray<Circle> CIRCLES;
+        [ReadOnly] public NativeArray<CircleN> CIRCLES;
         [ReadOnly] public float X_RATIO;
         [ReadOnly] public float Y_RATIO;
         [ReadOnly] public int SDF_WIDTH;
@@ -72,7 +77,7 @@ namespace Nobi.UiRoundedCorners.RasterizeJob
 
             for (int i = 0; i < CIRCLES.Length; i++)
             {
-                Circle circle = CIRCLES[i];
+                CircleN circle = CIRCLES[i];
                 float dx = circle.center.x - texX;
                 float dy = circle.center.y - texY;
 
@@ -364,5 +369,4 @@ namespace Nobi.UiRoundedCorners.RasterizeJob
             result[index] = SOURCE[index / CHANNEL_SIZE];
         }
     }
-#endif
 }
