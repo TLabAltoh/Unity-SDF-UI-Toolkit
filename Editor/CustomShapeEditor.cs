@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
-namespace Nobi.UiRoundedCorners.Editor
+namespace TLab.UI.RoundedCorners.Editor
 {
 	[CustomEditor(typeof(CustomShape))]
 	public class CustomShapeEditor : UnityEditor.Editor

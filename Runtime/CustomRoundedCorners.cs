@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Nobi.UiRoundedCorners
+namespace TLab.UI.RoundedCorners
 {
 	public class CustomRoundedCorners : MonoBehaviour
 	{
@@ -44,18 +44,6 @@ namespace Nobi.UiRoundedCorners
 
 		protected virtual void OnEnable()
 		{
-			var other0 = GetComponent<ImageWithRoundedCorners>();
-			if (other0 != null)
-			{
-				DestroyHelper.Destroy(other0);
-			}
-
-			var other1 = GetComponent<ImageWithIndependentRoundedCorners>();
-			if (other1 != null)
-			{
-				DestroyHelper.Destroy(other1);
-			}
-
 			var other2 = GetComponent<CustomRoundedCorners>();
 			if (other2 != null && other2 != this)
 			{

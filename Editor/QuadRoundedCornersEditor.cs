@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-namespace Nobi.UiRoundedCorners.Editor
+namespace TLab.UI.RoundedCorners.Editor
 {
 #if UNITY_EDITOR
 	[CustomEditor(typeof(QuadRoundedCorners))]

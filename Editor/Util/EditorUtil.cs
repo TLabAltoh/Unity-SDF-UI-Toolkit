@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Nobi.UiRoundedCorners.Editor
+namespace TLab.UI.RoundedCorners.Editor
 {
     public static class EditorUtil
     {

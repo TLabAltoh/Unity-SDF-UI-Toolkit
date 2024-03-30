@@ -10,8 +10,6 @@
 
 #define USE_ARCTAN
 #undef USE_ARCTAN
-#define DEBUG
-//#undef DEBUG
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,15 +19,15 @@ using Unity.Collections;
 using CatlikeCoding.SDFToolkit;
 using Nobi.UiRoundedCorners.RasterizeJob;
 
-namespace Nobi.UiRoundedCorners.Editor
+namespace TLab.UI.RoundedCorners.Editor
 {
     [CustomEditor(typeof(SDFPolygon))]
     public class SDFPolygonEditor : UnityEditor.Editor
     {
         private SDFPolygon m_instance;
-#if DEBUG
+
         const float DISC_RADIUS = 5.0f;
-#endif
+
         const int CHANNEL_SIZE = 4;
 
         const TextureFormat TEX_FORMAT = TextureFormat.ARGB32;

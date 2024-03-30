@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nobi.UiRoundedCorners
+namespace TLab.UI.RoundedCorners
 {
     [System.Serializable]
     public class Circle

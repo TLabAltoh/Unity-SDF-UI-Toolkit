@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Nobi.UiRoundedCorners
+namespace TLab.UI.RoundedCorners
 {
 	internal static class DestroyHelper
 	{
