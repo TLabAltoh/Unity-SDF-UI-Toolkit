@@ -1,5 +1,5 @@
 # Unity-UI-Rounded-Corners-Extention
-This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov).
+This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor.
 
 ## Video
 [Here is a demonstration video](https://youtu.be/poQhoVtyI5Y)
