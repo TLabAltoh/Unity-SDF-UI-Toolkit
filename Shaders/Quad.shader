@@ -1,15 +1,15 @@
 Shader "UI/RoundedCorners/Quad" {
-    Properties {
+    Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
 
-        // --- Mask support ---
-        [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
-        [HideInInspector] _Stencil("Stencil ID", Float) = 0
-        [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
-        [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
-        [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
-        [HideInInspector] _ColorMask("Color Mask", Float) = 15
-        [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
+    // --- Mask support ---
+    [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
+    [HideInInspector] _Stencil("Stencil ID", Float) = 0
+    [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
+    [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
+    [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
+    [HideInInspector] _ColorMask("Color Mask", Float) = 15
+    [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
         // Definition in Properties section is required to Mask works properly
         _r("r", Vector) = (0,0,0,0)
@@ -20,21 +20,21 @@ Shader "UI/RoundedCorners/Quad" {
         // ---
     }
 
-    SubShader{
-        Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+        SubShader{
+            Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
 
-        // --- Mask support ---
-        Stencil {
-            Ref[_Stencil]
-            Comp[_StencilComp]
-            Pass[_StencilOp]
-            ReadMask[_StencilReadMask]
-            WriteMask[_StencilWriteMask]
-        }
-        Cull Off
-        Lighting Off
-        ZTest[unity_GUIZTestMode]
-        ColorMask[_ColorMask]
+            // --- Mask support ---
+            Stencil {
+                Ref[_Stencil]
+                Comp[_StencilComp]
+                Pass[_StencilOp]
+                ReadMask[_StencilReadMask]
+                WriteMask[_StencilWriteMask]
+            }
+            Cull Off
+            Lighting Off
+            ZTest[unity_GUIZTestMode]
+            ColorMask[_ColorMask]
         // ---
 
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
