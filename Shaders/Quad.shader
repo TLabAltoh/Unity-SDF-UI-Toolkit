@@ -1,4 +1,4 @@
-Shader "UI/RoundedCorners/Quad" {
+Shader "UI/SDF/Quad" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
 
@@ -12,11 +12,11 @@ Shader "UI/RoundedCorners/Quad" {
     [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
         // Definition in Properties section is required to Mask works properly
-        _r("r", Vector) = (0,0,0,0)
+        _radius("radius", Vector) = (0,0,0,0)
         _halfSize("halfSize", Vector) = (0,0,0,0)
 
         _outlineColor("outlineColor", Color) = (0.0, 0.0, 0.0, 0.0)
-        _outlineWidth("outlineWidth", float) = 0.1
+        _outlineWidth("outlineWidth", float) = 0.0
         // ---
     }
 
@@ -39,12 +39,13 @@ Shader "UI/RoundedCorners/Quad" {
 
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZWrite Off
+        ZTest Off
 
         Pass {
             CGPROGRAM
 
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
+            #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
 
@@ -54,10 +55,14 @@ Shader "UI/RoundedCorners/Quad" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-            float4 _r;
+            float4 _radius;
             float4 _halfSize;
-            float4 _outlineColor;
+
+            int _onion;
+            float _onionWidth;
+
             float _outlineWidth;
+            float4 _outlineColor;
 
             sampler2D _MainTex;
             float4 _ClipRect;
@@ -78,8 +83,13 @@ Shader "UI/RoundedCorners/Quad" {
                     return color;
                 }
 
-                float2 p = (i.uv - .5) * _halfSize * 2;
-                float dist = sdRoundedBox(p, _halfSize, _r);
+                float2 p = (i.uv - .5) * (_halfSize + _onionWidth) * 2;
+                float dist = sdRoundedBox(p, _halfSize, _radius);
+
+                if (_onion) {
+                    dist = abs(dist) - _onionWidth;
+                }
+
                 float alpha = antialiasedCutoff(dist);
 
                 #ifdef UNITY_UI_ALPHACLIP

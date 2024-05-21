@@ -6,18 +6,24 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Events;
 
-namespace TLab.UI.RoundedCorners.Editor
+namespace TLab.UI.SDF.Editor
 {
     public static class SerializeUtil
     {
         public static string THIS_NAME => "[SerializeUtil] ";
 
-        public static bool TryGetIntValue(
-            this SerializedObject serializedObject,
-            string name, out int result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetIntValue(this SerializedObject serializedObject, string name, out int result)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -31,11 +37,16 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetFloatValue(
-            this SerializedObject serializedObject,
-            string name, out float result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetFloatValue(this SerializedObject serializedObject, string name, out float result)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -49,11 +60,16 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetBoolValue(
-            this SerializedObject serializedObject,
-            string name, out bool result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetBoolValue(this SerializedObject serializedObject, string name, out bool result)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -67,11 +83,16 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetEnumValue(
-            this SerializedObject serializedObject,
-            string name, out int result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetEnumValue(this SerializedObject serializedObject, string name, out int result)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -85,11 +106,16 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetStringValue(
-            this SerializedObject serializedObject,
-            string name, out string result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetStringValue(this SerializedObject serializedObject, string name, out string result)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -103,11 +129,17 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetObject<T>(
-            this SerializedObject serializedObject,
-            string name, out T result) where T : UnityEngine.Object
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetObject<T>(this SerializedObject serializedObject, string name, out T result) where T : UnityEngine.Object
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -121,11 +153,17 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetValue<T>(
-            this SerializedObject serializedObject,
-            string name, out T result) where T : class
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetValue<T>(this SerializedObject serializedObject, string name, out T result) where T : class
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -139,11 +177,17 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetObjectList<T>(
-            this SerializedObject serializedObject,
-            string name, out List<T> result) where T : UnityEngine.Object
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetObjectList<T>(this SerializedObject serializedObject, string name, out List<T> result) where T : UnityEngine.Object
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null && prop.isArray)
             {
@@ -162,11 +206,17 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryGetValueList<T>(
-            this SerializedObject serializedObject,
-            string name, out List<T> result) where T : class
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool TryGetValueList<T>(this SerializedObject serializedObject, string name, out List<T> result) where T : class
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null && prop.isArray)
             {
@@ -185,43 +235,19 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-#if false
-        public static bool TrySetObject(
-            this SerializedObject serializedObject,
-            string name, UnityEngine.Object @object)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool TrySetValue<T>(this SerializedObject serializedObject, string name, T value) where T : class
         {
             try
             {
-                SerializedProperty prop = serializedObject.FindProperty(name);
-
-                if (prop != null)
-                {
-                    prop.objectReferenceValue = @object;
-
-                    // I found that assigning a value to the setter of prop.objectReferenceValue returns only null from the getter. is prop.objectReferenceValue a property for objects with asset references ?
-
-                    Debug.Log(prop.objectReferenceValue == null);
-
-                    return true;
-                }
-                
-                return false;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(THIS_NAME + e);
-                throw;
-            }
-        }
-#endif
-
-        public static bool TrySetValue<T>(
-            this SerializedObject serializedObject,
-            string name, T value) where T : class
-        {
-            try
-            {
-                SerializedProperty prop = serializedObject.FindProperty(name);
+                var prop = serializedObject.FindProperty(name);
 
                 prop.SetValue(value);
 
@@ -234,17 +260,22 @@ namespace TLab.UI.RoundedCorners.Editor
             }
         }
 
-        public static bool TryAddArrayElement(
-            this SerializedObject serializedObject,
-            string name, UnityEngine.Object @object)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public static bool TryAddArrayElement(this SerializedObject serializedObject, string name, UnityEngine.Object @object)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
                 prop.InsertArrayElementAtIndex((prop.arraySize == 0) ? 0 : prop.arraySize - 1);
 
-                SerializedProperty element = prop.GetArrayElementAtIndex(prop.arraySize - 1);
+                var element = prop.GetArrayElementAtIndex(prop.arraySize - 1);
 
                 element.objectReferenceValue = @object;
 
@@ -254,17 +285,23 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static bool TryAddArrayElement<T>(
-            this SerializedObject serializedObject,
-            string name, T value) where T : class
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool TryAddArrayElement<T>(this SerializedObject serializedObject, string name, T value) where T : class
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
                 prop.InsertArrayElementAtIndex((prop.arraySize == 0) ? 0 : prop.arraySize - 1);
 
-                SerializedProperty element = prop.GetArrayElementAtIndex(prop.arraySize - 1);
+                var element = prop.GetArrayElementAtIndex(prop.arraySize - 1);
 
                 element.SetValue(value);
 
@@ -274,33 +311,37 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
-        public static void QuickApply(this SerializedObject serializedObject)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="label"></param>
+        /// <returns></returns>
+        public static bool TryDrawProperty(this SerializedObject serializedObject, string name, string label)
         {
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
-        }
-
-        public static bool TryDrawProperty(
-            this SerializedObject serializedObject,
-            string name, string label)
-        {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
-                EditorGUILayout.PropertyField(prop, new GUIContent(label));
-
+                EditorGUILayout.PropertyField(prop, new GUIContent(label), true);
                 return true;
             }
 
             return false;
         }
 
-        public static bool TryDrawEnumProperty(
-            this SerializedObject serializedObject,
-            string name, string label, string[] options)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        /// <param name="name"></param>
+        /// <param name="label"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static bool TryDrawEnumProperty(this SerializedObject serializedObject, string name, string label, string[] options)
         {
-            SerializedProperty prop = serializedObject.FindProperty(name);
+            var prop = serializedObject.FindProperty(name);
 
             if (prop != null)
             {
@@ -312,24 +353,55 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
+        public static void Call(this SerializedObject serializedObject, UnityAction action)
+        {
+            serializedObject.ApplyModifiedProperties();
+
+            action.Invoke();
+
+            serializedObject.Update();
+        }
+
         //
-        // For Custom Class (https://gist.github.com/douduck08/6d3e323b538a741466de00c30aa4b61f)
+        // For Custom Class
+        // link: https://gist.github.com/douduck08/6d3e323b538a741466de00c30aa4b61f
+        //
+        // I found that assigning a value to the setter
+        // of prop.objectReferenceValue returns only null
+        // from the getter. is prop.objectReferenceValue a
+        // property for objects with asset references ?
         //
 
         private static readonly Regex rgx = new Regex(@"\[\d+\]", RegexOptions.Compiled);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serializedObject"></param>
+        public static void QuickApply(this SerializedObject serializedObject)
+        {
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <returns></returns>
         public static T GetValue<T>(this SerializedProperty property) where T : class
         {
             property.serializedObject.QuickApply();
 
-            object obj = property.serializedObject.targetObject;
-            string path = property.propertyPath.Replace(".Array.data", "");
-            string[] fieldStructure = path.Split('.');
+            var obj = (object)property.serializedObject.targetObject;
+            var path = property.propertyPath.Replace(".Array.data", "");
+            var fieldStructure = path.Split('.');
             for (int i = 0; i < fieldStructure.Length; i++)
             {
                 if (fieldStructure[i].Contains("["))
                 {
-                    int index = System.Convert.ToInt32(new string(fieldStructure[i].Where(c => char.IsDigit(c)).ToArray()));
+                    var index = Convert.ToInt32(new string(fieldStructure[i].Where(c => char.IsDigit(c)).ToArray()));
                     obj = GetFieldValueWithIndex(rgx.Replace(fieldStructure[i], ""), obj, index);
                 }
                 else
@@ -340,19 +412,26 @@ namespace TLab.UI.RoundedCorners.Editor
             return (T)obj;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool SetValue<T>(this SerializedProperty property, T value) where T : class
         {
             // This Apply() is necessary to keep the current data consistent with the data accessed by SetValue()
             property.serializedObject.QuickApply();
 
-            object obj = property.serializedObject.targetObject;
-            string path = property.propertyPath.Replace(".Array.data", "");
-            string[] fieldStructure = path.Split('.');
-            for (int i = 0; i < fieldStructure.Length - 1; i++)
+            var obj = (object)property.serializedObject.targetObject;
+            var path = property.propertyPath.Replace(".Array.data", "");
+            var fieldStructure = path.Split('.');
+            for (var i = 0; i < fieldStructure.Length - 1; i++)
             {
                 if (fieldStructure[i].Contains("["))
                 {
-                    int index = System.Convert.ToInt32(new string(fieldStructure[i].Where(c => char.IsDigit(c)).ToArray()));
+                    var index = Convert.ToInt32(new string(fieldStructure[i].Where(c => char.IsDigit(c)).ToArray()));
                     obj = GetFieldValueWithIndex(rgx.Replace(fieldStructure[i], ""), obj, index);
                 }
                 else
@@ -361,10 +440,10 @@ namespace TLab.UI.RoundedCorners.Editor
                 }
             }
 
-            string fieldName = fieldStructure.Last();
+            var fieldName = fieldStructure.Last();
             if (fieldName.Contains("["))
             {
-                int index = System.Convert.ToInt32(new string(fieldName.Where(c => char.IsDigit(c)).ToArray()));
+                var index = Convert.ToInt32(new string(fieldName.Where(c => char.IsDigit(c)).ToArray()));
                 return SetFieldValueWithIndex(rgx.Replace(fieldName, ""), obj, index, value);
             }
             else
@@ -373,9 +452,16 @@ namespace TLab.UI.RoundedCorners.Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="obj"></param>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
         private static object GetFieldValue(string fieldName, object obj, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+            var field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
             {
                 return field.GetValue(obj);
@@ -383,12 +469,20 @@ namespace TLab.UI.RoundedCorners.Editor
             return default(object);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="obj"></param>
+        /// <param name="index"></param>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
         private static object GetFieldValueWithIndex(string fieldName, object obj, int index, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+            var field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
             {
-                object list = field.GetValue(obj);
+                var list = field.GetValue(obj);
                 if (list.GetType().IsArray)
                 {
                     return ((object[])list)[index];
@@ -401,9 +495,18 @@ namespace TLab.UI.RoundedCorners.Editor
             return default(object);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="obj"></param>
+        /// <param name="value"></param>
+        /// <param name="includeAllBases"></param>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
         public static bool SetFieldValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+            var field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
             {
                 field.SetValue(obj, value);
@@ -412,12 +515,22 @@ namespace TLab.UI.RoundedCorners.Editor
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="obj"></param>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <param name="includeAllBases"></param>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
         public static bool SetFieldValueWithIndex(string fieldName, object obj, int index, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+            var field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
             {
-                object list = field.GetValue(obj);
+                var list = field.GetValue(obj);
                 if (list.GetType().IsArray)
                 {
                     ((object[])list)[index] = value;

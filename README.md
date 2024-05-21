@@ -1,38 +1,58 @@
-# Unity-UI-Rounded-Corners-Extention
-This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor.
+# Unity-SDF-UI-Toolkit
 
-## Video
-[Here is a demonstration video](https://youtu.be/poQhoVtyI5Y)
+This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor. Additional shapes implemented based on [this article](https://iquilezles.org/articles/distfunctions2d/) (not all)
 
 ## Screenshot
-Outlined UI elements  
-<img src="Media/quad-corner.png" width="512"></img>  
-<img src="Media/quad-corner-component.png" width="512"></img>  
-<img src="Media/triangle-corner.png" width="512"></img>  
-<img src="Media/triangle-corner-component.png" width="512"></img>  
-<img src="Media/custom-shape.png" width="512"></img>  
-<img src="Media/custom-shape-component.png" width="512"></img>  
-Editor for creating Custom Shapes  
-<img src="Media/custom-shape-editor.png" width="512"><img>  
-
-## Requirements
-- [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191?locale=ja-JP)
-	- This library is used to convert polygon rasterized texture to SDF texture.
+<table>
+    <caption>Overview</caption>
+    <tr>
+        <td><img src="Media/overview.png" width="512"></img>  </td>
+    </tr>
+</table>
+<table>
+    <caption>Editor for creating Custom Shapes</caption>
+    <tr>
+        <td><img src="Media/sdf-tex-painter-path-view.png" width="512"><img></td>
+        <td><img src="Media/sdf-tex-painter-sdf-view.png" width="512"><img></td>
+    </tr>
+</table>
 
 ## Install
-1. Add [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191?locale=ja-JP) to your Unity project from asset store.
-2. Clone this repository with the following command
+Clone this repository with the following command
 ```
-git clone https://github.com/TLabAltoh/Unityr-UI-Rounded-Corners-Extension.git
+git clone https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
 ```
-4. Place the cloned repository under the Asset directory of the Unity project.
 
-## Create SDF Texture
-Select Create ---> SDF Polygon to add a Scriptable Object to the asset. For detailed instructions, please refer to [this video](https://youtu.be/poQhoVtyI5Y)
+or
 
-## Fxaa Support
-When creating a Custom Shape, Fxaa is used to reduce aliasing at the boundaries.  
-[refarence](https://catlikecoding.com/unity/tutorials/custom-srp/fxaa/)
+```
+git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
+```
+
+## SDF Texture
+Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to the asset.
+
+### Circle
+|  |   |
+| ------ | ------ |
+| Mouse Drag | Move Handle |
+| Shift + Left Click | Select Handle |
+| Delete | Delete Selected Handle |
+
+### Bezier
+|  |   |
+| ------ | ------ |
+| Mouse Drag | Move Anchor Handle |
+| Crtl + Mouse Drag | Move Control Handle |
+| Shift + Left Click | Select Anchor Handle |
+| Delete | Delete Selected Handle |
+
+### Cu2Qu
+SDF Text Painter converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu).
+
+## TODO
+- [ ] Add gradient info to SDF texture
+- [ ] Improve the operation of the SDF Texture Painter
 
 ## Lisence
 This repository is MIT licensed.

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222c946049b965d4b917c69e3cfde75e, type: 3}
+  m_Name: New SDF Tex Painter
+  m_EditorClassIdentifier: 
+  texWidth: 512
+  texHeight: 512
+  sdfWidth: 512
+  sdfHeight: 512
+  sdfSettings:
+    maxDist: 20
+  shape: 0
+  previewMode: 0
+  circlePainter:
+    handleRadius: 10
+    handleColor: {r: 0, g: 1, b: 0, a: 1}
+    selectColor: {r: 1, g: 0, b: 1, a: 1}
+    showHandle: 1
+    editMode: 1
+    radius: 40
+    thickness: 5
+    draw: 0
+    circles:
+    - position: {x: -190.65039, y: -185.15723}
+      radius: 80
+      thickness: 40
+      draw: 0
+    - position: {x: 130.60452, y: -138.46541}
+      radius: 80
+      thickness: 40
+      draw: 0
+    - position: {x: -57.299297, y: 89.35849}
+      radius: 80
+      thickness: 20
+      draw: 1
+  bezierPainter:
+    handleRadius: 10
+    anchorColor: {r: 0, g: 1, b: 0, a: 1}
+    bezierColor: {r: 0, g: 1, b: 0, a: 1}
+    controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    selectColor: {r: 1, g: 0, b: 1, a: 1}
+    showHandle: 1
+    showSpline: 1
+    split: 0
+    maxNum: 20
+    maxErr: 25
+    editMode: 1
+    thickness: 10
+    closed: 1
+    draw: 0
+    beziers:
+    - handles:
+      - anchor: {x: -189.82666, y: -7.198555}
+        controlA: {x: 105.686005, y: -10.431091}
+        controlB: {x: 66.026436, y: 90.68364}
+      - anchor: {x: 87.37927, y: -25.295584}
+        controlA: {x: 83.91504, y: 127.0747}
+        controlB: {x: -112.60494, y: 5.4025574}
+      - anchor: {x: -20.0195, y: 197.60034}
+        controlA: {x: -65.549194, y: -68.81229}
+        controlB: {x: 134.3764, y: 5.871933}
+      closed: 1
+      thickness: 40
+      draw: 0
+  sdfTex: {fileID: 0}
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Sample/sdf-ui-toolkit-sample.asset

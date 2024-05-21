@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-namespace TLab.UI.RoundedCorners.Editor
+namespace TLab.UI.SDF.Editor
 {
     public static class AssetUtil
     {
