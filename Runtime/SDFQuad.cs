@@ -155,7 +155,28 @@ namespace TLab.UI.SDF
 		protected override void Refresh()
 		{
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetVector(PROP_RADIUSE, m_independent ? new Vector4(m_radiusX, m_radiusY, m_radiusZ, m_radiusW) : Vector4.one * m_radius);
+
+			var corners = m_independent ? new Vector4(m_radiusX, m_radiusY, m_radiusZ, m_radiusW) : Vector4.one * m_radius;
+
+			var shortest = halfRect.x < halfRect.y ? halfRect.x : halfRect.y;
+			if (corners.x > shortest)
+			{
+				corners.x = shortest;
+			}
+			if (corners.y > shortest)
+			{
+				corners.y = shortest;
+			}
+			if (corners.z > shortest)
+			{
+				corners.z = shortest;
+			}
+			if (corners.w > shortest)
+			{
+				corners.w = shortest;
+			}
+
+			m_material.SetVector(PROP_RADIUSE, corners);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
 
 			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
