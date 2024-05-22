@@ -18,6 +18,7 @@ This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokim
 </table>
 
 ## Install
+### Git
 Clone this repository with the following command
 ```
 git clone https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
@@ -27,6 +28,11 @@ or
 
 ```
 git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
+```
+### Unity Package Manager
+add package from git URL ...
+```
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
 ```
 
 ## SDF Texture
@@ -49,10 +55,6 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to th
 
 ### Cu2Qu
 SDF Text Painter converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu).
-
-## TODO
-- [ ] Add gradient info to SDF texture
-- [ ] Improve the operation of the SDF Texture Painter
 
 ## Lisence
 This repository is MIT licensed.
