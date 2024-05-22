@@ -1,0 +1,16 @@
+{
+    "name": "TLab.SDF-UI-Toolkit.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5869a60a42f9cb54890cc92792c29eb1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

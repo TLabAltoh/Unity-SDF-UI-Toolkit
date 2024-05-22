@@ -15,11 +15,68 @@ namespace TLab.UI.SDF
 
 		private static readonly string SHAPE_NAME = "Triangle";
 
-		public float radius = 40;
-		public Vector2 corner0 = new Vector2(-45f, -45f);
-		public Vector2 corner1 = new Vector2(45f, -45f);
-		public Vector2 corner2 = new Vector2(0f, 45f);
+		[SerializeField] private float m_radius = 40;
+		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);
+		[SerializeField] private Vector2 m_corner1 = new Vector2(45f, -45f);
+		[SerializeField] private Vector2 m_corner2 = new Vector2(0f, 45f);
 
+		public float radius
+		{
+			get => m_radius;
+			set
+			{
+				if (m_radius != value)
+				{
+					m_radius = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Vector2 corner0
+		{
+			get => m_corner0;
+			set
+			{
+				if (m_corner0 != value)
+				{
+					m_corner0 = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Vector2 corner1
+		{
+			get => m_corner1;
+			set
+			{
+				if (m_corner1 != value)
+				{
+					m_corner1 = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Vector2 corner2
+		{
+			get => m_corner2;
+			set
+			{
+				if (m_corner2 != value)
+				{
+					m_corner2 = value;
+
+					Refresh();
+				}
+			}
+		}
+
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
@@ -27,6 +84,7 @@ namespace TLab.UI.SDF
 			Validate(SHAPE_NAME);
 			Refresh();
 		}
+#endif
 
 		protected override void OnEnable()
 		{
@@ -50,18 +108,18 @@ namespace TLab.UI.SDF
 		{
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 			var corners = new List<Vector4>();
-			corners.Add(corner0);
-			corners.Add(corner1);
-			corners.Add(corner2);
+			corners.Add(m_corner0);
+			corners.Add(m_corner1);
+			corners.Add(m_corner2);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, radius);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
 			m_material.SetVectorArray(PROP_CORNER, corners);
 
-			m_material.SetInt(PROP_ONION, onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, onion ? onionWidth : 0);
+			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
+			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
 
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outline ? outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, outline ? outlineColor : alpha0);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
+			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
 		}
 	}
 }

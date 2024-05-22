@@ -19,7 +19,7 @@ namespace TLab.UI.SDF.Editor
 
 		private int m_index = -1;
 
-		private string[] m_corners = new string[] { "corner0", "corner1", "corner2" };
+		private string[] m_corners = new string[] { "m_corner0", "m_corner1", "m_corner2" };
 
 		private void OnEnable()
 		{
@@ -94,17 +94,17 @@ namespace TLab.UI.SDF.Editor
 		{
 			serializedObject.Update();
 
-			serializedObject.TryDrawProperty(nameof(m_instance.radius), "Radius");
-			serializedObject.TryDrawProperty(nameof(m_instance.corner0), "Corner0");
-			serializedObject.TryDrawProperty(nameof(m_instance.corner1), "Corner1");
-			serializedObject.TryDrawProperty(nameof(m_instance.corner2), "Corner2");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner0), "Corner0");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner1), "Corner1");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner2), "Corner2");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.onion), "Onion");
-			serializedObject.TryDrawProperty(nameof(m_instance.onionWidth), "OnionWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onion), "Onion");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onionWidth), "OnionWidth");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.outline), "Outline");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineWidth), "OutlineWidth");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineColor), "OutlineColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
 
 			EditorGUILayout.Space();
 

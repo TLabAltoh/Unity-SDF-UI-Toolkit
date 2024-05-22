@@ -12,10 +12,39 @@ namespace TLab.UI.SDF
 	{
 		private static readonly string SHAPE_NAME = "CutDisk";
 
-		public float radius = 40;
+		[SerializeField] private float m_radius = 40;
 
-		public float height = 10;
+		[SerializeField] private float m_height = 10;
 
+		public float radius
+		{
+			get => radius;
+			set
+			{
+				if (m_radius != value)
+				{
+					m_radius = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float height
+		{
+			get => m_height;
+			set
+			{
+				if (m_height != value)
+				{
+					m_height = value;
+
+					Refresh();
+				}
+			}
+		}
+
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
@@ -23,6 +52,7 @@ namespace TLab.UI.SDF
 			Validate(SHAPE_NAME);
 			Refresh();
 		}
+#endif
 
 		protected override void OnEnable()
 		{
@@ -46,14 +76,14 @@ namespace TLab.UI.SDF
 		{
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, radius);
-			m_material.SetFloat(PROP_HEIGHT, height);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
+			m_material.SetFloat(PROP_HEIGHT, m_height);
 
-			m_material.SetInt(PROP_ONION, onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, onion ? onionWidth : 0);
+			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
+			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
 
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outline ? outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, outline ? outlineColor : alpha0);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
+			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
 		}
 	}
 }

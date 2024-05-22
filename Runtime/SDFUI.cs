@@ -19,21 +19,103 @@ namespace TLab.UI.SDF
 		public static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_outlineColor");
 		public static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_outlineWidth");
 
-		public bool onion = false;
+		[SerializeField] protected bool m_onion = false;
 
-		public float onionWidth = 10;
+		[SerializeField] protected float m_onionWidth = 10;
 
-		public bool outline = true;
+		[SerializeField] protected bool m_outline = true;
 
-		public float outlineWidth = 10;
+		[SerializeField] protected float m_outlineWidth = 10;
 
-		public Color outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
+		[SerializeField] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 
 		protected Material m_material;
 
 		protected Mask m_mask;
 
 		public Material material => m_material;
+
+		public bool onion
+		{
+			get => m_onion;
+			set
+			{
+				if (m_onion != value)
+				{
+					m_onion = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float onionWidth
+		{
+			get => m_onionWidth;
+			set
+			{
+				if (m_onionWidth != value)
+				{
+					m_onionWidth = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public bool outline
+		{
+			get => m_outline;
+			set
+			{
+				if (m_outline != value)
+				{
+					m_outline = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float outlineWidth
+		{
+			get => m_outlineWidth;
+			set
+			{
+				if (m_outlineWidth != value)
+				{
+					m_outlineWidth = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Color outlineColor
+		{
+			get => m_outlineColor;
+			set
+			{
+				if (m_outlineColor != value)
+				{
+					m_outlineColor = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Color mainColor
+		{
+			get => (m_image != null) ? Color.white : m_image.color;
+			set
+			{
+				if ((m_image != null) && (m_image.color != value))
+				{
+					m_image.color = value;
+				}
+			}
+		}
 
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
 

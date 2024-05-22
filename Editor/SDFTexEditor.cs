@@ -23,12 +23,12 @@ namespace TLab.UI.SDF.Editor
 		{
 			serializedObject.Update();
 
-			serializedObject.TryDrawProperty(nameof(m_instance.radius), "Radius");
-			serializedObject.TryDrawProperty(nameof(m_instance.sdfTexture), "SDFTexture");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.sdfTexture), "SDFTexture");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.outline), "Outline");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineWidth), "OutlineWidth");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineColor), "OutlineColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
 
 			serializedObject.ApplyModifiedProperties();
 

@@ -13,9 +13,39 @@ namespace TLab.UI.SDF
 		private static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
 		private static readonly string SHAPE_NAME = "Tex";
 
-		public float radius = 40;
-		public Texture2D sdfTexture;
+		[SerializeField] private float m_radius = 40;
 
+		[SerializeField] private Texture2D m_sdfTexture;
+
+		public float radius
+		{
+			get => m_radius;
+			set
+			{
+				if (m_radius != value)
+				{
+					m_radius = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public Texture2D sdfTexture
+		{
+			get => m_sdfTexture;
+			set
+			{
+				if (m_sdfTexture != value)
+				{
+					m_sdfTexture = value;
+
+					Refresh();
+				}
+			}
+		}
+
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
@@ -23,6 +53,7 @@ namespace TLab.UI.SDF
 			Validate(SHAPE_NAME);
 			Refresh();
 		}
+#endif
 
 		protected override void OnEnable()
 		{
@@ -45,12 +76,12 @@ namespace TLab.UI.SDF
 		protected override void Refresh()
 		{
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetTexture(PROP_SDFTEX, sdfTexture);
+			m_material.SetTexture(PROP_SDFTEX, m_sdfTexture);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, radius);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
 
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outline ? outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, outline ? outlineColor : alpha0);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
+			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
 		}
 	}
 }

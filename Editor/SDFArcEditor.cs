@@ -23,16 +23,16 @@ namespace TLab.UI.SDF.Editor
 		{
 			serializedObject.Update();
 
-			serializedObject.TryDrawProperty(nameof(m_instance.radius), "Radius");
-			serializedObject.TryDrawProperty(nameof(m_instance.theta), "Theta");
-			serializedObject.TryDrawProperty(nameof(m_instance.width), "Width");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.theta), "Theta");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.width), "Width");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.onion), "Onion");
-			serializedObject.TryDrawProperty(nameof(m_instance.onionWidth), "OnionWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onion), "Onion");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onionWidth), "OnionWidth");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.outline), "Outline");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineWidth), "OutlineWidth");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineColor), "OutlineColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
 
 			serializedObject.ApplyModifiedProperties();
 

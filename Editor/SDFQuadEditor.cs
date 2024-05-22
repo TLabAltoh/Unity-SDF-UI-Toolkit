@@ -26,26 +26,26 @@ namespace TLab.UI.SDF.Editor
 		{
 			serializedObject.Update();
 
-			serializedObject.TryDrawProperty(nameof(m_instance.independent), "Independent Corner");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.independent), "Independent Corner");
 
 			if (m_instance.independent)
 			{
-				serializedObject.TryDrawProperty(nameof(m_instance.radiusX), "Top Right Corner");
-				serializedObject.TryDrawProperty(nameof(m_instance.radiusY), "Bottom Right Corner");
-				serializedObject.TryDrawProperty(nameof(m_instance.radiusZ), "Top Left Corner");
-				serializedObject.TryDrawProperty(nameof(m_instance.radiusW), "Bottom Left Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_instance.radiusX), "Top Right Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_instance.radiusY), "Bottom Right Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_instance.radiusZ), "Top Left Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_instance.radiusW), "Bottom Left Corner");
 			}
 			else
 			{
-				serializedObject.TryDrawProperty(nameof(m_instance.radius), "Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Corner");
 			}
 
-			serializedObject.TryDrawProperty(nameof(m_instance.onion), "Onion");
-			serializedObject.TryDrawProperty(nameof(m_instance.onionWidth), "OnionWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onion), "Onion");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onionWidth), "OnionWidth");
 
-			serializedObject.TryDrawProperty(nameof(m_instance.outline), "Outline");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineWidth), "OutlineWidth");
-			serializedObject.TryDrawProperty(nameof(m_instance.outlineColor), "OutlineColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
 
 			serializedObject.ApplyModifiedProperties();
 

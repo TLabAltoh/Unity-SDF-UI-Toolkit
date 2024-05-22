@@ -31,15 +31,100 @@ namespace TLab.UI.SDF
 	{
 		private static readonly string SHAPE_NAME = "Quad";
 
-		public bool independent = true;
+		[SerializeField] private bool m_independent = true;
 
-		public float radius = 40;
+		[SerializeField] private float m_radius = 40;
 
-		public float radiusX = 40;
-		public float radiusY = 40;
-		public float radiusZ = 40;
-		public float radiusW = 40;
+		[SerializeField] private float m_radiusX = 40;
+		[SerializeField] private float m_radiusY = 40;
+		[SerializeField] private float m_radiusZ = 40;
+		[SerializeField] private float m_radiusW = 40;
 
+		public bool independent
+		{
+			get => m_independent;
+			set
+			{
+				if (m_independent != value)
+				{
+					m_independent = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float radius
+		{
+			get => m_radius;
+			set
+			{
+				if (m_radius != value)
+				{
+					m_radius = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float radiusX
+		{
+			get => m_radiusX;
+			set
+			{
+				if (m_radiusX != value)
+				{
+					m_radiusX = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float radiusY
+		{
+			get => m_radiusY;
+			set
+			{
+				if (m_radiusY != value)
+				{
+					m_radiusY = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float radiusZ
+		{
+			get => m_radiusZ;
+			set
+			{
+				if (m_radiusZ != value)
+				{
+					m_radiusZ = value;
+
+					Refresh();
+				}
+			}
+		}
+
+		public float radiusW
+		{
+			get => m_radiusW;
+			set
+			{
+				if (m_radiusW != value)
+				{
+					m_radiusW = value;
+
+					Refresh();
+				}
+			}
+		}
+
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
@@ -47,6 +132,7 @@ namespace TLab.UI.SDF
 			Validate(SHAPE_NAME);
 			Refresh();
 		}
+#endif
 
 		protected override void OnEnable()
 		{
@@ -69,14 +155,14 @@ namespace TLab.UI.SDF
 		protected override void Refresh()
 		{
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetVector(PROP_RADIUSE, independent ? new Vector4(radiusX, radiusY, radiusZ, radiusW) : Vector4.one * radius);
+			m_material.SetVector(PROP_RADIUSE, m_independent ? new Vector4(m_radiusX, m_radiusY, m_radiusZ, m_radiusW) : Vector4.one * m_radius);
 			m_material.SetVector(PROP_HALFSIZE, halfRect);
 
-			m_material.SetInt(PROP_ONION, onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, onion ? onionWidth : 0);
+			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
+			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
 
-			m_material.SetFloat(PROP_OUTLINEWIDTH, outline ? outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, outline ? outlineColor : alpha0);
+			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
+			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
 		}
 	}
 }
