@@ -32,7 +32,7 @@ git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
 ### Unity Package Manager
 add package from git URL ...
 ```
-https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 ```
 
 ## SDF Texture

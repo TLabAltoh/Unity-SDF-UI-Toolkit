@@ -11,5 +11,12 @@
         "type": "git",
         "url": "https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git"
     },
+    "samples": [
+        {
+            "displayName": "SDF Tex Painter Sample",
+            "description": "",
+            "path": "Samples~/SDF Tex Painter Sample"
+        }
+    ],
     "license": "MIT License"
 }
