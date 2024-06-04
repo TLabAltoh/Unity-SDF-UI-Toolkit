@@ -86,7 +86,7 @@ Shader "UI/SDF/Pie" {
                 }
 
                 float2 p = (i.uv - .5) * (_halfSize + _onionWidth) * 2;
-                float dist = sdPie(p, float2(sin(_theta), cos(_theta)), _radius);
+                float dist = _theta >= 3.14 ? length(p) - _radius : sdPie(p, float2(sin(_theta), cos(_theta)), _radius);
 
                 if (_onion) {
                     dist = abs(dist) - _onionWidth;
