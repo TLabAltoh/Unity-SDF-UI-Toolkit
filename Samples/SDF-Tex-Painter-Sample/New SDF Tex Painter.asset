@@ -18,7 +18,7 @@ MonoBehaviour:
   sdfHeight: 512
   sdfSettings:
     maxDist: 20
-  shape: 0
+  shape: 1
   previewMode: 0
   circlePainter:
     handleRadius: 10
@@ -49,7 +49,7 @@ MonoBehaviour:
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    showSpline: 1
+    showSpline: 0
     split: 0
     maxNum: 20
     maxErr: 25
@@ -60,16 +60,16 @@ MonoBehaviour:
     beziers:
     - handles:
       - anchor: {x: -189.82666, y: -7.198555}
-        controlA: {x: 105.686005, y: -10.431091}
-        controlB: {x: 66.026436, y: 90.68364}
+        controlA: {x: 129.18645, y: -11.743893}
+        controlB: {x: 63.55271, y: 80.181076}
       - anchor: {x: 87.37927, y: -25.295584}
         controlA: {x: 83.91504, y: 127.0747}
-        controlB: {x: -112.60494, y: 5.4025574}
+        controlB: {x: -112.604935, y: 4.8032284}
       - anchor: {x: -20.0195, y: 197.60034}
         controlA: {x: -65.549194, y: -68.81229}
-        controlB: {x: 134.3764, y: 5.871933}
+        controlB: {x: 113.424995, y: 14.776276}
       closed: 1
       thickness: 40
       draw: 0
   sdfTex: {fileID: 0}
-  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Sample/sdf-ui-toolkit-sample.asset
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-Tex-Painter-Sample/sdf-ui-toolkit-sample.asset

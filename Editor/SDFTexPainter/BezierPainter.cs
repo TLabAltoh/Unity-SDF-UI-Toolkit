@@ -175,8 +175,6 @@ namespace TLab.UI.SDF.Editor
                         break;
                 }
 
-                Handles.DrawPolyLine(Vector3ArrayFrom(points, closed));
-
                 handles.AddRange(Vector3ArrayFrom(points, false));
             }
 
@@ -185,6 +183,14 @@ namespace TLab.UI.SDF.Editor
                 var handleRadius = EditorUtil.TextureToRect(this.handleRadius, m_area, m_texSize);
 
                 var normal = Vector3.forward;
+
+                Handles.color = Color.white;
+
+                for (int i = 0; i < handles.Count; i += 3)
+                {
+                    Handles.DrawPolyLine(handles[i + 0], handles[i + 1]);
+                    Handles.DrawPolyLine(handles[i + 2], handles[i + 1]);
+                }
 
                 Handles.color = anchorColor;
 
@@ -233,11 +239,6 @@ namespace TLab.UI.SDF.Editor
                         spline = EditorUtil.TextureToRect(spline, m_area, m_texSize);
 
                         Handles.DrawPolyLine(Vector3ArrayFrom(spline, closed));
-
-                        foreach (var point in spline)
-                        {
-                            Handles.DrawWireDisc(point, Vector3.forward, handleRadius + 1);
-                        }
                     }
                 }
             }
