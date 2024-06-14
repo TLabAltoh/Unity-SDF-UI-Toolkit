@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace TLab.UI.SDF.Editor
@@ -10,6 +11,12 @@ namespace TLab.UI.SDF.Editor
         FILL
     };
 
+    public enum Clockwise
+    {
+        FORWARD,
+        INVERT
+    };
+
     [Serializable]
     public class Circle
     {
@@ -18,6 +25,7 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
+        public Clockwise clockwise;
     }
 
     [Serializable]
@@ -43,6 +51,7 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
+        public Clockwise clockwise;
 
         /// <summary>
         /// 
@@ -276,7 +285,10 @@ namespace TLab.UI.SDF.Editor
 
                     var q1 = qL + (qR - qL) * t;
 
-                    cache.Add((cache[cache.Count - 1] + q1) * 0.5f);
+                    if (j > 0)
+                    {
+                        cache.Add((cache[cache.Count - 1] + q1) * 0.5f);
+                    }
 
                     cache.Add(q1);
 
@@ -297,8 +309,6 @@ namespace TLab.UI.SDF.Editor
                     break;
                 }
             }
-
-            cache.Add((cache[cache.Count - 1] + h1.anchor) * 0.5f);
 
             cache.Add(h1.anchor);
 
@@ -337,10 +347,7 @@ namespace TLab.UI.SDF.Editor
 
                 if (Cu2Qu(out tmp, h0, h1, n, err))
                 {
-                    for (int j = 1; j < tmp.Length; j++)
-                    {
-                        cache.Add(tmp[j]);
-                    }
+                    cache.AddRange(tmp.Skip(1));
                 }
             }
 
@@ -351,10 +358,7 @@ namespace TLab.UI.SDF.Editor
 
                 if (Cu2Qu(out tmp, h0, h1, n, err))
                 {
-                    for (int j = 1; j < tmp.Length - 1; j++)
-                    {
-                        cache.Add(tmp[j]);
-                    }
+                    cache.AddRange(tmp.Skip(1).Take(tmp.Length - 2));
                 }
             }
 

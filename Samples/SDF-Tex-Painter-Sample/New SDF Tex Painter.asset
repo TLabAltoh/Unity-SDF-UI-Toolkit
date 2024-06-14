@@ -19,7 +19,7 @@ MonoBehaviour:
   sdfSettings:
     maxDist: 20
   shape: 1
-  previewMode: 0
+  previewMode: 1
   circlePainter:
     handleRadius: 10
     handleColor: {r: 0, g: 1, b: 0, a: 1}
@@ -30,20 +30,23 @@ MonoBehaviour:
     thickness: 5
     draw: 0
     circles:
-    - position: {x: -190.65039, y: -185.15723}
-      radius: 80
-      thickness: 40
-      draw: 0
-    - position: {x: 130.60452, y: -138.46541}
-      radius: 80
-      thickness: 40
-      draw: 0
     - position: {x: -57.299297, y: 89.35849}
       radius: 80
       thickness: 20
       draw: 1
+      clockwise: 0
+    - position: {x: -190.65039, y: -185.15723}
+      radius: 80
+      thickness: 40
+      draw: 0
+      clockwise: 0
+    - position: {x: 130.60452, y: -138.46541}
+      radius: 80
+      thickness: 40
+      draw: 0
+      clockwise: 0
   bezierPainter:
-    handleRadius: 10
+    handleRadius: 7.5
     anchorColor: {r: 0, g: 1, b: 0, a: 1}
     bezierColor: {r: 0, g: 1, b: 0, a: 1}
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -51,12 +54,12 @@ MonoBehaviour:
     showHandle: 1
     showSpline: 0
     split: 0
-    maxNum: 20
+    maxNum: 25
     maxErr: 25
     editMode: 1
     thickness: 10
     closed: 1
-    draw: 0
+    draw: 1
     beziers:
     - handles:
       - anchor: {x: -189.82666, y: -7.198555}
@@ -70,6 +73,21 @@ MonoBehaviour:
         controlB: {x: 113.424995, y: 14.776276}
       closed: 1
       thickness: 40
+      draw: 1
+      clockwise: 0
+    - handles:
+      - anchor: {x: 15.761126, y: 59.096268}
+        controlA: {x: 44.645676, y: -46.42119}
+        controlB: {x: -32.516354, y: 37.34442}
+      - anchor: {x: 155.5883, y: 117.49326}
+        controlA: {x: -30.40715, y: 45.48108}
+        controlB: {x: -78.02008, y: -82.90992}
+      - anchor: {x: 85.656456, y: 200.6601}
+        controlA: {x: -90.527145, y: -94.310295}
+        controlB: {x: 34.64837, y: -34.1799}
+      closed: 1
+      thickness: 40
       draw: 0
+      clockwise: 0
   sdfTex: {fileID: 0}
   savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-Tex-Painter-Sample/sdf-ui-toolkit-sample.asset

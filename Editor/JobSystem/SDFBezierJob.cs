@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Collections;
+using System;
 
 namespace TLab.UI.SDF.Editor
 {
@@ -12,6 +13,7 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
+        public Clockwise clockwise;
     }
 
     public struct SDFBezierJob : IJobParallelFor
@@ -142,7 +144,7 @@ namespace TLab.UI.SDF.Editor
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public float USwap(float a, float b)
+        public float AbsSwap(float a, float b)
         {
             return Mathf.Abs(a) < Mathf.Abs(b) ? a : b;
         }
@@ -176,7 +178,7 @@ namespace TLab.UI.SDF.Editor
 
             var min = float.MaxValue;
 
-            for (int i = 0; i < BEZIERS.Length; i++)
+            for (int i = 0; i < BEZIERS.Length - 1; i++)
             {
                 var bezier = BEZIERS[i];
                 var splineS = bezier.splineS;
@@ -185,26 +187,23 @@ namespace TLab.UI.SDF.Editor
                 switch (bezier.draw)
                 {
                     case Draw.FILL:
-                        for (int j = splineS + 1; j < splineE - 2; j += 2)
+                        for (int j = splineS; j < splineE - 2; j += 2)
                         {
                             var tmp = SdBezier(in texP, SPLINES[j], SPLINES[j + 1], SPLINES[j + 2]);
 
-                            min = USwap(min, tmp);
+                            min = AbsSwap(min, tmp);
                         }
 
                         if (bezier.closed)
                         {
-                            var tmp = SdBezier(in texP, SPLINES[splineE - 1], SPLINES[splineS], SPLINES[splineS + 1]);
+                            var tmp = SdBezier(in texP, SPLINES[splineE - 2], SPLINES[splineE - 1], SPLINES[splineS]);
 
-                            min = USwap(min, tmp);
+                            min = AbsSwap(min, tmp);
                         }
 
-                        var dist = Fill(min, MAX_DIST);
-
-                        result[index] = result[index] < dist ? dist : result[index];
                         break;
                     case Draw.STROKE:
-                        for (int j = splineS + 1; j < splineE - 2; j += 2)
+                        for (int j = splineS; j < splineE - 2; j += 2)
                         {
                             var tmp = SdBezier(in texP, SPLINES[j], SPLINES[j + 1], SPLINES[j + 2]);
 
@@ -215,19 +214,20 @@ namespace TLab.UI.SDF.Editor
 
                         if (bezier.closed)
                         {
-                            var tmp = SdBezier(in texP, SPLINES[splineE - 1], SPLINES[splineS], SPLINES[splineS + 1]);
+                            var tmp = SdBezier(in texP, SPLINES[splineE - 2], SPLINES[splineE - 1], SPLINES[splineS]);
 
                             tmp = Mathf.Abs(tmp) - bezier.thickness;
 
                             min = Swap(min, tmp);
                         }
 
-                        dist = Fill(min, MAX_DIST);
-
-                        result[index] = result[index] < dist ? dist : result[index];
                         break;
                 }
             }
+
+            var dist = Fill(min, MAX_DIST);
+
+            result[index] = result[index] < dist ? dist : result[index];
         }
     }
 }

@@ -11,6 +11,7 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
+        public Clockwise clockwise;
     }
 
     public struct SDFCircleJob : IJobParallelFor
@@ -41,7 +42,7 @@ namespace TLab.UI.SDF.Editor
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public float USwap(float a, float b)
+        public float AbsSwap(float a, float b)
         {
             return Mathf.Abs(a) < Mathf.Abs(b) ? a : b;
         }
@@ -89,11 +90,7 @@ namespace TLab.UI.SDF.Editor
 
                         tmp = tmp - circle.radius;
 
-                        min = USwap(min, tmp);
-
-                        var dist = Fill(min, MAX_DIST);
-
-                        result[index] = result[index] < dist ? dist : result[index];
+                        min = AbsSwap(min, tmp);
                         break;
                     case Draw.STROKE:
                         tmp = Vector2.Distance(circle.center, texP);
@@ -102,14 +99,14 @@ namespace TLab.UI.SDF.Editor
 
                         tmp = Mathf.Abs(tmp) - circle.thickness;
 
-                        min = USwap(min, tmp);
-
-                        dist = Fill(min, MAX_DIST);
-
-                        result[index] = result[index] < dist ? dist : result[index];
+                        min = AbsSwap(min, tmp);
                         break;
                 }
             }
+
+            var dist = Fill(min, MAX_DIST);
+
+            result[index] = result[index] < dist ? dist : result[index];
         }
     }
 }
