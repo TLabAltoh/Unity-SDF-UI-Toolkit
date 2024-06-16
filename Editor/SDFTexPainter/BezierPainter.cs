@@ -544,7 +544,6 @@ namespace TLab.UI.SDF.Editor
                         thickness = beziers[i].thickness,
 
                         draw = beziers[i].draw,
-                        clockwise = beziers[i].clockwise,
                     };
 
                     for (int j = 0; j < splines[i].Length; j++)

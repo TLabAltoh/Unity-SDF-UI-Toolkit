@@ -11,7 +11,6 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
-        public Clockwise clockwise;
     }
 
     public struct SDFCircleJob : IJobParallelFor
@@ -28,28 +27,6 @@ namespace TLab.UI.SDF.Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public float Swap(float a, float b)
-        {
-            return a < b ? a : b;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public float AbsSwap(float a, float b)
-        {
-            return Mathf.Abs(a) < Mathf.Abs(b) ? a : b;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="min"></param>
         /// <param name="maxDist"></param>
         /// <returns></returns>
@@ -58,9 +35,10 @@ namespace TLab.UI.SDF.Editor
             // -MAX_DIST ~ +MAX_DIST
             // 0 ~ 1
 
-            var norm = min / (2 * maxDist) + 0.5f;
+            var norm = Mathf.Clamp01(min / (2 * maxDist) + 0.5f);
 
-            return (byte)(255f * (1f - Mathf.Clamp01(norm)));
+            return (byte)(255f * (1f - norm));
+            //return (byte)(255f * min / (2 * maxDist));
         }
 
         /// <summary>
@@ -77,7 +55,10 @@ namespace TLab.UI.SDF.Editor
 
             var texP = new Vector2(texX, texY);
 
-            var min = float.MaxValue;
+            var fMin = float.MaxValue;
+            var wMin = float.MaxValue;
+            var sMin = float.MaxValue;
+            var wSign = 1.0f;
 
             for (int i = 0; i < CIRCLES.Length; i++)
             {
@@ -86,25 +67,37 @@ namespace TLab.UI.SDF.Editor
                 switch (circle.draw)
                 {
                     case Draw.FILL:
-                        var tmp = Vector2.Distance(circle.center, texP);
+                        var sd = Vector2.Distance(circle.center, texP);
 
-                        tmp = tmp - circle.radius;
+                        sd = sd - circle.radius;
 
-                        min = AbsSwap(min, tmp);
+                        fMin = Mathf.Abs(fMin) < Mathf.Abs(sd) ? fMin : sd;
+                        break;
+                    case Draw.WINDING:
+                        sd = Vector2.Distance(circle.center, texP);
+
+                        sd = sd - circle.radius;
+
+                        wMin = Mathf.Min(Mathf.Abs(wMin), Mathf.Abs(sd));
+
+                        if (sd < 0)
+                        {
+                            wSign = -wSign;
+                        }
                         break;
                     case Draw.STROKE:
-                        tmp = Vector2.Distance(circle.center, texP);
+                        sd = Vector2.Distance(circle.center, texP);
 
-                        tmp = tmp - circle.radius;
+                        sd = sd - circle.radius;
 
-                        tmp = Mathf.Abs(tmp) - circle.thickness;
+                        sd = Mathf.Abs(sd) - circle.thickness;
 
-                        min = AbsSwap(min, tmp);
+                        sMin = Mathf.Abs(sMin) < Mathf.Abs(sd) ? sMin : sd;
                         break;
                 }
             }
 
-            var dist = Fill(min, MAX_DIST);
+            var dist = Fill(Mathf.Min(fMin, wSign * wMin, sMin), MAX_DIST);
 
             result[index] = result[index] < dist ? dist : result[index];
         }

@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Collections;
-using System;
 
 namespace TLab.UI.SDF.Editor
 {
@@ -13,7 +13,6 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
-        public Clockwise clockwise;
     }
 
     public struct SDFBezierJob : IJobParallelFor
@@ -50,7 +49,7 @@ namespace TLab.UI.SDF.Editor
         }
 
         /// <summary>
-        /// 
+        /// https://www.shadertoy.com/view/dls3Wr
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="A"></param>
@@ -128,25 +127,29 @@ namespace TLab.UI.SDF.Editor
         }
 
         /// <summary>
-        /// 
+        /// Source: https://www.shadertoy.com/view/wdBXRW
         /// </summary>
+        /// <param name="p"></param>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public float Swap(float a, float b)
+        public float WindingSign(in Vector2 p, in Vector2 a, in Vector2 b)
         {
-            return a < b ? a : b;
-        }
+            Vector2 e = b - a;
+            Vector2 w = p - a;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public float AbsSwap(float a, float b)
-        {
-            return Mathf.Abs(a) < Mathf.Abs(b) ? a : b;
+            var cond0 = p.y >= a.y;
+            var cond1 = p.y < b.y;
+            var cond2 = e.x * w.y > e.y * w.x;
+
+            if ((cond0 && cond1 && cond2) || (!cond0 && !cond1 && !cond2))
+            {
+                return -1.0f;
+            }
+            else
+            {
+                return 1.0f;
+            }
         }
 
         /// <summary>
@@ -157,9 +160,10 @@ namespace TLab.UI.SDF.Editor
         /// <returns></returns>
         public byte Fill(float min, float maxDist)
         {
-            var norm = min / (2 * maxDist) + 0.5f;
+            var norm = Mathf.Clamp01(min / (2 * maxDist) + 0.5f);
 
-            return (byte)(255f * (1f - Mathf.Clamp01(norm)));
+            return (byte)(255f * (1f - norm));
+            //return (byte)(255f * min / (2 * maxDist));
         }
 
         /// <summary>
@@ -176,9 +180,13 @@ namespace TLab.UI.SDF.Editor
 
             var texP = new Vector2(texX, texY);
 
-            var min = float.MaxValue;
+            var fMin = float.MaxValue;
+            var wMin = float.MaxValue;
+            var sMin = float.MaxValue;
+            var fSign = 1.0f;
+            var wSign = 1.0f;
 
-            for (int i = 0; i < BEZIERS.Length - 1; i++)
+            for (int i = 0; i < BEZIERS.Length; i++)
             {
                 var bezier = BEZIERS[i];
                 var splineS = bezier.splineS;
@@ -187,44 +195,71 @@ namespace TLab.UI.SDF.Editor
                 switch (bezier.draw)
                 {
                     case Draw.FILL:
+                        var tMin = float.MaxValue;
+                        var tSign = 1.0f;
                         for (int j = splineS; j < splineE - 2; j += 2)
                         {
-                            var tmp = SdBezier(in texP, SPLINES[j], SPLINES[j + 1], SPLINES[j + 2]);
+                            var v0 = SPLINES[j];
+                            var v1 = SPLINES[j + 1];
+                            var v2 = SPLINES[j + 2];
 
-                            min = AbsSwap(min, tmp);
+                            var sd = SdBezier(in texP, v0, v1, v2);
+
+                            tMin = Mathf.Min(tMin, Mathf.Abs(sd));
+
+                            if ((sd > 0.0f) == (Cross(v1 - v2, v1 - v0) < 0.0f))
+                            {
+                                tSign *= WindingSign(texP, v0, v1);
+                                tSign *= WindingSign(texP, v1, v2);
+                            }
+                            else
+                            {
+                                tSign *= WindingSign(texP, v0, v2);
+                            }
                         }
 
-                        if (bezier.closed)
+                        if (tMin * tSign < fMin * fSign)
                         {
-                            var tmp = SdBezier(in texP, SPLINES[splineE - 2], SPLINES[splineE - 1], SPLINES[splineS]);
+                            fMin = tMin;
+                            fSign = tSign;
+                        }
+                        break;
+                    case Draw.WINDING:
+                        for (int j = splineS; j < splineE - 2; j += 2)
+                        {
+                            var v0 = SPLINES[j];
+                            var v1 = SPLINES[j + 1];
+                            var v2 = SPLINES[j + 2];
 
-                            min = AbsSwap(min, tmp);
+                            var sd = SdBezier(in texP, v0, v1, v2);
+
+                            wMin = Mathf.Min(wMin, Mathf.Abs(sd));
+
+                            if ((sd > 0.0f) == (Cross(v1 - v2, v1 - v0) < 0.0f))
+                            {
+                                wSign *= WindingSign(texP, v0, v1);
+                                wSign *= WindingSign(texP, v1, v2);
+                            }
+                            else
+                            {
+                                wSign *= WindingSign(texP, v0, v2);
+                            }
                         }
 
                         break;
                     case Draw.STROKE:
                         for (int j = splineS; j < splineE - 2; j += 2)
                         {
-                            var tmp = SdBezier(in texP, SPLINES[j], SPLINES[j + 1], SPLINES[j + 2]);
+                            var sd = SdBezier(in texP, SPLINES[j], SPLINES[j + 1], SPLINES[j + 2]);
 
-                            tmp = Mathf.Abs(tmp) - bezier.thickness;
-
-                            min = Swap(min, tmp);
-                        }
-
-                        if (bezier.closed)
-                        {
-                            var tmp = SdBezier(in texP, SPLINES[splineE - 2], SPLINES[splineE - 1], SPLINES[splineS]);
-
-                            tmp = Mathf.Abs(tmp) - bezier.thickness;
-
-                            min = Swap(min, tmp);
+                            sMin = Mathf.Min(sMin, Mathf.Abs(sd) - bezier.thickness);
                         }
 
                         break;
                 }
             }
 
+            var min = Mathf.Min(fMin * fSign, wMin * wSign, sMin);
             var dist = Fill(min, MAX_DIST);
 
             result[index] = result[index] < dist ? dist : result[index];

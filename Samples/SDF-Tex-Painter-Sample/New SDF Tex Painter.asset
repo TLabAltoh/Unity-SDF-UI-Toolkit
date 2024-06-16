@@ -18,14 +18,14 @@ MonoBehaviour:
   sdfHeight: 512
   sdfSettings:
     maxDist: 20
-  shape: 1
+  shape: 0
   previewMode: 1
   circlePainter:
     handleRadius: 10
     handleColor: {r: 0, g: 1, b: 0, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    editMode: 1
+    editMode: 0
     radius: 40
     thickness: 5
     draw: 0
@@ -34,17 +34,18 @@ MonoBehaviour:
       radius: 80
       thickness: 20
       draw: 1
-      clockwise: 0
-    - position: {x: -190.65039, y: -185.15723}
-      radius: 80
-      thickness: 40
-      draw: 0
-      clockwise: 0
     - position: {x: 130.60452, y: -138.46541}
       radius: 80
       thickness: 40
       draw: 0
-      clockwise: 0
+    - position: {x: -190.65039, y: -185.15723}
+      radius: 120
+      thickness: 40
+      draw: 2
+    - position: {x: -83.862404, y: -78.55878}
+      radius: 80
+      thickness: 5
+      draw: 2
   bezierPainter:
     handleRadius: 7.5
     anchorColor: {r: 0, g: 1, b: 0, a: 1}
@@ -52,7 +53,7 @@ MonoBehaviour:
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    showSpline: 0
+    showSpline: 1
     split: 0
     maxNum: 25
     maxErr: 25
@@ -62,19 +63,18 @@ MonoBehaviour:
     draw: 1
     beziers:
     - handles:
-      - anchor: {x: -189.82666, y: -7.198555}
-        controlA: {x: 129.18645, y: -11.743893}
-        controlB: {x: 63.55271, y: 80.181076}
-      - anchor: {x: 87.37927, y: -25.295584}
+      - anchor: {x: -166.7701, y: -11.278236}
+        controlA: {x: 93.64091, y: -12.763817}
+        controlB: {x: 57.78853, y: 78.141235}
+      - anchor: {x: 88.339966, y: -26.315504}
         controlA: {x: 83.91504, y: 127.0747}
-        controlB: {x: -112.604935, y: 4.8032284}
-      - anchor: {x: -20.0195, y: 197.60034}
-        controlA: {x: -65.549194, y: -68.81229}
+        controlB: {x: -106.8408, y: 80.277336}
+      - anchor: {x: -9.451902, y: 186.38123}
+        controlA: {x: -59.785046, y: -71.87205}
         controlB: {x: 113.424995, y: 14.776276}
       closed: 1
-      thickness: 40
-      draw: 1
-      clockwise: 0
+      thickness: 20
+      draw: 2
     - handles:
       - anchor: {x: 15.761126, y: 59.096268}
         controlA: {x: 44.645676, y: -46.42119}
@@ -87,7 +87,6 @@ MonoBehaviour:
         controlB: {x: 34.64837, y: -34.1799}
       closed: 1
       thickness: 40
-      draw: 0
-      clockwise: 0
+      draw: 2
   sdfTex: {fileID: 0}
   savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-Tex-Painter-Sample/sdf-ui-toolkit-sample.asset

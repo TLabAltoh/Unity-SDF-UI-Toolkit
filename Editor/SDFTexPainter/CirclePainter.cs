@@ -352,7 +352,6 @@ namespace TLab.UI.SDF.Editor
                     thickness = circles[i].thickness,
 
                     draw = circles[i].draw,
-                    clockwise = circles[i].clockwise,
                 };
             }
 

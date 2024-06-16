@@ -8,13 +8,8 @@ namespace TLab.UI.SDF.Editor
     public enum Draw
     {
         STROKE,
-        FILL
-    };
-
-    public enum Clockwise
-    {
-        FORWARD,
-        INVERT
+        FILL,
+        WINDING
     };
 
     [Serializable]
@@ -25,7 +20,6 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
-        public Clockwise clockwise;
     }
 
     [Serializable]
@@ -51,7 +45,6 @@ namespace TLab.UI.SDF.Editor
         public float thickness;
 
         public Draw draw;
-        public Clockwise clockwise;
 
         /// <summary>
         /// 
@@ -107,10 +100,7 @@ namespace TLab.UI.SDF.Editor
                 {
                     cache[cache.Count - 1].controlA = splits[0].controlA;
 
-                    for (int j = 1; j < splits.Length; j++)
-                    {
-                        cache.Add(splits[j]);
-                    }
+                    cache.AddRange(splits.Skip(1));
                 }
             }
 
@@ -121,10 +111,7 @@ namespace TLab.UI.SDF.Editor
                 cache[cache.Count - 1].controlA = splits[0].controlA;
                 cache[0].controlB = splits[splits.Length - 1].controlB;
 
-                for (int j = 1; j < splits.Length - 1; j++)
-                {
-                    cache.Add(splits[j]);
-                }
+                cache.AddRange(splits.Skip(1));
             }
 
             points = new Vector2[3 * cache.Count];
@@ -358,7 +345,7 @@ namespace TLab.UI.SDF.Editor
 
                 if (Cu2Qu(out tmp, h0, h1, n, err))
                 {
-                    cache.AddRange(tmp.Skip(1).Take(tmp.Length - 2));
+                    cache.AddRange(tmp.Skip(1));
                 }
             }
 

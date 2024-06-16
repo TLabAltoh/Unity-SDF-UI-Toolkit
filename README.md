@@ -56,5 +56,9 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to th
 ### Cu2Qu
 SDF Text Painter converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu).
 
+## TODO
+- support batch rendering
+- support mask in shape editor
+
 ## Lisence
 This repository is MIT licensed.
