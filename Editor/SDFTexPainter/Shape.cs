@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace TLab.UI.SDF.Editor
@@ -7,7 +8,8 @@ namespace TLab.UI.SDF.Editor
     public enum Draw
     {
         STROKE,
-        FILL
+        FILL,
+        WINDING
     };
 
     [Serializable]
@@ -98,10 +100,7 @@ namespace TLab.UI.SDF.Editor
                 {
                     cache[cache.Count - 1].controlA = splits[0].controlA;
 
-                    for (int j = 1; j < splits.Length; j++)
-                    {
-                        cache.Add(splits[j]);
-                    }
+                    cache.AddRange(splits.Skip(1));
                 }
             }
 
@@ -112,10 +111,7 @@ namespace TLab.UI.SDF.Editor
                 cache[cache.Count - 1].controlA = splits[0].controlA;
                 cache[0].controlB = splits[splits.Length - 1].controlB;
 
-                for (int j = 1; j < splits.Length - 1; j++)
-                {
-                    cache.Add(splits[j]);
-                }
+                cache.AddRange(splits.Skip(1));
             }
 
             points = new Vector2[3 * cache.Count];
@@ -276,7 +272,10 @@ namespace TLab.UI.SDF.Editor
 
                     var q1 = qL + (qR - qL) * t;
 
-                    cache.Add((cache[cache.Count - 1] + q1) * 0.5f);
+                    if (j > 0)
+                    {
+                        cache.Add((cache[cache.Count - 1] + q1) * 0.5f);
+                    }
 
                     cache.Add(q1);
 
@@ -297,8 +296,6 @@ namespace TLab.UI.SDF.Editor
                     break;
                 }
             }
-
-            cache.Add((cache[cache.Count - 1] + h1.anchor) * 0.5f);
 
             cache.Add(h1.anchor);
 
@@ -337,10 +334,7 @@ namespace TLab.UI.SDF.Editor
 
                 if (Cu2Qu(out tmp, h0, h1, n, err))
                 {
-                    for (int j = 1; j < tmp.Length; j++)
-                    {
-                        cache.Add(tmp[j]);
-                    }
+                    cache.AddRange(tmp.Skip(1));
                 }
             }
 
@@ -351,10 +345,7 @@ namespace TLab.UI.SDF.Editor
 
                 if (Cu2Qu(out tmp, h0, h1, n, err))
                 {
-                    for (int j = 1; j < tmp.Length - 1; j++)
-                    {
-                        cache.Add(tmp[j]);
-                    }
+                    cache.AddRange(tmp.Skip(1));
                 }
             }
 

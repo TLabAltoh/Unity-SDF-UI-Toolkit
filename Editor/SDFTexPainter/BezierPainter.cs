@@ -548,7 +548,7 @@ namespace TLab.UI.SDF.Editor
 
                     for (int j = 0; j < splines[i].Length; j++)
                     {
-                        splinesN[j] = splines[i][j];
+                        splinesN[splinesOffset + j] = splines[i][j];
                     }
 
                     splinesOffset += splines[i].Length;
