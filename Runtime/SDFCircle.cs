@@ -20,6 +20,8 @@ namespace TLab.UI.SDF
 		[Range(0, 1), SerializeField]
 		public float m_max = 1;
 
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
+
 		public float radius
 		{
 			get => m_radius;
@@ -92,15 +94,9 @@ namespace TLab.UI.SDF
 
 		protected override void Refresh()
 		{
-			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
+			base.Refresh();
 
-			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
-
-			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
+			material.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }

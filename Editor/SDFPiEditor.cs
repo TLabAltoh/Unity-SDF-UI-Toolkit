@@ -29,9 +29,20 @@ namespace TLab.UI.SDF.Editor
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onion), "Onion");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onionWidth), "OnionWidth");
 
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadow), "Shadow");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowWidth), "ShadowWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowBlur), "ShadowBlur");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowPower), "shadowPower");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowColor), "ShadowColor");
+
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
+
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTexture), "Texture");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTextureScale), "Scale");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTextureOffset), "Offset");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainColor), "MainColor");
 
 			serializedObject.ApplyModifiedProperties();
 

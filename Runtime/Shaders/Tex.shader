@@ -1,17 +1,14 @@
 Shader "UI/SDF/Tex" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
+        [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
+        [HideInInspector] _Stencil("Stencil ID", Float) = 0
+        [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
+        [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
+        [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
+        [HideInInspector] _ColorMask("Color Mask", Float) = 15
+        [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
-    // --- Mask support ---
-    [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
-    [HideInInspector] _Stencil("Stencil ID", Float) = 0
-    [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
-    [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
-    [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
-    [HideInInspector] _ColorMask("Color Mask", Float) = 15
-    [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
-
-        // Definition in Properties section is required to Mask works properly
         _SDFTex("SDFTex", 2D) = "white" {}
 
         _radius("radius", float) = 0.0
@@ -19,13 +16,17 @@ Shader "UI/SDF/Tex" {
 
         _outlineColor("outlineColor", Color) = (0.0, 0.0, 0.0, 0.0)
         _outlineWidth("outlineWidth", float) = 0.1
-            // ---
     }
 
         SubShader{
-            Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+            Tags {
+                "Queue" = "Transparent"
+                "IgnoreProjector" = "True"
+                "RenderType" = "Transparent"
+                "PreviewType" = "Plane"
+                "CanUseSpriteAtlas" = "True"
+            }
 
-            // --- Mask support ---
             Stencil {
                 Ref[_Stencil]
                 Comp[_StencilComp]
@@ -34,13 +35,11 @@ Shader "UI/SDF/Tex" {
                 WriteMask[_StencilWriteMask]
             }
             Cull Off
+            ZWrite Off
             Lighting Off
             ZTest[unity_GUIZTestMode]
             ColorMask[_ColorMask]
-            // ---
-
             Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-            ZWrite Off
 
             Pass {
                 CGPROGRAM
@@ -62,11 +61,19 @@ Shader "UI/SDF/Tex" {
                 int _onion;
                 float _onionWidth;
 
+                float _shadowWidth;
+                float _shadowBlur;
+                float _shadowPower;
+                float4 _shadowColor;
+
                 float _outlineWidth;
                 float4 _outlineColor;
 
                 sampler2D _SDFTex;
                 sampler2D _MainTex;
+                float4 _MainTex_ST;
+                float4 _SDFTex_ST;
+                fixed4 _Color;
                 float4 _ClipRect;
                 fixed4 _TextureSampleAdd;
 
@@ -76,7 +83,7 @@ Shader "UI/SDF/Tex" {
                     i.uv.x = 1.0 - swapY;
                     i.uv.y = swapX;
 
-                    half4 color = (tex2D(_MainTex, i.uv) + _TextureSampleAdd) * i.color;
+                    half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * i.color * _Color;
 
                     #ifdef UNITY_UI_CLIP_RECT
                     color.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
@@ -99,17 +106,27 @@ Shader "UI/SDF/Tex" {
                         dist = abs(dist) - _onionWidth;
                     }
 
-                    float alpha = antialiasedCutoff(dist);
+                    float delta = fwidth(dist);
 
-                    #ifdef UNITY_UI_ALPHACLIP
-                    clip(alpha - 0.001 - _outlineWidth);
-                    #endif
+                    float graphicAlpha = 1 - smoothstep(-delta, 0, dist);
+                    float outlineAlpha = (1 - smoothstep(_outlineWidth - delta, _outlineWidth, dist));
+                    float shadowAlpha = (1 - smoothstep(_shadowWidth - _shadowBlur - delta, _shadowWidth, dist));
 
-                    if (-dist < _outlineWidth) {
-                        i.color = _outlineColor;
-                    }
+                    shadowAlpha *= pow(shadowAlpha, _shadowPower) * _shadowColor.a;
+                    outlineAlpha *= _outlineColor.a;
+                    graphicAlpha *= color.a;
 
-                    return mixAlpha(tex2D(_MainTex, i.uv), i.color, alpha);
+                    half4 effects = lerp(
+                        lerp(
+                            half4(_shadowColor.rgb, shadowAlpha),
+                            half4(_outlineColor.rgb, outlineAlpha),
+                            outlineAlpha
+                        ),
+                        half4(color.rgb, graphicAlpha),
+                        graphicAlpha
+                    );
+
+                    return effects;
                 }
 
                 ENDCG

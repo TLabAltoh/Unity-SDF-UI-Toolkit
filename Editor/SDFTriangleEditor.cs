@@ -26,46 +26,13 @@ namespace TLab.UI.SDF.Editor
 			m_instance = target as SDFTriangle;
 		}
 
-		private void DrawInput()
+		private void Draw()
 		{
-			var rectT = m_instance.GetComponent<RectTransform>();
-
-			m_area = EditorUtil.CreatePreviewArea((float)rectT.rect.height / rectT.rect.width);
+			var rectT = m_instance.gameObject.transform as RectTransform;
 
 			var rectTSize = new Vector2(rectT.rect.width, rectT.rect.height);
 
-			var rectTPosition = EditorUtil.RectToRectTransform(Event.current.mousePosition, m_area, rectTSize);
-
-			if (Event.current.rawType == EventType.MouseDown && Event.current.button == 0)
-			{
-				if (EditorUtil.CheckArea(Event.current.mousePosition, m_area))
-				{
-					for (int i = 0; i < m_corners.Length; i++)
-					{
-						var prop = serializedObject.FindProperty(m_corners[i]);
-
-						if (Vector2.Distance(rectTPosition, prop.vector2Value) < 10)
-						{
-							m_index = i;
-
-							break;
-						}
-					}
-				}
-			}
-			else if (Event.current.rawType == EventType.MouseDrag && Event.current.button == 0)
-			{
-				if (m_index != -1 && EditorUtil.CheckArea(Event.current.mousePosition, m_area))
-				{
-					var prop = serializedObject.FindProperty(m_corners[m_index]);
-
-					prop.vector2Value = rectTPosition;
-				}
-			}
-			else if (Event.current.rawType == EventType.MouseUp && Event.current.button == 0)
-			{
-				m_index = -1;
-			}
+			m_area = EditorUtil.CreatePreviewArea((float)rectT.rect.height / rectT.rect.width);
 
 			var corners = new Vector3[3];
 
@@ -90,6 +57,77 @@ namespace TLab.UI.SDF.Editor
 			}
 		}
 
+		private void Edit()
+		{
+			var rectT = m_instance.gameObject.transform as RectTransform;
+
+			var rectTSize = new Vector2(rectT.rect.width, rectT.rect.height);
+
+			var rectTPosition = EditorUtil.RectToRectTransform(Event.current.mousePosition, m_area, rectTSize);
+
+			if (Event.current.button == 0)
+			{
+				switch (Event.current.rawType)
+				{
+					case EventType.MouseDown:
+						{
+							if (EditorUtil.CheckArea(Event.current.mousePosition, m_area))
+							{
+								for (int i = 0; i < m_corners.Length; i++)
+								{
+									var corner = Vector2.zero;
+
+									switch (i)
+									{
+										case 0:
+											corner = m_instance.corner0;
+											break;
+										case 1:
+											corner = m_instance.corner1;
+											break;
+										case 2:
+											corner = m_instance.corner2;
+											break;
+									}
+
+									if (Vector2.Distance(rectTPosition, corner) < 10)
+									{
+										m_index = i;
+
+										break;
+									}
+								}
+							}
+						}
+						break;
+					case EventType.MouseDrag:
+						{
+							if (m_index != -1 && EditorUtil.CheckArea(Event.current.mousePosition, m_area))
+							{
+								switch (m_index)
+								{
+									case 0:
+										m_instance.corner0 = rectTPosition;
+										break;
+									case 1:
+										m_instance.corner1 = rectTPosition;
+										break;
+									case 2:
+										m_instance.corner2 = rectTPosition;
+										break;
+								}
+							}
+						}
+						break;
+					case EventType.MouseUp:
+						{
+							m_index = -1;
+						}
+						break;
+				}
+			}
+		}
+
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
@@ -102,13 +140,31 @@ namespace TLab.UI.SDF.Editor
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onion), "Onion");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.onionWidth), "OnionWidth");
 
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadow), "Shadow");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowWidth), "ShadowWidth");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowBlur), "ShadowBlur");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowPower), "shadowPower");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowColor), "ShadowColor");
+
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
 
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTexture), "Texture");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTextureScale), "Scale");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTextureOffset), "Offset");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainColor), "MainColor");
+
 			EditorGUILayout.Space();
 
-			DrawInput();
+			Draw();
+
+			serializedObject.Call(() =>
+			{
+				Edit();
+
+				EditorUtility.SetDirty(m_instance);
+			});
 
 			EditorGUILayout.Space();
 

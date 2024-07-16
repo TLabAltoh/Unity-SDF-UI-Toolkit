@@ -8,37 +8,20 @@ using UnityEngine;
 
 namespace TLab.UI.SDF
 {
-	internal static class DestroyHelper
-	{
-		internal static void Destroy(Object @object)
-		{
-#if UNITY_EDITOR
-			if (Application.isPlaying)
-			{
-				Object.Destroy(@object);
-			}
-			else
-			{
-				Object.DestroyImmediate(@object);
-			}
-#else
-			Object.Destroy(@object);
-#endif
-		}
-	}
-
 	public class SDFQuad : SDFUI
 	{
 		private static readonly string SHAPE_NAME = "Quad";
 
 		[SerializeField] private bool m_independent = true;
 
-		[SerializeField] private float m_radius = 40;
+		[SerializeField, Min(0)] private float m_radius = 40;
 
-		[SerializeField] private float m_radiusX = 40;
-		[SerializeField] private float m_radiusY = 40;
-		[SerializeField] private float m_radiusZ = 40;
-		[SerializeField] private float m_radiusW = 40;
+		[SerializeField, Min(0)] private float m_radiusX = 40;
+		[SerializeField, Min(0)] private float m_radiusY = 40;
+		[SerializeField, Min(0)] private float m_radiusZ = 40;
+		[SerializeField, Min(0)] private float m_radiusW = 40;
+
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
 
 		public bool independent
 		{
@@ -154,6 +137,8 @@ namespace TLab.UI.SDF
 
 		protected override void Refresh()
 		{
+			base.Refresh();
+
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 
 			var corners = m_independent ? new Vector4(m_radiusX, m_radiusY, m_radiusZ, m_radiusW) : Vector4.one * m_radius;
@@ -176,14 +161,7 @@ namespace TLab.UI.SDF
 				corners.w = shortest;
 			}
 
-			m_material.SetVector(PROP_RADIUSE, corners);
-			m_material.SetVector(PROP_HALFSIZE, halfRect);
-
-			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
-
-			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
+			material.SetVector(PROP_RADIUSE, corners);
 		}
 	}
 }
