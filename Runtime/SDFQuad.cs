@@ -21,7 +21,7 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] private float m_radiusZ = 40;
 		[SerializeField, Min(0)] private float m_radiusW = 40;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 
 		public bool independent
 		{

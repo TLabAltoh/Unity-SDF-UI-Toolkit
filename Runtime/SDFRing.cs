@@ -18,9 +18,9 @@ namespace TLab.UI.SDF
 		[Range(0, Mathf.PI), SerializeField]
 		private float m_theta = Mathf.PI * 0.5f;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
-		public static readonly int PROP_THETA = Shader.PropertyToID("_theta");
-		public static readonly int PROP_WIDTH = Shader.PropertyToID("_width");
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
+		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
 
 		public float radius
 		{

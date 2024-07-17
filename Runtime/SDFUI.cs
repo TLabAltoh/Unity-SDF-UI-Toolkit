@@ -25,23 +25,24 @@ namespace TLab.UI.SDF
 	[ExecuteInEditMode]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
+	[RequireComponent(typeof(CanvasRenderer))]
 	public class SDFUI : MaskableGraphic
 	{
-		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_halfSize");
-		public static readonly int PROP_PADDING = Shader.PropertyToID("_padding");
+		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
+		public static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
 
-		public static readonly int PROP_ONION = Shader.PropertyToID("_onion");
-		public static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_onionWidth");
+		public static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
+		public static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
 
 		public static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
 
-		public static readonly int PROP_SHADOWWIDTH = Shader.PropertyToID("_shadowWidth");
-		public static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_shadowBlur");
-		public static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_shadowPower");
-		public static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_shadowColor");
+		public static readonly int PROP_SHADOWWIDTH = Shader.PropertyToID("_ShadowWidth");
+		public static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_ShadowBlur");
+		public static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_ShadowPower");
+		public static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
 
-		public static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_outlineColor");
-		public static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_outlineWidth");
+		public static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
+		public static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
 
 		[Header("Onion Option")]
 
@@ -279,11 +280,32 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public override Material material
+		{
+			get
+			{
+				if (m_Material != null)
+				{
+					return m_Material;
+				}
+
+				return defaultMaterial;
+			}
+
+			set
+			{
+				base.material = value;
+			}
+		}
+
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
 
 		protected virtual void Validate(string shape)
 		{
-			material = new Material(Shader.Find("UI/SDF/" + shape));
+			if (material == null)
+			{
+				material = new Material(Shader.Find("UI/SDF/" + shape));
+			}
 
 			m_mask = GetComponent<Mask>();
 		}

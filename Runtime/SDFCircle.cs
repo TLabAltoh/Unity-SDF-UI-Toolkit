@@ -20,7 +20,7 @@ namespace TLab.UI.SDF
 		[Range(0, 1), SerializeField]
 		public float m_max = 1;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 
 		public float radius
 		{

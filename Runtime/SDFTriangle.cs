@@ -11,8 +11,6 @@ namespace TLab.UI.SDF
 {
 	public class SDFTriangle : SDFUI
 	{
-		private static readonly int PROP_CORNER = Shader.PropertyToID("_corners");
-
 		private static readonly string SHAPE_NAME = "Triangle";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
@@ -20,7 +18,10 @@ namespace TLab.UI.SDF
 		[SerializeField] private Vector2 m_corner1 = new Vector2(45f, -45f);
 		[SerializeField] private Vector2 m_corner2 = new Vector2(0f, 45f);
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		private static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
+		private static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
+		private static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
 
 		public float radius
 		{
@@ -110,12 +111,10 @@ namespace TLab.UI.SDF
 		{
 			base.Refresh();
 
-			var corners = new List<Vector4>();
-			corners.Add(m_corner0);
-			corners.Add(m_corner1);
-			corners.Add(m_corner2);
 			material.SetFloat(PROP_RADIUSE, m_radius);
-			material.SetVectorArray(PROP_CORNER, corners);
+			material.SetVector(PROP_CORNER0, m_corner0);
+			material.SetVector(PROP_CORNER1, m_corner1);
+			material.SetVector(PROP_CORNER2, m_corner2);
 		}
 	}
 }

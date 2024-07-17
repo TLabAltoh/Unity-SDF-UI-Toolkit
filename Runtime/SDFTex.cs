@@ -11,13 +11,13 @@ namespace TLab.UI.SDF
 {
 	public class SDFTex : SDFUI
 	{
-		private static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
 		private static readonly string SHAPE_NAME = "Tex";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Texture2D m_sdfTexture;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_radius");
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		private static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
 
 		public float radius
 		{
