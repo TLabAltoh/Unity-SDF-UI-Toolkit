@@ -12,9 +12,12 @@ namespace TLab.UI.SDF
 	{
 		private static readonly string SHAPE_NAME = "CutDisk";
 
-		[SerializeField] private float m_radius = 40;
+		[SerializeField, Min(0)] private float m_radius = 40;
 
-		[SerializeField] private float m_height = 10;
+		[SerializeField, Min(0)] private float m_height = 10;
+
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		public static readonly int PROP_HEIGHT = Shader.PropertyToID("_Height");
 
 		public float radius
 		{
@@ -74,16 +77,10 @@ namespace TLab.UI.SDF
 
 		protected override void Refresh()
 		{
-			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
-			m_material.SetFloat(PROP_HEIGHT, m_height);
+			base.Refresh();
 
-			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
-
-			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
+			material.SetFloat(PROP_HEIGHT, m_height);
+			material.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }

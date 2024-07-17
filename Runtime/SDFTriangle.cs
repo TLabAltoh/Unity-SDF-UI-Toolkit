@@ -11,14 +11,17 @@ namespace TLab.UI.SDF
 {
 	public class SDFTriangle : SDFUI
 	{
-		private static readonly int PROP_CORNER = Shader.PropertyToID("_corners");
-
 		private static readonly string SHAPE_NAME = "Triangle";
 
-		[SerializeField] private float m_radius = 40;
+		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);
 		[SerializeField] private Vector2 m_corner1 = new Vector2(45f, -45f);
 		[SerializeField] private Vector2 m_corner2 = new Vector2(0f, 45f);
+
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		private static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
+		private static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
+		private static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
 
 		public float radius
 		{
@@ -106,20 +109,12 @@ namespace TLab.UI.SDF
 
 		protected override void Refresh()
 		{
-			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			var corners = new List<Vector4>();
-			corners.Add(m_corner0);
-			corners.Add(m_corner1);
-			corners.Add(m_corner2);
-			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
-			m_material.SetVectorArray(PROP_CORNER, corners);
+			base.Refresh();
 
-			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
-
-			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
+			material.SetFloat(PROP_RADIUSE, m_radius);
+			material.SetVector(PROP_CORNER0, m_corner0);
+			material.SetVector(PROP_CORNER1, m_corner1);
+			material.SetVector(PROP_CORNER2, m_corner2);
 		}
 	}
 }

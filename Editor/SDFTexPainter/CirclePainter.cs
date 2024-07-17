@@ -119,6 +119,10 @@ namespace TLab.UI.SDF.Editor
                         Handles.color = Color.white;
                         Handles.DrawWireDisc(anchor, normal, radius + thickness);
                         break;
+                    case Draw.WINDING:
+                        Handles.color = Color.cyan;
+                        Handles.DrawWireDisc(anchor, normal, radius + thickness);
+                        break;
                 }
 
                 handles.Add(anchor);

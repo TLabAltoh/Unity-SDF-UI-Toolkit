@@ -1,46 +1,54 @@
 Shader "UI/SDF/Pie" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
+        [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
+        [HideInInspector] _Stencil("Stencil ID", Float) = 0
+        [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
+        [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
+        [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
+        [HideInInspector] _ColorMask("Color Mask", Float) = 15
+        [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
-    // --- Mask support ---
-    [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
-    [HideInInspector] _Stencil("Stencil ID", Float) = 0
-    [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
-    [HideInInspector] _StencilWriteMask("Stencil Write Mask", Float) = 255
-    [HideInInspector] _StencilReadMask("Stencil Read Mask", Float) = 255
-    [HideInInspector] _ColorMask("Color Mask", Float) = 15
-    [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
+        [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _Padding("Padding", Float) = 0
 
-        // Definition in Properties section is required to Mask works properly
-        _theta("theta", float) = 0.0
+        _Radius("Radius", Float) = 0
+        _Theta("Theta", Float) = 0
 
-        _radius("radius", float) = 0.0
-        _halfSize("halfSize", Vector) = (0,0,0,0)
+        _Onion("Onion", Float) = 0
+        _OnionWidth("Onion Width", Float) = 0
 
-        _outlineColor("outlineColor", Color) = (0.0, 0.0, 0.0, 0.0)
-        _outlineWidth("outlineWidth", float) = 0.0
-        // ---
+        _ShadowWidth("Shadow Width", Float) = 0
+        _ShadowBlur("Shadow Blur", Float) = 0
+        _ShadowPower("Shadow Power", Float) = 0
+        _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+
+        _OutlineWidth("Outline Width", Float) = 0
+        _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
 
-        SubShader{
-            Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+    SubShader{
+        Tags {
+            "Queue" = "Transparent"
+            "IgnoreProjector" = "True"
+            "RenderType" = "Transparent"
+            "PreviewType" = "Plane"
+            "CanUseSpriteAtlas" = "True"
+        }
 
-            // --- Mask support ---
-            Stencil {
-                Ref[_Stencil]
-                Comp[_StencilComp]
-                Pass[_StencilOp]
-                ReadMask[_StencilReadMask]
-                WriteMask[_StencilWriteMask]
-            }
-            Cull Off
-            Lighting Off
-            ZTest[unity_GUIZTestMode]
-            ColorMask[_ColorMask]
-        // ---
-
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Stencil {
+            Ref[_Stencil]
+            Comp[_StencilComp]
+            Pass[_StencilOp]
+            ReadMask[_StencilReadMask]
+            WriteMask[_StencilWriteMask]
+        }
+        Cull Off
         ZWrite Off
+        Lighting Off
+        ZTest[unity_GUIZTestMode]
+        ColorMask[_ColorMask]
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
 
         Pass {
             CGPROGRAM
@@ -56,53 +64,75 @@ Shader "UI/SDF/Pie" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-            float _theta;
-            float _radius;
-            float4 _halfSize;
+            float _Theta;
+            float _Radius;
+            float4 _HalfSize;
 
-            int _onion;
-            float _onionWidth;
+            float _Padding;
 
-            float _outlineWidth;
-            float4 _outlineColor;
+            int _Onion;
+            float _OnionWidth;
+
+            float _ShadowWidth;
+            float _ShadowBlur;
+            float _ShadowPower;
+            float4 _ShadowColor;
+
+            float _OutlineWidth;
+            float4 _OutlineColor;
 
             sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed4 _Color;
             float4 _ClipRect;
             fixed4 _TextureSampleAdd;
 
-            fixed4 frag(v2f i) : SV_Target {
-                half4 color = (tex2D(_MainTex, i.uv) + _TextureSampleAdd) * i.color;
+            fixed4 frag(v2f i) : SV_Target{
 
-                #ifdef UNITY_UI_CLIP_RECT
-                color.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
-                #endif
+                float2 normalizedPadding = float2(_Padding / (_HalfSize.x * 2), _Padding / (_HalfSize.y * 2));
 
-                #ifdef UNITY_UI_ALPHACLIP
-                clip(color.a - 0.001);
-                #endif
+                i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
-                if (color.a <= 0) {
-                    return color;
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * i.color * _Color;
+
+                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
+                float dist = _Theta >= 3.14 ? length(p) - _Radius : sdPie(p, float2(sin(_Theta), cos(_Theta)), _Radius);
+
+                if (_Onion) {
+                    dist = abs(dist) - _OnionWidth;
                 }
 
-                float2 p = (i.uv - .5) * (_halfSize + _onionWidth) * 2;
-                float dist = _theta >= 3.14 ? length(p) - _radius : sdPie(p, float2(sin(_theta), cos(_theta)), _radius);
+                float delta = fwidth(dist);
 
-                if (_onion) {
-                    dist = abs(dist) - _onionWidth;
-                }
+                float graphicAlpha = 1 - smoothstep(-delta, 0, dist);
+                float outlineAlpha = (1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist));
+                float shadowAlpha = (1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth, dist));
 
-                float alpha = antialiasedCutoff(dist);
+                shadowAlpha *= pow(shadowAlpha, _ShadowPower) * _ShadowColor.a;
+                outlineAlpha *= _OutlineColor.a;
+                graphicAlpha *= color.a;
 
-                #ifdef UNITY_UI_ALPHACLIP
-                clip(alpha - 0.001 - _outlineWidth);
-                #endif
+                half4 effects = lerp(
+                    lerp(
+                        half4(_ShadowColor.rgb, shadowAlpha),
+                        half4(_OutlineColor.rgb, outlineAlpha),
+                        outlineAlpha
+                    ),
+                    half4(color.rgb, graphicAlpha),
+                    graphicAlpha
+                );
 
-                if (-dist < _outlineWidth) {
-                    i.color = _outlineColor;
-                }
+                half t = effects.a - 0.001;
 
-                return mixAlpha(tex2D(_MainTex, i.uv), i.color, alpha);
+#ifdef UNITY_UI_CLIP_RECT
+                effects.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
+#endif
+
+#ifdef UNITY_UI_ALPHACLIP
+                clip(effects.a - 0.001 > 0.0 ? 1 : -1);
+#endif
+
+                return effects;
             }
 
             ENDCG

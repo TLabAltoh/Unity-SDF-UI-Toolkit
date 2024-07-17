@@ -12,10 +12,13 @@ namespace TLab.UI.SDF
 	{
 		private static readonly string SHAPE_NAME = "Pie";
 
-		[SerializeField] private float m_radius = 40;
+		[SerializeField, Min(0)] private float m_radius = 40;
 
 		[Range(0, Mathf.PI), SerializeField]
 		private float m_theta = Mathf.PI * 0.5f;
+
+		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
 
 		public float radius
 		{
@@ -75,16 +78,10 @@ namespace TLab.UI.SDF
 
 		protected override void Refresh()
 		{
-			var halfRect = ((RectTransform)transform).rect.size * .5f;
-			m_material.SetVector(PROP_HALFSIZE, halfRect);
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
-			m_material.SetFloat(PROP_THETA, m_theta);
+			base.Refresh();
 
-			m_material.SetInt(PROP_ONION, m_onion ? 1 : 0);
-			m_material.SetFloat(PROP_ONIONWIDTH, m_onion ? m_onionWidth : 0);
-
-			m_material.SetFloat(PROP_OUTLINEWIDTH, m_outline ? m_outlineWidth : 0);
-			m_material.SetColor(PROP_OUTLINECOLOR, m_outline ? m_outlineColor : alpha0);
+			material.SetFloat(PROP_THETA, m_theta);
+			material.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }

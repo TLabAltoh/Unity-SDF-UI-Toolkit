@@ -1,6 +1,6 @@
 # Unity-SDF-UI-Toolkit
 
-This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor. Additional shapes implemented based on [this article](https://iquilezles.org/articles/distfunctions2d/) (not all)
+This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov) and [Unity-UI-SDF](https://github.com/BlenMiner/Unity-UI-SDF) created by [BlenMiner](https://github.com/BlenMiner). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor. Additional shapes implemented based on [this article](https://iquilezles.org/articles/distfunctions2d/) (not all)
 
 ## Screenshot
 <table>

@@ -19,13 +19,13 @@ MonoBehaviour:
   sdfSettings:
     maxDist: 20
   shape: 0
-  previewMode: 1
+  previewMode: 0
   circlePainter:
     handleRadius: 10
     handleColor: {r: 0, g: 1, b: 0, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    editMode: 0
+    editMode: 1
     radius: 40
     thickness: 5
     draw: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
       radius: 80
       thickness: 20
       draw: 1
-    - position: {x: 130.60452, y: -138.46541}
+    - position: {x: 132.99481, y: -132.11304}
       radius: 80
       thickness: 40
       draw: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
       radius: 120
       thickness: 40
       draw: 2
-    - position: {x: -83.862404, y: -78.55878}
+    - position: {x: -94.618706, y: -83.64066}
       radius: 80
       thickness: 5
       draw: 2
@@ -53,7 +53,7 @@ MonoBehaviour:
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    showSpline: 1
+    showSpline: 0
     split: 0
     maxNum: 25
     maxErr: 25
