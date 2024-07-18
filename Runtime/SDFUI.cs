@@ -355,12 +355,6 @@ namespace TLab.UI.SDF
 			{
 				DestroyHelper.Destroy(other2);
 			}
-
-			var image = GetComponent<Image>();
-			if (image != null)
-			{
-				DestroyHelper.Destroy(image);
-			}
 		}
 
 		protected override void OnDestroy()
