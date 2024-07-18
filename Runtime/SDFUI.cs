@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 namespace TLab.UI.SDF
 {
@@ -72,7 +73,7 @@ namespace TLab.UI.SDF
 
 		[Header("Main")]
 
-		[SerializeField] protected Texture m_mainTexture;
+		[SerializeField] protected Sprite m_sprite;
 
 		[SerializeField] protected Vector2 m_mainTextureScale = Vector2.one;
 
@@ -82,9 +83,11 @@ namespace TLab.UI.SDF
 
 		protected Material m_material;
 
+		protected Sprite m_overrideSprite;
+
 		protected Mask m_mask;
 
-		protected float m_extraMargin => Mathf.Max(m_outlineWidth, m_shadowWidth);
+		protected float m_extraMargin => Mathf.Max(m_outline ? m_outlineWidth : 0, m_shadow ? m_shadowWidth : 0);
 
 		public bool onion
 		{
@@ -95,7 +98,7 @@ namespace TLab.UI.SDF
 				{
 					m_onion = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -109,7 +112,7 @@ namespace TLab.UI.SDF
 				{
 					m_onionWidth = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -123,7 +126,7 @@ namespace TLab.UI.SDF
 				{
 					m_shadow = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -137,7 +140,7 @@ namespace TLab.UI.SDF
 				{
 					m_shadowWidth = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -151,7 +154,7 @@ namespace TLab.UI.SDF
 				{
 					m_shadowBlur = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -165,7 +168,7 @@ namespace TLab.UI.SDF
 				{
 					m_shadowPower = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -179,7 +182,7 @@ namespace TLab.UI.SDF
 				{
 					m_shadowColor = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -193,7 +196,7 @@ namespace TLab.UI.SDF
 				{
 					m_outline = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -207,7 +210,7 @@ namespace TLab.UI.SDF
 				{
 					m_outlineWidth = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -221,22 +224,74 @@ namespace TLab.UI.SDF
 				{
 					m_outlineColor = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
 
-		public new Texture mainTexture
+		public Sprite sprite
 		{
-			get => (material != null) ? material.mainTexture : Texture2D.whiteTexture;
+			get => m_sprite;
 			set
 			{
-				m_mainTexture = value;
-
-				if (material != null)
+				if (m_sprite != null)
 				{
-					material.mainTexture = m_mainTexture;
+					if (m_sprite != value)
+					{
+						m_SkipLayoutUpdate = m_sprite.rect.size.Equals(value ? value.rect.size : Vector2.zero);
+						m_SkipMaterialUpdate = m_sprite.texture == (value ? value.texture : null);
+						m_sprite = value;
+
+						SetAllDirty();
+					}
 				}
+				else if (value != null)
+				{
+					m_SkipLayoutUpdate = value.rect.size == Vector2.zero;
+					m_SkipMaterialUpdate = value.texture == null;
+					m_sprite = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Sprite overrideSprite
+		{
+			get => activeSprite;
+			set
+			{
+				if (m_overrideSprite != value)
+				{
+					m_overrideSprite = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		private Sprite activeSprite
+		{
+			get
+			{
+				return m_overrideSprite != null ? m_overrideSprite : sprite;
+			}
+		}
+
+		public override Texture mainTexture
+		{
+			get
+			{
+				if (activeSprite == null)
+				{
+					if (material != null && material.mainTexture != null)
+					{
+						return material.mainTexture;
+					}
+					return s_WhiteTexture;
+				}
+
+				return activeSprite.texture;
 			}
 		}
 
@@ -245,11 +300,11 @@ namespace TLab.UI.SDF
 			get => m_mainTextureOffset;
 			set
 			{
-				m_mainTextureOffset = value;
-
-				if (material != null)
+				if (m_mainTextureOffset != value)
 				{
-					material.mainTextureOffset = m_mainTextureOffset;
+					m_mainTextureOffset = value;
+
+					SetAllDirty();
 				}
 			}
 		}
@@ -259,11 +314,11 @@ namespace TLab.UI.SDF
 			get => m_mainTextureScale;
 			set
 			{
-				m_mainTextureScale = value;
-
-				if (material != null)
+				if (m_mainTextureScale != value)
 				{
-					material.mainTextureScale = m_mainTextureScale;
+					m_mainTextureScale = value;
+
+					SetAllDirty();
 				}
 			}
 		}
@@ -273,11 +328,11 @@ namespace TLab.UI.SDF
 			get => (material != null) ? material.color : Color.white;
 			set
 			{
-				m_mainColor = value;
-
-				if (material != null)
+				if (m_mainColor != value)
 				{
-					material.color = m_mainColor;
+					m_mainColor = value;
+
+					SetAllDirty();
 				}
 			}
 		}
@@ -286,33 +341,42 @@ namespace TLab.UI.SDF
 		{
 			get
 			{
-				return m_material;
+				if (m_Material != null)
+				{
+					return m_Material;
+				}
+
+				return defaultMaterial;
 			}
 
 			set
 			{
-				m_material = value;
+				base.material = value;
 			}
 		}
 
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
 
+		/// <summary>
+		/// This function must be called before calling the set material dirty function.
+		/// </summary>
+		/// <param name="shape"></param>
 		protected virtual void Validate(string shape)
 		{
-			if (material == null)
+			if (m_material == null)
 			{
-				material = new Material(Shader.Find("UI/SDF/" + shape));
+				m_material = new Material(Shader.Find("UI/SDF/" + shape));
 			}
+
+			material = m_material;
 
 			m_mask = GetComponent<Mask>();
 		}
 
 		protected virtual void OnUpdateDimentions()
 		{
-			if (enabled && material != null)
+			if (enabled && m_material != null)
 			{
-				Refresh();
-
 				if (m_mask != null)
 				{
 					var old = m_mask.enabled;
@@ -338,19 +402,12 @@ namespace TLab.UI.SDF
 			OnUpdateDimentions();
 		}
 
-		protected override void OnValidate()
+		protected virtual void DeleteOldMat()
 		{
-			base.OnValidate();
-		}
-
-		protected override void OnEnable()
-		{
-			base.OnEnable();
-
-			var other2 = GetComponent<SDFUI>();
-			if (other2 != null && other2 != this)
+			var others = GetComponent<SDFUI>();
+			if (others != null && others != this)
 			{
-				DestroyHelper.Destroy(other2);
+				DestroyHelper.Destroy(others);
 			}
 		}
 
@@ -358,8 +415,8 @@ namespace TLab.UI.SDF
 		{
 			base.OnDestroy();
 
-			DestroyHelper.Destroy(material);
-			material = null;
+			DestroyHelper.Destroy(m_material);
+			m_material = null;
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)
@@ -371,22 +428,24 @@ namespace TLab.UI.SDF
 
 			var pivot = new Vector3(rectTransform.pivot.x * width, rectTransform.pivot.y * height, 0);
 
+			var extraMargin = m_extraMargin;
+
 			var vertex = UIVertex.simpleVert;
 			vertex.color = color;
 
-			vertex.position = new Vector3(-m_extraMargin, -m_extraMargin) - pivot;
+			vertex.position = new Vector3(-extraMargin, -extraMargin) - pivot;
 			vertex.uv0 = new Vector2(0, 0);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(-m_extraMargin, height + m_extraMargin) - pivot;
+			vertex.position = new Vector3(-extraMargin, height + extraMargin) - pivot;
 			vertex.uv0 = new Vector2(0, 1);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(width + m_extraMargin, height + m_extraMargin) - pivot;
+			vertex.position = new Vector3(width + extraMargin, height + extraMargin) - pivot;
 			vertex.uv0 = new Vector2(1, 1);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(width + m_extraMargin, -m_extraMargin) - pivot;
+			vertex.position = new Vector3(width + extraMargin, -extraMargin) - pivot;
 			vertex.uv0 = new Vector2(1, 0);
 			vh.AddVert(vertex);
 
@@ -401,61 +460,63 @@ namespace TLab.UI.SDF
 
 			canvasRenderer.materialCount = 1;
 			canvasRenderer.SetMaterial(materialForRendering, 0);
-			canvasRenderer.SetTexture(mainTexture);
+			canvasRenderer.SetTexture((activeSprite == null) ? s_WhiteTexture : activeSprite.texture);
 		}
 
-		protected virtual void Refresh()
+		public override void SetMaterialDirty()
 		{
-			material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
+			base.SetMaterialDirty();
 
-			material.mainTexture = m_mainTexture;
-			material.mainTextureScale = m_mainTextureScale;
-			material.mainTextureOffset = m_mainTextureOffset;
-			material.color = m_mainColor;
+			m_material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
+
+			m_material.mainTexture = (activeSprite == null) ? s_WhiteTexture : activeSprite.texture;
+			m_material.mainTextureScale = m_mainTextureScale;
+			m_material.mainTextureOffset = m_mainTextureOffset;
+			m_material.color = m_mainColor;
 
 			if (m_onion)
 			{
-				material.SetInt(PROP_ONION, 1);
-				material.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
+				m_material.SetInt(PROP_ONION, 1);
+				m_material.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
 			}
 			else
 			{
-				material.SetInt(PROP_ONION, 0);
-				material.SetFloat(PROP_ONIONWIDTH, 0);
+				m_material.SetInt(PROP_ONION, 0);
+				m_material.SetFloat(PROP_ONIONWIDTH, 0);
 			}
 
 			float shadowWidth = m_shadowWidth;
 
 			if (m_shadow)
 			{
-				material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				material.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
+				m_material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
+				m_material.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
 			}
 			else
 			{
 				shadowWidth = 0;
-				material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				material.SetColor(PROP_SHADOWCOLOR, alpha0);
+				m_material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
+				m_material.SetColor(PROP_SHADOWCOLOR, alpha0);
 			}
 
-			material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
-			material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
+			m_material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
+			m_material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
 
 			float outlineWidth = m_outlineWidth;
 
 			if (m_outline)
 			{
-				material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				material.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
+				m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
+				m_material.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
 			}
 			else
 			{
 				outlineWidth = 0;
-				material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				material.SetColor(PROP_OUTLINECOLOR, alpha0);
+				m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
+				m_material.SetColor(PROP_OUTLINECOLOR, alpha0);
 			}
 
-			material.SetFloat(PROP_PADDING, Mathf.Max(outlineWidth, shadowWidth));
+			m_material.SetFloat(PROP_PADDING, m_extraMargin);
 		}
 	}
 }

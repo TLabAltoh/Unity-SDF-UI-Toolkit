@@ -31,7 +31,7 @@ namespace TLab.UI.SDF
 				{
 					m_radius = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -45,7 +45,7 @@ namespace TLab.UI.SDF
 				{
 					m_min = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -59,7 +59,7 @@ namespace TLab.UI.SDF
 				{
 					m_max = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -67,36 +67,26 @@ namespace TLab.UI.SDF
 #if UNITY_EDITOR
 		protected override void OnValidate()
 		{
-			base.OnValidate();
-
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnValidate();
 		}
 #endif
 
 		protected override void OnEnable()
 		{
-			base.OnEnable();
+			DeleteOldMat();
 
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnEnable();
 		}
 
-		protected override void OnRectTransformDimensionsChange()
+		public override void SetMaterialDirty()
 		{
-			base.OnRectTransformDimensionsChange();
-		}
+			base.SetMaterialDirty();
 
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-		}
-
-		protected override void Refresh()
-		{
-			base.Refresh();
-
-			material.SetFloat(PROP_RADIUSE, m_radius);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }

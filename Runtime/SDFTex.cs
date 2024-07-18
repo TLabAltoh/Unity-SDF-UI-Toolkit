@@ -28,7 +28,7 @@ namespace TLab.UI.SDF
 				{
 					m_radius = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -42,7 +42,7 @@ namespace TLab.UI.SDF
 				{
 					m_sdfTexture = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -50,29 +50,19 @@ namespace TLab.UI.SDF
 #if UNITY_EDITOR
 		protected override void OnValidate()
 		{
-			base.OnValidate();
-
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnValidate();
 		}
 #endif
 
 		protected override void OnEnable()
 		{
-			base.OnEnable();
+			DeleteOldMat();
 
 			Validate(SHAPE_NAME);
-			Refresh();
-		}
 
-		protected override void OnRectTransformDimensionsChange()
-		{
-			base.OnRectTransformDimensionsChange();
-		}
-
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
+			base.OnEnable();
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)
@@ -107,59 +97,14 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		protected override void Refresh()
+		public override void SetMaterialDirty()
 		{
-			material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
+			base.SetMaterialDirty();
 
-			material.mainTexture = m_mainTexture;
-			material.mainTextureScale = m_mainTextureScale;
-			material.mainTextureOffset = m_mainTextureOffset;
-			material.color = m_mainColor;
+			m_material.SetFloat(PROP_PADDING, 0);   // Override
 
-			if (m_onion)
-			{
-				material.SetInt(PROP_ONION, 1);
-				material.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
-			}
-			else
-			{
-				material.SetInt(PROP_ONION, 0);
-				material.SetFloat(PROP_ONIONWIDTH, 0);
-			}
-
-			float shadowWidth = m_shadowWidth;
-
-			if (m_shadow)
-			{
-				material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				material.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
-			}
-			else
-			{
-				shadowWidth = 0;
-				material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				material.SetColor(PROP_SHADOWCOLOR, alpha0);
-			}
-
-			material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
-			material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
-
-			float outlineWidth = m_outlineWidth;
-
-			if (m_outline)
-			{
-				material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				material.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
-			}
-			else
-			{
-				outlineWidth = 0;
-				material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				material.SetColor(PROP_OUTLINECOLOR, alpha0);
-			}
-
-			material.SetFloat(PROP_RADIUSE, m_radius);
-			material.SetTexture(PROP_SDFTEX, m_sdfTexture);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
+			m_material.SetTexture(PROP_SDFTEX, m_sdfTexture);
 		}
 	}
 }
