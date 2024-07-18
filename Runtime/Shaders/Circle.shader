@@ -106,8 +106,8 @@ Shader "UI/SDF/Circle" {
                 float outlineAlpha = (1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist));
                 float shadowAlpha = (1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth, dist));
 
-                shadowAlpha *= pow(shadowAlpha, _ShadowPower) * _ShadowColor.a;
-                outlineAlpha *= _OutlineColor.a;
+                shadowAlpha *= pow(shadowAlpha, _ShadowPower) * _ShadowColor.a * i.color.a;
+                outlineAlpha *= _OutlineColor.a * i.color.a;
                 graphicAlpha *= color.a;
 
                 half4 effects = lerp(
