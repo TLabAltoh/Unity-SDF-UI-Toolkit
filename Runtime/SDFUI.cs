@@ -80,6 +80,8 @@ namespace TLab.UI.SDF
 
 		[SerializeField] protected Color m_mainColor = Color.white;
 
+		protected Material m_material;
+
 		protected Mask m_mask;
 
 		protected float m_extraMargin => Mathf.Max(m_outlineWidth, m_shadowWidth);
@@ -284,17 +286,12 @@ namespace TLab.UI.SDF
 		{
 			get
 			{
-				if (m_Material != null)
-				{
-					return m_Material;
-				}
-
-				return defaultMaterial;
+				return m_material;
 			}
 
 			set
 			{
-				base.material = value;
+				m_material = value;
 			}
 		}
 
