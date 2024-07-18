@@ -32,7 +32,7 @@ namespace TLab.UI.SDF
 				{
 					m_radius = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace TLab.UI.SDF
 				{
 					m_corner0 = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -60,7 +60,7 @@ namespace TLab.UI.SDF
 				{
 					m_corner1 = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -74,7 +74,7 @@ namespace TLab.UI.SDF
 				{
 					m_corner2 = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -82,39 +82,29 @@ namespace TLab.UI.SDF
 #if UNITY_EDITOR
 		protected override void OnValidate()
 		{
-			base.OnValidate();
-
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnValidate();
 		}
 #endif
 
 		protected override void OnEnable()
 		{
-			base.OnEnable();
+			DeleteOldMat();
 
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnEnable();
 		}
 
-		protected override void OnRectTransformDimensionsChange()
+		public override void SetMaterialDirty()
 		{
-			base.OnRectTransformDimensionsChange();
-		}
+			base.SetMaterialDirty();
 
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-		}
-
-		protected override void Refresh()
-		{
-			base.Refresh();
-
-			material.SetFloat(PROP_RADIUSE, m_radius);
-			material.SetVector(PROP_CORNER0, m_corner0);
-			material.SetVector(PROP_CORNER1, m_corner1);
-			material.SetVector(PROP_CORNER2, m_corner2);
+			m_material.SetFloat(PROP_RADIUSE, m_radius);
+			m_material.SetVector(PROP_CORNER0, m_corner0);
+			m_material.SetVector(PROP_CORNER1, m_corner1);
+			m_material.SetVector(PROP_CORNER2, m_corner2);
 		}
 	}
 }

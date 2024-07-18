@@ -32,7 +32,7 @@ namespace TLab.UI.SDF
 				{
 					m_independent = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace TLab.UI.SDF
 				{
 					m_radius = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -60,7 +60,7 @@ namespace TLab.UI.SDF
 				{
 					m_radiusX = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -74,7 +74,7 @@ namespace TLab.UI.SDF
 				{
 					m_radiusY = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -88,7 +88,7 @@ namespace TLab.UI.SDF
 				{
 					m_radiusZ = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -102,7 +102,7 @@ namespace TLab.UI.SDF
 				{
 					m_radiusW = value;
 
-					Refresh();
+					SetAllDirty();
 				}
 			}
 		}
@@ -110,34 +110,24 @@ namespace TLab.UI.SDF
 #if UNITY_EDITOR
 		protected override void OnValidate()
 		{
-			base.OnValidate();
-
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnValidate();
 		}
 #endif
 
 		protected override void OnEnable()
 		{
-			base.OnEnable();
+			DeleteOldMat();
 
 			Validate(SHAPE_NAME);
-			Refresh();
+
+			base.OnEnable();
 		}
 
-		protected override void OnRectTransformDimensionsChange()
+		public override void SetMaterialDirty()
 		{
-			base.OnRectTransformDimensionsChange();
-		}
-
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-		}
-
-		protected override void Refresh()
-		{
-			base.Refresh();
+			base.SetMaterialDirty();
 
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 
@@ -161,7 +151,7 @@ namespace TLab.UI.SDF
 				corners.w = shortest;
 			}
 
-			material.SetVector(PROP_RADIUSE, corners);
+			m_material.SetVector(PROP_RADIUSE, corners);
 		}
 	}
 }
