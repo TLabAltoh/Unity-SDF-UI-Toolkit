@@ -11,7 +11,8 @@ namespace TLab.UI.SDF
 {
 	public class SDFTex : SDFUI
 	{
-		private static readonly string SHAPE_NAME = "Tex";
+		protected override string OUTLINE_INSIDE => "UI/SDF/Tex/Outline/Inside";
+		protected override string OUTLINE_OUTSIDE => "UI/SDF/Tex/Outline/Outside";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Texture2D m_sdfTexture;
@@ -45,24 +46,6 @@ namespace TLab.UI.SDF
 					SetAllDirty();
 				}
 			}
-		}
-
-#if UNITY_EDITOR
-		protected override void OnValidate()
-		{
-			Validate(SHAPE_NAME);
-
-			base.OnValidate();
-		}
-#endif
-
-		protected override void OnEnable()
-		{
-			DeleteOldMat();
-
-			Validate(SHAPE_NAME);
-
-			base.OnEnable();
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)

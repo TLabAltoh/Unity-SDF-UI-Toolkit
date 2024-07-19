@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 namespace TLab.UI.SDF
 {
@@ -29,6 +28,9 @@ namespace TLab.UI.SDF
 	[RequireComponent(typeof(CanvasRenderer))]
 	public class SDFUI : MaskableGraphic
 	{
+		protected virtual string OUTLINE_INSIDE => "";
+		protected virtual string OUTLINE_OUTSIDE => "";
+
 		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		public static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
 
@@ -41,9 +43,16 @@ namespace TLab.UI.SDF
 		public static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_ShadowBlur");
 		public static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_ShadowPower");
 		public static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
+		public static readonly int PROP_SHADOWOFFSET = Shader.PropertyToID("_ShadowOffset");
 
 		public static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
 		public static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
+
+		public enum OutlineType
+		{
+			INSIDE,
+			OUTSIDE
+		}
 
 		[Header("Onion Option")]
 
@@ -61,6 +70,8 @@ namespace TLab.UI.SDF
 
 		[SerializeField, Min(0f)] protected float m_shadowPower = 1f;
 
+		[SerializeField] protected Vector2 m_shadowOffset;
+
 		[SerializeField] protected Color m_shadowColor = Color.black;
 
 		[Header("Outline Option")]
@@ -70,6 +81,8 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
 
 		[SerializeField] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
+
+		[SerializeField] protected OutlineType m_outlineType = OutlineType.INSIDE;
 
 		[Header("Main")]
 
@@ -83,11 +96,29 @@ namespace TLab.UI.SDF
 
 		protected Material m_material;
 
+		protected Material m_materialOutlineInside;
+
+		protected Material m_materialOutlineOutside;
+
 		protected Sprite m_overrideSprite;
 
 		protected Mask m_mask;
 
-		protected float m_extraMargin => Mathf.Max(m_outline ? m_outlineWidth : 0, m_shadow ? m_shadowWidth : 0);
+		protected float m_extraMargin
+		{
+			get
+			{
+				switch (m_outlineType)
+				{
+					case OutlineType.INSIDE:
+						return m_shadow ? m_shadowWidth : 0;
+					case OutlineType.OUTSIDE:
+						return Mathf.Max(m_outline ? m_outlineWidth : 0, m_shadow ? m_shadowWidth : 0);
+				}
+
+				return 0;
+			}
+		}
 
 		public bool onion
 		{
@@ -139,6 +170,20 @@ namespace TLab.UI.SDF
 				if (m_shadowWidth != value)
 				{
 					m_shadowWidth = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 shadowOffset
+		{
+			get => m_shadowOffset;
+			set
+			{
+				if (m_shadowOffset != value)
+				{
+					m_shadowOffset = value;
 
 					SetAllDirty();
 				}
@@ -223,6 +268,22 @@ namespace TLab.UI.SDF
 				if (m_outlineColor != value)
 				{
 					m_outlineColor = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public OutlineType outlineType
+		{
+			get => m_outlineType;
+			set
+			{
+				if (m_outlineType != value)
+				{
+					m_outlineType = value;
+
+					CreateMaterial();
 
 					SetAllDirty();
 				}
@@ -357,20 +418,55 @@ namespace TLab.UI.SDF
 
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
 
-		/// <summary>
-		/// This function must be called before calling the set material dirty function.
-		/// </summary>
-		/// <param name="shape"></param>
-		protected virtual void Validate(string shape)
+		protected virtual void CreateMaterial()
 		{
-			if (m_material == null)
+			switch (m_outlineType)
 			{
-				m_material = new Material(Shader.Find("UI/SDF/" + shape));
+				case OutlineType.INSIDE:
+					if (m_materialOutlineInside == null)
+					{
+						m_materialOutlineInside = new Material(Shader.Find(OUTLINE_INSIDE));
+					}
+					m_material = m_materialOutlineInside;
+					break;
+				case OutlineType.OUTSIDE:
+					if (m_materialOutlineOutside == null)
+					{
+						m_materialOutlineOutside = new Material(Shader.Find(OUTLINE_OUTSIDE));
+					}
+					m_material = m_materialOutlineOutside;
+					break;
 			}
 
 			material = m_material;
+		}
+
+		/// <summary>
+		/// This function must be called before calling the set material dirty function.
+		/// </summary>
+		protected virtual void Validate()
+		{
+			CreateMaterial();
 
 			m_mask = GetComponent<Mask>();
+		}
+
+#if UNITY_EDITOR
+		protected override void OnValidate()
+		{
+			Validate();
+
+			base.OnValidate();
+		}
+#endif
+
+		protected override void OnEnable()
+		{
+			DeleteOldMat();
+
+			Validate();
+
+			base.OnEnable();
 		}
 
 		protected virtual void OnUpdateDimentions()
@@ -415,7 +511,18 @@ namespace TLab.UI.SDF
 		{
 			base.OnDestroy();
 
-			DestroyHelper.Destroy(m_material);
+			if (m_materialOutlineInside)
+			{
+				DestroyHelper.Destroy(m_materialOutlineInside);
+				m_materialOutlineInside = null;
+			}
+
+			if (m_materialOutlineOutside)
+			{
+				DestroyHelper.Destroy(m_materialOutlineOutside);
+				m_materialOutlineOutside = null;
+			}
+
 			m_material = null;
 		}
 
@@ -430,23 +537,54 @@ namespace TLab.UI.SDF
 
 			var extraMargin = m_extraMargin;
 
+			var shadowExpand = Vector4.zero;
+
+			if (m_shadowOffset.x < 0)
+			{
+				shadowExpand.x = m_shadowOffset.x;
+				shadowExpand.y = 0;
+			}
+			else
+			{
+				shadowExpand.y = m_shadowOffset.x;
+				shadowExpand.x = 0;
+			}
+
+			if (m_shadowOffset.y < 0)
+			{
+				shadowExpand.z = m_shadowOffset.y;
+				shadowExpand.w = 0;
+			}
+			else
+			{
+				shadowExpand.w = m_shadowOffset.y;
+				shadowExpand.z = 0;
+			}
+
+			var uvScale = new Vector2(width / (2 * extraMargin + width), height / (2 * extraMargin + height));
+			var uvExpand = new Vector4(shadowExpand.x / width, shadowExpand.y / width, shadowExpand.z / height, shadowExpand.w / height);
+			uvExpand.x = uvExpand.x * uvScale.x;
+			uvExpand.y = uvExpand.y * uvScale.x;
+			uvExpand.z = uvExpand.z * uvScale.y;
+			uvExpand.w = uvExpand.w * uvScale.y;
+
 			var vertex = UIVertex.simpleVert;
 			vertex.color = color;
 
-			vertex.position = new Vector3(-extraMargin, -extraMargin) - pivot;
-			vertex.uv0 = new Vector2(0, 0);
+			vertex.position = new Vector3(-extraMargin + shadowExpand.x, -extraMargin + shadowExpand.z) - pivot;
+			vertex.uv0 = new Vector2(uvExpand.x, uvExpand.z);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(-extraMargin, height + extraMargin) - pivot;
-			vertex.uv0 = new Vector2(0, 1);
+			vertex.position = new Vector3(-extraMargin + shadowExpand.x, extraMargin + shadowExpand.w + height) - pivot;
+			vertex.uv0 = new Vector2(uvExpand.x, 1 + uvExpand.w);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(width + extraMargin, height + extraMargin) - pivot;
-			vertex.uv0 = new Vector2(1, 1);
+			vertex.position = new Vector3(extraMargin + shadowExpand.y + width, extraMargin + shadowExpand.w + height) - pivot;
+			vertex.uv0 = new Vector2(1 + uvExpand.y, 1 + uvExpand.w);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(width + extraMargin, -extraMargin) - pivot;
-			vertex.uv0 = new Vector2(1, 0);
+			vertex.position = new Vector3(extraMargin + shadowExpand.y + width, -extraMargin + shadowExpand.z) - pivot;
+			vertex.uv0 = new Vector2(1 + uvExpand.y, uvExpand.z);
 			vh.AddVert(vertex);
 
 			vh.AddTriangle(0, 1, 2);
@@ -501,6 +639,7 @@ namespace TLab.UI.SDF
 
 			m_material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
 			m_material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
+			m_material.SetVector(PROP_SHADOWOFFSET, new Vector4(m_shadowOffset.x / rectTransform.rect.width, m_shadowOffset.y / rectTransform.rect.height, m_shadowOffset.x, m_shadowOffset.y));
 
 			float outlineWidth = m_outlineWidth;
 

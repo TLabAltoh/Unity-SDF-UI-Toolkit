@@ -35,10 +35,12 @@ namespace TLab.UI.SDF.Editor
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowBlur), "ShadowBlur");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowPower), "shadowPower");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowColor), "ShadowColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.shadowOffset), "ShadowOffset");
 
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outline), "Outline");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineWidth), "OutlineWidth");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineColor), "OutlineColor");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.outlineType), "OutlineType");
 
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.sprite), "Frame");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.mainTextureScale), "Scale");

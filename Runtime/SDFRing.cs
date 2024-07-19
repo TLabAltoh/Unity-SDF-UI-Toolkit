@@ -10,7 +10,8 @@ namespace TLab.UI.SDF
 {
 	public class SDFRing : SDFUI
 	{
-		private static readonly string SHAPE_NAME = "Ring";
+		protected override string OUTLINE_INSIDE => "UI/SDF/Ring/Outline/Inside";
+		protected override string OUTLINE_OUTSIDE => "UI/SDF/Ring/Outline/Outside";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField, Min(0)] private float m_width = 10;
@@ -62,24 +63,6 @@ namespace TLab.UI.SDF
 					SetAllDirty();
 				}
 			}
-		}
-
-#if UNITY_EDITOR
-		protected override void OnValidate()
-		{
-			Validate(SHAPE_NAME);
-
-			base.OnValidate();
-		}
-#endif
-
-		protected override void OnEnable()
-		{
-			DeleteOldMat();
-
-			Validate(SHAPE_NAME);
-
-			base.OnEnable();
 		}
 
 		public override void SetMaterialDirty()

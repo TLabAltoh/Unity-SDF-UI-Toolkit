@@ -10,7 +10,8 @@ namespace TLab.UI.SDF
 {
 	public class SDFArc : SDFUI
 	{
-		private static readonly string SHAPE_NAME = "Arc";
+		protected override string OUTLINE_INSIDE => "UI/SDF/Arc/Outline/Inside";
+		protected override string OUTLINE_OUTSIDE => "UI/SDF/Arc/Outline/Outside";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField, Min(0)] private float m_width = 10;
@@ -62,24 +63,6 @@ namespace TLab.UI.SDF
 					SetAllDirty();
 				}
 			}
-		}
-
-#if UNITY_EDITOR
-		protected override void OnValidate()
-		{
-			Validate(SHAPE_NAME);
-
-			base.OnValidate();
-		}
-#endif
-
-		protected override void OnEnable()
-		{
-			DeleteOldMat();
-
-			Validate(SHAPE_NAME);
-
-			base.OnEnable();
 		}
 
 		public override void SetMaterialDirty()

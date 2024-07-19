@@ -11,7 +11,8 @@ namespace TLab.UI.SDF
 {
 	public class SDFTriangle : SDFUI
 	{
-		private static readonly string SHAPE_NAME = "Triangle";
+		protected override string OUTLINE_INSIDE => "UI/SDF/Triangle/Outline/Inside";
+		protected override string OUTLINE_OUTSIDE => "UI/SDF/Triangle/Outline/Outside";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);
@@ -77,24 +78,6 @@ namespace TLab.UI.SDF
 					SetAllDirty();
 				}
 			}
-		}
-
-#if UNITY_EDITOR
-		protected override void OnValidate()
-		{
-			Validate(SHAPE_NAME);
-
-			base.OnValidate();
-		}
-#endif
-
-		protected override void OnEnable()
-		{
-			DeleteOldMat();
-
-			Validate(SHAPE_NAME);
-
-			base.OnEnable();
 		}
 
 		public override void SetMaterialDirty()
