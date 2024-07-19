@@ -10,7 +10,8 @@ namespace TLab.UI.SDF
 {
 	public class SDFQuad : SDFUI
 	{
-		private static readonly string SHAPE_NAME = "Quad";
+		protected override string OUTLINE_INSIDE => "UI/SDF/Quad/Outline/Inside";
+		protected override string OUTLINE_OUTSIDE => "UI/SDF/Quad/Outline/Outside";
 
 		[SerializeField] private bool m_independent = true;
 
@@ -105,24 +106,6 @@ namespace TLab.UI.SDF
 					SetAllDirty();
 				}
 			}
-		}
-
-#if UNITY_EDITOR
-		protected override void OnValidate()
-		{
-			Validate(SHAPE_NAME);
-
-			base.OnValidate();
-		}
-#endif
-
-		protected override void OnEnable()
-		{
-			DeleteOldMat();
-
-			Validate(SHAPE_NAME);
-
-			base.OnEnable();
 		}
 
 		public override void SetMaterialDirty()

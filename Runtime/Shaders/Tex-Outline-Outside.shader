@@ -1,4 +1,4 @@
-Shader "UI/SDF/Ring" {
+Shader "UI/SDF/Tex/Outline/Outside" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -12,9 +12,9 @@ Shader "UI/SDF/Ring" {
         [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
 
+        _SDFTex("SDFTex", 2D) = "white" {}
+
         _Radius("Radius", Float) = 0
-        _Width("Width", Float) = 0
-        _Theta("Theta", Float) = 0
 
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
@@ -23,6 +23,7 @@ Shader "UI/SDF/Ring" {
         _ShadowBlur("Shadow Blur", Float) = 0
         _ShadowPower("Shadow Power", Float) = 0
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
@@ -65,12 +66,8 @@ Shader "UI/SDF/Ring" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-            float _Theta;
-            float _Width;
             float _Radius;
             float4 _HalfSize;
-
-            float _Padding;
 
             int _Onion;
             float _OnionWidth;
@@ -79,50 +76,62 @@ Shader "UI/SDF/Ring" {
             float _ShadowBlur;
             float _ShadowPower;
             float4 _ShadowColor;
+            float4 _ShadowOffset;
 
             float _OutlineWidth;
             float4 _OutlineColor;
 
+            sampler2D _SDFTex;
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _SDFTex_ST;
             fixed4 _Color;
             float4 _ClipRect;
             fixed4 _TextureSampleAdd;
 
             fixed4 frag(v2f i) : SV_Target{
+                float swapX = i.uv.x;
+                float swapY = i.uv.y;
+                i.uv.x = 1.0 - swapY;
+                i.uv.y = swapX;
 
-                float2 normalizedPadding = float2(_Padding / (_HalfSize.x * 2), _Padding / (_HalfSize.y * 2));
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
+                float dist = -(tex2D(_SDFTex, i.uv)).a;
+                dist = dist * 2.0 + 1.0;
+                dist = dist * _HalfSize * 2.0;
+                dist = round(dist, _Radius);
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * i.color * _Color;
-
-                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float dist = sdRing(p, float2(cos(_Theta), sin(_Theta)), _Radius, _Width);
+                float sdist = -(tex2D(_SDFTex, i.uv - _ShadowOffset.xy)).a;
+                sdist = sdist * 2.0 + 1.0;
+                sdist = sdist * _HalfSize * 2.0;
+                sdist = round(sdist, _Radius);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;
+                    sdist = abs(sdist) - _OnionWidth;
                 }
 
                 float delta = fwidth(dist);
+                float sdelta = fwidth(sdist);
 
+                float outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
                 float graphicAlpha = 1 - smoothstep(-delta, 0, dist);
-                float outlineAlpha = (1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist));
-                float shadowAlpha = (1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth, dist));
+                float shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth, sdist);
 
-                shadowAlpha *= pow(shadowAlpha, _ShadowPower) * _ShadowColor.a * i.color.a;
-                outlineAlpha *= _OutlineColor.a * i.color.a;
-                graphicAlpha *= color.a;
+                half4 lerp0 = lerp(
+                    half4(_OutlineColor.rgb, outlineAlpha * _OutlineColor.a),   // crop image by outline area
+                    half4(color.rgb, color.a),
+                    graphicAlpha    // override with graphic alpha
+                );
 
                 half4 effects = lerp(
-                    lerp(
-                        half4(_ShadowColor.rgb, shadowAlpha),
-                        half4(_OutlineColor.rgb, outlineAlpha),
-                        outlineAlpha
-                    ),
-                    half4(color.rgb, graphicAlpha),
-                    graphicAlpha
+                    half4(_ShadowColor.rgb, shadowAlpha * pow(shadowAlpha, _ShadowPower) * _ShadowColor.a),
+                    lerp0,
+                    lerp0.a // override
                 );
+
+                effects *= i.color;
 
                 half t = effects.a - 0.001;
 
