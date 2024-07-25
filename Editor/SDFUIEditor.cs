@@ -93,35 +93,34 @@ namespace TLab.UI.SDF.Editor
 			return text;
 		}
 
-		protected new void AppearanceControlsGUI()
-		{
-			EditorGUILayout.PropertyField(m_Color);
-			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
-		}
-
 		protected virtual void DrawProp()
 		{
-			EditorGUI.indentLevel++;
+			GUIStyle style = new(EditorStyles.boldLabel)
 			{
-				EditorGUILayout.PropertyField(m_Texture);
+				fontSize = 16,
+				contentOffset = new Vector2(15, 0),
+			};
+			EditorGUILayout.LabelField("Fill", style);
+			EditorGUI.indentLevel++;
+			EditorGUILayout.PropertyField(m_Texture);
 
-				if (m_baseInstance.texture)
-				{
-					EditorGUILayout.PropertyField(m_UVRect, m_UVRectContent);
-				}
-
-				AppearanceControlsGUI();
-				RaycastControlsGUI();
-				MaskableControlsGUI();
-				SetShowNativeSize(false);
-				NativeSizeButtonGUI();
+			if (m_baseInstance.texture)
+			{
+				EditorGUILayout.PropertyField(m_UVRect, m_UVRectContent);
 			}
+
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
 			EditorGUI.indentLevel--;
 		}
 
-		protected virtual void DrawCustomProp()
+		protected virtual void DrawShapeProp()
 		{
-
+			GUIStyle style = new(EditorStyles.boldLabel)
+			{
+				fontSize = 16,
+				contentOffset = new Vector2(15, 0),
+			};
+			EditorGUILayout.LabelField("Shape", style);
 		}
 
 		protected virtual void DrawOutlineProp()
@@ -163,19 +162,35 @@ namespace TLab.UI.SDF.Editor
 			EditorGUI.indentLevel--;
 		}
 
+		protected virtual void DrawOtherProp()
+		{
+			EditorGUI.indentLevel++;
+			EditorGUILayout.PropertyField(m_Color);
+			RaycastControlsGUI();
+			MaskableControlsGUI();
+			SetShowNativeSize(false);
+			NativeSizeButtonGUI();
+			EditorGUI.indentLevel--;
+
+		}
+
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
 
 			DrawProp();
 
-			DrawCustomProp();
+			DrawShapeProp();
 
 			DrawOutlineProp();
 
 			DrawOnionProp();
 
 			DrawShadowProp();
+
+			EditorGUILayout.Space();
+
+			DrawOtherProp();
 
 			serializedObject.ApplyModifiedProperties();
 		}

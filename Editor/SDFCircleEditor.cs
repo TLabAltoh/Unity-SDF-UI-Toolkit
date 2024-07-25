@@ -21,8 +21,9 @@ namespace TLab.UI.SDF.Editor
 			m_instance = target as SDFCircle;
 		}
 
-		protected override void DrawCustomProp()
+		protected override void DrawShapeProp()
 		{
+			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
 			EditorGUI.indentLevel--;

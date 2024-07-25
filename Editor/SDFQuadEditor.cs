@@ -23,7 +23,7 @@ namespace TLab.UI.SDF.Editor
 			m_sdfQued = target as SDFQuad;
 		}
 
-		protected override void DrawCustomProp()
+		protected override void DrawShapeProp()
 		{
 			serializedObject.TryDrawLeftToggle("m_" + nameof(m_sdfQued.independent), "Independent Corner");
 			EditorGUI.indentLevel++;

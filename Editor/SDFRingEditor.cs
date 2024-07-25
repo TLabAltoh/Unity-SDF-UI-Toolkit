@@ -8,8 +8,9 @@ namespace TLab.UI.SDF.Editor
 	{
 		private SDFRing m_instance;
 
-		protected override void DrawCustomProp()
+		protected override void DrawShapeProp()
 		{
+			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.theta), "Theta");

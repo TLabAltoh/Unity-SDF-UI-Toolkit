@@ -15,8 +15,9 @@ namespace TLab.UI.SDF.Editor
 			m_instance = target as SDFTex;
 		}
 
-		protected override void DrawCustomProp()
+		protected override void DrawShapeProp()
 		{
+			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.sdfTexture), "SDFTexture");
