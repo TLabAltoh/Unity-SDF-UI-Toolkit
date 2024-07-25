@@ -124,8 +124,9 @@ namespace TLab.UI.SDF.Editor
 			}
 		}
 
-		protected override void DrawCustomProp()
+		protected override void DrawShapeProp()
 		{
+			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner0), "Corner0");
@@ -140,13 +141,17 @@ namespace TLab.UI.SDF.Editor
 
 			DrawProp();
 
-			DrawCustomProp();
+			DrawShapeProp();
 
 			DrawOnionProp();
 
 			DrawOutlineProp();
 
 			DrawShadowProp();
+
+			EditorGUILayout.Space();
+
+			DrawOtherProp();
 
 			EditorGUILayout.Space();
 
