@@ -1,3 +1,5 @@
+using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -523,61 +525,28 @@ namespace TLab.UI.SDF
 		{
 			vh.Clear();
 
-			var width = rectTransform.rect.width;
-			var height = rectTransform.rect.height;
+			float2 shadowOffset = shadow ? m_shadowOffset : float2.zero;
 
-			var pivot = new Vector3(rectTransform.pivot.x * width, rectTransform.pivot.y * height, 0);
-
-			var extraMargin = m_extraMargin;
-
-			var shadowExpand = Vector4.zero;
-
-			if (m_shadowOffset.x < 0)
-			{
-				shadowExpand.x = m_shadowOffset.x;
-				shadowExpand.y = 0;
-			}
-			else
-			{
-				shadowExpand.y = m_shadowOffset.x;
-				shadowExpand.x = 0;
-			}
-
-			if (m_shadowOffset.y < 0)
-			{
-				shadowExpand.z = m_shadowOffset.y;
-				shadowExpand.w = 0;
-			}
-			else
-			{
-				shadowExpand.w = m_shadowOffset.y;
-				shadowExpand.z = 0;
-			}
-
-			var uvScale = new Vector2(width / (2 * extraMargin + width), height / (2 * extraMargin + height));
-			var uvExpand = new Vector4(shadowExpand.x / width, shadowExpand.y / width, shadowExpand.z / height, shadowExpand.w / height);
-			uvExpand.x = uvExpand.x * uvScale.x;
-			uvExpand.y = uvExpand.y * uvScale.x;
-			uvExpand.z = uvExpand.z * uvScale.y;
-			uvExpand.w = uvExpand.w * uvScale.y;
+			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset,
+				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
 			var vertex = UIVertex.simpleVert;
 			vertex.color = color;
 
-			vertex.position = new Vector3(-extraMargin + shadowExpand.x, -extraMargin + shadowExpand.z) - pivot;
-			vertex.uv0 = new Vector2(uvExpand.x, uvExpand.z);
+			vertex.position = vertex0.position;
+			vertex.uv0 = new Vector4(vertex0.uv.x, vertex0.uv.y);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(-extraMargin + shadowExpand.x, extraMargin + shadowExpand.w + height) - pivot;
-			vertex.uv0 = new Vector2(uvExpand.x, 1 + uvExpand.w);
+			vertex.position = vertex1.position;
+			vertex.uv0 = new Vector4(vertex1.uv.x, vertex1.uv.y);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(extraMargin + shadowExpand.y + width, extraMargin + shadowExpand.w + height) - pivot;
-			vertex.uv0 = new Vector2(1 + uvExpand.y, 1 + uvExpand.w);
+			vertex.position = vertex2.position;
+			vertex.uv0 = new Vector4(vertex2.uv.x, vertex2.uv.y);
 			vh.AddVert(vertex);
 
-			vertex.position = new Vector3(extraMargin + shadowExpand.y + width, -extraMargin + shadowExpand.z) - pivot;
-			vertex.uv0 = new Vector2(1 + uvExpand.y, uvExpand.z);
+			vertex.position = vertex3.position;
+			vertex.uv0 = new Vector4(vertex3.uv.x, vertex3.uv.y);
 			vh.AddVert(vertex);
 
 			vh.AddTriangle(0, 1, 2);
@@ -650,5 +619,65 @@ namespace TLab.UI.SDF
 
 			m_material.SetFloat(PROP_PADDING, m_extraMargin);
 		}
+	}
+
+	[BurstCompile]
+	public static class SDFUtils
+	{
+		[BurstCompile]
+		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset,
+			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3)
+		{
+			float3 pivotPoint = new(rectSize * rectPivot, 0);
+			float4 shadowExpand = float4.zero;
+
+			if (shadowOffset.x < 0)
+			{
+				shadowExpand.x = shadowOffset.x;
+				shadowExpand.y = 0;
+			}
+			else
+			{
+				shadowExpand.x = 0;
+				shadowExpand.y = shadowOffset.x;
+			}
+
+			if (shadowOffset.y < 0)
+			{
+				shadowExpand.z = shadowOffset.y;
+				shadowExpand.w = 0;
+			}
+			else
+			{
+				shadowExpand.z = 0;
+				shadowExpand.w = shadowOffset.y;
+			}
+
+			float scaleX = math.mad(2, margin, rectSize.x);
+			float scaleY = math.mad(2, margin, rectSize.y);
+			float4 uvExpand = new(shadowExpand.x / scaleX, shadowExpand.y / scaleX, shadowExpand.z / scaleY, shadowExpand.w / scaleY);
+
+			vertex0 = new VertexData();
+			vertex0.position = new float3(shadowExpand.x - margin, shadowExpand.z - margin, 0) - pivotPoint;
+			vertex0.uv = new float2(uvExpand.x, uvExpand.z);
+
+			vertex1 = new VertexData();
+			vertex1.position = new float3(shadowExpand.x - margin, shadowExpand.w + margin + rectSize.y, 0) - pivotPoint;
+			vertex1.uv = new float2(uvExpand.x, uvExpand.w + 1);
+
+			vertex2 = new VertexData();
+			vertex2.position = new float3(shadowExpand.y + margin + rectSize.x, shadowExpand.w + margin + rectSize.y, 0) - pivotPoint;
+			vertex2.uv = new float2(1 + uvExpand.y, 1 + uvExpand.w);
+
+			vertex3 = new VertexData();
+			vertex3.position = new float3(shadowExpand.y + margin + rectSize.x, shadowExpand.z - margin, 0) - pivotPoint;
+			vertex3.uv = new float2(1 + uvExpand.y, uvExpand.z);
+		}
+	}
+
+	public struct VertexData
+	{
+		public float3 position;
+		public float2 uv;
 	}
 }
