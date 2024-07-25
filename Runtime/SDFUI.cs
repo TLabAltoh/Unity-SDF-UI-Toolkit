@@ -54,13 +54,10 @@ namespace TLab.UI.SDF
 			OUTSIDE
 		}
 
-		[Header("Onion Option")]
 
 		[SerializeField] protected bool m_onion = false;
 
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
-
-		[Header("Shadow Option")]
 
 		[SerializeField] protected bool m_shadow = false;
 
@@ -74,8 +71,6 @@ namespace TLab.UI.SDF
 
 		[SerializeField] protected Color m_shadowColor = Color.black;
 
-		[Header("Outline Option")]
-
 		[SerializeField] protected bool m_outline = true;
 
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
@@ -83,8 +78,6 @@ namespace TLab.UI.SDF
 		[SerializeField] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.INSIDE;
-
-		[Header("Main")]
 
 		[SerializeField] protected Sprite m_sprite;
 
