@@ -28,7 +28,7 @@ namespace TLab.UI.SDF
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
 	[RequireComponent(typeof(CanvasRenderer))]
-	public class SDFUI : MaskableGraphic
+	public class SDFUI : RawImage
 	{
 		protected virtual string OUTLINE_INSIDE => "";
 		protected virtual string OUTLINE_OUTSIDE => "";
@@ -81,13 +81,7 @@ namespace TLab.UI.SDF
 
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.INSIDE;
 
-		[SerializeField] protected Sprite m_sprite;
-
-		[SerializeField] protected Vector2 m_mainTextureScale = Vector2.one;
-
-		[SerializeField] protected Vector2 m_mainTextureOffset = Vector2.zero;
-
-		[SerializeField] protected Color m_mainColor = Color.white;
+		[SerializeField] protected Color m_fillColor = Color.white;
 
 		protected Material m_material;
 
@@ -95,7 +89,7 @@ namespace TLab.UI.SDF
 
 		protected Material m_materialOutlineOutside;
 
-		protected Sprite m_overrideSprite;
+		protected Texture m_overrideTexture;
 
 		protected Mask m_mask;
 
@@ -285,108 +279,36 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public Sprite sprite
+		public Texture overrideTexture
 		{
-			get => m_sprite;
+			get => activeTexture;
 			set
 			{
-				if (m_sprite != null)
+				if (m_overrideTexture != value)
 				{
-					if (m_sprite != value)
-					{
-						m_SkipLayoutUpdate = m_sprite.rect.size.Equals(value ? value.rect.size : Vector2.zero);
-						m_SkipMaterialUpdate = m_sprite.texture == (value ? value.texture : null);
-						m_sprite = value;
-
-						SetAllDirty();
-					}
-				}
-				else if (value != null)
-				{
-					m_SkipLayoutUpdate = value.rect.size == Vector2.zero;
-					m_SkipMaterialUpdate = value.texture == null;
-					m_sprite = value;
+					m_overrideTexture = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Sprite overrideSprite
-		{
-			get => activeSprite;
-			set
-			{
-				if (m_overrideSprite != value)
-				{
-					m_overrideSprite = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		private Sprite activeSprite
+		private Texture activeTexture
 		{
 			get
 			{
-				return m_overrideSprite != null ? m_overrideSprite : sprite;
+				return m_overrideTexture != null ? m_overrideTexture : texture;
 			}
 		}
 
-		public override Texture mainTexture
+		public virtual Color fillColor
 		{
-			get
-			{
-				if (activeSprite == null)
-				{
-					if (material != null && material.mainTexture != null)
-					{
-						return material.mainTexture;
-					}
-					return s_WhiteTexture;
-				}
-
-				return activeSprite.texture;
-			}
-		}
-
-		public Vector2 mainTextureOffset
-		{
-			get => m_mainTextureOffset;
+			get => m_fillColor;
 			set
 			{
-				if (m_mainTextureOffset != value)
+				if (m_fillColor != value)
 				{
-					m_mainTextureOffset = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public Vector2 mainTextureScale
-		{
-			get => m_mainTextureScale;
-			set
-			{
-				if (m_mainTextureScale != value)
-				{
-					m_mainTextureScale = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public Color mainColor
-		{
-			get => (material != null) ? material.color : Color.white;
-			set
-			{
-				if (m_mainColor != value)
-				{
-					m_mainColor = value;
+					m_fillColor = value;
 
 					SetAllDirty();
 				}
@@ -530,24 +452,11 @@ namespace TLab.UI.SDF
 			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset,
 				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
-			var vertex = UIVertex.simpleVert;
-			vertex.color = color;
-
-			vertex.position = vertex0.position;
-			vertex.uv0 = new Vector4(vertex0.uv.x, vertex0.uv.y);
-			vh.AddVert(vertex);
-
-			vertex.position = vertex1.position;
-			vertex.uv0 = new Vector4(vertex1.uv.x, vertex1.uv.y);
-			vh.AddVert(vertex);
-
-			vertex.position = vertex2.position;
-			vertex.uv0 = new Vector4(vertex2.uv.x, vertex2.uv.y);
-			vh.AddVert(vertex);
-
-			vertex.position = vertex3.position;
-			vertex.uv0 = new Vector4(vertex3.uv.x, vertex3.uv.y);
-			vh.AddVert(vertex);
+			var color32 = color;
+			vh.AddVert(vertex0.position, color32, new Vector4(vertex0.uv.x, vertex0.uv.y));
+			vh.AddVert(vertex1.position, color32, new Vector4(vertex1.uv.x, vertex1.uv.y));
+			vh.AddVert(vertex2.position, color32, new Vector4(vertex2.uv.x, vertex2.uv.y));
+			vh.AddVert(vertex3.position, color32, new Vector4(vertex3.uv.x, vertex3.uv.y));
 
 			vh.AddTriangle(0, 1, 2);
 			vh.AddTriangle(2, 3, 0);
@@ -560,7 +469,7 @@ namespace TLab.UI.SDF
 
 			canvasRenderer.materialCount = 1;
 			canvasRenderer.SetMaterial(materialForRendering, 0);
-			canvasRenderer.SetTexture((activeSprite == null) ? s_WhiteTexture : activeSprite.texture);
+			canvasRenderer.SetTexture((activeTexture == null) ? s_WhiteTexture : activeTexture);
 		}
 
 		public override void SetMaterialDirty()
@@ -569,10 +478,10 @@ namespace TLab.UI.SDF
 
 			m_material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
 
-			m_material.mainTexture = (activeSprite == null) ? s_WhiteTexture : activeSprite.texture;
-			m_material.mainTextureScale = m_mainTextureScale;
-			m_material.mainTextureOffset = m_mainTextureOffset;
-			m_material.color = m_mainColor;
+			m_material.mainTexture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
+			m_material.mainTextureScale = new Vector2(uvRect.size.x, uvRect.size.y);
+			m_material.mainTextureOffset = new Vector2(uvRect.x, uvRect.y);
+			m_material.color = m_fillColor;
 
 			if (m_onion)
 			{
