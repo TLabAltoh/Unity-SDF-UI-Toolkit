@@ -11,6 +11,7 @@ Shader "UI/SDF/Tex/Outline/Inside" {
 
         [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
+        [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _SDFTex("SDFTex", 2D) = "white" {}
 
@@ -69,6 +70,9 @@ Shader "UI/SDF/Tex/Outline/Inside" {
             float _Radius;
             float4 _HalfSize;
 
+            float _Padding;
+            float4 _OuterUV;
+
             int _Onion;
             float _OnionWidth;
 
@@ -97,12 +101,16 @@ Shader "UI/SDF/Tex/Outline/Inside" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float dist = -(tex2D(_SDFTex, i.uv)).a;
+                float2 uvSample = i.uv;
+                uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
+                uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
+
+                float dist = -(tex2D(_SDFTex, uvSample)).a;
                 dist = dist * 2.0 + 1.0;
                 dist = dist * _HalfSize * 2.0;
                 dist = round(dist, _Radius);
 
-                float sdist = -(tex2D(_SDFTex, i.uv - _ShadowOffset.xy)).a;
+                float sdist = -(tex2D(_SDFTex, uvSample - _ShadowOffset.xy)).a;
                 sdist = sdist * 2.0 + 1.0;
                 sdist = sdist * _HalfSize * 2.0;
                 sdist = round(sdist, _Radius);

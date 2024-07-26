@@ -11,6 +11,7 @@ Shader "UI/SDF/Arc/Outline/Inside" {
 
         [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
+        [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Float) = 0
         _Width("Width", Float) = 10.0
@@ -72,6 +73,7 @@ Shader "UI/SDF/Arc/Outline/Inside" {
             float4 _HalfSize;
 
             float _Padding;
+            float4 _OuterUV;
 
             int _Onion;
             float _OnionWidth;
@@ -99,8 +101,12 @@ Shader "UI/SDF/Arc/Outline/Inside" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (i.uv - _ShadowOffset.xy - .5) * (_HalfSize + _OnionWidth) * 2;
+                float2 uvSample = i.uv;
+                uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
+                uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
+
+                float2 p = (uvSample - .5) * (_HalfSize + _OnionWidth) * 2;
+                float2 sp = (uvSample - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
 
                 float dist = sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
                 float sdist = sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
