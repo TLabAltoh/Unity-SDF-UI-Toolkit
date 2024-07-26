@@ -355,7 +355,10 @@ namespace TLab.UI.SDF
 					break;
 			}
 
-			material = m_material;
+			if (material != m_material)
+            {
+				material = m_material;
+			}
 		}
 
 		/// <summary>
@@ -364,6 +367,9 @@ namespace TLab.UI.SDF
 		protected virtual void Validate()
 		{
 			CreateMaterial();
+
+			var canvasRenderer = GetComponent<CanvasRenderer>();
+			canvasRenderer.cullTransparentMesh = false;
 
 			m_mask = GetComponent<Mask>();
 		}
