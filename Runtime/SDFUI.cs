@@ -334,6 +334,7 @@ namespace TLab.UI.SDF
 		}
 
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
+		protected float eulerZ = float.NaN;
 
 		protected virtual void CreateMaterial()
 		{
@@ -356,7 +357,7 @@ namespace TLab.UI.SDF
 			}
 
 			if (material != m_material)
-            {
+			{
 				material = m_material;
 			}
 		}
@@ -392,7 +393,17 @@ namespace TLab.UI.SDF
 			base.OnEnable();
 		}
 
-		protected virtual void OnUpdateDimentions()
+		protected virtual void LateUpdate()
+		{
+			if (!Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
+			{
+				eulerZ = rectTransform.eulerAngles.z;
+				SetVerticesDirty();
+				SetMaterialDirty();
+			}
+		}
+
+		protected virtual void OnUpdateDimensions()
 		{
 			if (enabled && m_material != null)
 			{
@@ -411,14 +422,14 @@ namespace TLab.UI.SDF
 		{
 			base.SetLayoutDirty();
 
-			OnUpdateDimentions();
+			OnUpdateDimensions();
 		}
 
 		protected override void OnRectTransformDimensionsChange()
 		{
 			base.OnRectTransformDimensionsChange();
 
-			OnUpdateDimentions();
+			OnUpdateDimensions();
 		}
 
 		protected virtual void DeleteOldMat()
@@ -455,7 +466,7 @@ namespace TLab.UI.SDF
 
 			float2 shadowOffset = shadow ? m_shadowOffset : float2.zero;
 
-			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset,
+			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z,
 				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
 			var color32 = color;
@@ -516,7 +527,8 @@ namespace TLab.UI.SDF
 
 			m_material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
 			m_material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
-			m_material.SetVector(PROP_SHADOWOFFSET, new Vector4(m_shadowOffset.x / rectTransform.rect.width, m_shadowOffset.y / rectTransform.rect.height, m_shadowOffset.x, m_shadowOffset.y));
+			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
+			m_material.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
 			float outlineWidth = m_outlineWidth;
 
@@ -540,32 +552,34 @@ namespace TLab.UI.SDF
 	public static class SDFUtils
 	{
 		[BurstCompile]
-		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset,
+		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation,
 			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3)
 		{
 			float3 pivotPoint = new(rectSize * rectPivot, 0);
 			float4 shadowExpand = float4.zero;
 
-			if (shadowOffset.x < 0)
+			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
+
+			if (rotatedOffset.x < 0)
 			{
-				shadowExpand.x = shadowOffset.x;
+				shadowExpand.x = rotatedOffset.x;
 				shadowExpand.y = 0;
 			}
 			else
 			{
 				shadowExpand.x = 0;
-				shadowExpand.y = shadowOffset.x;
+				shadowExpand.y = rotatedOffset.x;
 			}
 
-			if (shadowOffset.y < 0)
+			if (rotatedOffset.y < 0)
 			{
-				shadowExpand.z = shadowOffset.y;
+				shadowExpand.z = rotatedOffset.y;
 				shadowExpand.w = 0;
 			}
 			else
 			{
 				shadowExpand.z = 0;
-				shadowExpand.w = shadowOffset.y;
+				shadowExpand.w = rotatedOffset.y;
 			}
 
 			float scaleX = math.mad(2, margin, rectSize.x);
@@ -587,6 +601,32 @@ namespace TLab.UI.SDF
 			vertex3 = new VertexData();
 			vertex3.position = new float3(shadowExpand.y + margin + rectSize.x, shadowExpand.z - margin, 0) - pivotPoint;
 			vertex3.uv = new float2(1 + uvExpand.y, uvExpand.z);
+		}
+
+		[BurstCompile]
+		public static void ShadowSizeOffset(in float2 rectSize, in float2 shadowOffset, in float rotation, out float4 sizeOffset)
+		{
+			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
+			sizeOffset = new float4(rotatedOffset / rectSize, rotatedOffset.x, rotatedOffset.y);
+		}
+
+		[BurstCompile]
+		public static void RotateVector(in float2 vector, in float rotation, out float2 rotated)
+		{
+			if (math.abs(rotation) < 0.0001f)
+			{
+				rotated = vector;
+				return;
+			}
+			if (math.abs(vector.x) < 0.0001f && math.abs(vector.y) < 0.0001f)
+			{
+				rotated = vector;
+				return;
+			}
+
+			math.sincos(math.radians(-rotation), out float sin, out float cos);
+			float2x2 matrix = new(cos, -sin, sin, cos);
+			rotated = math.mul(matrix, vector);
 		}
 	}
 
