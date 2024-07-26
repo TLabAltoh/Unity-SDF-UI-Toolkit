@@ -10,9 +10,10 @@ namespace TLab.UI.SDF.Editor
 {
 	public class SDFUIEditor : GraphicEditor
 	{
-		protected SerializedProperty m_Texture;
-		protected SerializedProperty m_UVRect;
-		protected GUIContent m_UVRectContent;
+		protected SerializedProperty m_texture;
+		protected SerializedProperty m_sprite;
+		protected SerializedProperty m_uvRect;
+		protected GUIContent m_uvRectContent;
 		protected SDFUI m_baseInstance;
 
 		protected override void OnEnable()
@@ -24,26 +25,35 @@ namespace TLab.UI.SDF.Editor
 			// Note we have precedence for calling rectangle for just rect, even in the Inspector.
 			// For example in the Camera component's Viewport Rect.
 			// Hence sticking with Rect here to be consistent with corresponding property in the API.
-			m_UVRectContent = EditorGUIUtility.TrTextContent("UV Rect");
+			m_uvRectContent = EditorGUIUtility.TrTextContent("UV Rect");
 
-			m_Texture = serializedObject.FindProperty("m_Texture");
-			m_UVRect = serializedObject.FindProperty("m_UVRect");
+			m_texture = serializedObject.FindProperty("m_texture");
+			m_sprite = serializedObject.FindProperty("m_sprite");
+			m_uvRect = serializedObject.FindProperty("m_uvRect");
 
 			SetShowNativeSize(true);
 		}
 
 		protected void SetShowNativeSize(bool instant)
 		{
-			SetShowNativeSize(m_Texture.objectReferenceValue != null, instant);
+			switch (m_baseInstance.activeImageType)
+			{
+				case SDFUI.ActiveImageType.SPRITE:
+					SetShowNativeSize(m_sprite.objectReferenceValue != null, instant);
+					break;
+				case SDFUI.ActiveImageType.TEXTURE:
+					SetShowNativeSize(m_texture.objectReferenceValue != null, instant);
+					break;
+			}
 		}
 
-		protected static Rect Outer(RawImage rawImage)
+		private static Rect Outer(SDFUI sdfUI)
 		{
-			var outer = rawImage.uvRect;
-			outer.xMin *= rawImage.rectTransform.rect.width;
-			outer.xMax *= rawImage.rectTransform.rect.width;
-			outer.yMin *= rawImage.rectTransform.rect.height;
-			outer.yMax *= rawImage.rectTransform.rect.height;
+			Rect outer = sdfUI.uvRect;
+			outer.xMin *= sdfUI.rectTransform.rect.width;
+			outer.xMax *= sdfUI.rectTransform.rect.width;
+			outer.yMin *= sdfUI.rectTransform.rect.height;
+			outer.yMax *= sdfUI.rectTransform.rect.height;
 			return outer;
 		}
 
@@ -53,11 +63,11 @@ namespace TLab.UI.SDF.Editor
 
 		public override bool HasPreviewGUI()
 		{
-			var rawImage = target as RawImage;
-			if (rawImage == null)
+			SDFUI sdfUI = target as SDFUI;
+			if (sdfUI == null)
 				return false;
 
-			var outer = Outer(rawImage);
+			var outer = Outer(sdfUI);
 			return outer.width > 0 && outer.height > 0;
 		}
 
@@ -67,14 +77,14 @@ namespace TLab.UI.SDF.Editor
 
 		public override void OnPreviewGUI(Rect rect, GUIStyle background)
 		{
-			var rawImage = target as RawImage;
-			var tex = rawImage.mainTexture;
+			SDFUI sdfUI = target as SDFUI;
+			Texture tex = sdfUI.mainTexture;
 
 			if (tex == null)
 				return;
 
-			var outer = Outer(rawImage);
-			SpriteDrawUtility.DrawSprite(tex, rect, outer, rawImage.uvRect, rawImage.canvasRenderer.GetColor());
+			var outer = Outer(sdfUI);
+			SpriteDrawUtility.DrawSprite(tex, rect, outer, sdfUI.uvRect, sdfUI.canvasRenderer.GetColor());
 		}
 
 		/// <summary>
@@ -83,12 +93,12 @@ namespace TLab.UI.SDF.Editor
 
 		public override string GetInfoString()
 		{
-			var rawImage = target as RawImage;
+			SDFUI sdfUI = target as SDFUI;
 
 			// Image size Text
-			var text = string.Format("RawImage Size: {0}x{1}",
-				Mathf.RoundToInt(Mathf.Abs(rawImage.rectTransform.rect.width)),
-				Mathf.RoundToInt(Mathf.Abs(rawImage.rectTransform.rect.height)));
+			string text = string.Format("SDFUI Size: {0}x{1}",
+				Mathf.RoundToInt(Mathf.Abs(sdfUI.rectTransform.rect.width)),
+				Mathf.RoundToInt(Mathf.Abs(sdfUI.rectTransform.rect.height)));
 
 			return text;
 		}
@@ -102,11 +112,25 @@ namespace TLab.UI.SDF.Editor
 			};
 			EditorGUILayout.LabelField("Fill", style);
 			EditorGUI.indentLevel++;
-			EditorGUILayout.PropertyField(m_Texture);
 
-			if (m_baseInstance.texture)
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.activeImageType), "ActiveImageType");
+
+			switch (m_baseInstance.activeImageType)
 			{
-				EditorGUILayout.PropertyField(m_UVRect, m_UVRectContent);
+				case SDFUI.ActiveImageType.SPRITE:
+					EditorGUILayout.PropertyField(m_sprite);
+					if (m_baseInstance.sprite)
+					{
+						EditorGUILayout.PropertyField(m_uvRect, m_uvRectContent);
+					}
+					break;
+				case SDFUI.ActiveImageType.TEXTURE:
+					EditorGUILayout.PropertyField(m_texture);
+					if (m_baseInstance.texture)
+					{
+						EditorGUILayout.PropertyField(m_uvRect, m_uvRectContent);
+					}
+					break;
 			}
 
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");

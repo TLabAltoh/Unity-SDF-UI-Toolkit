@@ -84,6 +84,11 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
+			if (!IsMaterialActive())
+			{
+				return;
+			}
+
 			m_material.SetFloat(PROP_PADDING, 0);   // Override
 
 			m_material.SetFloat(PROP_RADIUSE, m_radius);

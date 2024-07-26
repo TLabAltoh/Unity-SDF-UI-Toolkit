@@ -84,6 +84,11 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
+			if (!IsMaterialActive())
+			{
+				return;
+			}
+
 			m_material.SetFloat(PROP_RADIUSE, m_radius);
 			m_material.SetVector(PROP_CORNER0, m_corner0);
 			m_material.SetVector(PROP_CORNER1, m_corner1);

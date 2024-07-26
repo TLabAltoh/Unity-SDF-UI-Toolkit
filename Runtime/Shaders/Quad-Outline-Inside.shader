@@ -12,6 +12,7 @@ Shader "UI/SDF/Quad/Outline/Inside" {
 
         [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
+        [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Vector) = (0, 0, 0, 0)
 
@@ -69,6 +70,7 @@ Shader "UI/SDF/Quad/Outline/Inside" {
             float4 _HalfSize;
 
             float _Padding;
+            float4 _OuterUV;
 
             int _Onion;
             float _OnionWidth;
@@ -94,10 +96,14 @@ Shader "UI/SDF/Quad/Outline/Inside" {
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
+                float2 texSample;
+                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
+                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
                 float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (i.uv - _ShadowOffset.xy - .5) * (_HalfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
 
                 float dist = sdRoundedBox(p, _HalfSize, _Radius);
                 float sdist = sdRoundedBox(sp, _HalfSize, _Radius);
