@@ -114,8 +114,8 @@ Shader "UI/SDF/Triangle/Outline/Outside" {
                 uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
                 uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
 
-                float2 p = (uvSample - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (uvSample - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
+                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
 
                 float dist = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 float sdist = sdTriangle(sp, _Corner0.xy, _Corner1.xy, _Corner2.xy);

@@ -97,14 +97,14 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
+                float2 texSample;
+                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
+                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
 
-                float2 uvSample = i.uv;
-                uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
-                uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float2 p = (uvSample - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (uvSample - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
+                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
 
                 float dist = sdCutDisk(p, _Radius, _Height);
                 float sdist = sdCutDisk(sp, _Radius, _Height);

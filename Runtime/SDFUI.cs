@@ -2,6 +2,7 @@ using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Sprites;
 
 namespace TLab.UI.SDF
 {
@@ -35,7 +36,6 @@ namespace TLab.UI.SDF
 
 		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		public static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
-		public static readonly int PROP_ROTATION = Shader.PropertyToID("_Rotation");
 		public static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 
 		public static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
@@ -103,6 +103,8 @@ namespace TLab.UI.SDF
 		protected readonly static Vector4 defaultOuterUV = new Vector4(0, 0, 1, 1);
 
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
+
+		protected float eulerZ = float.NaN;
 
 		protected float m_extraMargin
 		{
@@ -533,7 +535,17 @@ namespace TLab.UI.SDF
 			base.OnEnable();
 		}
 
-		protected virtual void ForceUpdateMask()
+		protected virtual void LateUpdate()
+		{
+			if (!Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
+			{
+				eulerZ = rectTransform.eulerAngles.z;
+
+				OnUpdateDimensions();
+			}
+		}
+
+		protected virtual void OnUpdateDimensions()
 		{
 			SetVerticesDirty();
 
@@ -554,14 +566,14 @@ namespace TLab.UI.SDF
 		{
 			base.SetLayoutDirty();
 
-			ForceUpdateMask();
+			OnUpdateDimensions();
 		}
 
 		protected override void OnRectTransformDimensionsChange()
 		{
 			base.OnRectTransformDimensionsChange();
 
-			ForceUpdateMask();
+			OnUpdateDimensions();
 		}
 
 		protected virtual void DeleteOldMat()
@@ -597,34 +609,8 @@ namespace TLab.UI.SDF
 			vh.Clear();
 
 			float2 shadowOffset = shadow ? m_shadowOffset : float2.zero;
-			float rotation = rectTransform.rotation.eulerAngles.z * Mathf.Deg2Rad;
 
-			float2[] uvAtlas = new float2[4]
-			{
-				new float2(0, 0),
-				new float2(0, 1),
-				new float2(1, 1),
-				new float2(1, 0)
-			};
-
-			switch (activeImageType)
-			{
-				case ActiveImageType.SPRITE:
-					var activeSprite = this.activeSprite;
-					if (activeSprite != null && activeSprite.uv.Length == 4)
-					{
-						//uvAtlas[0] = activeSprite.uv[0];
-						//uvAtlas[1] = activeSprite.uv[1];
-						//uvAtlas[2] = activeSprite.uv[2];
-						//uvAtlas[3] = activeSprite.uv[3];
-					}
-					break;
-				case ActiveImageType.TEXTURE:
-					break;
-			}
-
-			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rotation,
-				uvAtlas[0], uvAtlas[1], uvAtlas[2], uvAtlas[3],
+			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z,
 				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
 			var color32 = color;
@@ -660,26 +646,6 @@ namespace TLab.UI.SDF
 			return IsActive() && (material == m_material);
 		}
 
-#if UNITY_EDITOR
-		protected virtual void ConfirmMaterialExist()
-		{
-			CreateMaterial();
-		}
-#endif
-
-		private float m_prebEulerZ = 0f;
-
-		private void Update()
-		{
-			var eulerZ = rectTransform.rotation.eulerAngles.z;
-			if (eulerZ != m_prebEulerZ)
-			{
-				m_prebEulerZ = eulerZ;
-
-				ForceUpdateMask();
-			}
-		}
-
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
@@ -704,7 +670,7 @@ namespace TLab.UI.SDF
 						else
 						{
 							m_material.mainTexture = activeSprite.texture;
-							m_material.SetVector(PROP_OUTERUV, UnityEngine.Sprites.DataUtility.GetOuterUV(activeSprite));
+							m_material.SetVector(PROP_OUTERUV, DataUtility.GetOuterUV(activeSprite));
 						}
 					}
 					break;
@@ -748,7 +714,8 @@ namespace TLab.UI.SDF
 
 			m_material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
 			m_material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
-			m_material.SetVector(PROP_SHADOWOFFSET, new Vector4(m_shadowOffset.x / rectTransform.rect.width, m_shadowOffset.y / rectTransform.rect.height, m_shadowOffset.x, m_shadowOffset.y));
+			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
+			m_material.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
 			float outlineWidth = m_outlineWidth;
 
@@ -765,9 +732,6 @@ namespace TLab.UI.SDF
 			}
 
 			m_material.SetFloat(PROP_PADDING, m_extraMargin);
-
-			var rotation = rectTransform.rotation.eulerAngles.z / 360f;
-			m_material.SetFloat(PROP_ROTATION, rotation);
 		}
 	}
 
@@ -775,50 +739,34 @@ namespace TLab.UI.SDF
 	public static class SDFUtils
 	{
 		[BurstCompile]
-		public static void VectorTransformation(out float2 result, in float2 p, in float rotation)
-		{
-			float sine = math.sin(rotation), cosine = math.cos(rotation);
-			result = new float2(cosine * p.x + sine * p.y, cosine * p.y - sine * p.x);
-		}
-
-		[BurstCompile]
-		public static void VectorTransformation(out float2 result, in float2 p, in float rotation, in float2 scale)
-		{
-			float sine = math.sin(rotation), cosine = math.cos(rotation);
-			result = scale * new float2(cosine * p.x + sine * p.y, cosine * p.y - sine * p.x);
-		}
-
-		[BurstCompile]
-		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin,
-			in float2 shadowOffset, in float rotation,
-			in float2 uvAtlas0, in float2 uvAtlas1, in float2 uvAtlas2, in float2 uvAtlas3,
+		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation,
 			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3)
 		{
 			float3 pivotPoint = new(rectSize * rectPivot, 0);
 			float4 shadowExpand = float4.zero;
 
-			VectorTransformation(out var shadowOffsetRotated, shadowOffset, rotation);
+			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
 
-			if (shadowOffsetRotated.x < 0)
+			if (rotatedOffset.x < 0)
 			{
-				shadowExpand.x = shadowOffsetRotated.x;
+				shadowExpand.x = rotatedOffset.x;
 				shadowExpand.y = 0;
 			}
 			else
 			{
 				shadowExpand.x = 0;
-				shadowExpand.y = shadowOffsetRotated.x;
+				shadowExpand.y = rotatedOffset.x;
 			}
 
-			if (shadowOffsetRotated.y < 0)
+			if (rotatedOffset.y < 0)
 			{
-				shadowExpand.z = shadowOffsetRotated.y;
+				shadowExpand.z = rotatedOffset.y;
 				shadowExpand.w = 0;
 			}
 			else
 			{
 				shadowExpand.z = 0;
-				shadowExpand.w = shadowOffsetRotated.y;
+				shadowExpand.w = rotatedOffset.y;
 			}
 
 			float scaleX = math.mad(2, margin, rectSize.x);
@@ -828,22 +776,44 @@ namespace TLab.UI.SDF
 			vertex0 = new VertexData();
 			vertex0.position = new float3(shadowExpand.x - margin, shadowExpand.z - margin, 0) - pivotPoint;
 			vertex0.uv = new float2(uvExpand.x, uvExpand.z);
-			//VectorTransformation(out vertex0.uv, vertex0.uv, 0, uvAtlas0);
 
 			vertex1 = new VertexData();
 			vertex1.position = new float3(shadowExpand.x - margin, shadowExpand.w + margin + rectSize.y, 0) - pivotPoint;
-			vertex1.uv = new float2(uvExpand.x, uvExpand.w + 1);
-			//VectorTransformation(out vertex1.uv, vertex1.uv, 0, uvAtlas1);
+			vertex1.uv = new float2(uvExpand.x, 1 + uvExpand.w);
 
 			vertex2 = new VertexData();
 			vertex2.position = new float3(shadowExpand.y + margin + rectSize.x, shadowExpand.w + margin + rectSize.y, 0) - pivotPoint;
 			vertex2.uv = new float2(1 + uvExpand.y, 1 + uvExpand.w);
-			//VectorTransformation(out vertex2.uv, vertex2.uv, 0, uvAtlas2);
 
 			vertex3 = new VertexData();
 			vertex3.position = new float3(shadowExpand.y + margin + rectSize.x, shadowExpand.z - margin, 0) - pivotPoint;
 			vertex3.uv = new float2(1 + uvExpand.y, uvExpand.z);
-			//VectorTransformation(out vertex3.uv, vertex3.uv, 0, uvAtlas3);
+		}
+
+		[BurstCompile]
+		public static void ShadowSizeOffset(in float2 rectSize, in float2 shadowOffset, in float rotation, out float4 sizeOffset)
+		{
+			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
+			sizeOffset = new float4(rotatedOffset / rectSize, rotatedOffset.x, rotatedOffset.y);
+		}
+
+		[BurstCompile]
+		public static void RotateVector(in float2 vector, in float rotation, out float2 rotated)
+		{
+			if (math.abs(rotation) < 0.0001f)
+			{
+				rotated = vector;
+				return;
+			}
+			if (math.abs(vector.x) < 0.0001f && math.abs(vector.y) < 0.0001f)
+			{
+				rotated = vector;
+				return;
+			}
+
+			math.sincos(math.radians(-rotation), out float sin, out float cos);
+			float2x2 matrix = new(cos, -sin, sin, cos);
+			rotated = math.mul(matrix, vector);
 		}
 	}
 

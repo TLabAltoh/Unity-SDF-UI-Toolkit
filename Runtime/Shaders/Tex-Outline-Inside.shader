@@ -99,7 +99,11 @@ Shader "UI/SDF/Tex/Outline/Inside" {
                 i.uv.x = 1.0 - swapY;
                 i.uv.y = swapX;
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
+                float2 texSample;
+                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
+                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
                 float2 uvSample = i.uv;
                 uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
