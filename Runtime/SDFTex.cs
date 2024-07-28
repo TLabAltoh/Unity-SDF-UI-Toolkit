@@ -84,10 +84,10 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			m_material.SetFloat(PROP_PADDING, 0);   // Override
+			_materialRecord.SetFloat(PROP_PADDING, 0);   // Override
 
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
-			m_material.SetTexture(PROP_SDFTEX, m_sdfTexture);
+			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
+			_materialRecord.SetTexture(PROP_SDFTEX, m_sdfTexture);
 		}
 	}
 }
