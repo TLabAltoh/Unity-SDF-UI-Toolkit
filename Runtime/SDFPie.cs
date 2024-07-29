@@ -57,7 +57,7 @@ namespace TLab.UI.SDF
 			{
 				return;
 			}
-      
+
 			_materialRecord.SetFloat(PROP_THETA, m_theta);
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 		}

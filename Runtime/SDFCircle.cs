@@ -74,7 +74,7 @@ namespace TLab.UI.SDF
 				return;
 			}
 
-      _materialRecord.SetFloat(PROP_RADIUSE, m_radius);
+			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }

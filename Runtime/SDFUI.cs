@@ -40,7 +40,8 @@ namespace TLab.UI.SDF
 
 		internal static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
-    	internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
+		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
+		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
 
 		internal static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
 		internal static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
@@ -94,10 +95,6 @@ namespace TLab.UI.SDF
 		{
 			useLegacyMeshGeneration = false;
 		}
-
-		protected Material m_material;
-		protected Material m_materialOutlineInside;
-		protected Material m_materialOutlineOutside;
 
 		protected Sprite m_overrideSprite;
 		protected Texture m_overrideTexture;
@@ -423,11 +420,9 @@ namespace TLab.UI.SDF
 		internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
 		private protected MaterialRecord _materialRecord { get; } = new();
 
-		protected readonly static Color alpha0 = new(0, 0, 0, 0);
-		protected float eulerZ = float.NaN;
 		protected bool materialDirty;
-    
-    public Sprite sprite
+
+		public Sprite sprite
 		{
 			get => m_sprite;
 			set
@@ -487,33 +482,6 @@ namespace TLab.UI.SDF
 			SetRaycastDirty();
 		}
 
-    // MEMO: I need to support this option for registory
-		protected virtual void CreateMaterial()
-		{
-			switch (m_outlineType)
-			{
-				case OutlineType.INSIDE:
-					if (m_materialOutlineInside == null)
-					{
-						m_materialOutlineInside = new Material(Shader.Find(OUTLINE_INSIDE));
-					}
-					m_material = m_materialOutlineInside;
-					break;
-				case OutlineType.OUTSIDE:
-					if (m_materialOutlineOutside == null)
-					{
-						m_materialOutlineOutside = new Material(Shader.Find(OUTLINE_OUTSIDE));
-					}
-					m_material = m_materialOutlineOutside;
-					break;
-			}
-
-			if (material != m_material)
-			{
-				material = m_material;
-			}
-		}
-
 		/// <summary>
 		/// This function must be called before calling the set material dirty function.
 		/// </summary>
@@ -542,6 +510,7 @@ namespace TLab.UI.SDF
 			if (EditorApplication.isPlaying)
 #endif
 				SDFUIGraphicsRegistry.AddToRegistry(this);
+
 			base.OnEnable();
 		}
 
@@ -551,6 +520,7 @@ namespace TLab.UI.SDF
 			if (EditorApplication.isPlaying)
 #endif
 				SDFUIGraphicsRegistry.RemoveFromRegistry(this);
+
 			MaterialRegistry.StopUsingMaterial(this);
 
 			base.OnDisable();
@@ -581,8 +551,8 @@ namespace TLab.UI.SDF
 
 		protected virtual void OnUpdateDimensions()
 		{
-      SetVerticesDirty();
-      
+			SetVerticesDirty();
+
 			if (enabled && material != null)
 			{
 				if (m_mask != null)
@@ -650,17 +620,19 @@ namespace TLab.UI.SDF
 
 		public virtual bool IsMaterialActive()
 		{
-			return IsActive() && (material == m_material);
+			return IsActive();
 		}
 
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
 
-      if (!IsMaterialActive())
+			if (!IsMaterialActive())
 			{
 				return;
 			}
+
+			materialDirty = true;
 
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 
@@ -687,15 +659,11 @@ namespace TLab.UI.SDF
 				case ActiveImageType.TEXTURE:
 					{
 						var activeTexture = this.activeTexture;
-            _materialRecord.Texture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
+						_materialRecord.Texture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
 						_materialRecord.SetVector(PROP_OUTERUV, defaultOuterUV);
 					}
 					break;
 			}
-
-			_materialRecord.mainTextureScale = new Vector2(uvRect.size.x, uvRect.size.y);
-			_materialRecord.mainTextureOffset = new Vector2(uvRect.x, uvRect.y);
-			_materialRecord.color = m_fillColor;
 
 			if (m_onion)
 			{
@@ -744,7 +712,6 @@ namespace TLab.UI.SDF
 			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
-			materialDirty = true;
 		}
 	}
 
