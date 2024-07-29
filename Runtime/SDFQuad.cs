@@ -139,7 +139,7 @@ namespace TLab.UI.SDF
 				corners.w = shortest;
 			}
 
-			m_material.SetVector(PROP_RADIUSE, corners);
+			_materialRecord.SetVector(PROP_RADIUSE, corners);
 		}
 	}
 }
