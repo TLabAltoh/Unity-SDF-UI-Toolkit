@@ -20,6 +20,7 @@ namespace TLab.UI.SDF.Editor
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.maxDist), "MaxDist");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.sdfTexture), "SDFTexture");
 			EditorGUI.indentLevel--;
 		}

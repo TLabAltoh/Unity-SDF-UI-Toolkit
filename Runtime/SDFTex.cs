@@ -15,10 +15,12 @@ namespace TLab.UI.SDF
 		protected override string OUTLINE_OUTSIDE => "UI/SDF/Tex/Outline/Outside";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
+		[SerializeField, Min(0)] private float m_maxDist = 50;
 		[SerializeField] private Texture2D m_sdfTexture;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		private static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		private static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
+		private static readonly int PROP_MAXDIST = Shader.PropertyToID("_MaxDist");
 
 		public float radius
 		{
@@ -28,6 +30,20 @@ namespace TLab.UI.SDF
 				if (m_radius != value)
 				{
 					m_radius = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float maxDist
+		{
+			get => m_maxDist;
+			set
+			{
+				if (m_maxDist != value)
+				{
+					m_maxDist = value;
 
 					SetAllDirty();
 				}
@@ -91,6 +107,7 @@ namespace TLab.UI.SDF
 
 			m_material.SetFloat(PROP_PADDING, 0);   // Override
 
+			m_material.SetFloat(PROP_MAXDIST, m_maxDist);
 			m_material.SetFloat(PROP_RADIUSE, m_radius);
 			m_material.SetTexture(PROP_SDFTEX, m_sdfTexture);
 		}

@@ -18,10 +18,10 @@ namespace TLab.UI.SDF.Editor
     [CreateAssetMenu(fileName = "SDF Tex Painter", menuName = "TLab/UI/SDF/SDF Tex Painter")]
     public class SDFTexPainter : ScriptableObject
     {
-        [Range(1, 1024)] public int texWidth = 512;
-        [Range(1, 1024)] public int texHeight = 512;
-        [Range(1, 1024)] public int sdfWidth = 256;
-        [Range(1, 1024)] public int sdfHeight = 256;
+        [Min(0f)] public int texWidth = 512;
+        [Min(0f)] public int texHeight = 512;
+        [Min(0f)] public int sdfWidth = 256;
+        [Min(0f)] public int sdfHeight = 256;
 
         public SDFSettings sdfSettings;
 

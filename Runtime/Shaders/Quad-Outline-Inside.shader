@@ -10,7 +10,7 @@ Shader "UI/SDF/Quad/Outline/Inside" {
         [HideInInspector] _ColorMask("Color Mask", Float) = 15
         [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
-        [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
@@ -67,7 +67,7 @@ Shader "UI/SDF/Quad/Outline/Inside" {
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
             float4 _Radius;
-            float4 _HalfSize;
+            float4 _RectSize;
 
             float _Padding;
             float4 _OuterUV;
@@ -92,7 +92,7 @@ Shader "UI/SDF/Quad/Outline/Inside" {
 
             fixed4 frag(v2f i) : SV_Target{
 
-                float2 normalizedPadding = float2(_Padding / (_HalfSize.x * 2), _Padding / (_HalfSize.y * 2));
+                float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
@@ -102,11 +102,12 @@ Shader "UI/SDF/Quad/Outline/Inside" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
+                float halfSize = _RectSize * .5;
+                float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
-                float dist = sdRoundedBox(p, _HalfSize, _Radius);
-                float sdist = sdRoundedBox(sp, _HalfSize, _Radius);
+                float dist = sdRoundedBox(p, _RectSize * .5, _Radius);
+                float sdist = sdRoundedBox(sp, _RectSize * .5, _Radius);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;
@@ -137,11 +138,11 @@ Shader "UI/SDF/Quad/Outline/Inside" {
                 half t = effects.a - 0.001;
 
 #ifdef UNITY_UI_CLIP_RECT
-                effects.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
+                //effects.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
 #endif
 
 #ifdef UNITY_UI_ALPHACLIP
-                clip(effects.a - 0.001 > 0.0 ? 1 : -1);
+                //clip(effects.a - 0.001 > 0.0 ? 1 : -1);
 #endif
 
                 return effects;

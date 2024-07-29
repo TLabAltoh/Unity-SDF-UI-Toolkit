@@ -34,7 +34,7 @@ namespace TLab.UI.SDF
 		protected virtual string OUTLINE_INSIDE => "";
 		protected virtual string OUTLINE_OUTSIDE => "";
 
-		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
+		public static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
 		public static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
 		public static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 
@@ -655,7 +655,7 @@ namespace TLab.UI.SDF
 				return;
 			}
 
-			m_material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
+			m_material.SetVector(PROP_RECTSIZE, ((RectTransform)transform).rect.size);
 
 			switch (m_activeImageType)
 			{
@@ -728,7 +728,7 @@ namespace TLab.UI.SDF
 			{
 				outlineWidth = 0;
 				m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				m_material.SetColor(PROP_OUTLINECOLOR, alpha0);
+				m_material.SetColor(PROP_OUTLINECOLOR, m_fillColor);
 			}
 
 			m_material.SetFloat(PROP_PADDING, m_extraMargin);

@@ -9,7 +9,7 @@ Shader "UI/SDF/Triangle/Outline/Inside" {
         [HideInInspector] _ColorMask("Color Mask", Float) = 15
         [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
-        [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
@@ -70,7 +70,7 @@ Shader "UI/SDF/Triangle/Outline/Inside" {
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
             float _Radius;
-            float4 _HalfSize;
+            float4 _RectSize;
 
             float _Padding;
             float4 _OuterUV;
@@ -104,7 +104,7 @@ Shader "UI/SDF/Triangle/Outline/Inside" {
                 i.uv.x = swapX;
                 i.uv.y = 1.0 - swapY;
 
-                float2 normalizedPadding = float2(_Padding / (_HalfSize.x * 2), _Padding / (_HalfSize.y * 2));
+                float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
@@ -114,8 +114,9 @@ Shader "UI/SDF/Triangle/Outline/Inside" {
                 uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
                 uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
 
-                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
+                float halfSize = _RectSize * .5;
+                float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
                 float dist = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 float sdist = sdTriangle(sp, _Corner0.xy, _Corner1.xy, _Corner2.xy);
