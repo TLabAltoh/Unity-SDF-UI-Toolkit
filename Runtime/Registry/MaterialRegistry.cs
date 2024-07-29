@@ -81,7 +81,11 @@ namespace TLab.UI.SDF.Registry
 		private static Material GetNewMaterial(string shader)
 		{
 			if (_materialsPool.TryGetValue(shader, out var materials) && materials.Count > 0)
-				return materials.Pop();
+			{
+				var material = materials.Pop();
+				if (material != null)
+					return material;
+			}
 			if (!_shaderCache.TryGetValue(shader, out var unityShader))
 			{
 				unityShader = Shader.Find(shader);
