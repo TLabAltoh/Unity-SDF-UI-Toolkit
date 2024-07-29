@@ -69,11 +69,6 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			if (!IsMaterialActive())
-			{
-				return;
-			}
-
 			material.SetFloat(PROP_RADIUSE, m_radius);
 			material.SetFloat(PROP_THETA, m_theta);
 			material.SetFloat(PROP_WIDTH, m_width);

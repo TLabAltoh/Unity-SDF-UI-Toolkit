@@ -552,7 +552,6 @@ namespace TLab.UI.SDF
 		protected virtual void OnUpdateDimensions()
 		{
 			SetVerticesDirty();
-
 			if (enabled && material != null)
 			{
 				if (m_mask != null)
@@ -618,19 +617,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public virtual bool IsMaterialActive()
-		{
-			return IsActive();
-		}
-
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
-
-			if (!IsMaterialActive())
-			{
-				return;
-			}
 
 			materialDirty = true;
 

@@ -112,11 +112,6 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			if (!IsMaterialActive())
-			{
-				return;
-			}
-
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 
 			var corners = m_independent ? new Vector4(m_radiusX, m_radiusY, m_radiusZ, m_radiusW) : Vector4.one * m_radius;

@@ -100,11 +100,6 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			if (!IsMaterialActive())
-			{
-				return;
-			}
-
 			_materialRecord.SetFloat(PROP_PADDING, 0);   // Override
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 			_materialRecord.SetTexture(PROP_SDFTEX, m_sdfTexture);
