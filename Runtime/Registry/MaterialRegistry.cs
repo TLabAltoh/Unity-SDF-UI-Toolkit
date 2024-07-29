@@ -18,7 +18,7 @@ namespace TLab.UI.SDF.Registry
 			{
 				if (_materialsInUse.TryGetValue(oldRecord, out var data))
 				{
-					if (data.Usages == 1 && !_materialsInUse.ContainsKey(record))
+					if (data.Usages == 1 && record.ShaderName == oldRecord.ShaderName && !_materialsInUse.ContainsKey(record))
 					{
 						_materialsInUse.Remove(oldRecord);
 						_materialsInUse[record] = data;
