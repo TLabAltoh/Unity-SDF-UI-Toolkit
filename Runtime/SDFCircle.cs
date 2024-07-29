@@ -69,7 +69,12 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
+			if (!IsMaterialActive())
+			{
+				return;
+			}
+
+      _materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }
