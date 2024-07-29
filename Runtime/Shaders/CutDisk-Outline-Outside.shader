@@ -9,7 +9,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
         [HideInInspector] _ColorMask("Color Mask", Float) = 15
         [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
-        [HideInInspector] _HalfSize("HalfSize", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
@@ -68,7 +68,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
 
             float _Height;
             float _Radius;
-            float4 _HalfSize;
+            float4 _RectSize;
 
             float _Padding;
             float4 _OuterUV;
@@ -93,7 +93,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
 
             fixed4 frag(v2f i) : SV_Target{
 
-                float2 normalizedPadding = float2(_Padding / (_HalfSize.x * 2), _Padding / (_HalfSize.y * 2));
+                float2 normalizedPadding = float2(_Padding / (_RectSize.x * 2), _Padding / (_RectSize.y * 2));
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
@@ -103,8 +103,9 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float2 p = (i.uv - .5) * (_HalfSize + _OnionWidth) * 2;
-                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (_HalfSize + _OnionWidth) * 2;
+                float halfSize = _RectSize * .5;
+                float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
+                float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
                 float dist = sdCutDisk(p, _Radius, _Height);
                 float sdist = sdCutDisk(sp, _Radius, _Height);

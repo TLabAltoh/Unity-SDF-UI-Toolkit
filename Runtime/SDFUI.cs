@@ -1,5 +1,9 @@
+using TLab.UI.SDF.Registry;
 using Unity.Burst;
 using Unity.Mathematics;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
@@ -34,23 +38,24 @@ namespace TLab.UI.SDF
 		protected virtual string OUTLINE_INSIDE => "";
 		protected virtual string OUTLINE_OUTSIDE => "";
 
-		public static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
-		public static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
-		public static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
+		internal static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
+		internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
+		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
+		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
 
-		public static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
-		public static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
+		internal static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
+		internal static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
 
-		public static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
+		internal static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
 
-		public static readonly int PROP_SHADOWWIDTH = Shader.PropertyToID("_ShadowWidth");
-		public static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_ShadowBlur");
-		public static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_ShadowPower");
-		public static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
-		public static readonly int PROP_SHADOWOFFSET = Shader.PropertyToID("_ShadowOffset");
+		internal static readonly int PROP_SHADOWWIDTH = Shader.PropertyToID("_ShadowWidth");
+		internal static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_ShadowBlur");
+		internal static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_ShadowPower");
+		internal static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
+		internal static readonly int PROP_SHADOWOFFSET = Shader.PropertyToID("_ShadowOffset");
 
-		public static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
-		public static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
+		internal static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
+		internal static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
 
 		public enum OutlineType
 		{
@@ -90,10 +95,6 @@ namespace TLab.UI.SDF
 		{
 			useLegacyMeshGeneration = false;
 		}
-
-		protected Material m_material;
-		protected Material m_materialOutlineInside;
-		protected Material m_materialOutlineOutside;
 
 		protected Sprite m_overrideSprite;
 		protected Texture m_overrideTexture;
@@ -285,8 +286,6 @@ namespace TLab.UI.SDF
 				{
 					m_outlineType = value;
 
-					CreateMaterial();
-
 					SetAllDirty();
 				}
 			}
@@ -393,9 +392,9 @@ namespace TLab.UI.SDF
 						{
 							if (m_sprite == null)
 							{
-								if (material != null && material.mainTexture != null)
+								if (_materialRecord != null && _materialRecord.Texture != null)
 								{
-									return material.mainTexture;
+									return _materialRecord.Texture;
 								}
 								return s_WhiteTexture;
 							}
@@ -405,9 +404,9 @@ namespace TLab.UI.SDF
 						{
 							if (m_texture == null)
 							{
-								if (material != null && material.mainTexture != null)
+								if (_materialRecord != null && _materialRecord.Texture != null)
 								{
-									return material.mainTexture;
+									return _materialRecord.Texture;
 								}
 								return s_WhiteTexture;
 							}
@@ -417,6 +416,11 @@ namespace TLab.UI.SDF
 
 			}
 		}
+
+		internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
+		private protected MaterialRecord _materialRecord { get; } = new();
+
+		protected bool materialDirty;
 
 		public Sprite sprite
 		{
@@ -478,39 +482,11 @@ namespace TLab.UI.SDF
 			SetRaycastDirty();
 		}
 
-		protected virtual void CreateMaterial()
-		{
-			switch (m_outlineType)
-			{
-				case OutlineType.INSIDE:
-					if (m_materialOutlineInside == null)
-					{
-						m_materialOutlineInside = new Material(Shader.Find(OUTLINE_INSIDE));
-					}
-					m_material = m_materialOutlineInside;
-					break;
-				case OutlineType.OUTSIDE:
-					if (m_materialOutlineOutside == null)
-					{
-						m_materialOutlineOutside = new Material(Shader.Find(OUTLINE_OUTSIDE));
-					}
-					m_material = m_materialOutlineOutside;
-					break;
-			}
-
-			if (material != m_material)
-			{
-				material = m_material;
-			}
-		}
-
 		/// <summary>
 		/// This function must be called before calling the set material dirty function.
 		/// </summary>
 		protected virtual void Validate()
 		{
-			CreateMaterial();
-
 			var canvasRenderer = GetComponent<CanvasRenderer>();
 			canvasRenderer.cullTransparentMesh = false;
 
@@ -528,28 +504,55 @@ namespace TLab.UI.SDF
 
 		protected override void OnEnable()
 		{
-			DeleteOldMat();
-
 			Validate();
+
+#if UNITY_EDITOR
+			if (EditorApplication.isPlaying)
+#endif
+				SDFUIGraphicsRegistry.AddToRegistry(this);
 
 			base.OnEnable();
 		}
 
-		protected virtual void LateUpdate()
+		protected override void OnDisable()
 		{
-			if (!Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
+#if UNITY_EDITOR
+			if (EditorApplication.isPlaying)
+#endif
+				SDFUIGraphicsRegistry.RemoveFromRegistry(this);
+
+			MaterialRegistry.StopUsingMaterial(this);
+
+			base.OnDisable();
+		}
+
+#if UNITY_EDITOR
+		private void LateUpdate()
+		{
+			if (!EditorApplication.isPlaying)
+				OnLateUpdate();
+		}
+#endif
+
+		internal virtual void OnLateUpdate()
+		{
+			if (shadow && !Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
 			{
 				eulerZ = rectTransform.eulerAngles.z;
 
 				OnUpdateDimensions();
+			}
+			if (materialDirty)
+			{
+				materialDirty = false;
+				MaterialRegistry.UpdateMaterial(this);
 			}
 		}
 
 		protected virtual void OnUpdateDimensions()
 		{
 			SetVerticesDirty();
-
-			if (enabled && m_material != null)
+			if (enabled && material != null)
 			{
 				if (m_mask != null)
 				{
@@ -560,6 +563,7 @@ namespace TLab.UI.SDF
 					m_mask.enabled = old;
 				}
 			}
+			SetMaterialDirty();
 		}
 
 		public override void SetLayoutDirty()
@@ -574,34 +578,6 @@ namespace TLab.UI.SDF
 			base.OnRectTransformDimensionsChange();
 
 			OnUpdateDimensions();
-		}
-
-		protected virtual void DeleteOldMat()
-		{
-			var others = GetComponent<SDFUI>();
-			if (others != null && others != this)
-			{
-				DestroyHelper.Destroy(others);
-			}
-		}
-
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-
-			if (m_materialOutlineInside)
-			{
-				DestroyHelper.Destroy(m_materialOutlineInside);
-				m_materialOutlineInside = null;
-			}
-
-			if (m_materialOutlineOutside)
-			{
-				DestroyHelper.Destroy(m_materialOutlineOutside);
-				m_materialOutlineOutside = null;
-			}
-
-			m_material = null;
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)
@@ -641,21 +617,16 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public virtual bool IsMaterialActive()
-		{
-			return IsActive() && (material == m_material);
-		}
-
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
 
-			if (!IsMaterialActive())
-			{
-				return;
-			}
+			materialDirty = true;
 
-			m_material.SetVector(PROP_HALFSIZE, ((RectTransform)transform).rect.size * .5f);
+			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
+
+			_materialRecord.TextureUV = new float4(uvRect.x, uvRect.y, uvRect.size.x, uvRect.size.y);
+			_materialRecord.TextureColor = m_fillColor;
 
 			switch (m_activeImageType)
 			{
@@ -664,74 +635,72 @@ namespace TLab.UI.SDF
 						var activeSprite = this.activeSprite;
 						if (activeSprite == null)
 						{
-							m_material.mainTexture = s_WhiteTexture;
-							m_material.SetVector(PROP_OUTERUV, defaultOuterUV);
+							_materialRecord.Texture = s_WhiteTexture;
+							_materialRecord.SetVector(PROP_OUTERUV, defaultOuterUV);
 						}
 						else
 						{
-							m_material.mainTexture = activeSprite.texture;
-							m_material.SetVector(PROP_OUTERUV, DataUtility.GetOuterUV(activeSprite));
+							_materialRecord.Texture = activeSprite.texture;
+							_materialRecord.SetVector(PROP_OUTERUV, DataUtility.GetOuterUV(activeSprite));
 						}
 					}
 					break;
 				case ActiveImageType.TEXTURE:
 					{
 						var activeTexture = this.activeTexture;
-						m_material.SetVector(PROP_OUTERUV, defaultOuterUV);
-						m_material.mainTexture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
+						_materialRecord.Texture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
+						_materialRecord.SetVector(PROP_OUTERUV, defaultOuterUV);
 					}
 					break;
 			}
 
-			m_material.mainTextureScale = new Vector2(uvRect.size.x, uvRect.size.y);
-			m_material.mainTextureOffset = new Vector2(uvRect.x, uvRect.y);
-			m_material.color = m_fillColor;
-
 			if (m_onion)
 			{
-				m_material.SetInt(PROP_ONION, 1);
-				m_material.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
+				_materialRecord.SetInteger(PROP_ONION, 1);
+				_materialRecord.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
 			}
 			else
 			{
-				m_material.SetInt(PROP_ONION, 0);
-				m_material.SetFloat(PROP_ONIONWIDTH, 0);
+				_materialRecord.SetInteger(PROP_ONION, 0);
+				_materialRecord.SetFloat(PROP_ONIONWIDTH, 0);
 			}
 
 			float shadowWidth = m_shadowWidth;
 
 			if (m_shadow)
 			{
-				m_material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				m_material.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
+				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
+				_materialRecord.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
 			}
 			else
 			{
 				shadowWidth = 0;
-				m_material.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				m_material.SetColor(PROP_SHADOWCOLOR, alpha0);
+				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
+				_materialRecord.SetColor(PROP_SHADOWCOLOR, alpha0);
 			}
 
-			m_material.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
-			m_material.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
+			_materialRecord.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
+			_materialRecord.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
 			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
-			m_material.SetVector(PROP_SHADOWOFFSET, sizeOffset);
+			_materialRecord.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
 			float outlineWidth = m_outlineWidth;
 
 			if (m_outline)
 			{
-				m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				m_material.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
+				_materialRecord.ShaderName = outlineType is OutlineType.INSIDE ? OUTLINE_INSIDE : OUTLINE_OUTSIDE;
+				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
+				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
 			}
 			else
 			{
+				_materialRecord.ShaderName = OUTLINE_INSIDE;
 				outlineWidth = 0;
-				m_material.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				m_material.SetColor(PROP_OUTLINECOLOR, alpha0);
+				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
+				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_fillColor);
 			}
 
-			m_material.SetFloat(PROP_PADDING, m_extraMargin);
+			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
 		}
 	}
 

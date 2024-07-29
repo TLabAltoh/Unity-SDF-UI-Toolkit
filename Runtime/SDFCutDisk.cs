@@ -52,13 +52,8 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			if (!IsMaterialActive())
-			{
-				return;
-			}
-
-			m_material.SetFloat(PROP_HEIGHT, m_height);
-			m_material.SetFloat(PROP_RADIUSE, m_radius);
+			_materialRecord.SetFloat(PROP_HEIGHT, m_height);
+			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 		}
 	}
 }
