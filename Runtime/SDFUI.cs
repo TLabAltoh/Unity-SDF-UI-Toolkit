@@ -340,8 +340,6 @@ namespace TLab.UI.SDF
 
 		protected override void OnEnable()
 		{
-			DeleteOldMat();
-
 			Validate();
 
 #if UNITY_EDITOR
@@ -398,6 +396,7 @@ namespace TLab.UI.SDF
 					m_mask.enabled = old;
 				}
 			}
+			SetMaterialDirty();
 		}
 
 		public override void SetLayoutDirty()
@@ -412,15 +411,6 @@ namespace TLab.UI.SDF
 			base.OnRectTransformDimensionsChange();
 
 			OnUpdateDimensions();
-		}
-
-		protected virtual void DeleteOldMat()
-		{
-			var others = GetComponent<SDFUI>();
-			if (others != null && others != this)
-			{
-				DestroyHelper.Destroy(others);
-			}
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)
