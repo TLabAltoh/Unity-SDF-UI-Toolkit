@@ -108,12 +108,12 @@ Shader "UI/SDF/Quad/Outline" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float halfSize = _RectSize * .5;
+                float2 halfSize = _RectSize * .5;
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
-                float dist = sdRoundedBox(p, _RectSize * .5, _Radius);
-                float sdist = sdRoundedBox(sp, _RectSize * .5, _Radius);
+                float dist = sdRoundedBox(p, halfSize, _Radius);
+                float sdist = sdRoundedBox(sp, halfSize, _Radius);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;

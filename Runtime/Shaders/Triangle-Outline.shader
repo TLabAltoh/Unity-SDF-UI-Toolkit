@@ -120,7 +120,7 @@ Shader "UI/SDF/Triangle/Outline" {
                 uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
                 uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
 
-                float halfSize = _RectSize * .5;
+                float2 halfSize = _RectSize * .5;
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
