@@ -110,7 +110,7 @@ Shader "UI/SDF/CutDisk/Outline" {
 
                 half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                float halfSize = _RectSize * .5;
+                float2 halfSize = _RectSize * .5;
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
