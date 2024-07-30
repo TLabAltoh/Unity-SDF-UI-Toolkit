@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &13775049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1417,7 +1417,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 677079364
+  m_Name: -1341111151
   m_Shader: {fileID: 4800000, guid: 1e85033682f18d94ba064989eaea624d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -1441,9 +1441,9 @@ Material:
     - _Onion: 0
     - _OnionWidth: 0
     - _OutlineType: 0
-    - _OutlineWidth: 6.67
+    - _OutlineWidth: 0
     - _Padding: 0
-    - _ShadowBlur: 0
+    - _ShadowBlur: 11.9
     - _ShadowPower: 1
     - _ShadowWidth: 0
     - _Stencil: 0
@@ -1455,8 +1455,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Radius: {r: 31.05, g: 31.05, b: 31.05, a: 31.05}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
     - _ShadowOffset: {r: -0.15, g: -0.15, b: -15, a: -15}
@@ -1521,6 +1521,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 106449153891320262, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449153891320262, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449153891320262, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
       value: 
@@ -1638,7 +1650,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_radius
+      value: 31.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_shadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_outline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_Maskable
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
@@ -1647,7 +1671,7 @@ PrefabInstance:
       objectReference: {fileID: 1719550419}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_shadowBlur
-      value: 0
+      value: 11.9
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_outlineType
@@ -1655,6 +1679,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_shadowWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_antialiasing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_outlineWidth
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655706014, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}

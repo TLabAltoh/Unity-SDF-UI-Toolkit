@@ -134,8 +134,16 @@ Shader "UI/SDF/Triangle/Outline" {
                     sdist = abs(sdist) - _OnionWidth;
                 }
 
-                float delta = fwidth(dist);
-                float sdelta = fwidth(sdist);
+                float delta = 0, sdelta = 0;
+
+                if (_Antialiasing) {
+                    float offset = -.25; // To offset the pixels of a display, do I need to consider RGBA (divide by 4)?
+                    dist += offset;
+                    sdist += offset;
+
+                    delta = fwidth(dist);
+                    sdelta = fwidth(sdist);
+                }
 
                 float graphicAlpha, outlineAlpha, shadowAlpha;
                 if (_OutlineType == 0) {    // Inside

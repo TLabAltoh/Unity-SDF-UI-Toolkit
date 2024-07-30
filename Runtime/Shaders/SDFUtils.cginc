@@ -150,3 +150,7 @@ inline float closer(float a, float b, float v) {
     int weight = abs(a - v) < abs(b - v);
     return weight * a + (1 - weight) * b;
 }
+
+inline float fwidthExpand(float value, float2 screenParams) {
+    return abs(ddx(value - screenParams.x * 10)) + abs(ddy(value - screenParams.y * 10));
+}
