@@ -758,7 +758,13 @@ namespace TLab.UI.SDF
 				shadowExpand.w = rotatedOffset.y;
 			}
 
-			float4 expand = shadowExpand + (antialiasing ? new float4(-1, 1, -1, 1) : float4.zero);
+			float4 expand = shadowExpand;
+
+			if (antialiasing && rectSize.x > 0 && rectSize.y > 0)
+            {
+				expand += new float4(-1, 1, -1, 1);
+
+			}
 
 			float scaleX = math.mad(2, margin, rectSize.x);
 			float scaleY = math.mad(2, margin, rectSize.y);
