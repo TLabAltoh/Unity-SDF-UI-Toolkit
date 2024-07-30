@@ -180,9 +180,14 @@ namespace TLab.UI.SDF.Editor
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowOffset), "ShadowOffset");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowWidth), "ShadowWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowBlur), "ShadowBlur");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowPower), "shadowPower");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowPower), "ShadowPower");
 			}
 			EditorGUI.indentLevel--;
+		}
+
+		protected void DrawAntialiasingProp()
+		{
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.antialiasing), "Antialiasing");
 		}
 
 		protected virtual void DrawOtherProp()
@@ -193,6 +198,7 @@ namespace TLab.UI.SDF.Editor
 			MaskableControlsGUI();
 			SetShowNativeSize(false);
 			NativeSizeButtonGUI();
+			DrawAntialiasingProp();
 			EditorGUI.indentLevel--;
 
 		}

@@ -35,13 +35,13 @@ namespace TLab.UI.SDF
 	[RequireComponent(typeof(CanvasRenderer))]
 	public class SDFUI : MaskableGraphic
 	{
-		protected virtual string OUTLINE_INSIDE => "";
-		protected virtual string OUTLINE_OUTSIDE => "";
+		protected virtual string SHADER_NAME => "";
 
 		internal static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
 		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
+		internal static readonly int PROP_ANTIALIASING = Shader.PropertyToID("_Antialiasing");
 
 		internal static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
 		internal static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
@@ -54,6 +54,7 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
 		internal static readonly int PROP_SHADOWOFFSET = Shader.PropertyToID("_ShadowOffset");
 
+		internal static readonly int PROP_OUTLINETYPE = Shader.PropertyToID("_OutlineType");
 		internal static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
 		internal static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
 
@@ -71,6 +72,8 @@ namespace TLab.UI.SDF
 
 		[SerializeField] protected bool m_onion = false;
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
+
+		[SerializeField] protected bool m_antialiasing = true;
 
 		[SerializeField] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
@@ -145,6 +148,20 @@ namespace TLab.UI.SDF
 				if (m_onionWidth != value)
 				{
 					m_onionWidth = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public bool antialiasing
+		{
+			get => m_antialiasing;
+			set
+			{
+				if (m_antialiasing != value)
+				{
+					m_antialiasing = value;
 
 					SetAllDirty();
 				}
@@ -623,6 +640,8 @@ namespace TLab.UI.SDF
 
 			materialDirty = true;
 
+			_materialRecord.ShaderName = SHADER_NAME;
+
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 
 			_materialRecord.TextureUV = new float4(uvRect.x, uvRect.y, uvRect.size.x, uvRect.size.y);
@@ -684,21 +703,22 @@ namespace TLab.UI.SDF
 			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 			_materialRecord.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
-			float outlineWidth = m_outlineWidth;
+			_materialRecord.SetInteger(PROP_OUTLINETYPE, (int)m_outlineType);
 
+			float outlineWidth = m_outlineWidth;
 			if (m_outline)
 			{
-				_materialRecord.ShaderName = outlineType is OutlineType.INSIDE ? OUTLINE_INSIDE : OUTLINE_OUTSIDE;
 				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
 			}
 			else
 			{
-				_materialRecord.ShaderName = OUTLINE_INSIDE;
 				outlineWidth = 0;
 				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_fillColor);
 			}
+
+			_materialRecord.SetInteger(PROP_ANTIALIASING, m_antialiasing ? 1 : 0);
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
 		}

@@ -1,4 +1,4 @@
-Shader "UI/SDF/CutDisk/Outline/Inside" {
+Shader "UI/SDF/Arc/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -14,10 +14,13 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Float) = 0
-        _Height("Height", Float) = 0
+        _Width("Width", Float) = 10.0
+        _Theta("Theta", Float) = 0.0
 
-        _Onion("Onion", Float) = 0
+        _Onion("Onion", Int) = 0
         _OnionWidth("Onion Width", Float) = 0
+
+        _Antialiasing("Antialiasing", Int) = 0
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
@@ -25,6 +28,7 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
+        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -66,16 +70,18 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-            float _Height;
+            float _Theta;
+            float _Width;
             float _Radius;
             float4 _RectSize;
 
             float _Padding;
-            float _Rotation;
             float4 _OuterUV;
 
             int _Onion;
             float _OnionWidth;
+
+            int _Antialiasing;
 
             float _ShadowWidth;
             float _ShadowBlur;
@@ -83,6 +89,7 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
             float4 _ShadowColor;
             float4 _ShadowOffset;
 
+            int _OutlineType;
             float _OutlineWidth;
             float4 _OutlineColor;
 
@@ -92,7 +99,7 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
             float4 _ClipRect;
             fixed4 _TextureSampleAdd;
 
-            fixed4 frag(v2f i) : SV_Target{
+            fixed4 frag(v2f i) : SV_Target {
 
                 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
@@ -108,8 +115,8 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
-                float dist = sdCutDisk(p, _Radius, _Height);
-                float sdist = sdCutDisk(sp, _Radius, _Height);
+                float dist = sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
+                float sdist = sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;
@@ -119,9 +126,17 @@ Shader "UI/SDF/CutDisk/Outline/Inside" {
                 float delta = fwidth(dist);
                 float sdelta = fwidth(sdist);
 
-                float graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
-                float outlineAlpha = 1 - smoothstep(-delta, 0, dist);
-                float shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
+                float graphicAlpha, outlineAlpha, shadowAlpha;
+                if (_OutlineType == 0) {    // Inside
+                    graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
+                    outlineAlpha = 1 - smoothstep(-delta, 0, dist);
+                    shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
+                }
+                else {  // Outside
+                    outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
+                    graphicAlpha = 1 - smoothstep(-delta, 0, dist);
+                    shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - sdelta, _OutlineWidth + _ShadowWidth, sdist);
+                }
 
                 half4 lerp0 = lerp(
                     half4(_OutlineColor.rgb, outlineAlpha * _OutlineColor.a),   // crop image by outline area

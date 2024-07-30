@@ -1,4 +1,4 @@
-Shader "UI/SDF/CutDisk/Outline/Outside" {
+Shader "UI/SDF/CutDisk/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -16,8 +16,10 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
         _Radius("Radius", Float) = 0
         _Height("Height", Float) = 0
 
-        _Onion("Onion", Float) = 0
+        _Onion("Onion", Int) = 0
         _OnionWidth("Onion Width", Float) = 0
+
+        _Antialiasing("Antialiasing", Int) = 0
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
@@ -25,6 +27,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
+        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -71,10 +74,13 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
             float4 _RectSize;
 
             float _Padding;
+            float _Rotation;
             float4 _OuterUV;
 
             int _Onion;
             float _OnionWidth;
+
+            int _Antialiasing;
 
             float _ShadowWidth;
             float _ShadowBlur;
@@ -82,6 +88,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
             float4 _ShadowColor;
             float4 _ShadowOffset;
 
+            int _OutlineType;
             float _OutlineWidth;
             float4 _OutlineColor;
 
@@ -93,7 +100,7 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
 
             fixed4 frag(v2f i) : SV_Target{
 
-                float2 normalizedPadding = float2(_Padding / (_RectSize.x * 2), _Padding / (_RectSize.y * 2));
+                float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
@@ -118,9 +125,17 @@ Shader "UI/SDF/CutDisk/Outline/Outside" {
                 float delta = fwidth(dist);
                 float sdelta = fwidth(sdist);
 
-                float outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
-                float graphicAlpha = 1 - smoothstep(-delta, 0, dist);
-                float shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth, sdist);
+                float graphicAlpha, outlineAlpha, shadowAlpha;
+                if (_OutlineType == 0) {    // Inside
+                    graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
+                    outlineAlpha = 1 - smoothstep(-delta, 0, dist);
+                    shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
+                }
+                else {  // Outside
+                    outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
+                    graphicAlpha = 1 - smoothstep(-delta, 0, dist);
+                    shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - sdelta, _OutlineWidth + _ShadowWidth, sdist);
+                }
 
                 half4 lerp0 = lerp(
                     half4(_OutlineColor.rgb, outlineAlpha * _OutlineColor.a),   // crop image by outline area

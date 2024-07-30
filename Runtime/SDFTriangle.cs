@@ -11,8 +11,7 @@ namespace TLab.UI.SDF
 {
 	public class SDFTriangle : SDFUI
 	{
-		protected override string OUTLINE_INSIDE => "UI/SDF/Triangle/Outline/Inside";
-		protected override string OUTLINE_OUTSIDE => "UI/SDF/Triangle/Outline/Outside";
+		protected override string SHADER_NAME => "UI/SDF/Triangle/Outline";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);

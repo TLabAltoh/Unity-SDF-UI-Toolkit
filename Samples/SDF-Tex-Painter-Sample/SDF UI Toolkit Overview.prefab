@@ -141,6 +141,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 11.56
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 8.07
   m_shadowBlur: 0
@@ -358,6 +359,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 51.41
   m_shadowBlur: 50.04
@@ -449,6 +451,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 5.87
+  m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowBlur: 0
@@ -555,6 +558,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowBlur: 0
@@ -665,6 +669,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 1
   m_onionWidth: 4.79
+  m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 6.06
   m_shadowBlur: 5.79
@@ -756,6 +761,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 6.8
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 17.72
   m_shadowBlur: 22.5
@@ -846,6 +852,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 1
   m_onionWidth: 19.6
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowBlur: 0
@@ -940,6 +947,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 1.66
+  m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowBlur: 0
@@ -1031,6 +1039,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 21.7
   m_shadowBlur: 26.24
@@ -1122,6 +1131,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
+  m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowBlur: 3.58
