@@ -10,8 +10,7 @@ namespace TLab.UI.SDF
 {
 	public class SDFCircle : SDFUI
 	{
-		protected override string OUTLINE_INSIDE => "UI/SDF/Circle/Outline/Inside";
-		protected override string OUTLINE_OUTSIDE => "UI/SDF/Circle/Outline/Outside";
+		protected override string SHADER_NAME => "UI/SDF/Circle/Outline";
 
 		[SerializeField] private float m_radius = 40;
 

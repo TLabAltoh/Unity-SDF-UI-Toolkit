@@ -10,8 +10,7 @@ namespace TLab.UI.SDF
 {
 	public class SDFPie : SDFUI
 	{
-		protected override string OUTLINE_INSIDE => "UI/SDF/Pie/Outline/Inside";
-		protected override string OUTLINE_OUTSIDE => "UI/SDF/Pie/Outline/Outside";
+		protected override string SHADER_NAME => "UI/SDF/Pie/Outline";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 

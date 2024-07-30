@@ -10,8 +10,7 @@ namespace TLab.UI.SDF
 {
 	public class SDFQuad : SDFUI
 	{
-		protected override string OUTLINE_INSIDE => "UI/SDF/Quad/Outline/Inside";
-		protected override string OUTLINE_OUTSIDE => "UI/SDF/Quad/Outline/Outside";
+		protected override string SHADER_NAME => "UI/SDF/Quad/Outline";
 
 		[SerializeField] private bool m_independent = true;
 

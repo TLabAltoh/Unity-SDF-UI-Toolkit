@@ -10,8 +10,7 @@ namespace TLab.UI.SDF
 {
 	public class SDFCutDisk : SDFUI
 	{
-		protected override string OUTLINE_INSIDE => "UI/SDF/CutDisk/Outline/Inside";
-		protected override string OUTLINE_OUTSIDE => "UI/SDF/CutDisk/Outline/Outside";
+		protected override string SHADER_NAME => "UI/SDF/CutDisk/Outline";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 
