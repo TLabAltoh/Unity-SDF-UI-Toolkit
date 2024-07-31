@@ -35,13 +35,13 @@ namespace TLab.UI.SDF.Editor
 					EditorGUILayout.BeginVertical();
 					{
 						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusZ));
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusY));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusW));
 					}
 					EditorGUILayout.EndVertical();
 					EditorGUILayout.BeginVertical();
 					{
 						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusX));
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusW));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusY));
 					}
 					EditorGUILayout.EndVertical();
 				}
