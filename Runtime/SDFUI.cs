@@ -551,6 +551,11 @@ namespace TLab.UI.SDF
 		}
 #endif
 
+		public virtual bool MaskEnabled()
+		{
+			return (m_mask != null && m_mask.MaskEnabled());
+		}
+
 		internal virtual void OnLateUpdate()
 		{
 			if (shadow && !Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
@@ -559,6 +564,7 @@ namespace TLab.UI.SDF
 
 				OnUpdateDimensions();
 			}
+
 			if (materialDirty)
 			{
 				materialDirty = false;
@@ -568,19 +574,19 @@ namespace TLab.UI.SDF
 
 		protected virtual void OnUpdateDimensions()
 		{
-			SetVerticesDirty();
-			if (enabled && material != null)
+			if (enabled)
 			{
-				if (m_mask != null)
+				SetVerticesDirty();
+				SetMaterialDirty();
+
+				if (MaskEnabled() && material != null)
 				{
-					var old = m_mask.enabled;
+					var maskMaterial = m_mask.GetModifiedMaterial(material);
 
-					m_mask.enabled = !old;
-
-					m_mask.enabled = old;
+					if (maskMaterial != material)
+						_materialRecord.Populate(maskMaterial);
 				}
 			}
-			SetMaterialDirty();
 		}
 
 		public override void SetLayoutDirty()
@@ -761,7 +767,7 @@ namespace TLab.UI.SDF
 			float4 expand = shadowExpand;
 
 			if (antialiasing && rectSize.x > 0 && rectSize.y > 0)
-            {
+			{
 				expand += new float4(-1, 1, -1, 1);
 
 			}
