@@ -572,9 +572,9 @@ namespace TLab.UI.SDF
 				MaterialRegistry.UpdateMaterial(this);
 
 				if (MaskEnabled())
-                {
+				{
 					m_mask.GetModifiedMaterial(material);
-                }
+				}
 			}
 		}
 
@@ -584,7 +584,7 @@ namespace TLab.UI.SDF
 			{
 				SetVerticesDirty();
 				SetMaterialDirty();
-            }
+			}
 		}
 
 		public override void SetLayoutDirty()
@@ -626,7 +626,8 @@ namespace TLab.UI.SDF
 			{
 				var currentMat = base.materialForRendering;
 
-				_materialRecord.Populate(currentMat);
+				if (currentMat != material)
+					_materialRecord.Populate(currentMat);
 
 				return currentMat;
 			}
