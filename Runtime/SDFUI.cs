@@ -570,11 +570,6 @@ namespace TLab.UI.SDF
 			{
 				materialDirty = false;
 				MaterialRegistry.UpdateMaterial(this);
-
-				if (MaskEnabled())
-				{
-					m_mask.GetModifiedMaterial(material);
-				}
 			}
 		}
 
