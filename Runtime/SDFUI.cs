@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
+using UnityEngine.Pool;
 
 namespace TLab.UI.SDF
 {
@@ -551,6 +552,11 @@ namespace TLab.UI.SDF
 		}
 #endif
 
+		public virtual bool MaskEnabled()
+		{
+			return (m_mask != null && m_mask.MaskEnabled());
+		}
+
 		internal virtual void OnLateUpdate()
 		{
 			if (shadow && !Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
@@ -559,28 +565,26 @@ namespace TLab.UI.SDF
 
 				OnUpdateDimensions();
 			}
+
 			if (materialDirty)
 			{
 				materialDirty = false;
 				MaterialRegistry.UpdateMaterial(this);
+
+				if (MaskEnabled())
+                {
+					m_mask.GetModifiedMaterial(material);
+                }
 			}
 		}
 
 		protected virtual void OnUpdateDimensions()
 		{
-			SetVerticesDirty();
-			if (enabled && material != null)
+			if (enabled)
 			{
-				if (m_mask != null)
-				{
-					var old = m_mask.enabled;
-
-					m_mask.enabled = !old;
-
-					m_mask.enabled = old;
-				}
-			}
-			SetMaterialDirty();
+				SetVerticesDirty();
+				SetMaterialDirty();
+            }
 		}
 
 		public override void SetLayoutDirty()
@@ -616,21 +620,15 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		protected override void UpdateMaterial()
+		public override Material materialForRendering
 		{
-			if (!IsActive())
-				return;
-
-			canvasRenderer.materialCount = 1;
-			canvasRenderer.SetMaterial(materialForRendering, 0);
-			switch (m_activeImageType)
+			get
 			{
-				case ActiveImageType.SPRITE:
-					canvasRenderer.SetTexture((activeSprite == null) ? s_WhiteTexture : activeSprite.texture);
-					break;
-				case ActiveImageType.TEXTURE:
-					canvasRenderer.SetTexture((activeTexture == null) ? s_WhiteTexture : activeTexture);
-					break;
+				var currentMat = base.materialForRendering;
+
+				_materialRecord.Populate(currentMat);
+
+				return currentMat;
 			}
 		}
 
@@ -761,7 +759,7 @@ namespace TLab.UI.SDF
 			float4 expand = shadowExpand;
 
 			if (antialiasing && rectSize.x > 0 && rectSize.y > 0)
-            {
+			{
 				expand += new float4(-1, 1, -1, 1);
 
 			}
