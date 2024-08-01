@@ -227,7 +227,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
+    - _Antialiasing: 0
     - _ColorMask: 15
     - _Onion: 0
     - _OnionWidth: 0
@@ -430,14 +430,14 @@ Material:
     - _ShadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &138889190
+--- !u!21 &205759930
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -1751833050
+  m_Name: 1732024803
   m_Shader: {fileID: 4800000, guid: 1e85033682f18d94ba064989eaea624d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -454,19 +454,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Antialiasing: 1
     - _ColorMask: 15
-    - _Onion: 1
-    - _OnionWidth: 19.6
+    - _Onion: 0
+    - _OnionWidth: 0
     - _OutlineType: 0
-    - _OutlineWidth: 9.34
+    - _OutlineWidth: 0
     - _Padding: 0
-    - _ShadowBlur: 0
+    - _ShadowBlur: 11.9
     - _ShadowPower: 1
     - _ShadowWidth: 0
     - _Stencil: 0
@@ -478,11 +478,11 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Radius: {r: 31.05, g: 31.05, b: 31.05, a: 31.05}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
+    - _ShadowOffset: {r: -0.15, g: -0.15, b: -15, a: -15}
   m_BuildTextureStacks: []
 --- !u!21 &233049927
 Material:
@@ -659,11 +659,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
     - _Onion: 0
     - _OnionWidth: 0
-    - _OutlineType: 0
     - _OutlineWidth: 6.83
     - _Padding: 21.7
     - _Radius: 39.24
@@ -684,15 +682,15 @@ Material:
     - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &350395365
+--- !u!21 &408755243
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -1579656048
-  m_Shader: {fileID: 4800000, guid: 1e85033682f18d94ba064989eaea624d, type: 3}
+  m_Name: -827296687
+  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -708,19 +706,20 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Antialiasing: 1
     - _ColorMask: 15
-    - _Onion: 0
-    - _OnionWidth: 0
+    - _Onion: 1
+    - _OnionWidth: 4.79
     - _OutlineType: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 1.02
     - _Padding: 0
-    - _ShadowBlur: 11.9
+    - _Radius: 27.68
+    - _ShadowBlur: 5.79
     - _ShadowPower: 1
     - _ShadowWidth: 0
     - _Stencil: 0
@@ -728,15 +727,15 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Theta: 1.5707964
     - _UseUIAlphaClip: 0
+    - _Width: 10
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Radius: {r: 31.05, g: 31.05, b: 31.05, a: 31.05}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
-    - _ShadowOffset: {r: -0.15, g: -0.15, b: -15, a: -15}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &418351715
 GameObject:
@@ -806,6 +805,171 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &460111210
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 175928965
+  m_Shader: {fileID: 4800000, guid: b3e4e2a259f88274ab2874a8a66ff118, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Antialiasing: 1
+    - _ColorMask: 15
+    - _Height: 10
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineType: 0
+    - _OutlineWidth: 5.2
+    - _Padding: 0
+    - _Radius: 36.4
+    - _ShadowBlur: 3.58
+    - _ShadowPower: 1
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &788360809
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1008133898
+  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Antialiasing: 1
+    - _ColorMask: 15
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineType: 0
+    - _OutlineWidth: 3.9
+    - _Padding: 0
+    - _Radius: 31.19
+    - _ShadowBlur: 0
+    - _ShadowPower: 1
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 1.855
+    - _UseUIAlphaClip: 0
+    - _Width: 10
+    m_Colors:
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &794315211
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1541858106
+  m_Shader: {fileID: 4800000, guid: 00979378acd93c6438b7f248a1f7151e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Antialiasing: 1
+    - _ColorMask: 15
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineType: 0
+    - _OutlineWidth: 0
+    - _Padding: 8.07
+    - _Radius: 0
+    - _ShadowBlur: 0
+    - _ShadowPower: 1
+    - _ShadowWidth: 8.07
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Corner0: {r: -44.460308, g: -42.475727, b: 0, a: 0}
+    - _Corner1: {r: 44.724552, g: -43.05211, b: 0, a: 0}
+    - _Corner2: {r: 0.84033394, g: 44.2928, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.88964033, g: 0, b: 1, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!21 &828732334
 Material:
   serializedVersion: 8
@@ -835,11 +999,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
     - _Onion: 0
     - _OnionWidth: 0
-    - _OutlineType: 0
     - _OutlineWidth: 6.25
     - _Padding: 17.72
     - _Radius: 40
@@ -861,15 +1023,15 @@ Material:
     - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &983624289
+--- !u!21 &1057120838
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -2124877326
-  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Name: 691301513
+  m_Shader: {fileID: 4800000, guid: 31ef02593fd983d4fb5008a9b47a7706, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -885,7 +1047,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -895,80 +1057,23 @@ Material:
     - _Onion: 0
     - _OnionWidth: 0
     - _OutlineType: 0
-    - _OutlineWidth: 4.74
-    - _Padding: 0
-    - _Radius: 31.1
-    - _ShadowBlur: 0
-    - _ShadowPower: 1
-    - _ShadowWidth: 0
+    - _OutlineWidth: 6.83
+    - _Padding: 21.7
+    - _Radius: 39.24
+    - _ShadowBlur: 26.24
+    - _ShadowPower: 1.02
+    - _ShadowWidth: 21.7
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _Theta: 1.87
     - _UseUIAlphaClip: 0
-    - _Width: 15.68
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &1067989866
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -716955889
-  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Antialiasing: 1
-    - _ColorMask: 15
-    - _Onion: 1
-    - _OnionWidth: 4.79
-    - _OutlineType: 0
-    - _OutlineWidth: 1.02
-    - _Padding: 0
-    - _Radius: 27.68
-    - _ShadowBlur: 5.79
-    - _ShadowPower: 1
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Theta: 1.5707964
-    - _UseUIAlphaClip: 0
-    - _Width: 10
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &1080657530
@@ -1000,12 +1105,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
     - _Height: 10
     - _Onion: 0
     - _OnionWidth: 0
-    - _OutlineType: 0
     - _OutlineWidth: 5.2
     - _Padding: 0
     - _Radius: 36.4
@@ -1055,11 +1158,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
     - _Onion: 1
     - _OnionWidth: 19.6
-    - _OutlineType: 0
     - _OutlineWidth: 9.34
     - _Padding: 0
     - _ShadowBlur: 0
@@ -1110,11 +1211,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
     - _Onion: 0
     - _OnionWidth: 0
-    - _OutlineType: 0
     - _OutlineWidth: 3.9
     - _Padding: 0
     - _Radius: 31.19
@@ -1186,7 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bfa46edb710064fb60144606c4893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1454153516}
+  m_Material: {fileID: 1339208749}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1231,70 +1330,14 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335178054}
   m_CullTransparentMesh: 0
---- !u!21 &1433828640
+--- !u!21 &1339208749
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/SDF/Arc/Outline/Inside
-  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Antialiasing: 1
-    - _ColorMask: 15
-    - _Onion: 1
-    - _OnionWidth: 4.79
-    - _OutlineType: 0
-    - _OutlineWidth: 1.02
-    - _Padding: 0
-    - _Radius: 27.68
-    - _ShadowBlur: 5.79
-    - _ShadowPower: 1
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Theta: 1.5707964
-    - _UseUIAlphaClip: 0
-    - _Width: 10
-    m_Colors:
-    - _HalfSize: {r: 50, g: 50, b: 0, a: 0}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &1454153516
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1976749153
+  m_Name: 1526266302
   m_Shader: {fileID: 4800000, guid: 1e85033682f18d94ba064989eaea624d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -1341,15 +1384,15 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1579681198
+--- !u!21 &1433828640
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -1254148430
-  m_Shader: {fileID: 4800000, guid: b3e4e2a259f88274ab2874a8a66ff118, type: 3}
+  m_Name: UI/SDF/Arc/Outline/Inside
+  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -1370,16 +1413,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Antialiasing: 1
     - _ColorMask: 15
-    - _Height: 10
-    - _Onion: 0
-    - _OnionWidth: 0
-    - _OutlineType: 0
-    - _OutlineWidth: 5.2
+    - _Onion: 1
+    - _OnionWidth: 4.79
+    - _OutlineWidth: 1.02
     - _Padding: 0
-    - _Radius: 36.4
-    - _ShadowBlur: 3.58
+    - _Radius: 27.68
+    - _ShadowBlur: 5.79
     - _ShadowPower: 1
     - _ShadowWidth: 0
     - _Stencil: 0
@@ -1387,132 +1427,25 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Theta: 1.5707964
     - _UseUIAlphaClip: 0
+    - _Width: 10
     m_Colors:
+    - _HalfSize: {r: 50, g: 50, b: 0, a: 0}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1583686362
+--- !u!21 &1551972444
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1909899361
-  m_Shader: {fileID: 4800000, guid: 00979378acd93c6438b7f248a1f7151e, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Antialiasing: 1
-    - _ColorMask: 15
-    - _Onion: 0
-    - _OnionWidth: 0
-    - _OutlineType: 0
-    - _OutlineWidth: 0
-    - _Padding: 8.07
-    - _Radius: 0
-    - _ShadowBlur: 0
-    - _ShadowPower: 1
-    - _ShadowWidth: 8.07
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Corner0: {r: -44.460308, g: -42.475727, b: 0, a: 0}
-    - _Corner1: {r: 44.724552, g: -43.05211, b: 0, a: 0}
-    - _Corner2: {r: 0.84033394, g: 44.2928, b: 0, a: 0}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.88964033, g: 0, b: 1, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &1676023889
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -491410329
-  m_Shader: {fileID: 4800000, guid: f939f2f46a339fa44bb557ea076fa0c3, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Antialiasing: 1
-    - _ColorMask: 15
-    - _Onion: 0
-    - _OnionWidth: 0
-    - _OutlineType: 0
-    - _OutlineWidth: 6.25
-    - _Padding: 17.72
-    - _Radius: 40
-    - _ShadowBlur: 22.5
-    - _ShadowPower: 1
-    - _ShadowWidth: 17.72
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Theta: 2.35
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &1818103039
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1047607348
+  m_Name: 2013871749
   m_Shader: {fileID: 4800000, guid: 59d96a5ca475adf4e9e5eca527d020c1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -1563,15 +1496,15 @@ Material:
     - _ShadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1826591280
+--- !u!21 &1587347836
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 757449144
-  m_Shader: {fileID: 4800000, guid: 7a9d8687133037b40afc15b73c86ece4, type: 3}
+  m_Name: -1393737206
+  m_Shader: {fileID: 4800000, guid: f939f2f46a339fa44bb557ea076fa0c3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -1597,36 +1530,35 @@ Material:
     - _Onion: 0
     - _OnionWidth: 0
     - _OutlineType: 0
-    - _OutlineWidth: 3.9
-    - _Padding: 0
-    - _Radius: 31.19
-    - _ShadowBlur: 0
+    - _OutlineWidth: 6.25
+    - _Padding: 17.72
+    - _Radius: 40
+    - _ShadowBlur: 22.5
     - _ShadowPower: 1
-    - _ShadowWidth: 0
+    - _ShadowWidth: 17.72
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _Theta: 1.855
+    - _Theta: 2.35
     - _UseUIAlphaClip: 0
-    - _Width: 10
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1826750970
+--- !u!21 &1639493207
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 511018186
-  m_Shader: {fileID: 4800000, guid: 31ef02593fd983d4fb5008a9b47a7706, type: 3}
+  m_Name: 1956270919
+  m_Shader: {fileID: 4800000, guid: 1e85033682f18d94ba064989eaea624d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -1642,7 +1574,61 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Antialiasing: 1
+    - _ColorMask: 15
+    - _Onion: 1
+    - _OnionWidth: 19.6
+    - _OutlineType: 0
+    - _OutlineWidth: 9.34
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowPower: 1
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &1854374263
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1791038119
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -1652,23 +1638,25 @@ Material:
     - _Onion: 0
     - _OnionWidth: 0
     - _OutlineType: 0
-    - _OutlineWidth: 6.83
-    - _Padding: 21.7
-    - _Radius: 39.24
-    - _ShadowBlur: 26.24
-    - _ShadowPower: 1.02
-    - _ShadowWidth: 21.7
+    - _OutlineWidth: 4.74
+    - _Padding: 0
+    - _Radius: 31.1
+    - _ShadowBlur: 0
+    - _ShadowPower: 1
+    - _ShadowWidth: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Theta: 1.87
     - _UseUIAlphaClip: 0
+    - _Width: 15.68
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &1861679629
