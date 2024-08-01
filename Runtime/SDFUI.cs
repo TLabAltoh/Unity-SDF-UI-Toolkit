@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
+using UnityEngine.Pool;
 
 namespace TLab.UI.SDF
 {
@@ -569,6 +570,11 @@ namespace TLab.UI.SDF
 			{
 				materialDirty = false;
 				MaterialRegistry.UpdateMaterial(this);
+
+				if (MaskEnabled())
+                {
+					m_mask.GetModifiedMaterial(material);
+                }
 			}
 		}
 
@@ -578,15 +584,7 @@ namespace TLab.UI.SDF
 			{
 				SetVerticesDirty();
 				SetMaterialDirty();
-
-				if (MaskEnabled() && material != null)
-				{
-					var maskMaterial = m_mask.GetModifiedMaterial(material);
-
-					if (maskMaterial != material)
-						_materialRecord.Populate(maskMaterial);
-				}
-			}
+            }
 		}
 
 		public override void SetLayoutDirty()
@@ -622,21 +620,15 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		protected override void UpdateMaterial()
+		public override Material materialForRendering
 		{
-			if (!IsActive())
-				return;
-
-			canvasRenderer.materialCount = 1;
-			canvasRenderer.SetMaterial(materialForRendering, 0);
-			switch (m_activeImageType)
+			get
 			{
-				case ActiveImageType.SPRITE:
-					canvasRenderer.SetTexture((activeSprite == null) ? s_WhiteTexture : activeSprite.texture);
-					break;
-				case ActiveImageType.TEXTURE:
-					canvasRenderer.SetTexture((activeTexture == null) ? s_WhiteTexture : activeTexture);
-					break;
+				var currentMat = base.materialForRendering;
+
+				_materialRecord.Populate(currentMat);
+
+				return currentMat;
 			}
 		}
 
