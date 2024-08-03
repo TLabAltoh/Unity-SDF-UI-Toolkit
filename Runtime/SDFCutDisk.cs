@@ -12,26 +12,10 @@ namespace TLab.UI.SDF
 	{
 		protected override string SHADER_NAME => "UI/SDF/CutDisk/Outline";
 
-		[SerializeField, Min(0)] private float m_radius = 40;
-
-		[SerializeField, Min(0)] private float m_height = 10;
+		[SerializeField, Range(0f, 1f)] private float m_height = 0.5f;
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		public static readonly int PROP_HEIGHT = Shader.PropertyToID("_Height");
-
-		public float radius
-		{
-			get => radius;
-			set
-			{
-				if (m_radius != value)
-				{
-					m_radius = value;
-
-					SetAllDirty();
-				}
-			}
-		}
 
 		public float height
 		{
@@ -51,8 +35,9 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			_materialRecord.SetFloat(PROP_HEIGHT, m_height);
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
+			var radius = m_minSize * 0.5f;
+			_materialRecord.SetFloat(PROP_HEIGHT, -radius * (1f - m_height) + radius * m_height);
+			_materialRecord.SetFloat(PROP_RADIUSE, radius);
 		}
 	}
 }

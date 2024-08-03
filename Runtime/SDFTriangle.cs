@@ -4,7 +4,6 @@
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
 **/
 
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TLab.UI.SDF
@@ -12,6 +11,8 @@ namespace TLab.UI.SDF
 	public class SDFTriangle : SDFUI
 	{
 		protected override string SHADER_NAME => "UI/SDF/Triangle/Outline";
+
+		private const float BASE_SIZE = 100f;
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);
@@ -36,6 +37,8 @@ namespace TLab.UI.SDF
 				}
 			}
 		}
+
+		public float scale => m_minSize / BASE_SIZE;
 
 		public Vector2 corner0
 		{
@@ -83,10 +86,11 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
-			_materialRecord.SetVector(PROP_CORNER0, m_corner0);
-			_materialRecord.SetVector(PROP_CORNER1, m_corner1);
-			_materialRecord.SetVector(PROP_CORNER2, m_corner2);
+			var scale = m_minSize / BASE_SIZE;
+			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * scale);
+			_materialRecord.SetVector(PROP_CORNER0, m_corner0 * scale);
+			_materialRecord.SetVector(PROP_CORNER1, m_corner1 * scale);
+			_materialRecord.SetVector(PROP_CORNER2, m_corner2 * scale);
 		}
 	}
 }
