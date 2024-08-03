@@ -108,8 +108,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -178, y: -44.3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -180.60487, y: -42.946083}
+  m_SizeDelta: {x: 92.5575, y: 103.8683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106449154058105941
 CanvasRenderer:
@@ -163,7 +163,7 @@ MonoBehaviour:
     width: 1
     height: 1
   m_radius: 0
-  m_corner0: {x: -44.460308, y: -42.475727}
+  m_corner0: {x: -42.49163, y: -42.65387}
   m_corner1: {x: 44.724552, y: -43.05211}
   m_corner2: {x: 0.84033394, y: 44.2928}
 --- !u!1 &106449154209904388
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_onionWidth: 10
   m_antialiasing: 1
   m_shadow: 1
-  m_shadowWidth: 51.41
+  m_shadowWidth: 35
   m_shadowBlur: 50.04
   m_shadowPower: 1
   m_shadowOffset: {x: 0, y: 0}
@@ -472,7 +472,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 31.19
   m_width: 10
   m_theta: 1.855
 --- !u!1 &106449154655706015
@@ -668,7 +667,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onion: 1
-  m_onionWidth: 4.79
+  m_onionWidth: 8.4
   m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 6.06
@@ -677,7 +676,7 @@ MonoBehaviour:
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8773585, g: 0.8453622, b: 0.29383236, a: 0.6156863}
   m_outline: 1
-  m_outlineWidth: 1.02
+  m_outlineWidth: 2.84
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -690,8 +689,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 27.68
-  m_width: 10
+  m_width: 12.37
   m_theta: 1.5707964
 --- !u!1 &106449155009625114
 GameObject:
@@ -760,7 +758,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onion: 0
-  m_onionWidth: 6.8
+  m_onionWidth: 16.75
   m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 17.72
@@ -782,7 +780,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 40
   m_theta: 2.35
 --- !u!1 &106449155051947346
 GameObject:
@@ -955,7 +952,7 @@ MonoBehaviour:
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_outline: 1
-  m_outlineWidth: 4.74
+  m_outlineWidth: 4
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -968,8 +965,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 31.1
-  m_width: 15.68
+  m_width: 21.91
   m_theta: 1.87
 --- !u!1 &106449155366452262
 GameObject:
@@ -1006,7 +1002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -63, y: 64.8}
+  m_AnchoredPosition: {x: -65.25691, y: 64.26892}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106449155366452258
@@ -1038,7 +1034,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onion: 0
-  m_onionWidth: 10
+  m_onionWidth: 23
   m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 21.7
@@ -1060,7 +1056,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 39.24
   m_min: 0
   m_max: 1
 --- !u!1 &106449155371979679
@@ -1152,5 +1147,4 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 36.4
-  m_height: 10
+  m_height: 0.5
