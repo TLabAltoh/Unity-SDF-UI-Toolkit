@@ -12,8 +12,6 @@ namespace TLab.UI.SDF
 	{
 		protected override string SHADER_NAME => "UI/SDF/Circle/Outline";
 
-		[SerializeField] private float m_radius = 40;
-
 		[Range(0, 1), SerializeField]
 		public float m_min = 0;
 
@@ -21,20 +19,6 @@ namespace TLab.UI.SDF
 		public float m_max = 1;
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
-
-		public float radius
-		{
-			get => m_radius;
-			set
-			{
-				if (m_radius != value)
-				{
-					m_radius = value;
-
-					SetAllDirty();
-				}
-			}
-		}
 
 		public float min
 		{
@@ -68,7 +52,7 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
+			_materialRecord.SetFloat(PROP_RADIUSE, m_minSize * 0.5f);
 		}
 	}
 }

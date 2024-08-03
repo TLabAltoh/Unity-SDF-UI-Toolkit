@@ -23,10 +23,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected override void DrawShapeProp()
 		{
-			base.DrawShapeProp();
-			EditorGUI.indentLevel++;
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
-			EditorGUI.indentLevel--;
+
 		}
 	}
 }

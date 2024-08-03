@@ -38,7 +38,7 @@ namespace TLab.UI.SDF.Editor
 			{
 				var prop = serializedObject.FindProperty(m_corners[i]);
 
-				corners[i] = EditorUtil.RectTransformToRect(prop.vector2Value, m_area, rectTSize);
+				corners[i] = EditorUtil.RectTransformToRect(prop.vector2Value * m_instance.scale, m_area, rectTSize);
 			}
 
 			Handles.color = Color.white;
@@ -69,6 +69,8 @@ namespace TLab.UI.SDF.Editor
 						{
 							if (EditorUtil.CheckArea(Event.current.mousePosition, m_area))
 							{
+								var scale = m_instance.scale;
+
 								for (int i = 0; i < m_corners.Length; i++)
 								{
 									var corner = Vector2.zero;
@@ -86,7 +88,7 @@ namespace TLab.UI.SDF.Editor
 											break;
 									}
 
-									if (Vector2.Distance(rectTPosition, corner) < 10)
+									if (Vector2.Distance(rectTPosition, corner * scale) < 10)
 									{
 										m_index = i;
 
@@ -98,18 +100,20 @@ namespace TLab.UI.SDF.Editor
 						break;
 					case EventType.MouseDrag:
 						{
+							var scale = m_instance.scale;
+
 							if (m_index != -1 && EditorUtil.CheckArea(Event.current.mousePosition, m_area))
 							{
 								switch (m_index)
 								{
 									case 0:
-										m_instance.corner0 = rectTPosition;
+										m_instance.corner0 = rectTPosition / scale;
 										break;
 									case 1:
-										m_instance.corner1 = rectTPosition;
+										m_instance.corner1 = rectTPosition / scale;
 										break;
 									case 2:
-										m_instance.corner2 = rectTPosition;
+										m_instance.corner2 = rectTPosition / scale;
 										break;
 								}
 							}

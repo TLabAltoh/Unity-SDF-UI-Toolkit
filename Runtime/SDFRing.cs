@@ -12,7 +12,6 @@ namespace TLab.UI.SDF
 	{
 		protected override string SHADER_NAME => "UI/SDF/Ring/Outline";
 
-		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField, Min(0)] private float m_width = 10;
 
 		[Range(0, Mathf.PI), SerializeField]
@@ -21,20 +20,6 @@ namespace TLab.UI.SDF
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
 		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
-
-		public float radius
-		{
-			get => m_radius;
-			set
-			{
-				if (m_radius != value)
-				{
-					m_radius = value;
-
-					SetAllDirty();
-				}
-			}
-		}
 
 		public float width
 		{
@@ -68,7 +53,7 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			material.SetFloat(PROP_RADIUSE, m_radius);
+			material.SetFloat(PROP_RADIUSE, m_minSize * 0.5f - m_width * 0.5f);
 			material.SetFloat(PROP_THETA, m_theta);
 			material.SetFloat(PROP_WIDTH, m_width);
 		}
