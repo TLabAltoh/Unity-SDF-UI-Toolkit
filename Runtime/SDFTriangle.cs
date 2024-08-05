@@ -14,10 +14,10 @@ namespace TLab.UI.SDF
 	public class SDFTriangle : SDFUI
 	{
 #if UNITY_EDITOR
-		[MenuItem("GameObject/UI/SDFUI/SDFPie", false)]
+		[MenuItem("GameObject/UI/SDFUI/SDFTriangle", false)]
 		private static void Create(MenuCommand menuCommand)
 		{
-			Create<SDFPie>(menuCommand);
+			Create<SDFTriangle>(menuCommand);
 		}
 #endif
 

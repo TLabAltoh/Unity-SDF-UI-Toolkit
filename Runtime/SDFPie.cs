@@ -23,20 +23,20 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "UI/SDF/Pie/Outline";
 
-		[Range(0, Mathf.PI), SerializeField]
-		private float m_theta = Mathf.PI * 0.5f;
+		[Range(0, 1), SerializeField]
+		private float m_fillAmount = 0.5f;
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
 
-		public float theta
+		public float fillAmount
 		{
-			get => m_theta;
+			get => m_fillAmount;
 			set
 			{
-				if (m_theta != value)
+				if (m_fillAmount != value)
 				{
-					m_theta = value;
+					m_fillAmount = value;
 
 					SetAllDirty();
 				}
@@ -47,7 +47,7 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			_materialRecord.SetFloat(PROP_THETA, m_theta);
+			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
 			_materialRecord.SetFloat(PROP_RADIUSE, m_minSize * 0.5f);
 		}
 	}

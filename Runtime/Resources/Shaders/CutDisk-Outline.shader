@@ -100,6 +100,10 @@ Shader "UI/SDF/CutDisk/Outline" {
 
             fixed4 frag(v2f i) : SV_Target{
 
+                if (_Height == _Radius) {
+                    discard;
+                }
+
                 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
