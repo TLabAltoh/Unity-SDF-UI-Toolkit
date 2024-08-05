@@ -5,11 +5,22 @@
 **/
 
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TLab.UI.SDF
 {
 	public class SDFCircle : SDFUI
 	{
+#if UNITY_EDITOR
+		[MenuItem("GameObject/UI/SDFUI/SDFCircle", false)]
+		private static void Create(MenuCommand menuCommand)
+		{
+			Create<SDFCircle>(menuCommand);
+		}
+#endif
+
 		protected override string SHADER_NAME => "UI/SDF/Circle/Outline";
 
 		[Range(0, 1), SerializeField]

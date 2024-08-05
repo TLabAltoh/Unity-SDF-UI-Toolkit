@@ -5,11 +5,22 @@
 **/
 
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TLab.UI.SDF
 {
 	public class SDFQuad : SDFUI
 	{
+#if UNITY_EDITOR
+		[MenuItem("GameObject/UI/SDFUI/SDFQuad", false)]
+		private static void Create(MenuCommand menuCommand)
+		{
+			Create<SDFQuad>(menuCommand);
+		}
+#endif
+
 		protected override string SHADER_NAME => "UI/SDF/Quad/Outline";
 
 		[SerializeField] private bool m_independent = true;

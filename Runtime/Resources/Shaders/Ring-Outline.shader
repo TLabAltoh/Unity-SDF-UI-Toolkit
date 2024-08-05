@@ -102,6 +102,10 @@ Shader "UI/SDF/Ring/Outline" {
 
             fixed4 frag(v2f i) : SV_Target{
 
+                if (_Theta == 0.0) {
+                    discard;
+                }
+
                 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
@@ -116,8 +120,8 @@ Shader "UI/SDF/Ring/Outline" {
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
-                float dist = sdRing(p, float2(cos(_Theta), sin(_Theta)), _Radius, _Width);
-                float sdist = sdRing(sp, float2(cos(_Theta), sin(_Theta)), _Radius, _Width);
+                float dist = _Theta >= 3.14 ? abs(length(p) - _Radius) - _Width * .5 : sdRing(p, float2(cos(_Theta), sin(_Theta)), _Radius, _Width);
+                float sdist = _Theta >= 3.14 ? abs(length(sp) - _Radius) - _Width * .5 : sdRing(sp, float2(cos(_Theta), sin(_Theta)), _Radius, _Width);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;

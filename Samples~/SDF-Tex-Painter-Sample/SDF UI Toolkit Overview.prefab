@@ -473,7 +473,7 @@ MonoBehaviour:
     width: 1
     height: 1
   m_width: 10
-  m_theta: 1.855
+  m_fillAmount: 0.5
 --- !u!1 &106449154655706015
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ MonoBehaviour:
     width: 1
     height: 1
   m_width: 12.37
-  m_theta: 1.5707964
+  m_fillAmount: 0.5
 --- !u!1 &106449155009625114
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +780,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_theta: 2.35
+  m_fillAmount: 0.75
 --- !u!1 &106449155051947346
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,8 +965,8 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_width: 21.91
-  m_theta: 1.87
+  m_width: 10
+  m_fillAmount: 0.5
 --- !u!1 &106449155366452262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,4 +1147,4 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_height: 0.5
+  m_fillAmount: 0.5

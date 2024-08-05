@@ -5,17 +5,28 @@
 **/
 
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TLab.UI.SDF
 {
 	public class SDFArc : SDFUI
 	{
+#if UNITY_EDITOR
+		[MenuItem("GameObject/UI/SDFUI/SDFArc", false)]
+		private static void Create(MenuCommand menuCommand)
+		{
+			Create<SDFArc>(menuCommand);
+		}
+#endif
+
 		protected override string SHADER_NAME => "UI/SDF/Arc/Outline";
 
 		[SerializeField, Min(0)] private float m_width = 10;
 
-		[Range(0, Mathf.PI), SerializeField]
-		private float m_theta = Mathf.PI * 0.5f;
+		[Range(0, 1), SerializeField]
+		private float m_fillAmount = 0.5f;
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
@@ -35,14 +46,14 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public float theta
+		public float fillAmount
 		{
-			get => m_theta;
+			get => m_fillAmount;
 			set
 			{
-				if (m_theta != value)
+				if (m_fillAmount != value)
 				{
-					m_theta = value;
+					m_fillAmount = value;
 
 					SetAllDirty();
 				}
@@ -54,7 +65,7 @@ namespace TLab.UI.SDF
 			base.SetMaterialDirty();
 
 			_materialRecord.SetFloat(PROP_RADIUSE, m_minSize * 0.5f - m_width);
-			_materialRecord.SetFloat(PROP_THETA, m_theta);
+			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
 			_materialRecord.SetFloat(PROP_WIDTH, m_width);
 		}
 	}
