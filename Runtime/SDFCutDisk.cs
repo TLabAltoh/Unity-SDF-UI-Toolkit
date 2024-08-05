@@ -5,11 +5,22 @@
 **/
 
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TLab.UI.SDF
 {
 	public class SDFCutDisk : SDFUI
 	{
+#if UNITY_EDITOR
+		[MenuItem("GameObject/UI/SDFUI/SDFCutDisk", false)]
+		private static void Create(MenuCommand menuCommand)
+		{
+			Create<SDFCutDisk>(menuCommand);
+		}
+#endif
+
 		protected override string SHADER_NAME => "UI/SDF/CutDisk/Outline";
 
 		[SerializeField, Range(0f, 1f)] private float m_height = 0.5f;
