@@ -101,6 +101,10 @@ Shader "UI/SDF/Arc/Outline" {
 
             fixed4 frag(v2f i) : SV_Target {
 
+                if (_Theta == 0.0) {
+                    discard;
+                }
+
                 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
@@ -115,8 +119,8 @@ Shader "UI/SDF/Arc/Outline" {
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
-                float dist = sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                float sdist = sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
+                float dist = _Theta >= 3.14 ? abs(length(p) - _Radius) - _Width : sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
+                float sdist = _Theta >= 3.14 ? abs(length(sp) - _Radius) - _Width : sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
 
                 if (_Onion) {
                     dist = abs(dist) - _OnionWidth;

@@ -19,7 +19,7 @@ namespace TLab.UI.SDF.Editor
 		{
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.height), "Height");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.fillAmount), "FillAmount");
 			EditorGUI.indentLevel--;
 		}
 	}
