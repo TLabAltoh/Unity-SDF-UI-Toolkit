@@ -7,7 +7,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
-using UnityEngine.Pool;
 
 namespace TLab.UI.SDF
 {
@@ -34,7 +33,7 @@ namespace TLab.UI.SDF
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
 	[RequireComponent(typeof(CanvasRenderer))]
-	public class SDFUI : MaskableGraphic
+	public abstract class SDFUI : MaskableGraphic
 	{
 		protected virtual string SHADER_NAME => "";
 
@@ -482,6 +481,19 @@ namespace TLab.UI.SDF
 				}
 			}
 		}
+
+#if UNITY_EDITOR
+		protected static TSDFUI Create<TSDFUI>(MenuCommand menuCommand) where TSDFUI : SDFUI
+		{
+			GameObject gameObject = new();
+			gameObject.name = typeof(TSDFUI).Name;
+			TSDFUI sdfUI = gameObject.AddComponent<TSDFUI>();
+			GameObjectUtility.SetParentAndAlign(gameObject, menuCommand.context as GameObject);
+			Undo.RegisterCreatedObjectUndo(gameObject, "Create " + gameObject.name);
+			Selection.activeObject = gameObject;
+			return sdfUI;
+		}
+#endif
 
 		public override void SetNativeSize()
 		{

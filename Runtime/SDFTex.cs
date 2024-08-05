@@ -6,11 +6,22 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TLab.UI.SDF
 {
 	public class SDFTex : SDFUI
 	{
+#if UNITY_EDITOR
+		[MenuItem("GameObject/UI/SDFUI/SDFTex", false)]
+		private static void Create(MenuCommand menuCommand)
+		{
+			Create<SDFTex>(menuCommand);
+		}
+#endif
+
 		protected override string SHADER_NAME => "UI/SDF/Tex/Outline";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
