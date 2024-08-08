@@ -18,7 +18,7 @@ MonoBehaviour:
   sdfHeight: 512
   sdfSettings:
     maxDist: 20
-  shape: 0
+  shape: 1
   previewMode: 0
   circlePainter:
     handleRadius: 10
@@ -53,7 +53,6 @@ MonoBehaviour:
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
-    showSpline: 0
     split: 0
     maxNum: 25
     maxErr: 25

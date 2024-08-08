@@ -4,6 +4,8 @@
 * https://iquilezles.org/articles/distfunctions2d/
 **/
 
+#define JACOBIAN(uv) (transpose( float2x2( ddx(uv), ddy(uv) ) ))
+
 /*
 * p:
 * h:
@@ -120,6 +122,11 @@ inline float round(float d, float r)
     return d - r;
 }
 
+inline float round(float4 d, float r)
+{
+    return float4(round(d.r, r), round(d.g, r), round(d.b, r), round(d.a, r));
+}
+
 inline float onion(float2 d, float r)
 {
     return abs(d) - r;
@@ -149,8 +156,4 @@ inline float2 reflection(float2 p, float2 refMatrix) {
 inline float closer(float a, float b, float v) {
     int weight = abs(a - v) < abs(b - v);
     return weight * a + (1 - weight) * b;
-}
-
-inline float fwidthExpand(float value, float2 screenParams) {
-    return abs(ddx(value - screenParams.x * 10)) + abs(ddy(value - screenParams.y * 10));
 }

@@ -37,13 +37,28 @@ namespace TLab.UI.SDF
 	{
 		protected virtual string SHADER_NAME => "";
 
+		#region SHADER_KEYWORD
+
+		internal const string SHADER_KEYWORD_PREFIX = "SDF_UI_";
+
+		internal const string KEYWORD_ONION = SHADER_KEYWORD_PREFIX + "ONION";
+
+		internal const string KEYWORD_FASTER_AA = SHADER_KEYWORD_PREFIX + "FASTER_AA";
+		internal const string KEYWORD_SUPER_SAMPLING_AA = SHADER_KEYWORD_PREFIX + "SUPER_SAMPLING_AA";
+		internal const string KEYWORD_SUBPIXEL_SAMPLING_AA = SHADER_KEYWORD_PREFIX + "SUBPIXEL_SAMPLING_AA";
+
+		internal const string KEYWORD_OUTLINE_INSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_INSIDE";
+		internal const string KEYWORD_OUTLINE_OUTSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_OUTSIDE";
+
+		#endregion SHADER_KEYWORD
+
+		#region SHADER_PROP
+
 		internal static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
 		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
-		internal static readonly int PROP_ANTIALIASING = Shader.PropertyToID("_Antialiasing");
 
-		internal static readonly int PROP_ONION = Shader.PropertyToID("_Onion");
 		internal static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
 
 		internal static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
@@ -58,11 +73,21 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
 		internal static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
 
+		#endregion SHADER_PROP
+
 		public enum OutlineType
 		{
 			INSIDE,
 			OUTSIDE
 		};
+
+		public enum AntialiasingType
+		{
+			NONE,
+			FASTER,
+			SUPER_SAMPLING,
+			SUBPIXEL_SAMPLING,
+		}
 
 		public enum ActiveImageType
 		{
@@ -73,7 +98,7 @@ namespace TLab.UI.SDF
 		[SerializeField] protected bool m_onion = false;
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
 
-		[SerializeField] protected bool m_antialiasing = true;
+		[SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.FASTER;
 
 		[SerializeField] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
@@ -156,7 +181,7 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public bool antialiasing
+		public AntialiasingType antialiasing
 		{
 			get => m_antialiasing;
 			set
@@ -683,12 +708,12 @@ namespace TLab.UI.SDF
 
 			if (m_onion)
 			{
-				_materialRecord.SetInteger(PROP_ONION, 1);
+				_materialRecord.EnableKeyword(KEYWORD_ONION);
 				_materialRecord.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
 			}
 			else
 			{
-				_materialRecord.SetInteger(PROP_ONION, 0);
+				_materialRecord.DisableKeyword(KEYWORD_ONION);
 				_materialRecord.SetFloat(PROP_ONIONWIDTH, 0);
 			}
 
@@ -711,7 +736,17 @@ namespace TLab.UI.SDF
 			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 			_materialRecord.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
-			_materialRecord.SetInteger(PROP_OUTLINETYPE, (int)m_outlineType);
+			switch (m_outlineType)
+			{
+				case OutlineType.INSIDE:
+					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_INSIDE);
+					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_OUTSIDE);
+					break;
+				case OutlineType.OUTSIDE:
+					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_OUTSIDE);
+					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_INSIDE);
+					break;
+			}
 
 			float outlineWidth = m_outlineWidth;
 			if (m_outline)
@@ -726,7 +761,24 @@ namespace TLab.UI.SDF
 				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_fillColor);
 			}
 
-			_materialRecord.SetInteger(PROP_ANTIALIASING, m_antialiasing ? 1 : 0);
+			switch (m_antialiasing)
+			{
+				case AntialiasingType.NONE:
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					break;
+				case AntialiasingType.FASTER:
+					_materialRecord.EnableKeyword(KEYWORD_FASTER_AA);
+					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					break;
+				case AntialiasingType.SUPER_SAMPLING:
+					_materialRecord.EnableKeyword(KEYWORD_SUPER_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					break;
+				case AntialiasingType.SUBPIXEL_SAMPLING:
+					_materialRecord.EnableKeyword(KEYWORD_SUBPIXEL_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_FASTER_AA);
+					break;
+			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
 		}
@@ -736,7 +788,7 @@ namespace TLab.UI.SDF
 	public static class SDFUtils
 	{
 		[BurstCompile]
-		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation, in bool antialiasing,
+		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation, in SDFUI.AntialiasingType antialiasing,
 			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3)
 		{
 			float3 pivotPoint = new(rectSize * rectPivot, 0);
@@ -768,7 +820,7 @@ namespace TLab.UI.SDF
 
 			float4 expand = shadowExpand;
 
-			if (antialiasing && rectSize.x > 0 && rectSize.y > 0)
+			if (antialiasing == SDFUI.AntialiasingType.FASTER && rectSize.x > 0 && rectSize.y > 0)
 			{
 				expand += new float4(-1, 1, -1, 1);
 

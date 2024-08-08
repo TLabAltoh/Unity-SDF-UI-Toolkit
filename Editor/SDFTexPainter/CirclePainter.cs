@@ -10,6 +10,7 @@ namespace TLab.UI.SDF.Editor
     [System.Serializable]
     public class CirclePainter : ShapePainter
     {
+        #region GRABBER
         private class Grabber
         {
             private bool m_isGrab;
@@ -59,6 +60,7 @@ namespace TLab.UI.SDF.Editor
                 m_circle = null;
             }
         }
+        #endregion GRABBER
 
         public enum EditMode
         {
@@ -69,7 +71,7 @@ namespace TLab.UI.SDF.Editor
 
         [Header("Brush Settings")]
 
-        public float handleRadius = 10;
+        [Min(0f)] public float handleRadius = 10;
         public Color handleColor = Color.green;
         public Color selectColor = Color.magenta;
         public bool showHandle = false;
@@ -78,8 +80,8 @@ namespace TLab.UI.SDF.Editor
         [Header("Shape Settings")]
 
         public EditMode editMode;
-        public float radius;
-        public float thickness;
+        [Min(0f)] public float radius;
+        [Min(0f)] public float thickness;
         public Draw draw;
         public List<Circle> circles = new List<Circle>();
 
@@ -339,8 +341,7 @@ namespace TLab.UI.SDF.Editor
         /// <param name="sdfTexSize"></param>
         /// <param name="texSize"></param>
         /// <param name="settings"></param>
-        public void GenerateSDF(in NativeArray<byte> sdfBuffer,
-            Vector2Int sdfTexSize, Vector2Int texSize, SDFSettings settings)
+        public void GenerateSDF(in NativeArray<byte> sdfBuffer, Vector2Int sdfTexSize, Vector2Int texSize, SDFSettings settings)
         {
             Debug.Log(THIS_NAME + "Start generate sdf form circle shape");
 
