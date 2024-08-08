@@ -1,3 +1,6 @@
+#define SHOW_SPLINE
+#undef SHOW_SPLINE
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -9,6 +12,7 @@ namespace TLab.UI.SDF.Editor
     [System.Serializable]
     public class BezierPainter : ShapePainter
     {
+        #region GRABBER
         private class Grabber
         {
             private bool m_isGrab;
@@ -91,6 +95,7 @@ namespace TLab.UI.SDF.Editor
                 m_control = Bezier.Control.NONE;
             }
         }
+        #endregion GRABBER
 
         public enum EditMode
         {
@@ -100,26 +105,25 @@ namespace TLab.UI.SDF.Editor
 
         [Header("Brush Settings")]
 
-        public float handleRadius = 10;
+        [Min(0f)] public float handleRadius = 10;
         public Color anchorColor = Color.green;
         public Color bezierColor = Color.green;
         public Color controlColor = Color.yellow;
         public Color selectColor = Color.magenta;
         public bool showHandle = false;
-        public bool showSpline = false;
-        public uint split = 0;
+        [Min(0f)] public int split = 0;
 
         [Header("Cu2Qu Settings")]
 
-        public uint maxNum = 5;
-        public float maxErr = 200f;
+        [Min(0f)] public int maxNum = 25;
+        [Min(0f)] public float maxErr = 25f;
 
         private Grabber m_grabber = new Grabber();
 
         [Header("Shape Settings")]
 
         public EditMode editMode;
-        public float thickness;
+        [Min(0f)] public float thickness;
         public bool closed;
         public Draw draw;
         public List<Bezier> beziers = new List<Bezier>();
@@ -221,27 +225,26 @@ namespace TLab.UI.SDF.Editor
                 }
             }
 
-            if (showSpline)
+#if SHOW_SPLINE
+            for (int i = 0; i < beziers.Count; i++)
             {
-                for (int i = 0; i < beziers.Count; i++)
+                if (beziers[i].handles.Count == 0)
                 {
-                    if (beziers[i].handles.Count == 0)
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    var closed = beziers[i].closed;
+                var closed = beziers[i].closed;
 
-                    Handles.color = bezierColor;
+                Handles.color = bezierColor;
 
-                    if (beziers[i].Cu2Qu(out var spline, (int)maxNum, maxErr))
-                    {
-                        spline = EditorUtil.TextureToRect(spline, m_area, m_texSize);
+                if (beziers[i].Cu2Qu(out var spline, (int)maxNum, maxErr))
+                {
+                    spline = EditorUtil.TextureToRect(spline, m_area, m_texSize);
 
-                        Handles.DrawPolyLine(Vector3ArrayFrom(spline, closed));
-                    }
+                    Handles.DrawPolyLine(Vector3ArrayFrom(spline, closed));
                 }
             }
+#endif
 
             Handles.color = prevColor;
         }
@@ -508,8 +511,7 @@ namespace TLab.UI.SDF.Editor
         /// <param name="sdfTexSize"></param>
         /// <param name="texSize"></param>
         /// <param name="settings"></param>
-        public void GenerateSDF(in NativeArray<byte> sdfBuffer,
-            Vector2Int sdfTexSize, Vector2Int texSize, SDFSettings settings)
+        public void GenerateSDF(in NativeArray<byte> sdfBuffer, Vector2Int sdfTexSize, Vector2Int texSize, SDFSettings settings)
         {
             Debug.Log(THIS_NAME + "Start generate sdf from bezier shape");
 

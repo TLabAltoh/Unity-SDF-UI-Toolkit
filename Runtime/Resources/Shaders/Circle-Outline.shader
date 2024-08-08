@@ -15,10 +15,7 @@ Shader "UI/SDF/Circle/Outline" {
 
         _Radius("Radius", Float) = 0
 
-        _Onion("Onion", Int) = 0
         _OnionWidth("Onion Width", Float) = 0
-
-        _Antialiasing("Antialiasing", Int) = 0
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
@@ -26,7 +23,6 @@ Shader "UI/SDF/Circle/Outline" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
-        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -65,6 +61,15 @@ Shader "UI/SDF/Circle/Outline" {
             #pragma vertex vert
             #pragma fragment frag
 
+            #pragma shader_feature_local _ SDF_UI_ONION
+
+            #pragma shader_feature_local _ SDF_UI_FASTER_AA
+            #pragma shader_feature_local _ SDF_UI_SUPER_SAMPLING_AA
+            #pragma shader_feature_local _ SDF_UI_SUBPIXEL_SAMPLING_AA
+
+            #pragma shader_feature_local _ SDF_UI_OUTLINE_INSIDE
+            #pragma shader_feature_local _ SDF_UI_OUTLINE_OUTSIDE
+
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
@@ -74,10 +79,7 @@ Shader "UI/SDF/Circle/Outline" {
             float _Padding;
             float4 _OuterUV;
 
-            int _Onion;
             float _OnionWidth;
-
-            int _Antialiasing;
 
             float _ShadowWidth;
             float _ShadowBlur;
@@ -85,7 +87,6 @@ Shader "UI/SDF/Circle/Outline" {
             float4 _ShadowColor;
             float4 _ShadowOffset;
 
-            int _OutlineType;
             float _OutlineWidth;
             float4 _OutlineColor;
 
@@ -111,37 +112,93 @@ Shader "UI/SDF/Circle/Outline" {
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
+#ifdef SDF_UI_SUPER_SAMPLING_AA
+                float4 dist, sdist;
+                float2x2 j;
+
+                j = JACOBIAN(p);
+                dist = 0.25 * (
+                    length(p + mul(j, float2( 1,  1) * 0.25)) - _Radius +
+                    length(p + mul(j, float2( 1, -1) * 0.25)) - _Radius +
+                    length(p + mul(j, float2(-1,  1) * 0.25)) - _Radius +
+                    length(p + mul(j, float2(-1, -1) * 0.25)) - _Radius);
+
+                j = JACOBIAN(sp);
+                sdist = 0.25 * (
+                    length(sp + mul(j, float2( 1,  1) * 0.25)) - _Radius +
+                    length(sp + mul(j, float2( 1, -1) * 0.25)) - _Radius +
+                    length(sp + mul(j, float2(-1,  1) * 0.25)) - _Radius +
+                    length(sp + mul(j, float2(-1, -1) * 0.25)) - _Radius);
+
+#elif SDF_UI_SUBPIXEL_SAMPLING_AA
+                float4 dist, sdist;
+                float2x2 j;
+                float r, g, b;
+
+                j = JACOBIAN(p);
+                r = length(p + mul(j, float2(-0.333, 0))) - _Radius;
+                g = length(p) - _Radius;
+                b = length(p + mul(j, float2( 0.333, 0))) - _Radius;
+                dist = half4(r, g, b, (r + g + b) / 3.);
+
+                j = JACOBIAN(sp);
+                r = length(sp + mul(j, float2(-0.333, 0))) - _Radius;
+                g = length(sp) - _Radius;
+                b = length(sp + mul(j, float2( 0.333, 0))) - _Radius;
+                sdist = half4(r, g, b, (r + g + b) / 3.);
+#else
                 float dist = length(p) - _Radius;
                 float sdist = length(sp) - _Radius;
+#endif
 
-                if (_Onion) {
-                    dist = abs(dist) - _OnionWidth;
-                    sdist = abs(sdist) - _OnionWidth;
-                }
+#ifdef SDF_UI_ONION
+                dist = abs(dist) - _OnionWidth;
+                sdist = abs(sdist) - _OnionWidth;
+#endif
 
+#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+                float4 delta = fwidth(dist), sdelta = fwidth(sdist);
+#elif SDF_UI_SUPER_SAMPLING_AA
+                float delta = fwidth(dist), sdelta = fwidth(sdist);
+#elif SDF_UI_FASTER_AA
+                float offset = -.25; // To offset the pixels of a display, do I need to consider RGBA (divide by 4)?
+                dist += offset;
+                sdist += offset;
+
+                float delta = fwidth(dist), sdelta = fwidth(sdist);
+#else
                 float delta = 0, sdelta = 0;
+#endif
 
-                if (_Antialiasing) {
-                    float offset = -.25; // To offset the pixels of a display, do I need to consider RGBA (divide by 4)?
-                    dist += offset;
-                    sdist += offset;
+#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+                float4 graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
+#else
+                float graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
+#endif
 
-                    delta = fwidth(dist);
-                    sdelta = fwidth(sdist);
-                }
+#ifdef SDF_UI_OUTLINE_INSIDE
+                graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
+                outlineAlpha = 1 - smoothstep(-delta, 0, dist);
+                shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
+#elif SDF_UI_OUTLINE_OUTSIDE
+                outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
+                graphicAlpha = 1 - smoothstep(-delta, 0, dist);
+                shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - sdelta, _OutlineWidth + _ShadowWidth, sdist);
+#endif
 
-                float graphicAlpha, outlineAlpha, shadowAlpha;
-                if (_OutlineType == 0) {    // Inside
-                    graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
-                    outlineAlpha = 1 - smoothstep(-delta, 0, dist);
-                    shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
-                }
-                else {  // Outside
-                    outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
-                    graphicAlpha = 1 - smoothstep(-delta, 0, dist);
-                    shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - sdelta, _OutlineWidth + _ShadowWidth, sdist);
-                }
+#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+                half4 lerp0 = lerp(
+                    half4(lerp(half3(1, 1, 1), _OutlineColor.rgb, outlineAlpha.rgb), outlineAlpha.a * _OutlineColor.a),   // crop image by outline area
+                    color,
+                    graphicAlpha    // override with graphic alpha
+                );
 
+                half4 effects = lerp(
+                    half4(_ShadowColor.rgb, shadowAlpha.a * pow(shadowAlpha.a, _ShadowPower) * _ShadowColor.a),
+                    lerp0,
+                    lerp0.a // override
+                );
+#else
                 half4 lerp0 = lerp(
                     half4(_OutlineColor.rgb, outlineAlpha * _OutlineColor.a),   // crop image by outline area
                     half4(color.rgb, color.a),
@@ -153,6 +210,7 @@ Shader "UI/SDF/Circle/Outline" {
                     lerp0,
                     lerp0.a // override
                 );
+#endif
 
                 effects *= i.color;
 
