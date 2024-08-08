@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace TLab.UI.SDF.Registry
 {
@@ -9,6 +10,9 @@ namespace TLab.UI.SDF.Registry
 	{
 		private static readonly MaterialProperty.Comparer comparer = new();
 		private readonly Dictionary<int, MaterialProperty> _properties = new();
+
+		private readonly SortedSet<string> _keywords = new();
+
 		public string ShaderName { get; set; }
 		public Texture Texture { get; set; }
 		public float4 TextureUV { get; set; }
@@ -81,6 +85,28 @@ namespace TLab.UI.SDF.Registry
 			SetProperty(property);
 		}
 
+		public void EnableKeyword(string keyword)
+		{
+			_keywords.Add(keyword);
+		}
+
+		public void EnableKeywords(params string[] keywords)
+		{
+			foreach (var keyword in keywords)
+				EnableKeyword(keyword);
+		}
+
+		public void DisableKeyword(string keyword)
+		{
+			_keywords.Remove(keyword);
+		}
+
+		public void DisableKeywords(params string[] keywords)
+		{
+			foreach (var keyword in keywords)
+				DisableKeyword(keyword);
+		}
+
 		public void SetProperty(MaterialProperty property)
 		{
 			_properties[property.NameID] = property;
@@ -88,6 +114,16 @@ namespace TLab.UI.SDF.Registry
 
 		public void Populate(Material material)
 		{
+			foreach (var keyword in material.enabledKeywords)
+			{
+				material.DisableKeyword(keyword);
+			}
+
+			foreach (var keyword in _keywords)
+			{
+				material.EnableKeyword(new LocalKeyword(material.shader, keyword));
+			}
+
 			material.mainTexture = Texture;
 			material.mainTextureScale = new Vector2(TextureUV.z, TextureUV.w);
 			material.mainTextureOffset = new Vector2(TextureUV.x, TextureUV.y);
@@ -122,6 +158,7 @@ namespace TLab.UI.SDF.Registry
 			if (obj is not MaterialRecord record)
 				return false;
 
+			// Properties
 			if (record._properties.Count != _properties.Count)
 				return false;
 
@@ -132,6 +169,18 @@ namespace TLab.UI.SDF.Registry
 				if (!property.Value.Equals(other))
 					return false;
 			}
+
+			// Keywords
+			if (record._keywords.Count != _keywords.Count)
+				return false;
+
+			foreach (var keyward in _keywords)
+			{
+				if (!record._keywords.Contains(keyward))
+					return false;
+			}
+
+			// Others
 			return ShaderName == record.ShaderName &&
 				   Texture == record.Texture &&
 				   TextureUV.Equals(record.TextureUV) &&
@@ -141,12 +190,20 @@ namespace TLab.UI.SDF.Registry
 		public override int GetHashCode()
 		{
 			int hc = 0;
+
 			SortedSet<MaterialProperty> properties = new(_properties.Values, comparer);
 			foreach (var p in properties)
 			{
 				hc ^= p.GetHashCode();
 				hc = (hc << 7) | (hc >> (32 - 7)); //rotate hc to the left to swipe over all bits
 			}
+
+			foreach (var p in _keywords)
+			{
+				hc ^= p.GetHashCode();
+				hc = (hc << 7) | (hc >> (32 - 7));
+			}
+
 			return hc + HashCode.Combine(ShaderName, Texture, TextureUV, TextureColor);
 		}
 
@@ -157,8 +214,13 @@ namespace TLab.UI.SDF.Registry
 			clone.Texture = Texture;
 			clone.TextureUV = TextureUV;
 			clone.TextureColor = TextureColor;
+
 			foreach (var property in _properties)
 				clone._properties[property.Key] = property.Value;
+
+			foreach (var keyword in _keywords)
+				clone._keywords.Add(keyword);
+
 			return clone;
 		}
 	}
