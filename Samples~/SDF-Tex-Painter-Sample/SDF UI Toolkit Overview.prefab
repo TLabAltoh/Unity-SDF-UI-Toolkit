@@ -557,7 +557,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 1
+  m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowBlur: 0
