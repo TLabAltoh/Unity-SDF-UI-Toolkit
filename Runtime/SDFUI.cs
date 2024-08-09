@@ -1,5 +1,4 @@
 using TLab.UI.SDF.Registry;
-using Unity.Burst;
 using Unity.Mathematics;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -45,7 +44,7 @@ namespace TLab.UI.SDF
 
 		internal const string KEYWORD_FASTER_AA = SHADER_KEYWORD_PREFIX + "FASTER_AA";
 		internal const string KEYWORD_SUPER_SAMPLING_AA = SHADER_KEYWORD_PREFIX + "SUPER_SAMPLING_AA";
-		internal const string KEYWORD_SUBPIXEL_SAMPLING_AA = SHADER_KEYWORD_PREFIX + "SUBPIXEL_SAMPLING_AA";
+		internal const string KEYWORD_SUBPIXEL_AA = SHADER_KEYWORD_PREFIX + "SUBPIXEL_AA";
 
 		internal const string KEYWORD_OUTLINE_INSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_INSIDE";
 		internal const string KEYWORD_OUTLINE_OUTSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_OUTSIDE";
@@ -86,7 +85,7 @@ namespace TLab.UI.SDF
 			NONE,
 			FASTER,
 			SUPER_SAMPLING,
-			SUBPIXEL_SAMPLING,
+			SUBPIXEL,
 		}
 
 		public enum ActiveImageType
@@ -764,119 +763,23 @@ namespace TLab.UI.SDF
 			switch (m_antialiasing)
 			{
 				case AntialiasingType.NONE:
-					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
 					break;
 				case AntialiasingType.FASTER:
 					_materialRecord.EnableKeyword(KEYWORD_FASTER_AA);
-					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
 					break;
 				case AntialiasingType.SUPER_SAMPLING:
 					_materialRecord.EnableKeyword(KEYWORD_SUPER_SAMPLING_AA);
-					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUBPIXEL_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUBPIXEL_AA);
 					break;
-				case AntialiasingType.SUBPIXEL_SAMPLING:
-					_materialRecord.EnableKeyword(KEYWORD_SUBPIXEL_SAMPLING_AA);
+				case AntialiasingType.SUBPIXEL:
+					_materialRecord.EnableKeyword(KEYWORD_SUBPIXEL_AA);
 					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_FASTER_AA);
 					break;
 			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
 		}
-	}
-
-	[BurstCompile]
-	public static class SDFUtils
-	{
-		[BurstCompile]
-		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation, in SDFUI.AntialiasingType antialiasing,
-			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3)
-		{
-			float3 pivotPoint = new(rectSize * rectPivot, 0);
-			float4 shadowExpand = float4.zero;
-
-			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
-
-			if (rotatedOffset.x < 0)
-			{
-				shadowExpand.x = rotatedOffset.x;
-				shadowExpand.y = 0;
-			}
-			else
-			{
-				shadowExpand.x = 0;
-				shadowExpand.y = rotatedOffset.x;
-			}
-
-			if (rotatedOffset.y < 0)
-			{
-				shadowExpand.z = rotatedOffset.y;
-				shadowExpand.w = 0;
-			}
-			else
-			{
-				shadowExpand.z = 0;
-				shadowExpand.w = rotatedOffset.y;
-			}
-
-			float4 expand = shadowExpand;
-
-			if (antialiasing == SDFUI.AntialiasingType.FASTER && rectSize.x > 0 && rectSize.y > 0)
-			{
-				expand += new float4(-1, 1, -1, 1);
-
-			}
-
-			float scaleX = math.mad(2, margin, rectSize.x);
-			float scaleY = math.mad(2, margin, rectSize.y);
-			float4 uvExpand = new(expand.x / scaleX, expand.y / scaleX, expand.z / scaleY, expand.w / scaleY);
-
-			vertex0 = new VertexData();
-			vertex0.position = new float3(expand.x - margin, expand.z - margin, 0) - pivotPoint;
-			vertex0.uv = new float2(uvExpand.x, uvExpand.z);
-
-			vertex1 = new VertexData();
-			vertex1.position = new float3(expand.x - margin, expand.w + margin + rectSize.y, 0) - pivotPoint;
-			vertex1.uv = new float2(uvExpand.x, 1 + uvExpand.w);
-
-			vertex2 = new VertexData();
-			vertex2.position = new float3(expand.y + margin + rectSize.x, expand.w + margin + rectSize.y, 0) - pivotPoint;
-			vertex2.uv = new float2(1 + uvExpand.y, 1 + uvExpand.w);
-
-			vertex3 = new VertexData();
-			vertex3.position = new float3(expand.y + margin + rectSize.x, expand.z - margin, 0) - pivotPoint;
-			vertex3.uv = new float2(1 + uvExpand.y, uvExpand.z);
-		}
-
-		[BurstCompile]
-		public static void ShadowSizeOffset(in float2 rectSize, in float2 shadowOffset, in float rotation, out float4 sizeOffset)
-		{
-			RotateVector(shadowOffset, rotation, out float2 rotatedOffset);
-			sizeOffset = new float4(rotatedOffset / rectSize, rotatedOffset.x, rotatedOffset.y);
-		}
-
-		[BurstCompile]
-		public static void RotateVector(in float2 vector, in float rotation, out float2 rotated)
-		{
-			if (math.abs(rotation) < 0.0001f)
-			{
-				rotated = vector;
-				return;
-			}
-			if (math.abs(vector.x) < 0.0001f && math.abs(vector.y) < 0.0001f)
-			{
-				rotated = vector;
-				return;
-			}
-
-			math.sincos(math.radians(-rotation), out float sin, out float cos);
-			float2x2 matrix = new(cos, -sin, sin, cos);
-			rotated = math.mul(matrix, vector);
-		}
-	}
-
-	public struct VertexData
-	{
-		public float3 position;
-		public float2 uv;
 	}
 }
