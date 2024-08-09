@@ -8,10 +8,11 @@ namespace TLab.UI.SDF.Registry
 {
 	internal class MaterialRecord : ICloneable
 	{
-		private static readonly MaterialProperty.Comparer comparer = new();
+		private static readonly MaterialProperty.Comparer propertieComparer = new();
 		private readonly Dictionary<int, MaterialProperty> _properties = new();
 
-		private readonly SortedSet<string> _keywords = new();
+		private static readonly MaterialKeyword.Comparer keywordComparer = new();
+		private readonly Dictionary<string, MaterialKeyword> _keywords = new();
 
 		public string ShaderName { get; set; }
 		public Texture Texture { get; set; }
@@ -85,9 +86,14 @@ namespace TLab.UI.SDF.Registry
 			SetProperty(property);
 		}
 
-		public void EnableKeyword(string keyword)
+		public void EnableKeyword(string keywordID)
 		{
-			_keywords.Add(keyword);
+			MaterialKeyword keyword = new()
+			{
+				KeywordID = keywordID,
+				Value = true
+			};
+			_keywords[keywordID] = keyword;
 		}
 
 		public void EnableKeywords(params string[] keywords)
@@ -96,9 +102,14 @@ namespace TLab.UI.SDF.Registry
 				EnableKeyword(keyword);
 		}
 
-		public void DisableKeyword(string keyword)
+		public void DisableKeyword(string keywordID)
 		{
-			_keywords.Remove(keyword);
+			MaterialKeyword keyword = new()
+			{
+				KeywordID = keywordID,
+				Value = false
+			};
+			_keywords[keywordID] = keyword;
 		}
 
 		public void DisableKeywords(params string[] keywords)
@@ -114,16 +125,6 @@ namespace TLab.UI.SDF.Registry
 
 		public void Populate(Material material)
 		{
-			foreach (var keyword in material.enabledKeywords)
-			{
-				material.DisableKeyword(keyword);
-			}
-
-			foreach (var keyword in _keywords)
-			{
-				material.EnableKeyword(new LocalKeyword(material.shader, keyword));
-			}
-
 			material.mainTexture = Texture;
 			material.mainTextureScale = new Vector2(TextureUV.z, TextureUV.w);
 			material.mainTextureOffset = new Vector2(TextureUV.x, TextureUV.y);
@@ -151,6 +152,11 @@ namespace TLab.UI.SDF.Registry
 						break;
 				}
 			}
+
+			foreach (var keyword in _keywords)
+			{
+				material.SetKeyword(new LocalKeyword(material.shader, keyword.Value.KeywordID), keyword.Value.Value);
+			}
 		}
 
 		public override bool Equals(object obj)
@@ -174,9 +180,11 @@ namespace TLab.UI.SDF.Registry
 			if (record._keywords.Count != _keywords.Count)
 				return false;
 
-			foreach (var keyward in _keywords)
+			foreach (var keyword in _keywords)
 			{
-				if (!record._keywords.Contains(keyward))
+				if (!record._keywords.TryGetValue(keyword.Key, out var other))
+					return false;
+				if (!keyword.Value.Equals(other))
 					return false;
 			}
 
@@ -191,14 +199,15 @@ namespace TLab.UI.SDF.Registry
 		{
 			int hc = 0;
 
-			SortedSet<MaterialProperty> properties = new(_properties.Values, comparer);
+			SortedSet<MaterialProperty> properties = new(_properties.Values, propertieComparer);
 			foreach (var p in properties)
 			{
 				hc ^= p.GetHashCode();
 				hc = (hc << 7) | (hc >> (32 - 7)); //rotate hc to the left to swipe over all bits
 			}
 
-			foreach (var p in _keywords)
+			SortedSet<MaterialKeyword> keywords = new(_keywords.Values, keywordComparer);
+			foreach (var p in keywords)
 			{
 				hc ^= p.GetHashCode();
 				hc = (hc << 7) | (hc >> (32 - 7));
@@ -219,7 +228,7 @@ namespace TLab.UI.SDF.Registry
 				clone._properties[property.Key] = property.Value;
 
 			foreach (var keyword in _keywords)
-				clone._keywords.Add(keyword);
+				clone._keywords[keyword.Key] = keyword.Value;
 
 			return clone;
 		}
