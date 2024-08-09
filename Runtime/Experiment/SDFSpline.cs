@@ -79,6 +79,7 @@ namespace TLab.UI.SDF.Experiment
             OnUpdateDimensions();
         }
 
+#if false
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();
@@ -112,5 +113,6 @@ namespace TLab.UI.SDF.Experiment
                 float radius, len, lim, margin = m_minSize * 0.001f;
             }
         }
+#endif
     }
 }
