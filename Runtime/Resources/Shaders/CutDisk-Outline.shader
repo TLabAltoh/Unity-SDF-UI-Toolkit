@@ -70,7 +70,7 @@ Shader "UI/SDF/CutDisk/Outline" {
 
             #pragma shader_feature_local _ SDF_UI_FASTER_AA
             #pragma shader_feature_local _ SDF_UI_SUPER_SAMPLING_AA
-            #pragma shader_feature_local _ SDF_UI_SUBPIXEL_SAMPLING_AA
+            #pragma shader_feature_local _ SDF_UI_SUBPIXEL_AA
 
             #pragma shader_feature_local _ SDF_UI_OUTLINE_INSIDE
             #pragma shader_feature_local _ SDF_UI_OUTLINE_OUTSIDE
@@ -137,7 +137,7 @@ Shader "UI/SDF/CutDisk/Outline" {
                     sdCutDisk(sp + mul(j, float2( 1, -1) * 0.25), _Radius, _Height) +
                     sdCutDisk(sp + mul(j, float2(-1,  1) * 0.25), _Radius, _Height) +
                     sdCutDisk(sp + mul(j, float2(-1, -1) * 0.25), _Radius, _Height));
-#elif SDF_UI_SUBPIXEL_SAMPLING_AA
+#elif SDF_UI_SUBPIXEL_AA
                 float2x2 j = JACOBIAN(p);
                 float r = sdCutDisk(p + mul(j, float2(-0.333, 0)), _Radius, _Height);
                 float g = sdCutDisk(p, _Radius, _Height);
@@ -159,37 +159,31 @@ Shader "UI/SDF/CutDisk/Outline" {
                 sdist = abs(sdist) - _OnionWidth;
 #endif
 
-#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+#ifdef SDF_UI_SUBPIXEL_AA
                 float4 delta = fwidth(dist), sdelta = fwidth(sdist);
-#elif SDF_UI_SUPER_SAMPLING_AA
-                float delta = fwidth(dist), sdelta = fwidth(sdist);
-#elif SDF_UI_FASTER_AA
-                float offset = -.25; // To offset the pixels of a display, do I need to consider RGBA (divide by 4)?
-                dist += offset;
-                sdist += offset;
-
+#elif defined(SDF_UI_SUPER_SAMPLING_AA) || defined(SDF_UI_FASTER_AA)
                 float delta = fwidth(dist), sdelta = fwidth(sdist);
 #else
                 float delta = 0, sdelta = 0;
 #endif
 
-#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+#ifdef SDF_UI_SUBPIXEL_AA
                 float4 graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
 #else
                 float graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
 #endif
 
 #ifdef SDF_UI_OUTLINE_INSIDE
-                graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth, dist);
-                outlineAlpha = 1 - smoothstep(-delta, 0, dist);
-                shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - sdelta, _ShadowWidth, sdist);
+                graphicAlpha = 1 - smoothstep(-_OutlineWidth, -_OutlineWidth + delta, dist);
+                outlineAlpha = 1 - smoothstep(0, delta, dist);
+                shadowAlpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur, _ShadowWidth + sdelta, sdist);
 #elif SDF_UI_OUTLINE_OUTSIDE
-                outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth, dist);
-                graphicAlpha = 1 - smoothstep(-delta, 0, dist);
-                shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - sdelta, _OutlineWidth + _ShadowWidth, sdist);
+                outlineAlpha = 1 - smoothstep(_OutlineWidth, _OutlineWidth + delta, dist);
+                graphicAlpha = 1 - smoothstep(0, delta, dist);
+                shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur, _OutlineWidth + _ShadowWidth + sdelta, sdist);
 #endif
 
-#ifdef SDF_UI_SUBPIXEL_SAMPLING_AA
+#ifdef SDF_UI_SUBPIXEL_AA
                 half4 lerp0 = lerp(
                     half4(lerp(half3(1, 1, 1), _OutlineColor.rgb, outlineAlpha.rgb), outlineAlpha.a * _OutlineColor.a),   // crop image by outline area
                     color,
