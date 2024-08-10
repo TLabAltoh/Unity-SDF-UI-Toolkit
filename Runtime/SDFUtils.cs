@@ -66,15 +66,23 @@ namespace TLab.UI.SDF
 		}
 
 		[BurstCompile]
-		public static void QuadraticBezier(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 point)
+		public static void QuadraticBezierDifferential(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 diffrential)
 		{
-			point = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * p1 + t * t * p2;
+			diffrential = -2 * (1 - t) * p0 + 2 * (1 - 2 * t) * p1 + 2 * t * p2;
 		}
 
 		[BurstCompile]
-		public static void QuadraticBezierTangent(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 tangent)
+		public static void QuadraticBezierTangentAndLeft(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 tangent, out float2 left)
 		{
-			tangent = 2 * t * (p2 - p0) + 2 * (p0 + p1);
+			QuadraticBezierDifferential(p0, p1, p2, t, out var diffrential);
+			tangent = math.normalize(diffrential);
+			left = new float2(-tangent.y, tangent.x);
+		}
+
+		[BurstCompile]
+		public static void QuadraticBezier(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 point)
+		{
+			point = (1 - t) * (1 - t) * p0 + 2 * t * (1 - t) * p1 + t * t * p2;
 		}
 
 		[BurstCompile]
@@ -83,27 +91,44 @@ namespace TLab.UI.SDF
 		{
 			var pivotPoint = new float3(rectSize * rectPoint, 0);
 
-			GetForwardAndLeft(p0, p1, out var forward0, out var left0);
-			GetForwardAndLeft(p1, p2, out var forward1, out var left1);
+			GetForwardAndLeft(p0, p1, out var forward0, out var leftP0);
+			GetForwardAndLeft(p1, p2, out var forward1, out var leftP2);
 
-			vertex0 = new VertexData(p0 + left0 * width);
-			vertex1 = new VertexData(p0 - left0 * width);
-			vertex6 = new VertexData(p2 + left1 * width);
-			vertex7 = new VertexData(p2 - left1 * width);
+			vertex0 = new VertexData(p0 + leftP0 * width, new float2());
+			vertex1 = new VertexData(p0 - leftP0 * width, new float2());
+			vertex6 = new VertexData(p2 + leftP2 * width, new float2());
+			vertex7 = new VertexData(p2 - leftP2 * width, new float2());
 
-			QuadraticBezierTangent(p0.xy, p1.xy, p2.xy, 0.5f, out var tangent);
-			var normal = new float2(-tangent.y, tangent.x);
-			QuadraticBezier(p0.xy, p1.xy, p2.xy, 0.5f, out var m);
+			QuadraticBezier(p0.xy, p1.xy, p2.xy, 0.5f, out var middle);
+			QuadraticBezierTangentAndLeft(p0.xy, p1.xy, p2.xy, 0.5f, out var tangent, out var leftMiddle);
 
-			GetIntersection(m.xy + normal * width, tangent.xy, vertex0.position.xy, forward0.xy, out var intersection0);
-			GetIntersection(m.xy - normal * width, tangent.xy, vertex1.position.xy, forward1.xy, out var intersection1);
-			GetIntersection(m.xy + normal * width, tangent.xy, vertex6.position.xy, forward0.xy, out var intersection2);
-			GetIntersection(m.xy - normal * width, tangent.xy, vertex7.position.xy, forward1.xy, out var intersection3);
+			var middleL = middle.xy + leftMiddle * width;
+			var middleR = middle.xy - leftMiddle * width;
 
-			vertex2 = new VertexData(intersection0);
-			vertex3 = new VertexData(intersection1);
-			vertex4 = new VertexData(intersection2);
-			vertex5 = new VertexData(intersection3);
+			var useIntersectionAtLight = math.distance(p1.xy, middleL) < math.distance(p1.xy, middleR);
+
+			if (useIntersectionAtLight)
+			{
+				GetIntersection(middleL, middleL + tangent.xy, vertex0.position.xy, vertex0.position.xy + forward0.xy, out var intersection0);
+				GetIntersection(middleL, middleL + tangent.xy, vertex6.position.xy, vertex6.position.xy + forward1.xy, out var intersection2);
+
+				vertex2 = new VertexData(intersection0, new float2());
+				vertex4 = new VertexData(intersection2, new float2());
+
+				vertex3 = new VertexData(math.lerp(vertex1.position, vertex7.position, 0.25f), new float2());
+				vertex5 = new VertexData(math.lerp(vertex1.position, vertex7.position, 0.75f), new float2());
+			}
+			else
+			{
+				GetIntersection(middleR, middleR + tangent.xy, vertex1.position.xy, vertex1.position.xy + forward0.xy, out var intersection1);
+				GetIntersection(middleR, middleR + tangent.xy, vertex7.position.xy, vertex7.position.xy + forward1.xy, out var intersection3);
+
+				vertex3 = new VertexData(intersection1, new float2());
+				vertex5 = new VertexData(intersection3, new float2());
+
+				vertex2 = new VertexData(math.lerp(vertex0.position, vertex6.position, 0.25f), new float2());
+				vertex4 = new VertexData(math.lerp(vertex0.position, vertex6.position, 0.75f), new float2());
+			}
 
 			vertex0.position -= pivotPoint;
 			vertex1.position -= pivotPoint;
@@ -164,29 +189,36 @@ namespace TLab.UI.SDF
 		}
 
 		[BurstCompile]
-		public static void GetIntersection(in float2 p0, in float2 dir0, in float2 p1, in float2 dir1, out float2 point)
+		public static void Cross(in float2 a, in float2 b, out float c)
 		{
-			if (math.distance(p0, p1) == 0)
+			c = a.x * b.y - a.y * b.x;
+		}
+
+		[BurstCompile]
+		public static void GetIntersection(in float2 p0, in float2 p1, in float2 p2, in float2 p3, out float2 point)
+		{
+			// https://imagingsolution.blog.fc2.com/blog-entry-137.html
+
+			float2 a0 = p1 - p0, a1 = p3 - p2;
+			float2 b0 = p2 - p1, b1 = p0 - p2;
+
+			if (math.abs(1.0 - math.abs(math.dot(math.normalize(a0), math.normalize(a1)))) < 1e-5)
 			{
-				point = p0;
+				point = new float2(float.NaN, float.NaN);
 				return;
 			}
 
-			if (math.abs(1.0 - math.abs(math.dot(dir0, dir1))) < 1e-5)
-			{
-				point = (p0 + p1) * 0.5f;
-				return;
-			}
+			Cross(a1, b1, out var c0);
+			Cross(a1, b0, out var c1);
 
-			var grad0 = dir0.y / dir0.x;
-			var grad1 = dir1.y / dir1.x;
+			var s0 = c0 / 2.0f;
+			var s1 = c1 / 2.0f;
 
-			var intercept0 = p0.y - p0.x * grad0;
-			var intercept1 = p1.y - p1.x * grad1;
+			var t = s0 / (s0 + s1);
+			var x = p0.x + a0.x * t;
+			var y = p0.y + a0.y * t;
 
-			point = new float2();
-			point.x = (intercept1 - intercept0) / (grad0 - grad1);
-			point.y = point.x * grad0 + intercept0;
+			point = new float2(x, y);
 		}
 
 		[BurstCompile]
@@ -208,15 +240,9 @@ namespace TLab.UI.SDF
 			this.uv = uv;
 		}
 
-		public VertexData(float3 position)
+		public VertexData(float2 position, float2 uv)
 		{
-			this.position = position;
-			this.uv = new float2();
-		}
-
-		public VertexData(float2 uv)
-		{
-			this.position = new float3();
+			this.position = new float3(position, 0);
 			this.uv = uv;
 		}
 	}
