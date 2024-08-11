@@ -66,9 +66,9 @@ Shader "UI/SDF/Tex/Outline" {
 
             #pragma shader_feature_local _ SDF_UI_ONION
 
-            #pragma shader_feature_local _ SDF_UI_FASTER_AA
-            #pragma shader_feature_local _ SDF_UI_SUPER_SAMPLING_AA
-            #pragma shader_feature_local _ SDF_UI_SUBPIXEL_AA
+            #pragma shader_feature_local _ SDF_UI_AA_FASTER
+            #pragma shader_feature_local _ SDF_UI_AA_SUPER_SAMPLING
+            #pragma shader_feature_local _ SDF_UI_AA_SUBPIXEL
 
             #pragma shader_feature_local _ SDF_UI_OUTLINE_INSIDE
             #pragma shader_feature_local _ SDF_UI_OUTLINE_OUTSIDE
@@ -116,7 +116,7 @@ Shader "UI/SDF/Tex/Outline" {
                 float2 p = i.uv;
                 float2 sp = i.uv - _ShadowOffset.xy;
 
-#ifdef SDF_UI_SUPER_SAMPLING_AA
+#ifdef SDF_UI_AA_SUPER_SAMPLING
                 float2x2 j = JACOBIAN(p);
                 float dist = 0.25 * (
                     - (tex2D(_SDFTex, p + mul(j, float2( 1,  1) * 0.25))).a
@@ -136,7 +136,7 @@ Shader "UI/SDF/Tex/Outline" {
 
                 sdist = sdist * 2.0 + 1.0;
                 sdist = sdist * _MaxDist;
-#elif SDF_UI_SUBPIXEL_AA
+#elif SDF_UI_AA_SUBPIXEL
                 float2x2 j = JACOBIAN(p);
                 float r = -(tex2D(_SDFTex, p + mul(j, float2(-0.333, 0)))).a;
                 float g = -(tex2D(_SDFTex, p)).a;
@@ -172,15 +172,15 @@ Shader "UI/SDF/Tex/Outline" {
                 dist = round(dist, _Radius);
                 sdist = round(sdist, _Radius);
 
-#ifdef SDF_UI_SUBPIXEL_AA
+#ifdef SDF_UI_AA_SUBPIXEL
                 float4 delta = fwidth(dist), sdelta = fwidth(sdist);
-#elif defined(SDF_UI_SUPER_SAMPLING_AA) || defined(SDF_UI_FASTER_AA)
+#elif defined(SDF_UI_AA_SUPER_SAMPLING) || defined(SDF_UI_AA_FASTER)
                 float delta = fwidth(dist), sdelta = fwidth(sdist);
 #else
                 float delta = 0, sdelta = 0;
 #endif
 
-#ifdef SDF_UI_SUBPIXEL_AA
+#ifdef SDF_UI_AA_SUBPIXEL
                 float4 graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
 #else
                 float graphicAlpha = 0, outlineAlpha = 0, shadowAlpha = 0;
@@ -196,7 +196,7 @@ Shader "UI/SDF/Tex/Outline" {
                 shadowAlpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur, _OutlineWidth + _ShadowWidth + sdelta, sdist);
 #endif
 
-#ifdef SDF_UI_SUBPIXEL_AA
+#ifdef SDF_UI_AA_SUBPIXEL
                 half4 lerp0 = lerp(
                     half4(lerp(half3(1, 1, 1), _OutlineColor.rgb, outlineAlpha.rgb), outlineAlpha.a * _OutlineColor.a),   // crop image by outline area
                     color,

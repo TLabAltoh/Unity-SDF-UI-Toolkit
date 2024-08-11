@@ -1,4 +1,4 @@
-Shader "UI/SDF/Arc/Outline" {
+Shader "UI/SDF/Spline/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -14,8 +14,10 @@ Shader "UI/SDF/Arc/Outline" {
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Float) = 0
-        _Width("Width", Float) = 10.0
-        _Theta("Theta", Float) = 0.0
+
+        _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
+        _Corner1("Corner 1", Vector) = (0, 0, 0, 0)
+        _Corner2("Corner 2", Vector) = (0, 0, 0, 0)
 
         _OnionWidth("Onion Width", Float) = 0
 
@@ -75,8 +77,6 @@ Shader "UI/SDF/Arc/Outline" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-            float _Theta;
-            float _Width;
             float _Radius;
             float4 _RectSize;
 
@@ -94,6 +94,10 @@ Shader "UI/SDF/Arc/Outline" {
             float _OutlineWidth;
             float4 _OutlineColor;
 
+            float4 _Corner0;
+            float4 _Corner1;
+            float4 _Corner2;
+
             sampler2D _MainTex;
             float4 _MainTex_ST;
             fixed4 _Color;
@@ -102,105 +106,64 @@ Shader "UI/SDF/Arc/Outline" {
 
             fixed4 frag(v2f i) : SV_Target {
 
-                if (_Theta == 0.0) {
-                    discard;
-                }
+                float swapX = i.uv.x;
+                float swapY = i.uv.y;
+                i.uv.x = swapX;
+                i.uv.y = 1.0 - swapY;
 
                 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
                 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
-                float2 texSample;
-                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(i.uv, _MainTex)) + _TextureSampleAdd) * _Color;
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
+                float2 uvSample = i.uv;
+                uvSample.x = (uvSample.x - _OuterUV.x) / (_OuterUV.z - _OuterUV.x);
+                uvSample.y = (uvSample.y - _OuterUV.y) / (_OuterUV.w - _OuterUV.y);
 
-                float halfSize = _RectSize * .5;
+                float2 halfSize = _RectSize * .5;
                 float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
                 float2 sp = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
 
 #ifdef SDF_UI_AA_SUPER_SAMPLING
-                float4 dist, sdist;
-                float2x2 j;
+                float2x2 j = JACOBIAN(p);
+                float dist = 0.25 * (
+                    sdTriangle(p + mul(j, float2(1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(p + mul(j, float2(1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(p + mul(j, float2(-1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(p + mul(j, float2(-1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy));
 
-                if (_Theta >= 3.14) {
-                    j = JACOBIAN(p);
-                    dist = 0.25 * (
-                        abs(length(p + mul(j, float2( 1,  1) * 0.25)) - _Radius) - _Width +
-                        abs(length(p + mul(j, float2( 1, -1) * 0.25)) - _Radius) - _Width +
-                        abs(length(p + mul(j, float2(-1,  1) * 0.25)) - _Radius) - _Width +
-                        abs(length(p + mul(j, float2(-1, -1) * 0.25)) - _Radius) - _Width);
+                j = JACOBIAN(sp);
+                float sdist = 0.25 * (
+                    sdTriangle(sp + mul(j, float2(1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(sp + mul(j, float2(1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(sp + mul(j, float2(-1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(sp + mul(j, float2(-1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy));
 
-                    j = JACOBIAN(sp);
-                    sdist = 0.25 * (
-                        abs(length(sp + mul(j, float2( 1,  1) * 0.25)) - _Radius) - _Width +
-                        abs(length(sp + mul(j, float2( 1, -1) * 0.25)) - _Radius) - _Width +
-                        abs(length(sp + mul(j, float2(-1,  1) * 0.25)) - _Radius) - _Width +
-                        abs(length(sp + mul(j, float2(-1, -1) * 0.25)) - _Radius) - _Width);
-                }
-                else {
-                    j = JACOBIAN(p);
-                    dist = 0.25 * (
-                        sdArc(p + mul(j, float2( 1,  1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(p + mul(j, float2( 1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(p + mul(j, float2(-1,  1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(p + mul(j, float2(-1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width));
-
-                    j = JACOBIAN(sp);
-                    sdist = 0.25 * (
-                        sdArc(sp + mul(j, float2( 1,  1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(sp + mul(j, float2( 1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(sp + mul(j, float2(-1,  1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width) +
-                        sdArc(sp + mul(j, float2(-1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius, _Width));
-                }
 #elif SDF_UI_AA_SUBPIXEL
-                float4 dist, sdist;
-                float2x2 j;
-                float r, g, b;
+                float2x2 j = JACOBIAN(p);
+                float r = sdTriangle(p + mul(j, float2(-0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float g = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float b = sdTriangle(p + mul(j, float2(0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float4 dist = half4(r, g, b, (r + g + b) / 3.);
 
-                if (_Theta >= 3.14) {
-                    j = JACOBIAN(p);
-                    r = abs(length(p + mul(j, float2(-0.333, 0))) - _Radius) - _Width;
-                    g = abs(length(p) - _Radius) - _Width;
-                    b = abs(length(p + mul(j, float2( 0.333, 0))) - _Radius) - _Width;
-                    dist = half4(r, g, b, (r + g + b) / 3.);
-
-                    j = JACOBIAN(sp);
-                    r = abs(length(sp + mul(j, float2(-0.333, 0))) - _Radius) - _Width;
-                    g = abs(length(sp) - _Radius) - _Width;
-                    b = abs(length(sp + mul(j, float2( 0.333, 0))) - _Radius) - _Width;
-                    sdist = half4(r, g, b, (r + g + b) / 3.);
-                }
-                else {
-                    j = JACOBIAN(p);
-                    r = sdArc(p + mul(j, float2(-0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    g = sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    b = sdArc(p + mul(j, float2( 0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    dist = half4(r, g, b, (r + g + b) / 3.);
-
-                    j = JACOBIAN(sp);
-                    r = sdArc(sp + mul(j, float2(-0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    g = sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    b = sdArc(sp + mul(j, float2( 0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    sdist = half4(r, g, b, (r + g + b) / 3.);
-                }
+                j = JACOBIAN(sp);
+                r = sdTriangle(sp + mul(j, float2(-0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                g = sdTriangle(sp, _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                b = sdTriangle(sp + mul(j, float2(0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float4 sdist = half4(r, g, b, (r + g + b) / 3.);
 #else
-                float dist, sdist;
-                if (_Theta >= 3.14) {
-                    dist = abs(length(p) - _Radius) - _Width;
-                    sdist = abs(length(sp) - _Radius) - _Width;
-                }
-                else {
-                    dist = sdArc(p, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                    sdist = sdArc(sp, float2(sin(_Theta), cos(_Theta)), _Radius, _Width);
-                }
+                float dist = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float sdist = sdTriangle(sp, _Corner0.xy, _Corner1.xy, _Corner2.xy);
 #endif
 
 #ifdef SDF_UI_ONION
                 dist = abs(dist) - _OnionWidth;
                 sdist = abs(sdist) - _OnionWidth;
 #endif
+
+                dist = round(dist, _Radius);
+                sdist = round(sdist, _Radius);
 
 #ifdef SDF_UI_AA_SUBPIXEL
                 float4 delta = fwidth(dist), sdelta = fwidth(sdist);

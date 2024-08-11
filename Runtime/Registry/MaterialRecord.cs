@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace TLab.UI.SDF.Registry
 
 		private static readonly MaterialKeyword.Comparer keywordComparer = new();
 		private readonly Dictionary<string, MaterialKeyword> _keywords = new();
+
+		public string[] EnableKeywords => _keywords.Where(k => k.Value.Active).Select(k => k.Value.Keyword).ToArray();
+
+		public string[] DisableKeywords => _keywords.Where(k => !k.Value.Active).Select(k => k.Value.Keyword).ToArray();
 
 		public string ShaderName { get; set; }
 		public Texture Texture { get; set; }
@@ -86,33 +91,33 @@ namespace TLab.UI.SDF.Registry
 			SetProperty(property);
 		}
 
-		public void EnableKeyword(string keywordID)
+		public void SetKeywordActive(string keyword, bool active)
 		{
-			MaterialKeyword keyword = new()
+			MaterialKeyword materialKeyword = new()
 			{
-				KeywordID = keywordID,
-				Value = true
+				Keyword = keyword,
+				Active = active
 			};
-			_keywords[keywordID] = keyword;
+			_keywords[keyword] = materialKeyword;
 		}
 
-		public void EnableKeywords(params string[] keywords)
+		public void EnableKeyword(string keyword)
+		{
+			SetKeywordActive(keyword, true);
+		}
+
+		public void EnableKeyword(params string[] keywords)
 		{
 			foreach (var keyword in keywords)
 				EnableKeyword(keyword);
 		}
 
-		public void DisableKeyword(string keywordID)
+		public void DisableKeyword(string keyword)
 		{
-			MaterialKeyword keyword = new()
-			{
-				KeywordID = keywordID,
-				Value = false
-			};
-			_keywords[keywordID] = keyword;
+			SetKeywordActive(keyword, false);
 		}
 
-		public void DisableKeywords(params string[] keywords)
+		public void DisableKeyword(params string[] keywords)
 		{
 			foreach (var keyword in keywords)
 				DisableKeyword(keyword);
@@ -121,6 +126,12 @@ namespace TLab.UI.SDF.Registry
 		public void SetProperty(MaterialProperty property)
 		{
 			_properties[property.NameID] = property;
+		}
+
+		public bool NeedsRecompile(Material material)
+		{
+			var enables = new SortedSet<string>(material.enabledKeywords.Select(k => k.name));
+			return enables.Intersect(DisableKeywords).Any() || !(new SortedSet<string>(EnableKeywords).IsSubsetOf(enables));
 		}
 
 		public void Populate(Material material)
@@ -153,9 +164,10 @@ namespace TLab.UI.SDF.Registry
 				}
 			}
 
-			foreach (var keyword in _keywords)
+			if (NeedsRecompile(material))
 			{
-				material.SetKeyword(new LocalKeyword(material.shader, keyword.Value.KeywordID), keyword.Value.Value);
+				foreach (var keyword in _keywords)
+					material.SetKeyword(new LocalKeyword(material.shader, keyword.Value.Keyword), keyword.Value.Active);
 			}
 		}
 

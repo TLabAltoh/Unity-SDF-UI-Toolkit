@@ -35,6 +35,8 @@ namespace TLab.UI.SDF
 
 		private string THIS_NAME => "[" + this.GetType() + "] ";
 
+		public int length => 3;
+
 		public float radius
 		{
 			get => m_radius;
@@ -91,26 +93,31 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public Vector2[] corners => new Vector2[] { m_corner0, m_corner1, m_corner2 };
+
+		public Vector2 this[int i]
+		{
+			get => corners[i];
+			set
+			{
+				switch (i)
+				{
+					case 0:
+						corner0 = value;
+						break;
+					case 1:
+						corner1 = value;
+						break;
+					case 2:
+						corner2 = value;
+						break;
+				}
+			}
+		}
+
 		public Vector2 GetCorner(int index, bool isWorldSpace = false)
 		{
-			Vector2 corner;
-
-			switch (index)
-			{
-				case 0:
-					corner = corner0;
-					break;
-				case 1:
-					corner = corner1;
-					break;
-				case 2:
-					corner = corner2;
-					break;
-				default:
-					Debug.LogError(THIS_NAME + $"An invalid index has been given: {index}");
-
-					return Vector2.zero;
-			}
+			Vector2 corner = this[index];
 
 			return isWorldSpace ? rectTransform.TransformPoint(new Vector2(corner.x, -corner.y) * minSize) : corner;
 		}
@@ -123,20 +130,7 @@ namespace TLab.UI.SDF
 				corner = new Vector2(corner.x, -corner.y);
 			}
 
-			switch (index)
-			{
-				case 0:
-					corner0 = corner;
-					return;
-				case 1:
-					corner1 = corner;
-					return;
-				case 2:
-					corner2 = corner;
-					return;
-			}
-
-			Debug.LogError(THIS_NAME + $"An invalid index has been given: {index}");
+			this[index] = corner;
 		}
 
 		public override void SetMaterialDirty()

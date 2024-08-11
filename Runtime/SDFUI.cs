@@ -42,9 +42,9 @@ namespace TLab.UI.SDF
 
 		internal const string KEYWORD_ONION = SHADER_KEYWORD_PREFIX + "ONION";
 
-		internal const string KEYWORD_FASTER_AA = SHADER_KEYWORD_PREFIX + "FASTER_AA";
-		internal const string KEYWORD_SUPER_SAMPLING_AA = SHADER_KEYWORD_PREFIX + "SUPER_SAMPLING_AA";
-		internal const string KEYWORD_SUBPIXEL_AA = SHADER_KEYWORD_PREFIX + "SUBPIXEL_AA";
+		internal const string KEYWORD_AA_FASTER = SHADER_KEYWORD_PREFIX + "AA_FASTER";
+		internal const string KEYWORD_AA_SUPER_SAMPLING = SHADER_KEYWORD_PREFIX + "AA_SUPER_SAMPLING";
+		internal const string KEYWORD_AA_SUBPIXEL = SHADER_KEYWORD_PREFIX + "AA_SUBPIXEL";
 
 		internal const string KEYWORD_OUTLINE_INSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_INSIDE";
 		internal const string KEYWORD_OUTLINE_OUTSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_OUTSIDE";
@@ -640,7 +640,7 @@ namespace TLab.UI.SDF
 
 			float2 shadowOffset = shadow ? m_shadowOffset : float2.zero;
 
-			SDFUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z, m_antialiasing,
+			MeshUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z, m_antialiasing,
 				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
 			var color32 = color;
@@ -732,7 +732,7 @@ namespace TLab.UI.SDF
 
 			_materialRecord.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
 			_materialRecord.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
-			SDFUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
+			MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 			_materialRecord.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
 			switch (m_outlineType)
@@ -763,19 +763,19 @@ namespace TLab.UI.SDF
 			switch (m_antialiasing)
 			{
 				case AntialiasingType.NONE:
-					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
+					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
 					break;
 				case AntialiasingType.FASTER:
-					_materialRecord.EnableKeyword(KEYWORD_FASTER_AA);
-					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
+					_materialRecord.EnableKeyword(KEYWORD_AA_FASTER);
+					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
 					break;
 				case AntialiasingType.SUPER_SAMPLING:
-					_materialRecord.EnableKeyword(KEYWORD_SUPER_SAMPLING_AA);
-					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUBPIXEL_AA);
+					_materialRecord.EnableKeyword(KEYWORD_AA_SUPER_SAMPLING);
+					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUBPIXEL);
 					break;
 				case AntialiasingType.SUBPIXEL:
-					_materialRecord.EnableKeyword(KEYWORD_SUBPIXEL_AA);
-					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_FASTER_AA);
+					_materialRecord.EnableKeyword(KEYWORD_AA_SUBPIXEL);
+					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_FASTER);
 					break;
 			}
 

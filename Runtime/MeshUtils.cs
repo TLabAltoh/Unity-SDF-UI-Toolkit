@@ -4,7 +4,7 @@ using Unity.Mathematics;
 namespace TLab.UI.SDF
 {
 	[BurstCompile]
-	public static class SDFUtils
+	public static class MeshUtils
 	{
 		[BurstCompile]
 		public static void CalculateVertexes(in float2 rectSize, in float2 rectPivot, in float margin, in float2 shadowOffset, in float rotation, in SDFUI.AntialiasingType antialiasing,
@@ -83,61 +83,6 @@ namespace TLab.UI.SDF
 		public static void QuadraticBezier(in float2 p0, in float2 p1, in float2 p2, in float t, out float2 point)
 		{
 			point = (1 - t) * (1 - t) * p0 + 2 * t * (1 - t) * p1 + t * t * p2;
-		}
-
-		[BurstCompile]
-		public static void GetQuadraticBezierVertexData(in float2 rectSize, in float2 rectPoint, in float3 p0, in float3 p1, in float3 p2, in float width,
-			out VertexData vertex0, out VertexData vertex1, out VertexData vertex2, out VertexData vertex3, out VertexData vertex4, out VertexData vertex5, out VertexData vertex6, out VertexData vertex7)
-		{
-			var pivotPoint = new float3(rectSize * rectPoint, 0);
-
-			GetForwardAndLeft(p0, p1, out var forward0, out var leftP0);
-			GetForwardAndLeft(p1, p2, out var forward1, out var leftP2);
-
-			vertex0 = new VertexData(p0 + leftP0 * width, new float2());
-			vertex1 = new VertexData(p0 - leftP0 * width, new float2());
-			vertex6 = new VertexData(p2 + leftP2 * width, new float2());
-			vertex7 = new VertexData(p2 - leftP2 * width, new float2());
-
-			QuadraticBezier(p0.xy, p1.xy, p2.xy, 0.5f, out var middle);
-			QuadraticBezierTangentAndLeft(p0.xy, p1.xy, p2.xy, 0.5f, out var tangent, out var leftMiddle);
-
-			var middleL = middle.xy + leftMiddle * width;
-			var middleR = middle.xy - leftMiddle * width;
-
-			var useIntersectionAtLight = math.distance(p1.xy, middleL) < math.distance(p1.xy, middleR);
-
-			if (useIntersectionAtLight)
-			{
-				GetIntersection(middleL, middleL + tangent.xy, vertex0.position.xy, vertex0.position.xy + forward0.xy, out var intersection0);
-				GetIntersection(middleL, middleL + tangent.xy, vertex6.position.xy, vertex6.position.xy + forward1.xy, out var intersection2);
-
-				vertex2 = new VertexData(intersection0, new float2());
-				vertex4 = new VertexData(intersection2, new float2());
-
-				vertex3 = new VertexData(math.lerp(vertex1.position, vertex7.position, 0.25f), new float2());
-				vertex5 = new VertexData(math.lerp(vertex1.position, vertex7.position, 0.75f), new float2());
-			}
-			else
-			{
-				GetIntersection(middleR, middleR + tangent.xy, vertex1.position.xy, vertex1.position.xy + forward0.xy, out var intersection1);
-				GetIntersection(middleR, middleR + tangent.xy, vertex7.position.xy, vertex7.position.xy + forward1.xy, out var intersection3);
-
-				vertex3 = new VertexData(intersection1, new float2());
-				vertex5 = new VertexData(intersection3, new float2());
-
-				vertex2 = new VertexData(math.lerp(vertex0.position, vertex6.position, 0.25f), new float2());
-				vertex4 = new VertexData(math.lerp(vertex0.position, vertex6.position, 0.75f), new float2());
-			}
-
-			vertex0.position -= pivotPoint;
-			vertex1.position -= pivotPoint;
-			vertex2.position -= pivotPoint;
-			vertex3.position -= pivotPoint;
-			vertex4.position -= pivotPoint;
-			vertex5.position -= pivotPoint;
-			vertex6.position -= pivotPoint;
-			vertex7.position -= pivotPoint;
 		}
 
 		[BurstCompile]
