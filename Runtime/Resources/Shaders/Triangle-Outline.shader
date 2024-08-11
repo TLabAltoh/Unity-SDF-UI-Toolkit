@@ -1,5 +1,5 @@
 Shader "UI/SDF/Triangle/Outline" {
-    Properties {
+    Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil("Stencil ID", Float) = 0
@@ -128,15 +128,15 @@ Shader "UI/SDF/Triangle/Outline" {
 #ifdef SDF_UI_SUPER_SAMPLING_AA
                 float2x2 j = JACOBIAN(p);
                 float dist = 0.25 * (
-                    sdTriangle(p + mul(j, float2( 1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
-                    sdTriangle(p + mul(j, float2( 1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(p + mul(j, float2(1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(p + mul(j, float2(1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
                     sdTriangle(p + mul(j, float2(-1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
                     sdTriangle(p + mul(j, float2(-1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy));
 
                 j = JACOBIAN(sp);
                 float sdist = 0.25 * (
-                    sdTriangle(sp + mul(j, float2( 1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
-                    sdTriangle(sp + mul(j, float2( 1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(sp + mul(j, float2(1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
+                    sdTriangle(sp + mul(j, float2(1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
                     sdTriangle(sp + mul(j, float2(-1,  1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy) +
                     sdTriangle(sp + mul(j, float2(-1, -1) * 0.25), _Corner0.xy, _Corner1.xy, _Corner2.xy));
 
@@ -144,13 +144,13 @@ Shader "UI/SDF/Triangle/Outline" {
                 float2x2 j = JACOBIAN(p);
                 float r = sdTriangle(p + mul(j, float2(-0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 float g = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
-                float b = sdTriangle(p + mul(j, float2( 0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                float b = sdTriangle(p + mul(j, float2(0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 float4 dist = half4(r, g, b, (r + g + b) / 3.);
 
                 j = JACOBIAN(sp);
                 r = sdTriangle(sp + mul(j, float2(-0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 g = sdTriangle(sp, _Corner0.xy, _Corner1.xy, _Corner2.xy);
-                b = sdTriangle(sp + mul(j, float2( 0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
+                b = sdTriangle(sp + mul(j, float2(0.333, 0)), _Corner0.xy, _Corner1.xy, _Corner2.xy);
                 float4 sdist = half4(r, g, b, (r + g + b) / 3.);
 #else
                 float dist = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);

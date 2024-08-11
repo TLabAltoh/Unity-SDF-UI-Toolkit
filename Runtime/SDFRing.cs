@@ -65,7 +65,7 @@ namespace TLab.UI.SDF
 			base.SetMaterialDirty();
 
 			float width = m_width * 2.0f;   // Adjust width property to rect size
-			_materialRecord.SetFloat(PROP_RADIUSE, m_minSize * 0.5f - width * 0.5f);
+			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f - width * 0.5f);
 			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
 			_materialRecord.SetFloat(PROP_WIDTH, width);
 		}
