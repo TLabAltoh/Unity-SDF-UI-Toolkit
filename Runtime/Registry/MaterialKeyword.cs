@@ -5,18 +5,18 @@ namespace TLab.UI.SDF.Registry
 {
 	internal struct MaterialKeyword
 	{
-		public string KeywordID;
-		public bool Value;
+		public string Keyword;
+		public bool Active;
 
 		public override bool Equals(object obj)
 		{
 			if (obj is not MaterialKeyword keyword)
 				return false;
 
-			if (keyword.KeywordID != KeywordID)
+			if (keyword.Keyword != Keyword)
 				return false;
 
-			if (keyword.Value != Value)
+			if (keyword.Active != Active)
 				return false;
 
 			return true;
@@ -24,14 +24,14 @@ namespace TLab.UI.SDF.Registry
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(KeywordID, Value);
+			return HashCode.Combine(Keyword, Active);
 		}
 
 		internal struct Comparer : IComparer<MaterialKeyword>
 		{
 			public int Compare(MaterialKeyword x, MaterialKeyword y)
 			{
-				return x.KeywordID.CompareTo(y.KeywordID);
+				return x.Keyword.CompareTo(y.Keyword);
 			}
 		}
 	}

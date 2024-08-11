@@ -10,7 +10,6 @@ namespace TLab.UI.SDF.Registry
 		private static Dictionary<MaterialRecord, MaterialUsage> _materialsInUse = new();
 		private static Dictionary<SDFUI, MaterialRecord> _materialsByImage = new();
 
-
 		public static void UpdateMaterial(SDFUI image)
 		{
 			MaterialRecord record = image.MaterialRecord;
