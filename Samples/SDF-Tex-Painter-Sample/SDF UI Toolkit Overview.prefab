@@ -143,13 +143,13 @@ MonoBehaviour:
   m_onionWidth: 11.56
   m_antialiasing: 1
   m_shadow: 1
-  m_shadowWidth: 8.07
+  m_shadowWidth: 10
   m_shadowBlur: 0
   m_shadowPower: 1
   m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.88964033, g: 0, b: 1, a: 1}
+  m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
   m_outline: 0
-  m_outlineWidth: 0
+  m_outlineWidth: 10
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -163,9 +163,9 @@ MonoBehaviour:
     width: 1
     height: 1
   m_radius: 0
-  m_corner0: {x: -42.49163, y: -42.65387}
-  m_corner1: {x: 44.724552, y: -43.05211}
-  m_corner2: {x: 0.84033394, y: 44.2928}
+  m_corner0: {x: -0.45, y: -0.45}
+  m_corner1: {x: 0.45, y: -0.45}
+  m_corner2: {x: 0, y: 0.45}
 --- !u!1 &106449154209904388
 GameObject:
   m_ObjectHideFlags: 0

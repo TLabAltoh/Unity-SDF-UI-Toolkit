@@ -23,17 +23,17 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "UI/SDF/Triangle/Outline";
 
-		private const float BASE_SIZE = 100f;
-
-		[SerializeField, Min(0)] private float m_radius = 40;
-		[SerializeField] private Vector2 m_corner0 = new Vector2(-45f, -45f);
-		[SerializeField] private Vector2 m_corner1 = new Vector2(45f, -45f);
-		[SerializeField] private Vector2 m_corner2 = new Vector2(0f, 45f);
+		[SerializeField, Range(0, 1)] private float m_radius = 0.1f;
+		[SerializeField] private Vector2 m_corner0 = new Vector2(-0.45f, -0.45f);
+		[SerializeField] private Vector2 m_corner1 = new Vector2(0.45f, -0.45f);
+		[SerializeField] private Vector2 m_corner2 = new Vector2(0.0f, 0.45f);
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 		private static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
 		private static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
 		private static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
+
+		private string THIS_NAME => "[" + this.GetType() + "] ";
 
 		public float radius
 		{
@@ -48,8 +48,6 @@ namespace TLab.UI.SDF
 				}
 			}
 		}
-
-		public float scale => m_minSize / BASE_SIZE;
 
 		public Vector2 corner0
 		{
@@ -93,15 +91,63 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public Vector2 GetCorner(int index, bool isWorldSpace = false)
+		{
+			Vector2 corner;
+
+			switch (index)
+			{
+				case 0:
+					corner = corner0;
+					break;
+				case 1:
+					corner = corner1;
+					break;
+				case 2:
+					corner = corner2;
+					break;
+				default:
+					Debug.LogError(THIS_NAME + $"An invalid index has been given: {index}");
+
+					return Vector2.zero;
+			}
+
+			return isWorldSpace ? rectTransform.TransformPoint(new Vector2(corner.x, -corner.y) * minSize) : corner;
+		}
+
+		public void SetCorner(int index, Vector2 corner, bool isWorldSpace = false)
+		{
+			if (isWorldSpace)
+			{
+				corner = rectTransform.InverseTransformPoint(corner) / minSize;
+				corner = new Vector2(corner.x, -corner.y);
+			}
+
+			switch (index)
+			{
+				case 0:
+					corner0 = corner;
+					return;
+				case 1:
+					corner1 = corner;
+					return;
+				case 2:
+					corner2 = corner;
+					return;
+			}
+
+			Debug.LogError(THIS_NAME + $"An invalid index has been given: {index}");
+		}
+
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
 
-			var scale = m_minSize / BASE_SIZE;
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * scale);
-			_materialRecord.SetVector(PROP_CORNER0, m_corner0 * scale);
-			_materialRecord.SetVector(PROP_CORNER1, m_corner1 * scale);
-			_materialRecord.SetVector(PROP_CORNER2, m_corner2 * scale);
+			var minSize = this.minSize;
+			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * minSize);
+			_materialRecord.SetVector(PROP_CORNER0, m_corner0 * minSize);
+			_materialRecord.SetVector(PROP_CORNER1, m_corner1 * minSize);
+			_materialRecord.SetVector(PROP_CORNER2, m_corner2 * minSize);
 		}
 	}
 }

@@ -48,7 +48,7 @@ namespace TLab.UI.SDF
 			base.SetMaterialDirty();
 
 			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
-			_materialRecord.SetFloat(PROP_RADIUSE, m_minSize * 0.5f);
+			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f);
 		}
 	}
 }

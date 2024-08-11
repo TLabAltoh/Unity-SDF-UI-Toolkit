@@ -150,7 +150,7 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		protected float m_minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
+		public float minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
 		public bool onion
 		{

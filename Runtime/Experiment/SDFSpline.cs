@@ -32,7 +32,7 @@ namespace TLab.UI.SDF.Experiment
 
         public float3[] activeControlPoints => activeControls.Select((c, i) => new float3(c.position)).ToArray();
 
-        private float m_minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
+        private float minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
         protected override void OnDidApplyAnimationProperties()
         {
@@ -105,7 +105,7 @@ namespace TLab.UI.SDF.Experiment
             var controlPoints = activeControlPoints;
 
             var color32 = color;
-            var width = m_width * m_minSize;
+            var width = m_width * minSize;
 
             if (controlPoints.Length == 2)
             {
