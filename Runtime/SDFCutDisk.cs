@@ -46,7 +46,7 @@ namespace TLab.UI.SDF
 		{
 			base.SetMaterialDirty();
 
-			var radius = m_minSize * 0.5f;
+			var radius = minSize * 0.5f;
 			_materialRecord.SetFloat(PROP_HEIGHT, radius * (1f - m_fillAmount) + -radius * m_fillAmount);
 			_materialRecord.SetFloat(PROP_RADIUSE, radius);
 		}
