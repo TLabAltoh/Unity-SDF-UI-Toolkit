@@ -19,7 +19,6 @@ namespace TLab.UI.SDF.Editor
 		protected Vector2[] Edit()
 		{
 			var corners = new Vector2[3];
-
 			for (int i = 0; i < 3; i++)
 			{
 				var oldPos = m_instance.GetCorner(i, true);
@@ -27,7 +26,6 @@ namespace TLab.UI.SDF.Editor
 
 				corners[i] = newPos;
 			}
-
 			return corners;
 		}
 
@@ -52,10 +50,8 @@ namespace TLab.UI.SDF.Editor
 			{
 				Undo.RecordObject(m_instance, $"[{nameof(SDFTriangle)}] Edit");
 
-				for (int i = 0; i < 3; i++)
-				{
+				for (int i = 0; i < corners.Length; i++)
 					m_instance.SetCorner(i, corners[i], true);
-				}
 			}
 		}
 	}
