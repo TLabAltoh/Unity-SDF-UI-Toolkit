@@ -23,7 +23,7 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "UI/SDF/Quad/Outline";
 
-		[SerializeField] private bool m_independent = true;
+		[SerializeField] private bool m_independent = false;
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 

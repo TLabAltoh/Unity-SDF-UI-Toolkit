@@ -37,10 +37,10 @@ namespace TLab.UI.SDF.Editor
 		{
 			switch (m_baseInstance.activeImageType)
 			{
-				case SDFUI.ActiveImageType.SPRITE:
+				case SDFUI.ActiveImageType.Sprite:
 					SetShowNativeSize(m_sprite.objectReferenceValue != null, instant);
 					break;
-				case SDFUI.ActiveImageType.TEXTURE:
+				case SDFUI.ActiveImageType.Texture:
 					SetShowNativeSize(m_texture.objectReferenceValue != null, instant);
 					break;
 			}
@@ -116,14 +116,14 @@ namespace TLab.UI.SDF.Editor
 
 			switch (m_baseInstance.activeImageType)
 			{
-				case SDFUI.ActiveImageType.SPRITE:
+				case SDFUI.ActiveImageType.Sprite:
 					EditorGUILayout.PropertyField(m_sprite);
 					if (m_baseInstance.sprite)
 					{
 						EditorGUILayout.PropertyField(m_uvRect, m_uvRectContent);
 					}
 					break;
-				case SDFUI.ActiveImageType.TEXTURE:
+				case SDFUI.ActiveImageType.Texture:
 					EditorGUILayout.PropertyField(m_texture);
 					if (m_baseInstance.texture)
 					{

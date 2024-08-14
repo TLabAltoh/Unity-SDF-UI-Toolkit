@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 106449154651375642}
   - component: {fileID: 106449154651375640}
   m_Layer: 5
-  m_Name: SDF Arc Onion
+  m_Name: SDF Arc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_shadowBlur: 0
   m_shadowPower: 1
   m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowColor: {r: 0.40482342, g: 1, b: 0, a: 1}
   m_outline: 1
   m_outlineWidth: 3.9
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 106449154935094097}
   - component: {fileID: 106449154935094096}
   m_Layer: 5
-  m_Name: SDF Arc
+  m_Name: SDF Arc Onion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,9 +669,9 @@ MonoBehaviour:
   m_onion: 1
   m_onionWidth: 8.4
   m_antialiasing: 1
-  m_shadow: 0
-  m_shadowWidth: 6.06
-  m_shadowBlur: 5.79
+  m_shadow: 1
+  m_shadowWidth: 0
+  m_shadowBlur: 0
   m_shadowPower: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8773585, g: 0.8453622, b: 0.29383236, a: 0.6156863}
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_outline: 1
-  m_outlineWidth: 4
+  m_outlineWidth: 3.86
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
