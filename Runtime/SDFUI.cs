@@ -91,8 +91,8 @@ namespace TLab.UI.SDF
 
 		public enum ActiveImageType
 		{
-			SPRITE,
-			TEXTURE
+			Sprite,
+			Texture
 		};
 
 		[SerializeField] protected bool m_onion = false;
@@ -432,7 +432,7 @@ namespace TLab.UI.SDF
 			{
 				switch (m_activeImageType)
 				{
-					case ActiveImageType.SPRITE:
+					case ActiveImageType.Sprite:
 						{
 							if (m_sprite == null)
 							{
@@ -444,7 +444,7 @@ namespace TLab.UI.SDF
 							}
 							return m_sprite.texture;
 						}
-					default: // ActiveImageType.TEXTURE
+					default: // ActiveImageType.Texture
 						{
 							if (m_texture == null)
 							{
@@ -696,7 +696,7 @@ namespace TLab.UI.SDF
 
 			switch (m_activeImageType)
 			{
-				case ActiveImageType.SPRITE:
+				case ActiveImageType.Sprite:
 					{
 						var activeSprite = this.activeSprite;
 						if (activeSprite == null)
@@ -711,7 +711,7 @@ namespace TLab.UI.SDF
 						}
 					}
 					break;
-				case ActiveImageType.TEXTURE:
+				case ActiveImageType.Texture:
 					{
 						var activeTexture = this.activeTexture;
 						_materialRecord.Texture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
