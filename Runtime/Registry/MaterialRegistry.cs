@@ -10,6 +10,13 @@ namespace TLab.UI.SDF.Registry
 		private static Dictionary<MaterialRecord, MaterialUsage> _materialsInUse = new();
 		private static Dictionary<SDFUI, MaterialRecord> _materialsByImage = new();
 
+		static MaterialRegistry()
+		{
+#if UNITY_EDITOR
+			SDFUISettings.AASettingsChanged += OnSettingsChanged;
+#endif
+		}
+
 		public static void UpdateMaterial(SDFUI image)
 		{
 			MaterialRecord record = image.MaterialRecord;
@@ -111,6 +118,12 @@ namespace TLab.UI.SDF.Registry
 				log += $"{materialPair.Key.GetHashCode()}: {materialPair.Value}\n";
 			}
 			Debug.Log(log);
+		}
+
+		private static void OnSettingsChanged()
+		{
+			foreach (var materialPair in _materialsByImage)
+				materialPair.Key.SetMaterialDirty();
 		}
 
 		private class MaterialUsage

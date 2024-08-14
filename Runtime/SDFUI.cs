@@ -76,16 +76,17 @@ namespace TLab.UI.SDF
 
 		public enum OutlineType
 		{
-			INSIDE,
-			OUTSIDE
+			Inside,
+			Outside,
 		};
 
 		public enum AntialiasingType
 		{
-			NONE,
-			FASTER,
-			SUPER_SAMPLING,
-			SUBPIXEL,
+			Default = -1,
+			None = 0,
+			Faster = 1,
+			SuperSampling = 2,
+			SubPixel = 3,
 		}
 
 		public enum ActiveImageType
@@ -97,7 +98,7 @@ namespace TLab.UI.SDF
 		[SerializeField] protected bool m_onion = false;
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
 
-		[SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.FASTER;
+		[SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.Default;
 
 		[SerializeField] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
@@ -109,7 +110,7 @@ namespace TLab.UI.SDF
 		[SerializeField] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
 		[SerializeField] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
-		[SerializeField] protected OutlineType m_outlineType = OutlineType.INSIDE;
+		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
 		[SerializeField] protected Color m_fillColor = Color.white;
 
@@ -140,9 +141,9 @@ namespace TLab.UI.SDF
 			{
 				switch (m_outlineType)
 				{
-					case OutlineType.INSIDE:
+					case OutlineType.Inside:
 						return m_shadow ? m_shadowWidth : 0;
-					case OutlineType.OUTSIDE:
+					case OutlineType.Outside:
 						return Mathf.Max(m_outline ? m_outlineWidth : 0, m_shadow ? m_shadowWidth : 0);
 				}
 
@@ -588,6 +589,20 @@ namespace TLab.UI.SDF
 			if (!EditorApplication.isPlaying)
 				OnLateUpdate();
 		}
+
+		protected override void Reset()
+		{
+			m_antialiasing = AntialiasingType.Default;
+			m_outline = SDFUISettings.Instance.UseOutline;
+			m_outlineWidth = SDFUISettings.Instance.OutlineWidth;
+			m_outlineColor = SDFUISettings.Instance.OutlineColor;
+			m_outlineType = SDFUISettings.Instance.OutlineType;
+			m_fillColor = SDFUISettings.Instance.FillColor;
+			m_shadow = SDFUISettings.Instance.UseShadow;
+			m_shadowColor = SDFUISettings.Instance.ShadowColor;
+			m_shadowOffset = SDFUISettings.Instance.ShadowOffset;
+			base.Reset();
+		}
 #endif
 
 		public virtual bool MaskEnabled()
@@ -737,11 +752,11 @@ namespace TLab.UI.SDF
 
 			switch (m_outlineType)
 			{
-				case OutlineType.INSIDE:
+				case OutlineType.Inside:
 					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_INSIDE);
 					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_OUTSIDE);
 					break;
-				case OutlineType.OUTSIDE:
+				case OutlineType.Outside:
 					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_OUTSIDE);
 					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_INSIDE);
 					break;
@@ -760,20 +775,22 @@ namespace TLab.UI.SDF
 				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_fillColor);
 			}
 
-			switch (m_antialiasing)
+			AntialiasingType antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;
+
+			switch (antialiasing)
 			{
-				case AntialiasingType.NONE:
+				case AntialiasingType.None:
 					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
 					break;
-				case AntialiasingType.FASTER:
+				case AntialiasingType.Faster:
 					_materialRecord.EnableKeyword(KEYWORD_AA_FASTER);
 					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
 					break;
-				case AntialiasingType.SUPER_SAMPLING:
+				case AntialiasingType.SuperSampling:
 					_materialRecord.EnableKeyword(KEYWORD_AA_SUPER_SAMPLING);
 					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUBPIXEL);
 					break;
-				case AntialiasingType.SUBPIXEL:
+				case AntialiasingType.SubPixel:
 					_materialRecord.EnableKeyword(KEYWORD_AA_SUBPIXEL);
 					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_FASTER);
 					break;
