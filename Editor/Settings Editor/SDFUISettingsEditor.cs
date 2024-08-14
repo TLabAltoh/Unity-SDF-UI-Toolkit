@@ -17,7 +17,7 @@ public class SDFUISettingsEditor : EditorWindow
 	private SDFUISettings settings;
 	private SerializedObject serializedObject;
 
-	[MenuItem("TLab/Settings")]
+	[MenuItem("TLab/UI/SDF/Settings")]
 	public static void Create()
 	{
 		SDFUISettingsEditor wnd = GetWindow<SDFUISettingsEditor>(true, "SDFUISettings");
