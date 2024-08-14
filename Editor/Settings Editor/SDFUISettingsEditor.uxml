@@ -4,7 +4,7 @@
             <ui:Label text="SDF-UI-Toolkit" display-tooltip-when-elided="true" name="package-name" style="-unity-font-style: bold; font-size: 14px;" />
             <ui:VisualElement name="version-group" style="flex-direction: row; opacity: 0.5;">
                 <ui:Label text="Version:" display-tooltip-when-elided="true" name="version-label" />
-                <ui:Label text="0.0.0.0" display-tooltip-when-elided="true" name="version" />
+                <ui:Label text="0.0.11" display-tooltip-when-elided="true" name="version" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:HelpBox text="Settings can&apos;t be modified in play mode" message-type="Info" name="help-box" />
