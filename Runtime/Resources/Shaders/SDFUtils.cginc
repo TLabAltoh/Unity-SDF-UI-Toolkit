@@ -132,28 +132,13 @@ inline float onion(float2 d, float r)
     return abs(d) - r;
 }
 
-inline float antialiasedCutoff(float distance) {
-    float distanceChange = fwidth(distance) * 0.5;
-    return smoothstep(distanceChange, -distanceChange, distance);
-}
-
-inline float2 translate(float2 p, float2 offset) {
-    return p - offset;
-}
-
-inline float2 rotate(float2 p, float rotation) {
-    const float PI = 3.14159;
-    float angle = rotation * PI * 2 * -1;
-    float sine, cosine;
-    sincos(angle, sine, cosine);
-    return float2(cosine * p.x + sine * p.y, cosine * p.y - sine * p.x);
-}
-
-inline float2 reflection(float2 p, float2 refMatrix) {
-    return p * refMatrix;
-}
-
-inline float closer(float a, float b, float v) {
-    int weight = abs(a - v) < abs(b - v);
-    return weight * a + (1 - weight) * b;
+inline half4 blend(half4 layer0, half4 layer1, half4 color0, half4 color1, half delta) {
+    if (delta < 1 && delta > 0.) {
+        half2 ratio = half2(color0.a + 0.001, color1.a + 0.001);
+        ratio = ratio.xy / max(ratio.x, ratio.y);
+        half4 layer2 = half4(lerp(color0.rgb, color1.rgb, ratio.y), color1.a);
+        half4 layer3 = half4(lerp(color1.rgb, color0.rgb, ratio.x), color0.a);
+        return lerp(layer3, layer2, delta);
+    }
+    return lerp(layer0, layer1, delta);
 }
