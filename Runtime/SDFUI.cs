@@ -40,6 +40,8 @@ namespace TLab.UI.SDF
 
 		internal const string SHADER_KEYWORD_PREFIX = "SDF_UI_";
 
+		internal const string KEYWORD_SHADOW_ENABLED = SHADER_KEYWORD_PREFIX + "SHADOW_ENABLED";
+
 		internal const string KEYWORD_ONION = SHADER_KEYWORD_PREFIX + "ONION";
 
 		internal const string KEYWORD_AA_FASTER = SHADER_KEYWORD_PREFIX + "AA_FASTER";
@@ -142,9 +144,9 @@ namespace TLab.UI.SDF
 				switch (m_outlineType)
 				{
 					case OutlineType.Inside:
-						return m_shadow ? m_shadowWidth : 0;
+						return (m_shadow ? m_shadowWidth : 0);
 					case OutlineType.Outside:
-						return Mathf.Max(m_outline ? m_outlineWidth : 0, m_shadow ? m_shadowWidth : 0);
+						return (m_shadow ? m_shadowWidth : 0) + (m_outline ? m_outlineWidth : 0);
 				}
 
 				return 0;
@@ -681,6 +683,11 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public virtual Color GetAlpha0(Color color)
+		{
+			return new Color(color.r, color.g, color.b, 0.0f);
+		}
+
 		public override void SetMaterialDirty()
 		{
 			base.SetMaterialDirty();
@@ -732,17 +739,18 @@ namespace TLab.UI.SDF
 			}
 
 			float shadowWidth = m_shadowWidth;
-
 			if (m_shadow)
 			{
 				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
 				_materialRecord.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
+				_materialRecord.EnableKeyword(KEYWORD_SHADOW_ENABLED);
 			}
 			else
 			{
 				shadowWidth = 0;
 				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
 				_materialRecord.SetColor(PROP_SHADOWCOLOR, alpha0);
+				_materialRecord.DisableKeyword(KEYWORD_SHADOW_ENABLED);
 			}
 
 			_materialRecord.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
@@ -763,7 +771,7 @@ namespace TLab.UI.SDF
 			}
 
 			float outlineWidth = m_outlineWidth;
-			if (m_outline)
+			if (m_outline && outlineWidth > 0)
 			{
 				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_outlineColor);

@@ -25,8 +25,19 @@ v2f vert(appdata v) {
     return o;
 }
 
-inline fixed4 mixAlpha(fixed4 mainTexColor, fixed4 color, float sdfAlpha) {
-    fixed4 col = mainTexColor * color;
-    col.a = min(col.a, sdfAlpha);
-    return col;
-}
+#pragma vertex vert
+#pragma fragment frag
+
+#pragma shader_feature_local _ SDF_UI_ONION
+
+#pragma shader_feature_local _ SDF_UI_AA_FASTER
+#pragma shader_feature_local _ SDF_UI_AA_SUPER_SAMPLING
+#pragma shader_feature_local _ SDF_UI_AA_SUBPIXEL
+
+#pragma shader_feature_local _ SDF_UI_OUTLINE_INSIDE
+#pragma shader_feature_local _ SDF_UI_OUTLINE_OUTSIDE
+
+#pragma shader_feature_local _ SDF_UI_SHADOW_ENABLED
+
+#pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+#pragma multi_compile_local _ UNITY_UI_ALPHACLIP
