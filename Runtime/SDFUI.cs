@@ -780,19 +780,19 @@ namespace TLab.UI.SDF
 			switch (antialiasing)
 			{
 				case AntialiasingType.None:
-					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
 					break;
 				case AntialiasingType.Faster:
-					_materialRecord.EnableKeyword(KEYWORD_AA_FASTER);
-					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
+					_materialRecord.EnableKeyword(KEYWORD_FASTER_AA);
+					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_SUBPIXEL_AA);
 					break;
 				case AntialiasingType.SuperSampling:
-					_materialRecord.EnableKeyword(KEYWORD_AA_SUPER_SAMPLING);
-					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUBPIXEL);
+					_materialRecord.EnableKeyword(KEYWORD_SUPER_SAMPLING_AA);
+					_materialRecord.DisableKeywords(KEYWORD_FASTER_AA, KEYWORD_SUBPIXEL_AA);
 					break;
 				case AntialiasingType.SubPixel:
-					_materialRecord.EnableKeyword(KEYWORD_AA_SUBPIXEL);
-					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_FASTER);
+					_materialRecord.EnableKeyword(KEYWORD_SUBPIXEL_AA);
+					_materialRecord.DisableKeywords(KEYWORD_SUPER_SAMPLING_AA, KEYWORD_FASTER_AA);
 					break;
 			}
 
