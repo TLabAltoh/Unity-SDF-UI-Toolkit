@@ -1,14 +1,8 @@
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace TLab.UI.SDF
 {
-#if UNITY_EDITOR
-    [InitializeOnLoad]
-#endif
     public class RenderPipelineUtil
     {
         public enum RenderPipelineType

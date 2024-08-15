@@ -48,12 +48,21 @@ float4 graphicAlpha = 0, outlineAlpha = 0;
 float graphicAlpha = 0, outlineAlpha = 0;
 #endif
 
+#if defined(SDF_UI_AA_SUBPIXEL) || defined(SDF_UI_AA_SUPER_SAMPLING) || defined(SDF_UI_AA_FASTER)
+
 #ifdef SDF_UI_OUTLINE_INSIDE
 graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth + delta, dist);
 outlineAlpha = 1 - smoothstep(-delta, delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
 outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth + delta, dist);
 graphicAlpha = 1 - smoothstep(-delta, delta, dist);
+#endif
+
+#else
+
+graphicAlpha = 1 - (dist >= -_OutlineWidth);
+outlineAlpha = 1 - (dist >= 0);
+
 #endif
 
 #ifdef SDF_UI_AA_SUBPIXEL
