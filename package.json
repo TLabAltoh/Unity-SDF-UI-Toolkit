@@ -17,9 +17,9 @@
     },
     "samples": [
         {
-            "displayName": "SDF Tex Painter Sample",
+            "displayName": "SDF UI Toolkit Sample",
             "description": "",
-            "path": "Samples~/SDF-Tex-Painter-Sample"
+            "path": "Samples~/SDF-UI-Toolkit-Sample"
         }
     ],
     "license": "MIT License"

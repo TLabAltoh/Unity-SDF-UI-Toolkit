@@ -1,4 +1,4 @@
-Shader "UI/SDF/Spline/Outline" {
+Shader "UI/SDF/CutDisk/Outline/URP" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -14,12 +14,12 @@ Shader "UI/SDF/Spline/Outline" {
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Float) = 0
+        _Height("Height", Float) = 0
 
-        _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
-        _Corner1("Corner 1", Vector) = (0, 0, 0, 0)
-        _Corner2("Corner 2", Vector) = (0, 0, 0, 0)
-
+        _Onion("Onion", Int) = 0
         _OnionWidth("Onion Width", Float) = 0
+
+        _Antialiasing("Antialiasing", Int) = 0
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
@@ -27,6 +27,7 @@ Shader "UI/SDF/Spline/Outline" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
+        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -61,43 +62,45 @@ Shader "UI/SDF/Spline/Outline" {
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Triangle-Properties.hlsl"
+            #include "CutDisk-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target{
 
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = swapX;
-                i.uv.y = 1.0 - swapY;
+                if (_Height == _Radius) {
+                    discard;
+                }
 
                 #include "SamplingPosition.hlsl"
-                #include "Triangle-Distance.hlsl"
+                #include "CutDisk-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }
         Pass {
+
+            // This tag is needed for multipass at world space when rendering pipeline is urp
+            Tags{"LightMode" = "UniversalForward"}
+
             CGPROGRAM
 
             #include "UnityCG.cginc"
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Triangle-Properties.hlsl"
+            #include "CutDisk-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target{
 
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = swapX;
-                i.uv.y = 1.0 - swapY;
+                if (_Height == _Radius) {
+                    discard;
+                }
 
                 #include "SamplingPosition.hlsl"
-                #include "Triangle-Distance.hlsl"
+                #include "CutDisk-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
-
             ENDCG
         }
     }

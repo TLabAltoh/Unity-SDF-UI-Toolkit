@@ -1,4 +1,4 @@
-Shader "UI/SDF/Arc/Outline" {
+Shader "UI/SDF/Ring/Outline/URP" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -14,8 +14,8 @@ Shader "UI/SDF/Arc/Outline" {
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
         _Radius("Radius", Float) = 0
-        _Width("Width", Float) = 10.0
-        _Theta("Theta", Float) = 0.0
+        _Width("Width", Float) = 0
+        _Theta("Theta", Float) = 0
 
         _OnionWidth("Onion Width", Float) = 0
 
@@ -59,41 +59,46 @@ Shader "UI/SDF/Arc/Outline" {
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Arc-Properties.hlsl"
+            #include "Ring-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target{
 
                 if (_Theta == 0.0) {
                     discard;
                 }
 
                 #include "SamplingPosition.hlsl"
-                #include "Arc-Distance.hlsl"
+                #include "Ring-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }
+        Pass {
 
-        Pass{
+            // This tag is needed for multipass at world space when rendering pipeline is urp
+            Tags{"LightMode" = "UniversalForward"}
+
             CGPROGRAM
 
             #include "UnityCG.cginc"
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Arc-Properties.hlsl"
+            #include "Ring-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target{
 
                 if (_Theta == 0.0) {
                     discard;
                 }
 
                 #include "SamplingPosition.hlsl"
-                #include "Arc-Distance.hlsl"
+                #include "Ring-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+
             ENDCG
         }
     }
