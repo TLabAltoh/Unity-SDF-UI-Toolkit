@@ -1,4 +1,4 @@
-Shader "UI/SDF/Tex/Outline" {
+Shader "UI/SDF/Pie/Outline/URP" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -12,11 +12,9 @@ Shader "UI/SDF/Tex/Outline" {
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
-        [HideInInspector] _MaxDist("_MaxDist", Float) = 0
-
-        _SDFTex("SDFTex", 2D) = "white" {}
 
         _Radius("Radius", Float) = 0
+        _Theta("Theta", Float) = 0
 
         _OnionWidth("Onion Width", Float) = 0
 
@@ -26,6 +24,7 @@ Shader "UI/SDF/Tex/Outline" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
+        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -56,61 +55,50 @@ Shader "UI/SDF/Tex/Outline" {
         Pass {
             CGPROGRAM
             #define SDF_UI_STEP_SHADOW 1
+
             #include "UnityCG.cginc"
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Tex-Properties.hlsl"
+            #include "Pie-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target{
 
-#if !defined(SDF_UI_SHADOW_ENABLED)
-                discard;
-#endif
+                if (_Theta == 0.0) {
+                    discard;
+                }
 
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = 1.0 - swapY;
-                i.uv.y = swapX;
-
-                float2 texSample;
-                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
-
-                float2 p = i.uv - _ShadowOffset.xy;
-
-                #include "Tex-Distance.hlsl"
+                #include "SamplingPosition.hlsl"
+                #include "Pie-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }
-        Pass {
+        Pass{
+
+            // This tag is needed for multipass at world space when rendering pipeline is urp
+            Tags{"LightMode" = "UniversalForward"}
+
             CGPROGRAM
 
             #include "UnityCG.cginc"
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Tex-Properties.hlsl"
+            #include "Pie-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target{
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = 1.0 - swapY;
-                i.uv.y = swapX;
 
-                float2 texSample;
-                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+                if (_Theta == 0.0) {
+                    discard;
+                }
 
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
-                float2 p = i.uv;
-
-                #include "Tex-Distance.hlsl"
+                #include "SamplingPosition.hlsl"
+                #include "Pie-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
-
             ENDCG
         }
     }

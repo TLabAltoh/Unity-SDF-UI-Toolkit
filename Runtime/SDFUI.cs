@@ -9,25 +9,6 @@ using UnityEngine.Sprites;
 
 namespace TLab.UI.SDF
 {
-	internal static class DestroyHelper
-	{
-		internal static void Destroy(Object @object)
-		{
-#if UNITY_EDITOR
-			if (Application.isPlaying)
-			{
-				Object.Destroy(@object);
-			}
-			else
-			{
-				Object.DestroyImmediate(@object);
-			}
-#else
-			Object.Destroy(@object);
-#endif
-		}
-	}
-
 	[ExecuteInEditMode]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(RectTransform))]
@@ -694,7 +675,7 @@ namespace TLab.UI.SDF
 
 			materialDirty = true;
 
-			_materialRecord.ShaderName = SHADER_NAME;
+			_materialRecord.ShaderName = SHADER_NAME + "/" + RenderPipelineUtil.shaderSuffix;
 
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 

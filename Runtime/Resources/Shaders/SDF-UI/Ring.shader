@@ -1,4 +1,4 @@
-Shader "UI/SDF/Ring/Outline" {
+Shader "UI/SDF/Ring/Outline/BuiltIn" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -71,6 +71,7 @@ Shader "UI/SDF/Ring/Outline" {
                 #include "Ring-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }

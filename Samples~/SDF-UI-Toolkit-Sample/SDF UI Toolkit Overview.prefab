@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -104,12 +103,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -180.60487, y: -42.946083}
-  m_SizeDelta: {x: 92.5575, y: 103.8683}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106449154058105941
 CanvasRenderer:
@@ -140,7 +138,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onion: 0
-  m_onionWidth: 11.56
+  m_onionWidth: 10
   m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 10
@@ -210,7 +208,6 @@ RectTransform:
   - {fileID: 106449154058105960}
   - {fileID: 106449154359137039}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -236,6 +233,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -322,7 +320,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -359,7 +356,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 1
+  m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 35
   m_shadowBlur: 50.04
@@ -414,7 +411,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -451,7 +447,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 5.87
-  m_antialiasing: 1
+  m_antialiasing: 3
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowBlur: 0
@@ -507,7 +503,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -557,7 +552,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 3
+  m_antialiasing: 2
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowBlur: 0
@@ -631,7 +626,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -669,7 +663,7 @@ MonoBehaviour:
   m_onion: 1
   m_onionWidth: 8.4
   m_antialiasing: 1
-  m_shadow: 1
+  m_shadow: 0
   m_shadowWidth: 0
   m_shadowBlur: 0
   m_shadowPower: 1
@@ -722,7 +716,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -759,7 +752,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 16.75
-  m_antialiasing: 1
+  m_antialiasing: 2
   m_shadow: 1
   m_shadowWidth: 17.72
   m_shadowBlur: 22.5
@@ -812,7 +805,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -849,7 +841,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 1
   m_onionWidth: 19.6
-  m_antialiasing: 1
+  m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowBlur: 0
@@ -907,7 +899,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -943,7 +934,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_onion: 0
-  m_onionWidth: 1.66
+  m_onionWidth: 10
   m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
@@ -998,7 +989,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1035,7 +1025,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 23
-  m_antialiasing: 1
+  m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 21.7
   m_shadowBlur: 26.24
@@ -1089,7 +1079,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1127,12 +1116,12 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
-  m_shadow: 0
+  m_shadow: 1
   m_shadowWidth: 10
   m_shadowBlur: 3.58
   m_shadowPower: 1
   m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
   m_outline: 1
   m_outlineWidth: 5.2
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}

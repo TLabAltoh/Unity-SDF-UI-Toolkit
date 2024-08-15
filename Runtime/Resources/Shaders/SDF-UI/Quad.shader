@@ -1,6 +1,7 @@
-Shader "UI/SDF/Pie/Outline" {
+Shader "UI/SDF/Quad/Outline/BuiltIn" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
+        [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil("Stencil ID", Float) = 0
         [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
@@ -13,8 +14,7 @@ Shader "UI/SDF/Pie/Outline" {
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
 
-        _Radius("Radius", Float) = 0
-        _Theta("Theta", Float) = 0
+        _Radius("Radius", Vector) = (0, 0, 0, 0)
 
         _OnionWidth("Onion Width", Float) = 0
 
@@ -24,7 +24,6 @@ Shader "UI/SDF/Pie/Outline" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
-        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
@@ -56,41 +55,35 @@ Shader "UI/SDF/Pie/Outline" {
             CGPROGRAM
             #define SDF_UI_STEP_SHADOW 1
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
+            #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Pie-Properties.hlsl"
+            #include "Quad-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target{
 
-                if (_Theta == 0.0) {
-                    discard;
-                }
-
                 #include "SamplingPosition.hlsl"
-                #include "Pie-Distance.hlsl"
+                #include "Quad-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }
-        Pass{
+
+        Pass {
             CGPROGRAM
 
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
+            #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Pie-Properties.hlsl"
+            #include "Quad-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target{
 
-                if (_Theta == 0.0) {
-                    discard;
-                }
-
                 #include "SamplingPosition.hlsl"
-                #include "Pie-Distance.hlsl"
+                #include "Quad-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
             ENDCG
