@@ -1,4 +1,4 @@
-Shader "UI/SDF/Triangle/Outline" {
+Shader "UI/SDF/Tex/Outline/BuiltIn" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -12,12 +12,11 @@ Shader "UI/SDF/Triangle/Outline" {
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _MaxDist("_MaxDist", Float) = 0
+
+        _SDFTex("SDFTex", 2D) = "white" {}
 
         _Radius("Radius", Float) = 0
-
-        _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
-        _Corner1("Corner 1", Vector) = (0, 0, 0, 0)
-        _Corner2("Corner 2", Vector) = (0, 0, 0, 0)
 
         _OnionWidth("Onion Width", Float) = 0
 
@@ -61,19 +60,29 @@ Shader "UI/SDF/Triangle/Outline" {
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Triangle-Properties.hlsl"
+            #include "Tex-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target{
+
+#if !defined(SDF_UI_SHADOW_ENABLED)
+                discard;
+#endif
 
                 float swapX = i.uv.x;
                 float swapY = i.uv.y;
-                i.uv.x = swapX;
-                i.uv.y = 1.0 - swapY;
+                i.uv.x = 1.0 - swapY;
+                i.uv.y = swapX;
 
-                #include "SamplingPosition.hlsl"
-                #include "Triangle-Distance.hlsl"
+                float2 texSample;
+                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
+                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+
+                float2 p = i.uv - _ShadowOffset.xy;
+
+                #include "Tex-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
+            #undef SDF_UI_STEP_SHADOW
             #define SDF_UI_STEP_SHADOW 0
             ENDCG
         }
@@ -84,17 +93,22 @@ Shader "UI/SDF/Triangle/Outline" {
             #include "UnityUI.cginc" 
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
-            #include "Triangle-Properties.hlsl"
+            #include "Tex-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target {
-
+            fixed4 frag(v2f i) : SV_Target{
                 float swapX = i.uv.x;
                 float swapY = i.uv.y;
-                i.uv.x = swapX;
-                i.uv.y = 1.0 - swapY;
+                i.uv.x = 1.0 - swapY;
+                i.uv.y = swapX;
 
-                #include "SamplingPosition.hlsl"
-                #include "Triangle-Distance.hlsl"
+                float2 texSample;
+                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
+                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+
+                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
+                float2 p = i.uv;
+
+                #include "Tex-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
             }
 
