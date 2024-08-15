@@ -61,7 +61,7 @@ Shader "UI/SDF/Quad/Outline/BuiltIn" {
             #include "Quad-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target{
-
+                return half4(1, 1, 0, 1);
                 #include "SamplingPosition.hlsl"
                 #include "Quad-Distance.hlsl"
                 #include "ClipByDistance.hlsl"

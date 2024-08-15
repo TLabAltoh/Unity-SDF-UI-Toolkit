@@ -9,6 +9,7 @@ float _Padding;
 float4 _OuterUV;
 
 float _OnionWidth;
+float _OutlineWidth;
 
 #if SDF_UI_STEP_SHADOW
 float _ShadowWidth;
@@ -17,11 +18,9 @@ float _ShadowPower;
 float4 _ShadowColor;
 float4 _ShadowOffset;
 #else
-float _OutlineWidth;
-float4 _OutlineColor;
-
 sampler2D _MainTex;
 float4 _MainTex_ST;
+float4 _OutlineColor;
 fixed4 _Color;
 fixed4 _TextureSampleAdd;
 #endif
