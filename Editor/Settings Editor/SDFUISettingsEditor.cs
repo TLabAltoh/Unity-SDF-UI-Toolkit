@@ -12,6 +12,8 @@ namespace TLab.UI.SDF.Editor
 {
 	public class SDFUISettingsEditor : EditorWindow
 	{
+		[SerializeField] private VisualTreeAsset visualTree;
+		[SerializeField] private TextAsset package;
 		private SDFUISettings settings;
 		private SerializedObject serializedObject;
 
@@ -49,7 +51,8 @@ namespace TLab.UI.SDF.Editor
 			VisualElement root = rootVisualElement;
 
 			// Import UXML
-			var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>($"{PACKAGE_PATH}/Editor/Settings Editor/SDFUISettingsEditor.uxml");
+			if (visualTree == null)
+				visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>($"{PACKAGE_PATH}/Editor/Settings Editor/SDFUISettingsEditor.uxml");
 			VisualElement uxml = visualTree.Instantiate();
 			root.Add(uxml);
 
@@ -64,7 +67,8 @@ namespace TLab.UI.SDF.Editor
 			Label name = root.Query<Label>("package-name");
 			Label version = root.Query<Label>("version");
 
-			var package = AssetDatabase.LoadAssetAtPath<TextAsset>($"{PACKAGE_PATH}/package.json");
+			if (package == null)
+				package = AssetDatabase.LoadAssetAtPath<TextAsset>($"{PACKAGE_PATH}/package.json");
 
 			JToken packageData = JToken.Parse(package.text);
 			version.text = packageData["version"].ToString();
