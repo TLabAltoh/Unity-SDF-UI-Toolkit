@@ -31,6 +31,8 @@ namespace TLab.UI.SDF
 
         [SerializeField] private Vector2[] m_controls;
 
+        private GraphicsBuffer m_buffer;
+
         public int length
         {
             get
@@ -100,6 +102,14 @@ namespace TLab.UI.SDF
             }
 
             this[index] = corner;
+        }
+
+        protected override void OnDisable()
+        {
+            m_buffer?.Dispose();
+            m_buffer = null;
+
+            base.OnDisable();
         }
     }
 }

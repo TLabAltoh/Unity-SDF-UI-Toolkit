@@ -1,4 +1,4 @@
-Shader "UI/SDF/Ring/Outline/BuiltIn" {
+Shader "UI/SDF/Ring/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -50,51 +50,46 @@ Shader "UI/SDF/Ring/Outline/BuiltIn" {
         Lighting Off
         ZTest[unity_GUIZTestMode]
         ColorMask[_ColorMask]
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
 
         Pass {
             CGPROGRAM
-            #define SDF_UI_STEP_SHADOW 1
+#define SDF_UI_RING
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
+            #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
             #include "Ring-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target{
+            fixed4 frag(v2f i) : SV_Target {
 
                 if (_Theta == 0.0) {
                     discard;
                 }
 
+                #include "FragmentSetup.hlsl"
+
+#define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
                 #include "Ring-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-            }
-            #undef SDF_UI_STEP_SHADOW
-            #define SDF_UI_STEP_SHADOW 0
-            ENDCG
-        }
-        Pass {
-            CGPROGRAM
+#undef SDF_UI_STEP_SETUP
 
-            #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
-            #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
-            #include "Ring-Properties.hlsl"
-
-            fixed4 frag(v2f i) : SV_Target{
-
-                if (_Theta == 0.0) {
-                    discard;
-                }
-
+#define SDF_UI_STEP_SHAPE_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Ring-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-            }
+#undef SDF_UI_STEP_SHAPE_OUTLINE
 
+#define SDF_UI_STEP_SHADOW
+                #include "SamplingPosition.hlsl"
+                #include "Ring-Distance.hlsl"
+                #include "ClipByDistance.hlsl"
+#undef SDF_UI_STEP_SHADOW
+
+                #include "FragmentOutput.hlsl"
+            }
+#undef SDF_UI_RING
             ENDCG
         }
     }

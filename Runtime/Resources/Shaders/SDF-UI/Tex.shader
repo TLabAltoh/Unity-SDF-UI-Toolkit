@@ -1,4 +1,4 @@
-Shader "UI/SDF/Tex/Outline/BuiltIn" {
+Shader "UI/SDF/Tex/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -51,67 +51,44 @@ Shader "UI/SDF/Tex/Outline/BuiltIn" {
         Lighting Off
         ZTest[unity_GUIZTestMode]
         ColorMask[_ColorMask]
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
 
         Pass {
             CGPROGRAM
-            #define SDF_UI_STEP_SHADOW 1
+#define SDF_UI_TEX
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
+            #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
             #include "ShaderSetup.cginc"
             #include "Tex-Properties.hlsl"
 
-            fixed4 frag(v2f i) : SV_Target{
+            fixed4 frag(v2f i) : SV_Target {
 
-#if !defined(SDF_UI_SHADOW_ENABLED)
-                discard;
-#endif
+                #include "FragmentSetup.hlsl"
 
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = 1.0 - swapY;
-                i.uv.y = swapX;
-
-                float2 texSample;
-                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
-
-                float2 p = i.uv - _ShadowOffset.xy;
-
+#define SDF_UI_STEP_SETUP
+                #include "SamplingPosition.hlsl"
                 #include "Tex-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-            }
-            #undef SDF_UI_STEP_SHADOW
-            #define SDF_UI_STEP_SHADOW 0
-            ENDCG
-        }
-        Pass {
-            CGPROGRAM
+#undef SDF_UI_STEP_SETUP
 
-            #include "UnityCG.cginc"
-            #include "UnityUI.cginc" 
-            #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
-            #include "Tex-Properties.hlsl"
-
-            fixed4 frag(v2f i) : SV_Target{
-                float swapX = i.uv.x;
-                float swapY = i.uv.y;
-                i.uv.x = 1.0 - swapY;
-                i.uv.y = swapX;
-
-                float2 texSample;
-                texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-                texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
-
-                half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
-                float2 p = i.uv;
-
+#define SDF_UI_STEP_SHAPE_OUTLINE
+                p = i.uv;
+                #include "SamplingPosition.hlsl"
                 #include "Tex-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-            }
+#undef SDF_UI_STEP_SHAPE_OUTLINE
 
+#define SDF_UI_STEP_SHADOW
+                p = i.uv - _ShadowOffset.xy;
+                #include "SamplingPosition.hlsl"
+                #include "Tex-Distance.hlsl"
+                #include "ClipByDistance.hlsl"
+#undef SDF_UI_STEP_SHADOW
+
+                #include "FragmentOutput.hlsl"
+            }
+#undef SDF_UI_TEX
             ENDCG
         }
     }
