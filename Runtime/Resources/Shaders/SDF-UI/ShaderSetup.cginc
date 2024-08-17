@@ -28,33 +28,16 @@ v2f vert(appdata v) {
 #pragma vertex vert
 #pragma fragment frag
 
-#define USE_MULTI_COMPILE 1
-
-#if USE_MULTI_COMPILE
-#pragma multi_compile_local _ SDF_UI_ONION
+#pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+#pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
 #pragma multi_compile_local _ SDF_UI_AA_FASTER
 #pragma multi_compile_local _ SDF_UI_AA_SUPER_SAMPLING
 #pragma multi_compile_local _ SDF_UI_AA_SUBPIXEL
 
+#pragma multi_compile_local _ SDF_UI_ONION
+
 #pragma multi_compile_local _ SDF_UI_OUTLINE_INSIDE
 #pragma multi_compile_local _ SDF_UI_OUTLINE_OUTSIDE
 
 #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
-#else
-#pragma shader_feature_local _ SDF_UI_ONION
-
-#pragma shader_feature_local _ SDF_UI_AA_FASTER
-#pragma shader_feature_local _ SDF_UI_AA_SUPER_SAMPLING
-#pragma shader_feature_local _ SDF_UI_AA_SUBPIXEL
-
-#pragma shader_feature_local _ SDF_UI_OUTLINE_INSIDE
-#pragma shader_feature_local _ SDF_UI_OUTLINE_OUTSIDE
-
-#pragma shader_feature_local _ SDF_UI_SHADOW_ENABLED
-#endif
-
-#undef USE_MULTI_COMPILE
-
-#pragma multi_compile_local _ UNITY_UI_CLIP_RECT
-#pragma multi_compile_local _ UNITY_UI_ALPHACLIP
