@@ -39,9 +39,6 @@ add package from git URL ...
 https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 ```
 
-## Setup
-This plugin renders ui with multi-pass, so if you use this plugin with xr-plugin, please change the render mode in your project to multipass or multiview.
-
 ## SDF Texture
 Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to the asset.
 
