@@ -1,4 +1,4 @@
-Shader "UI/SDF/Quad/Outline/BuiltIn" {
+Shader "UI/SDF/Quad/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
@@ -49,11 +49,11 @@ Shader "UI/SDF/Quad/Outline/BuiltIn" {
         Lighting Off
         ZTest[unity_GUIZTestMode]
         ColorMask[_ColorMask]
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
 
         Pass {
             CGPROGRAM
-            #define SDF_UI_STEP_SHADOW 1
+#define SDF_UI_QUAD
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
@@ -61,31 +61,29 @@ Shader "UI/SDF/Quad/Outline/BuiltIn" {
             #include "Quad-Properties.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
+                #include "FragmentSetup.hlsl"
 
+#define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
                 #include "Quad-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-            }
-            #undef SDF_UI_STEP_SHADOW
-            #define SDF_UI_STEP_SHADOW 0
-            ENDCG
-        }
+#undef SDF_UI_STEP_SETUP
 
-        Pass {
-            CGPROGRAM
-
-            #include "UnityCG.cginc"
-            #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
-            #include "Quad-Properties.hlsl"
-
-            fixed4 frag(v2f i) : SV_Target{
-
+#define SDF_UI_STEP_SHAPE_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Quad-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
+#undef SDF_UI_STEP_SHAPE_OUTLINE
+
+#define SDF_UI_STEP_SHADOW
+                #include "SamplingPosition.hlsl"
+                #include "Quad-Distance.hlsl"
+                #include "ClipByDistance.hlsl"
+#undef SDF_UI_STEP_SHADOW
+
+                #include "FragmentOutput.hlsl"
             }
+#undef SDF_UI_QUAD
             ENDCG
         }
     }

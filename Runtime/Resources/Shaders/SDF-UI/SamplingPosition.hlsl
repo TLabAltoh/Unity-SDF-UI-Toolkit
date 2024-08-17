@@ -2,27 +2,28 @@
 * SDF fragment to determin sampling position
 */
 
-float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
-
-i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
-
-float2 halfSize = _RectSize * .5;
-
-#if SDF_UI_STEP_SHADOW
-
-#if !defined(SDF_UI_SHADOW_ENABLED)
-discard;
+#ifdef SDF_UI_STEP_SETUP
+float2 p;
 #endif
 
-float2 p = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
+#ifdef SDF_UI_TEX
+
+#ifdef SDF_UI_STEP_SHAPE_OUTLINE
+p = i.uv;
+#endif
+
+#ifdef SDF_UI_STEP_SHADOW
+p = i.uv - _ShadowOffset.xy;
+#endif
 
 #else
 
-float2 texSample;
-texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
-texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
+#ifdef SDF_UI_STEP_SHAPE_OUTLINE
+p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
+#endif
 
-half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
-float2 p = (i.uv - .5) * (halfSize + _OnionWidth) * 2;
+#ifdef SDF_UI_STEP_SHADOW
+p = (i.uv - .5 - _ShadowOffset.xy) * (halfSize + _OnionWidth) * 2;
+#endif
 
 #endif

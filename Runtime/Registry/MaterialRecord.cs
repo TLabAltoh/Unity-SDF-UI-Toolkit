@@ -23,6 +23,7 @@ namespace TLab.UI.SDF.Registry
 		public Texture Texture { get; set; }
 		public float4 TextureUV { get; set; }
 		public Color TextureColor { get; set; }
+		public GraphicsBuffer Buffer { get; set; }
 
 
 		public void SetInteger(int propertyID, int value)
@@ -90,6 +91,17 @@ namespace TLab.UI.SDF.Registry
 			};
 			SetProperty(property);
 		}
+
+		public void SetBuffer(int propertyID, GraphicsBuffer buffer)
+        {
+			MaterialProperty property = new()
+			{
+				Type = MaterialProperty.PropertyType.Buffer,
+				NameID = propertyID,
+				Buffer = buffer,
+			};
+			SetProperty(property);
+        }
 
 		public void SetKeywordActive(string keyword, bool active)
 		{
@@ -159,6 +171,9 @@ namespace TLab.UI.SDF.Registry
 					case MaterialProperty.PropertyType.Texture:
 						material.SetTexture(property.Value.NameID, property.Value.TextureValue);
 						break;
+					case MaterialProperty.PropertyType.Buffer:
+						material.SetBuffer(property.Value.NameID, property.Value.Buffer);
+						break;
 					default:
 						break;
 				}
@@ -204,7 +219,8 @@ namespace TLab.UI.SDF.Registry
 			return ShaderName == record.ShaderName &&
 				   Texture == record.Texture &&
 				   TextureUV.Equals(record.TextureUV) &&
-				   TextureColor == record.TextureColor;
+				   TextureColor == record.TextureColor &&
+				   Buffer == record.Buffer;
 		}
 
 		public override int GetHashCode()
@@ -225,7 +241,7 @@ namespace TLab.UI.SDF.Registry
 				hc = (hc << 7) | (hc >> (32 - 7));
 			}
 
-			return hc + HashCode.Combine(ShaderName, Texture, TextureUV, TextureColor);
+			return hc + HashCode.Combine(ShaderName, Texture, TextureUV, TextureColor, Buffer);
 		}
 
 		public object Clone()
@@ -235,6 +251,7 @@ namespace TLab.UI.SDF.Registry
 			clone.Texture = Texture;
 			clone.TextureUV = TextureUV;
 			clone.TextureColor = TextureColor;
+			clone.Buffer = Buffer;
 
 			foreach (var property in _properties)
 				clone._properties[property.Key] = property.Value;

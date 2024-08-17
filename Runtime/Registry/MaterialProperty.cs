@@ -15,6 +15,7 @@ namespace TLab.UI.SDF.Registry
 			Vector,
 			Color,
 			Texture,
+			Buffer,
 		}
 
 		public PropertyType Type;
@@ -24,6 +25,7 @@ namespace TLab.UI.SDF.Registry
 		public float4 VectorValue;
 		public Color ColorValue;
 		public Texture TextureValue;
+		public GraphicsBuffer Buffer;
 
 		public override bool Equals(object obj)
 		{
@@ -43,13 +45,14 @@ namespace TLab.UI.SDF.Registry
 				PropertyType.Vector => property.VectorValue.Equals(VectorValue),
 				PropertyType.Color => property.ColorValue == ColorValue,
 				PropertyType.Texture => property.TextureValue == TextureValue,
+				PropertyType.Buffer => property.Buffer == Buffer,
 				_ => false,
 			};
 		}
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Type, NameID, IntValue, FloatValue, VectorValue, ColorValue, TextureValue);
+			return HashCode.Combine(Type, NameID, IntValue, FloatValue, VectorValue, ColorValue, TextureValue, Buffer);
 		}
 
 		internal struct Comparer : IComparer<MaterialProperty>

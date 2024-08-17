@@ -675,7 +675,7 @@ namespace TLab.UI.SDF
 
 			materialDirty = true;
 
-			_materialRecord.ShaderName = SHADER_NAME + "/" + RenderPipelineUtil.shaderSuffix;
+			_materialRecord.ShaderName = SHADER_NAME;
 
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 
