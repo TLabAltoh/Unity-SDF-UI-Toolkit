@@ -12,7 +12,7 @@ float _OutlineWidth;
 
 float _ShadowWidth;
 float _ShadowBlur;
-float _ShadowPower;
+float _ShadowDilate;
 float4 _ShadowColor;
 float4 _ShadowOffset;
 

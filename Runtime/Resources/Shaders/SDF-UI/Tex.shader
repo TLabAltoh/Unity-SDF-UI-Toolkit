@@ -11,8 +11,8 @@ Shader "UI/SDF/Tex/Outline" {
 
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
-        [HideInInspector] _OuterUV("_OuterUV", Vector) = (0, 0, 0, 0)
-        [HideInInspector] _MaxDist("_MaxDist", Float) = 0
+        [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _MaxDist("MaxDist", Float) = 0
 
         _SDFTex("SDFTex", 2D) = "white" {}
 
@@ -22,7 +22,7 @@ Shader "UI/SDF/Tex/Outline" {
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
-        _ShadowPower("Shadow Power", Float) = 0
+        _ShadowPower("Shadow Dilate", Float) = 0
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
