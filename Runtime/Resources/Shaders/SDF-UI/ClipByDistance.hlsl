@@ -41,7 +41,7 @@ float alpha = 0;
 #ifdef SDF_UI_OUTLINE_INSIDE
 alpha = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
-alpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - delta, _OutlineWidth + _ShadowWidth + delta, dist);
+alpha = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
 #endif
 
 {
