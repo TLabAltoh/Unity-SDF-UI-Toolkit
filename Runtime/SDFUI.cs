@@ -41,19 +41,19 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
 
-		internal static readonly int PROP_ONIONWIDTH = Shader.PropertyToID("_OnionWidth");
+		internal static readonly int PROP_ONION_WIDTH = Shader.PropertyToID("_OnionWidth");
 
 		internal static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
 
-		internal static readonly int PROP_SHADOWWIDTH = Shader.PropertyToID("_ShadowWidth");
-		internal static readonly int PROP_SHADOWBLUR = Shader.PropertyToID("_ShadowBlur");
-		internal static readonly int PROP_SHADOWPOWER = Shader.PropertyToID("_ShadowPower");
-		internal static readonly int PROP_SHADOWCOLOR = Shader.PropertyToID("_ShadowColor");
-		internal static readonly int PROP_SHADOWOFFSET = Shader.PropertyToID("_ShadowOffset");
+		internal static readonly int PROP_SHADOW_WIDTH = Shader.PropertyToID("_ShadowWidth");
+		internal static readonly int PROP_SHADOW_BLUR = Shader.PropertyToID("_ShadowBlur");
+		internal static readonly int PROP_SHADOW_DILATE = Shader.PropertyToID("_ShadowDilate");
+		internal static readonly int PROP_SHADOW_COLOR = Shader.PropertyToID("_ShadowColor");
+		internal static readonly int PROP_SHADOW_OFFSET = Shader.PropertyToID("_ShadowOffset");
 
-		internal static readonly int PROP_OUTLINETYPE = Shader.PropertyToID("_OutlineType");
-		internal static readonly int PROP_OUTLINECOLOR = Shader.PropertyToID("_OutlineColor");
-		internal static readonly int PROP_OUTLINEWIDTH = Shader.PropertyToID("_OutlineWidth");
+		internal static readonly int PROP_OUTLINE_TYPE = Shader.PropertyToID("_OutlineType");
+		internal static readonly int PROP_OUTLINE_COLOR = Shader.PropertyToID("_OutlineColor");
+		internal static readonly int PROP_OUTLINE_WIDTH = Shader.PropertyToID("_OutlineWidth");
 
 		#endregion SHADER_PROP
 
@@ -85,17 +85,18 @@ namespace TLab.UI.SDF
 
 		[SerializeField] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
-		[SerializeField, Min(0f)] protected float m_shadowBlur = 0f;
-		[SerializeField, Min(0f)] protected float m_shadowPower = 1f;
+		[SerializeField, Min(0f)] protected float m_shadowInnerSoftWidth = 0;
+		[SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.5f;
+		[SerializeField, Min(0f)] protected float m_shadowDilate = 0;
 		[SerializeField] protected Vector2 m_shadowOffset;
-		[SerializeField] protected Color m_shadowColor = Color.black;
+		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
 
 		[SerializeField] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
-		[SerializeField] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
+		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
-		[SerializeField] protected Color m_fillColor = Color.white;
+		[SerializeField, ColorUsage(true, true)] protected Color m_fillColor = Color.white;
 
 		[SerializeField] protected ActiveImageType m_activeImageType;
 		[SerializeField] protected Sprite m_sprite;
@@ -135,6 +136,8 @@ namespace TLab.UI.SDF
 		}
 
 		public float minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
+
+		public float maxSize => Mathf.Max(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
 		public bool onion
 		{
@@ -206,6 +209,48 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public float shadowInnerSoftWidth
+		{
+			get => m_shadowInnerSoftWidth;
+			set
+			{
+				if (m_shadowInnerSoftWidth != value)
+				{
+					m_shadowInnerSoftWidth = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float shadowSoftness
+		{
+			get => m_shadowSoftness;
+			set
+			{
+				if (m_shadowSoftness != value)
+				{
+					m_shadowSoftness = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float shadowDilate
+		{
+			get => m_shadowDilate;
+			set
+			{
+				if (m_shadowDilate != value)
+				{
+					m_shadowDilate = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
 		public Vector2 shadowOffset
 		{
 			get => m_shadowOffset;
@@ -214,34 +259,6 @@ namespace TLab.UI.SDF
 				if (m_shadowOffset != value)
 				{
 					m_shadowOffset = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float shadowBlur
-		{
-			get => m_shadowBlur;
-			set
-			{
-				if (m_shadowBlur != value)
-				{
-					m_shadowBlur = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float shadowPower
-		{
-			get => m_shadowPower;
-			set
-			{
-				if (m_shadowPower != value)
-				{
-					m_shadowPower = value;
 
 					SetAllDirty();
 				}
@@ -675,6 +692,9 @@ namespace TLab.UI.SDF
 
 			materialDirty = true;
 
+			var minSize = this.minSize;
+			var maxSize = this.maxSize;
+
 			_materialRecord.ShaderName = SHADER_NAME;
 
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
@@ -711,33 +731,30 @@ namespace TLab.UI.SDF
 			if (m_onion)
 			{
 				_materialRecord.EnableKeyword(KEYWORD_ONION);
-				_materialRecord.SetFloat(PROP_ONIONWIDTH, m_onionWidth);
+				_materialRecord.SetFloat(PROP_ONION_WIDTH, m_onionWidth);
 			}
 			else
 			{
 				_materialRecord.DisableKeyword(KEYWORD_ONION);
-				_materialRecord.SetFloat(PROP_ONIONWIDTH, 0);
+				_materialRecord.SetFloat(PROP_ONION_WIDTH, 0);
 			}
 
-			float shadowWidth = m_shadowWidth;
 			if (m_shadow)
 			{
-				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				_materialRecord.SetColor(PROP_SHADOWCOLOR, m_shadowColor);
+				_materialRecord.SetFloat(PROP_SHADOW_WIDTH, m_shadowWidth);
+				_materialRecord.SetFloat(PROP_SHADOW_BLUR, m_shadowSoftness * (m_shadowWidth + m_shadowInnerSoftWidth));
+				_materialRecord.SetFloat(PROP_SHADOW_DILATE, m_shadowDilate);
+				_materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
+
+				MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
+				_materialRecord.SetVector(PROP_SHADOW_OFFSET, sizeOffset);
+
 				_materialRecord.EnableKeyword(KEYWORD_SHADOW_ENABLED);
 			}
 			else
 			{
-				shadowWidth = 0;
-				_materialRecord.SetFloat(PROP_SHADOWWIDTH, shadowWidth);
-				_materialRecord.SetColor(PROP_SHADOWCOLOR, alpha0);
 				_materialRecord.DisableKeyword(KEYWORD_SHADOW_ENABLED);
 			}
-
-			_materialRecord.SetFloat(PROP_SHADOWBLUR, m_shadowBlur);
-			_materialRecord.SetFloat(PROP_SHADOWPOWER, m_shadowPower);
-			MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
-			_materialRecord.SetVector(PROP_SHADOWOFFSET, sizeOffset);
 
 			switch (m_outlineType)
 			{
@@ -751,17 +768,15 @@ namespace TLab.UI.SDF
 					break;
 			}
 
-			float outlineWidth = m_outlineWidth;
-			if (m_outline && outlineWidth > 0)
+			if (m_outline && m_outlineWidth > 0)
 			{
-				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_outlineColor);
+				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
+				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
 			}
 			else
 			{
-				outlineWidth = 0;
-				_materialRecord.SetFloat(PROP_OUTLINEWIDTH, outlineWidth);
-				_materialRecord.SetColor(PROP_OUTLINECOLOR, m_fillColor);
+				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, 0);
+				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_fillColor);
 			}
 
 			AntialiasingType antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;

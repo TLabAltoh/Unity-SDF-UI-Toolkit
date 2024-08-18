@@ -142,8 +142,9 @@ MonoBehaviour:
   m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 10
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
   m_outline: 0
@@ -359,8 +360,9 @@ MonoBehaviour:
   m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 35
-  m_shadowBlur: 50.04
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 1
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
   m_outline: 1
@@ -450,8 +452,9 @@ MonoBehaviour:
   m_antialiasing: 3
   m_shadow: 0
   m_shadowWidth: 10
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.40482342, g: 1, b: 0, a: 1}
   m_outline: 1
@@ -555,8 +558,9 @@ MonoBehaviour:
   m_antialiasing: 2
   m_shadow: 1
   m_shadowWidth: 0
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: -15, y: -15}
   m_shadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
   m_outline: 1
@@ -665,8 +669,9 @@ MonoBehaviour:
   m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 0
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8773585, g: 0.8453622, b: 0.29383236, a: 0.6156863}
   m_outline: 1
@@ -755,8 +760,9 @@ MonoBehaviour:
   m_antialiasing: 2
   m_shadow: 1
   m_shadowWidth: 17.72
-  m_shadowBlur: 22.5
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
   m_outline: 1
@@ -844,8 +850,9 @@ MonoBehaviour:
   m_antialiasing: 3
   m_shadow: 1
   m_shadowWidth: 0
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_outline: 1
@@ -938,8 +945,9 @@ MonoBehaviour:
   m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
-  m_shadowBlur: 0
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_outline: 1
@@ -1027,9 +1035,10 @@ MonoBehaviour:
   m_onionWidth: 23
   m_antialiasing: 3
   m_shadow: 1
-  m_shadowWidth: 21.7
-  m_shadowBlur: 26.24
-  m_shadowPower: 1.02
+  m_shadowWidth: 15
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
   m_outline: 1
@@ -1118,8 +1127,9 @@ MonoBehaviour:
   m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 10
-  m_shadowBlur: 3.58
-  m_shadowPower: 1
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
   m_outline: 1

@@ -33,15 +33,20 @@ float4 alpha = 0;
 float alpha = 0;
 #endif
 
+// ShadowType: Soft, Blur
+// Common: Width
+// Soft: InnerOffset, Ratio
+// Blur: Blur, Power
+
 #ifdef SDF_UI_OUTLINE_INSIDE
-alpha = 1 - smoothstep(_ShadowWidth - _ShadowBlur - delta, _ShadowWidth + delta, dist);
+alpha = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
 alpha = 1 - smoothstep(_OutlineWidth + _ShadowWidth - _ShadowBlur - delta, _OutlineWidth + _ShadowWidth + delta, dist);
 #endif
 
 {
 	half4 layer0 = _ShadowColor;
-	layer0.a *= alpha * pow(alpha, _ShadowPower);
+	layer0.a *= alpha;
 	layer0.a *= (1. - effects.a);
 	layer0.rgb *= layer0.a;
 	effects = effects + layer0;

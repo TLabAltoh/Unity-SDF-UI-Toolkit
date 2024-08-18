@@ -162,14 +162,8 @@ inline float onion(float2 d, float r)
     return abs(d) - r;
 }
 
-inline half4 blend(half4 color0, half4 color1, half delta) {
-    //if (delta < 1 && delta > 0.) {
-    //    half2 ratio = half2(color0.a + 0.001, color1.a + 0.001);
-    //    ratio = ratio.xy / max(ratio.x, ratio.y);
-    //    half4 layer2 = half4(lerp(color0.rgb, color1.rgb, ratio.y), color1.a);
-    //    half4 layer3 = half4(lerp(color1.rgb, color0.rgb, ratio.x), color0.a);
-    //    return lerp(layer3, layer2, delta);
-    //}
-    half4 layer0 = lerp(color1, color0, color0.a);
-    return lerp(layer0, color1, delta);
+inline float saturaterange(float a, float b, float x)
+{
+    float t = saturate((x - a) / (b - a));
+    return t;
 }
