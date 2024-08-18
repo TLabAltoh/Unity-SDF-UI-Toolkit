@@ -2,6 +2,7 @@
 * Output result step of SDF fragment
 */
 
+i.color.rgb *= i.color.a;
 effects *= i.color;
 
 #ifdef UNITY_UI_CLIP_RECT

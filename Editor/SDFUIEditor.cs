@@ -188,7 +188,8 @@ namespace TLab.UI.SDF.Editor
 		{
 			EditorGUILayout.LabelField("Others", labelStyle);
 			EditorGUI.indentLevel++;
-			EditorGUILayout.PropertyField(m_Color);
+			var color = EditorGUILayout.ColorField(new GUIContent("Color"), m_Color.colorValue, false, true, true);
+			m_Color.colorValue = color;
 			RaycastControlsGUI();
 			MaskableControlsGUI();
 			SetShowNativeSize(false);
