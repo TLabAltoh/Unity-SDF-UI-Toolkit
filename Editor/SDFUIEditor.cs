@@ -15,6 +15,12 @@ namespace TLab.UI.SDF.Editor
 		protected GUIContent m_uvRectContent;
 		protected SDFUI m_baseInstance;
 
+		protected static GUIStyle labelStyle => new(EditorStyles.boldLabel)
+		{
+			fontSize = 16,
+			contentOffset = new Vector2(15, 0),
+		};
+
 		protected override void OnEnable()
 		{
 			base.OnEnable();
@@ -104,16 +110,9 @@ namespace TLab.UI.SDF.Editor
 
 		protected virtual void DrawProp()
 		{
-			GUIStyle style = new(EditorStyles.boldLabel)
-			{
-				fontSize = 16,
-				contentOffset = new Vector2(15, 0),
-			};
-			EditorGUILayout.LabelField("Fill", style);
+			EditorGUILayout.LabelField("Fill", labelStyle);
 			EditorGUI.indentLevel++;
-
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.activeImageType), "ActiveImageType");
-
 			switch (m_baseInstance.activeImageType)
 			{
 				case SDFUI.ActiveImageType.Sprite:
@@ -131,19 +130,13 @@ namespace TLab.UI.SDF.Editor
 					}
 					break;
 			}
-
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
 			EditorGUI.indentLevel--;
 		}
 
 		protected virtual void DrawShapeProp()
 		{
-			GUIStyle style = new(EditorStyles.boldLabel)
-			{
-				fontSize = 16,
-				contentOffset = new Vector2(15, 0),
-			};
-			EditorGUILayout.LabelField("Shape", style);
+			EditorGUILayout.LabelField("Shape", labelStyle);
 		}
 
 		protected virtual void DrawOutlineProp()
@@ -152,9 +145,9 @@ namespace TLab.UI.SDF.Editor
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.outline)
 			{
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineWidth), "OutlineWidth");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineColor), "OutlineColor");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "OutlineType");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineWidth), "Width");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineColor), "Color");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Type");
 			}
 			EditorGUI.indentLevel--;
 		}
@@ -165,7 +158,7 @@ namespace TLab.UI.SDF.Editor
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.onion)
 			{
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.onionWidth), "OnionWidth");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.onionWidth), "Width");
 			}
 			EditorGUI.indentLevel--;
 		}
@@ -176,11 +169,12 @@ namespace TLab.UI.SDF.Editor
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.shadow)
 			{
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowColor), "ShadowColor");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowOffset), "ShadowOffset");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowWidth), "ShadowWidth");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowBlur), "ShadowBlur");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowPower), "ShadowPower");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowColor), "Color");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowOffset), "Offset");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowWidth), "Width");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowInnerSoftWidth), "InnerSoftWidth");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowSoftness), "Softness");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowDilate), "Dilate");
 			}
 			EditorGUI.indentLevel--;
 		}
@@ -192,6 +186,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected virtual void DrawOtherProp()
 		{
+			EditorGUILayout.LabelField("Others", labelStyle);
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(m_Color);
 			RaycastControlsGUI();
@@ -200,7 +195,6 @@ namespace TLab.UI.SDF.Editor
 			NativeSizeButtonGUI();
 			DrawAntialiasingProp();
 			EditorGUI.indentLevel--;
-
 		}
 
 		public override void OnInspectorGUI()
@@ -216,8 +210,6 @@ namespace TLab.UI.SDF.Editor
 			DrawOnionProp();
 
 			DrawShadowProp();
-
-			EditorGUILayout.Space();
 
 			DrawOtherProp();
 
