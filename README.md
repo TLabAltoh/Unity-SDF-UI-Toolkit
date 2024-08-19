@@ -20,6 +20,7 @@ This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokim
 ## Requirement
 - [com.unity.burst](https://docs.unity3d.com/2021.1/Documentation/Manual/com.unity.burst.html)
 - [com.unity.mathematics](https://docs.unity3d.com/ja/2021.3/Manual/com.unity.mathematics.html)
+- [com.unity.nuget.newtonsoft-json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html)
 
 ## Install
 ### Git
