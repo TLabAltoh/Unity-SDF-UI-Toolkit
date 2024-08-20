@@ -126,7 +126,11 @@ namespace TLab.UI.SDF
 
         private void ReleaseBuffer()
         {
-            m_buffer?.Dispose();
+            if (m_buffer != null)
+            {
+                m_buffer.Release();
+                m_buffer.Dispose();
+            }
             m_buffer = null;
         }
 
@@ -166,13 +170,23 @@ namespace TLab.UI.SDF
         protected override void OnDisable()
         {
             ReleaseBuffer();
-
             base.OnDisable();
         }
 
-        public override void SetMaterialDirty()
+        protected override void OnEnable()
         {
-            base.SetMaterialDirty();
+            base.OnEnable();
+        }
+
+        protected override void OnDestroy()
+        {
+            ReleaseBuffer();
+            base.OnDestroy();
+        }
+
+        protected override void UpdateMaterialRecord()
+        {
+            base.UpdateMaterialRecord();
 
             var minSize = this.minSize;
 

@@ -60,9 +60,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			float width = m_width * 2.0f;   // Adjust width property to rect size
 			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f - width * 0.5f);

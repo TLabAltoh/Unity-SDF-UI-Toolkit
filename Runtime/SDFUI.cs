@@ -686,12 +686,8 @@ namespace TLab.UI.SDF
 			return new Color(color.r, color.g, color.b, 0.0f);
 		}
 
-		public override void SetMaterialDirty()
+		protected virtual void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
-
-			materialDirty = true;
-
 			var minSize = this.minSize;
 			var maxSize = this.maxSize;
 
@@ -801,6 +797,18 @@ namespace TLab.UI.SDF
 			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
+		}
+
+		public override void SetMaterialDirty()
+		{
+			base.SetMaterialDirty();
+
+			if (!IsActive())
+				return;
+
+			materialDirty = true;
+
+			UpdateMaterialRecord();
 		}
 	}
 }
