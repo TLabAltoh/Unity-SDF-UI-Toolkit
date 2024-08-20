@@ -2,22 +2,21 @@
 * Setup step of SDF fragment
 */
 
+float2 uv;
 #ifdef SDF_UI_TEX
-float swapX = i.uv.x;
-float swapY = i.uv.y;
-i.uv.x = 1.0 - swapY;
-i.uv.y = swapX;
+uv = i.uv;
 #elif defined(SDF_UI_TRIANGLE) || defined(SDF_UI_SPLINE)
-float swapX = i.uv.x;
-float swapY = i.uv.y;
-i.uv.x = swapX;
-i.uv.y = 1.0 - swapY;
+uv.x = i.uv.x;
+uv.y = 1.0 - i.uv.y;
+#else
+uv = i.uv;
 #endif
 
 #ifndef SDF_UI_TEX
 float2 normalizedPadding = float2(_Padding / _RectSize.x, _Padding / _RectSize.y);
 
 i.uv = i.uv * (1 + normalizedPadding * 2) - normalizedPadding;
+uv = uv * (1 + normalizedPadding * 2) - normalizedPadding;
 
 float2 halfSize = _RectSize * .5;
 #endif
