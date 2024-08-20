@@ -1,4 +1,4 @@
-Shader "UI/SDF/Circle/Outline" {
+Shader "Hidden/UI/SDF/Circle/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8

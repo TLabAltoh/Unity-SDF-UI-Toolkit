@@ -1,4 +1,4 @@
-Shader "UI/SDF/Spline/Outline" {
+Shader "Hidden/UI/SDF/Spline/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
@@ -13,11 +13,8 @@ Shader "UI/SDF/Spline/Outline" {
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
 
-        _Radius("Radius", Float) = 0
-
-        _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
-        _Corner1("Corner 1", Vector) = (0, 0, 0, 0)
-        _Corner2("Corner 2", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _Num("Num", Int) = 0
+        _Width("Width", Float) = 0
 
         _OnionWidth("Onion Width", Float) = 0
 
