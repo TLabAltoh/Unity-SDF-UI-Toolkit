@@ -1,4 +1,4 @@
-Shader "UI/SDF/Triangle/Outline" {
+Shader "Hidden/UI/SDF/Triangle/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8

@@ -21,7 +21,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "UI/SDF/Pie/Outline";
+		protected override string SHADER_NAME => "Hidden/UI/SDF/Pie/Outline";
 
 		[Range(0, 1), SerializeField]
 		private float m_fillAmount = 0.5f;

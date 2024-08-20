@@ -21,7 +21,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "UI/SDF/Ring/Outline";
+		protected override string SHADER_NAME => "Hidden/UI/SDF/Ring/Outline";
 
 		[SerializeField, Min(0)] private float m_width = 10;
 
