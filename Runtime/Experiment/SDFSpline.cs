@@ -4,6 +4,8 @@
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
 **/
 
+using System.Runtime.InteropServices;
+using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -25,10 +27,14 @@ namespace TLab.UI.SDF
         }
 #endif
 
-        protected override string SHADER_NAME => "UI/SDF/Spline/Outline";
+        protected override string SHADER_NAME => "Hidden/UI/SDF/Spline/Outline";
+
+        internal static readonly int PROP_CONTROLS = Shader.PropertyToID("_Controls");
+        internal static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
+        internal static readonly int PROP_NUM = Shader.PropertyToID("_Num");
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
-
+        [SerializeField] private bool m_closed = false;
         [SerializeField] private Vector2[] m_controls;
 
         private GraphicsBuffer m_buffer;
@@ -52,6 +58,20 @@ namespace TLab.UI.SDF
                 if (m_width != value)
                 {
                     m_width = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public bool closed
+        {
+            get => m_closed;
+            set
+            {
+                if (m_closed != value)
+                {
+                    m_closed = value;
 
                     SetAllDirty();
                 }
@@ -104,12 +124,63 @@ namespace TLab.UI.SDF
             this[index] = corner;
         }
 
-        protected override void OnDisable()
+        private void ReleaseBuffer()
         {
             m_buffer?.Dispose();
             m_buffer = null;
+        }
+
+        private void AllocateBuffer(int count, int stride)
+        {
+            if (m_buffer == null || m_buffer.count != count)
+            {
+                ReleaseBuffer();
+                m_buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, count, stride);
+            }
+        }
+
+        private void UpdateBuffer()
+        {
+            var minSize = this.minSize;
+            var stride = Marshal.SizeOf(Vector2.zero);
+            if (m_controls.Length > 1)
+            {
+                var controls = m_controls.Select((v) => v * minSize);
+                if (m_closed)
+                {
+                    if (controls.Count() % 2 == 0)
+                        controls = controls.Append(controls.ElementAt(0));
+                    else
+                        controls = controls.Take(controls.Count() - 1).Append(controls.ElementAt(0));
+                }
+                AllocateBuffer(controls.Count(), stride);
+                m_buffer.SetData(controls.ToArray());
+            }
+            else
+            {
+                AllocateBuffer(1, stride);  // Because GraphicsBuffer doesn't allow count zero
+                m_buffer.SetData(new Vector2[1]);
+            }
+        }
+
+        protected override void OnDisable()
+        {
+            ReleaseBuffer();
 
             base.OnDisable();
+        }
+
+        public override void SetMaterialDirty()
+        {
+            base.SetMaterialDirty();
+
+            var minSize = this.minSize;
+
+            _materialRecord.SetFloat(PROP_WIDTH, m_width * minSize * 0.5f);
+
+            UpdateBuffer();
+            _materialRecord.SetBuffer(PROP_CONTROLS, m_buffer);
+            _materialRecord.SetInteger(PROP_NUM, m_buffer.count);
         }
     }
 }

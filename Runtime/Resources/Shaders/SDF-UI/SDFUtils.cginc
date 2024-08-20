@@ -1,10 +1,39 @@
-/***
+﻿/***
 * This code is adapted and modified from
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/SDFUtils.cginc
 * https://iquilezles.org/articles/distfunctions2d/
 **/
 
 #define JACOBIAN(uv) (transpose( float2x2( ddx(uv), ddy(uv) ) ))
+
+inline float round(float d, float r)
+{
+    return d - r;
+}
+
+inline float round(float4 d, float r)
+{
+    return float4(round(d.r, r), round(d.g, r), round(d.b, r), round(d.a, r));
+}
+
+inline float onion(float2 d, float r)
+{
+    return abs(d) - r;
+}
+
+inline float saturaterange(float a, float b, float x)
+{
+    float t = saturate((x - a) / (b - a));
+    return t;
+}
+
+inline float dot2(float2 v) {
+    return dot(v, v);
+}
+
+inline float cro(float2 a, float2 b) {
+    return a.x * b.y - a.y * b.x;
+}
 
 #ifdef SDF_UI_QUAD
 /*
@@ -132,38 +161,99 @@ inline float sdCutDisk(float2 p, float r, float h)
 #endif
 
 #ifdef SDF_UI_SPLINE
-inline float sdTriangle(float2 p, float2 p0, float2 p1, float2 p2)
-{
-    float2 e0 = p1 - p0, e1 = p2 - p1, e2 = p0 - p2;
-    float2 v0 = p - p0, v1 = p - p1, v2 = p - p2;
-    float2 pq0 = v0 - e0 * clamp(dot(v0, e0) / dot(e0, e0), 0.0, 1.0);
-    float2 pq1 = v1 - e1 * clamp(dot(v1, e1) / dot(e1, e1), 0.0, 1.0);
-    float2 pq2 = v2 - e2 * clamp(dot(v2, e2) / dot(e2, e2), 0.0, 1.0);
-    float s = sign(e0.x * e2.y - e0.y * e2.x);
-    float2 d = min(min(float2(dot(pq0, pq0), s * (v0.x * e0.y - v0.y * e0.x)),
-        float2(dot(pq1, pq1), s * (v1.x * e1.y - v1.y * e1.x))),
-        float2(dot(pq2, pq2), s * (v2.x * e2.y - v2.y * e2.x)));
-    return -sqrt(d.x) * sign(d.y);
+inline float udSegment(float2 p, float2 a, float2 b) {
+    float2 pa = p - a;
+    float2 ba = b - a;
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    return length(pa - ba * h);
+}
+
+inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
+
+    const float EPSILON = 1e-3;
+    const float ONE_THIRD = 1.0 / 3.0;
+
+    // Handle cases where points coincide
+    bool abEqual = !all(A - B);
+    bool bcEqual = !all(B - C);
+    bool acEqual = !all(A - C);
+
+    if (abEqual && bcEqual) {
+        return distance(pos, A);
+    }
+    else if (abEqual || acEqual) {
+        return udSegment(pos, B, C);
+    }
+    else if (bcEqual) {
+        return udSegment(pos, A, C);
+    }
+
+    // Handle colinear points
+    if (abs(dot(normalize(B - A), normalize(C - B)) - 1.0) < EPSILON) {
+        return udSegment(pos, A, C);
+    }
+
+    float2 a = B - A;
+    float2 b = A - 2.0 * B + C;
+    float2 c = a * 2.0;
+    float2 d = A - pos;
+
+    float kk = 1.0 / dot(b, b);
+    float kx = kk * dot(a, b);
+    float ky = kk * (2.0 * dot(a, a) + dot(d, b)) / 3.0;
+    float kz = kk * dot(d, a);
+
+    float res = 0.0;
+    float sgn = 0.0;
+
+    float p = ky - kx * kx;
+    float q = kx * (2.0 * kx * kx - 3.0 * ky) + kz;
+    float p3 = p * p * p;
+    float q2 = q * q;
+    float h = q2 + 4.0 * p3;
+
+    if (h >= 0.0) { // 1 root
+        h = sqrt(h);
+        float2 x = (float2(h, -h) - q) / 2.0;
+
+        // When p≈0 and p<0, h - q has catastrophic cancelation. So, we do
+        // h=√(q² + 4p³)=q·√(1 + 4p³/q²)=q·√(1 + w) instead. Now we approximate
+        // √ by a linear Taylor expansion into h≈q(1 + ½w) so that the q's
+        // cancel each other in h - q. Expanding and simplifying further we
+        // get x=float2(p³/q, -p³/q - q). And using a second degree Taylor
+        // expansion instead: x=float2(k, -k - q) with k=(1 - p³/q²)·p³/q
+        if (abs(abs(h / q) - 1.0) < 0.0001) {
+            float k = (1.0 - p3 / q2) * p3 / q;  // quadratic approx
+            x = float2(k, -k - q);
+        }
+
+        float2 uv = sign(x) * pow(abs(x), float2(1.0 / 3.0, 1.0 / 3.0));
+        float t = clamp(uv.x + uv.y - kx, 0.0, 1.0);
+        float2  q = d + (c + b * t) * t;
+        res = dot2(q);
+        sgn = cro(c + 2.0 * b * t, q);
+    }
+    else { // 3 roots
+        float z = sqrt(-p);
+        float v = acos(q / (p * z * 2.0)) / 3.0;
+        float m = cos(v);
+        float n = sin(v) * 1.732050808;
+        float3  t = clamp(float3(m + m, -n - m, n - m) * z - kx, 0.0, 1.0);
+        float2  qx = d + (c + b * t.x) * t.x;
+        float dx = dot2(qx), sx = cro(c + 2.0 * b * t.x, qx);
+        float2  qy = d + (c + b * t.y) * t.y;
+        float dy = dot2(qy);
+        float sy = cro(c + 2.0 * b * t.y, qy);
+        if (dx < dy) {
+            res = dx;
+            sgn = sx;
+        }
+        else {
+            res = dy;
+            sgn = sy;
+        }
+    }
+
+    return sqrt(res) * sign(sgn);
 }
 #endif
-
-inline float round(float d, float r)
-{
-    return d - r;
-}
-
-inline float round(float4 d, float r)
-{
-    return float4(round(d.r, r), round(d.g, r), round(d.b, r), round(d.a, r));
-}
-
-inline float onion(float2 d, float r)
-{
-    return abs(d) - r;
-}
-
-inline float saturaterange(float a, float b, float x)
-{
-    float t = saturate((x - a) / (b - a));
-    return t;
-}

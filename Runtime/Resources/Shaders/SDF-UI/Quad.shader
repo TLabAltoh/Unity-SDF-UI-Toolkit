@@ -1,4 +1,4 @@
-Shader "UI/SDF/Quad/Outline" {
+Shader "Hidden/UI/SDF/Quad/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
