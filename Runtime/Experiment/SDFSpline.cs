@@ -170,20 +170,23 @@ namespace TLab.UI.SDF
         protected override void OnDisable()
         {
             ReleaseBuffer();
-
             base.OnDisable();
         }
 
         protected override void OnDestroy()
         {
             ReleaseBuffer();
-
             base.OnDestroy();
         }
-
-        public override void SetMaterialDirty()
+        
+        protected override void OnEnable()
         {
-            base.SetMaterialDirty();
+            base.OnEnable();
+        }
+
+        protected override void UpdateMaterialRecord()
+        {
+            base.UpdateMaterialRecord();
 
             var minSize = this.minSize;
 

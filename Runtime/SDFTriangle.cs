@@ -133,9 +133,9 @@ namespace TLab.UI.SDF
 			this[index] = corner;
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			var minSize = this.minSize;
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * minSize);
