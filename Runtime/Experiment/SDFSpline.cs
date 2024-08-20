@@ -179,7 +179,7 @@ namespace TLab.UI.SDF
             base.OnDestroy();
         }
 
-        public override void OnEnable()
+        protected override void OnEnable()
         {
             base.OnEnable();
         }
