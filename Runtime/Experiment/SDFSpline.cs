@@ -1,5 +1,5 @@
 /***
-* This codis adapteanmodifiefrom
+* This code is adapted from
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/ImageWithRoundedCorners.cs
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
 **/
@@ -29,15 +29,28 @@ namespace TLab.UI.SDF
 
         protected override string SHADER_NAME => "Hidden/UI/SDF/Spline/Outline";
 
+        internal const string KEYWORD_SPLINE_FILL = SHADER_KEYWORD_PREFIX + "SPLINE_FILL";
+
+        internal const string KEYWORD_SPLINE_FONT_RENDERING = SHADER_KEYWORD_PREFIX + "SPLINE_FONT_RENDERING";
+
         internal static readonly int PROP_CONTROLS = Shader.PropertyToID("_Controls");
         internal static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
         internal static readonly int PROP_NUM = Shader.PropertyToID("_Num");
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
         [SerializeField] private bool m_closed = false;
+        [SerializeField] private bool m_fill = false;
+        [SerializeField] private bool m_reverse = false;
+        [SerializeField] private RenderMode m_renderMode = RenderMode.DISTANCE;
         [SerializeField] private Vector2[] m_controls;
 
         private GraphicsBuffer m_buffer;
+
+        public enum RenderMode
+        {
+            DISTANCE,
+            FONT
+        }
 
         public int length
         {
@@ -72,6 +85,48 @@ namespace TLab.UI.SDF
                 if (m_closed != value)
                 {
                     m_closed = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public bool reverse
+        {
+            get => m_reverse;
+            set
+            {
+                if (m_reverse != value)
+                {
+                    m_reverse = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public bool fill
+        {
+            get => m_fill;
+            set
+            {
+                if (m_fill != value)
+                {
+                    m_fill = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public RenderMode renderMode
+        {
+            get => m_renderMode;
+            set
+            {
+                if (m_renderMode != value)
+                {
+                    m_renderMode = value;
 
                     SetAllDirty();
                 }
@@ -157,6 +212,8 @@ namespace TLab.UI.SDF
                     else
                         controls = controls.Take(controls.Count() - 1).Append(controls.ElementAt(0));
                 }
+                if (m_reverse)
+                    controls = controls.Reverse();
                 AllocateBuffer(controls.Count(), stride);
                 m_buffer.SetData(controls.ToArray());
             }
@@ -195,6 +252,16 @@ namespace TLab.UI.SDF
             UpdateBuffer();
             _materialRecord.SetBuffer(PROP_CONTROLS, m_buffer);
             _materialRecord.SetInteger(PROP_NUM, m_buffer.count);
+
+            if (m_fill)
+                _materialRecord.EnableKeyword(KEYWORD_SPLINE_FILL);
+            else
+                _materialRecord.DisableKeyword(KEYWORD_SPLINE_FILL);
+
+            if (m_renderMode == RenderMode.FONT)
+                _materialRecord.EnableKeyword(KEYWORD_SPLINE_FONT_RENDERING);
+            else
+                _materialRecord.DisableKeyword(KEYWORD_SPLINE_FONT_RENDERING);
         }
     }
 }

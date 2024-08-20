@@ -35,6 +35,21 @@ inline float cro(float2 a, float2 b) {
     return a.x * b.y - a.y * b.x;
 }
 
+inline float windingSign(float2 p, float2 a, float2 b) {
+    float2 e = b - a;
+    float2 w = p - a;
+
+    bool3 cond = bool3(p.y >= a.y,
+        p.y < b.y,
+        e.x* w.y > e.y * w.x);
+    if (all(cond) || all(!(cond))) {
+        return -1.0;
+    }
+    else {
+        return 1.0;
+    }
+}
+
 #ifdef SDF_UI_QUAD
 /*
 * p:
@@ -169,29 +184,6 @@ inline float udSegment(float2 p, float2 a, float2 b) {
 }
 
 inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
-
-    const float EPSILON = 1e-3;
-    const float ONE_THIRD = 1.0 / 3.0;
-
-    // Handle cases where points coincide
-    bool abEqual = !all(A - B);
-    bool bcEqual = !all(B - C);
-    bool acEqual = !all(A - C);
-
-    if (abEqual && bcEqual) {
-        return distance(pos, A);
-    }
-    else if (abEqual || acEqual) {
-        return udSegment(pos, B, C);
-    }
-    else if (bcEqual) {
-        return udSegment(pos, A, C);
-    }
-
-    // Handle colinear points
-    if (abs(dot(normalize(B - A), normalize(C - B)) - 1.0) < EPSILON) {
-        return udSegment(pos, A, C);
-    }
 
     float2 a = B - A;
     float2 b = A - 2.0 * B + C;

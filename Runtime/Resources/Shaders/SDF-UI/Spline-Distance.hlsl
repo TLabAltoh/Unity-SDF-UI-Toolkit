@@ -16,39 +16,64 @@ float dist, tmp;
 int idx = 0;
 float2x2 j;
 
+#ifdef SDF_UI_SPLINE_FILL
+float winding = 1.;
+#endif
+
 #endif  // SDF_UI_STEP_SETUP
 
 //////////////////////////////////////////////////////////////
 
 #if defined(SDF_UI_STEP_SHAPE_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
-#ifdef SDF_UI_AA_SUPER_SAMPLING
-dist = half4(1, 1, 1, 1) * 3.402823466e+38F;
-#else
 dist = 3.402823466e+38F;
-#endif
+
+j = JACOBIAN(p);
 
 for (idx = 0; idx < (_Num - 2); idx += 2) {
     float2 v0 = _Controls[idx + 0];
     float2 v1 = _Controls[idx + 1];
     float2 v2 = _Controls[idx + 2];
 
-#ifdef SDF_UI_AA_SUPER_SAMPLING
-    j = JACOBIAN(p);
-    tmp = 0.25 * (
-        sdBezier(p + mul(j, float2(1, 1) * 0.25), v0, v1, v2) +
-        sdBezier(p + mul(j, float2(1, -1) * 0.25), v0, v1, v2) +
-        sdBezier(p + mul(j, float2(-1, 1) * 0.25), v0, v1, v2) +
-        sdBezier(p + mul(j, float2(-1, -1) * 0.25), v0, v1, v2));
-#elif SDF_UI_AA_SUBPIXEL
-    j = JACOBIAN(p);
-    r = sdBezier(p + mul(j, float2(-0.333, 0)), v0, v1, v2);
-    g = sdBezier(p, v0, v1, v2);
-    b = sdBezier(p + mul(j, float2(0.333, 0)), v0, v1, v2);
-    tmp = half4(r, g, b, (r + g + b) / 3.);
-#else
-    tmp = sdBezier(p, v0, v1, v2);
+    // Handle cases where points coincide
+    bool abEqual = !all(v0 - v1);
+    bool bcEqual = !all(v1 - v2);
+    bool acEqual = !all(v0 - v2);
+
+    if (abEqual && bcEqual) {
+        tmp = distanceAA(p, j, v0);
+    }
+    else if (abEqual || acEqual) {
+        tmp = udSegmentAA(p, j, v1, v2);
+
+#ifdef SDF_UI_SPLINE_FILL
+        winding *= windingSign(p, v1, v2);
 #endif
+    }
+    else if (bcEqual) {
+        tmp = udSegmentAA(p, j, v0, v2);
+
+#ifdef SDF_UI_SPLINE_FILL
+        winding *= windingSign(p, v0, v2);
+#endif
+    }
+    else {
+        tmp = sdBezierAA(p, j, v0, v1, v2);
+
+#ifdef SDF_UI_SPLINE_FILL
+#ifdef SDF_UI_AA_SUBPIXEL
+        if ((tmp.x > 0.0 || tmp.y > 0.0) == (cro(v1 - v2, v1 - v0) < 0.0)) {
+#else
+        if ((tmp > 0.0) == (cro(v1 - v2, v1 - v0) < 0.0)) {
+#endif
+            winding *= windingSign(p, v0, v1);
+            winding *= windingSign(p, v1, v2);
+        }
+        else {
+            winding *= windingSign(p, v0, v2);
+        }
+#endif
+    }
 
     dist = min(dist, abs(tmp));
 }
@@ -57,25 +82,18 @@ if (idx < _Num - 1) {
     float2 v0 = _Controls[idx + 0];
     float2 v1 = _Controls[idx + 1];
 
-#ifdef SDF_UI_AA_SUPER_SAMPLING
-    j = JACOBIAN(p);
-    tmp = 0.25 * (
-        udSegment(p + mul(j, float2(1, 1) * 0.25), v0, v1) +
-        udSegment(p + mul(j, float2(1, -1) * 0.25), v0, v1) +
-        udSegment(p + mul(j, float2(-1, 1) * 0.25), v0, v1) +
-        udSegment(p + mul(j, float2(-1, -1) * 0.25), v0, v1));
-#elif SDF_UI_AA_SUBPIXEL
-    j = JACOBIAN(p);
-    r = udSegment(p + mul(j, float2(-0.333, 0)), v0, v1);
-    g = udSegment(p, v0, v1);
-    b = udSegment(p + mul(j, float2(0.333, 0)), v0, v1);
-    tmp = half4(r, g, b, (r + g + b) / 3.);
-#else
-    tmp = udSegment(p, v0, v1);
+    tmp = udSegmentAA(p, j, v0, v1);
+
+#ifdef SDF_UI_SPLINE_FILL
+    winding *= windingSign(p, v0, v1);
 #endif
 
     dist = min(dist, tmp);
 }
+
+#if SDF_UI_SPLINE_FILL
+dist *= winding;
+#endif
 
 #ifdef SDF_UI_ONION
 dist = abs(dist) - _OnionWidth;
