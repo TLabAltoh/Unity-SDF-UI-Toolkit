@@ -126,7 +126,11 @@ namespace TLab.UI.SDF
 
         private void ReleaseBuffer()
         {
-            m_buffer?.Dispose();
+            if (m_buffer != null)
+            {
+                m_buffer.Release();
+                m_buffer.Dispose();
+            }
             m_buffer = null;
         }
 
@@ -168,6 +172,13 @@ namespace TLab.UI.SDF
             ReleaseBuffer();
 
             base.OnDisable();
+        }
+
+        protected override void OnDestroy()
+        {
+            ReleaseBuffer();
+
+            base.OnDestroy();
         }
 
         public override void SetMaterialDirty()
