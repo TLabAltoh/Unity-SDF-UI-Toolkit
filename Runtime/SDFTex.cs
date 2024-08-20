@@ -106,9 +106,9 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			_materialRecord.SetFloat(PROP_PADDING, 0);   // Override
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);

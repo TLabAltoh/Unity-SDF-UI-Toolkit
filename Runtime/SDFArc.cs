@@ -60,9 +60,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f - m_width);
 			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
