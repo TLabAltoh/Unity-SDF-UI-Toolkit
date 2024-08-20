@@ -173,15 +173,15 @@ namespace TLab.UI.SDF
             base.OnDisable();
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-        }
-
         protected override void OnDestroy()
         {
             ReleaseBuffer();
             base.OnDestroy();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
         }
 
         protected override void UpdateMaterialRecord()
