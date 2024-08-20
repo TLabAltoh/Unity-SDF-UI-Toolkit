@@ -42,9 +42,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			var radius = minSize * 0.5f;
 			_materialRecord.SetFloat(PROP_HEIGHT, radius * (1f - m_fillAmount) + -radius * m_fillAmount);

@@ -118,9 +118,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public override void SetMaterialDirty()
+		protected override void UpdateMaterialRecord()
 		{
-			base.SetMaterialDirty();
+			base.UpdateMaterialRecord();
 
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 
