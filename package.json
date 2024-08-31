@@ -1,6 +1,6 @@
 {
     "name": "com.tlabaltoh.sdf-ui-toolkit",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "displayName": "SDF-UI-Toolkit",
     "description": "UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor.",
     "author": {
