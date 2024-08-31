@@ -5,6 +5,7 @@
 **/
 
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -33,9 +34,11 @@ namespace TLab.UI.SDF
 
         internal const string KEYWORD_SPLINE_FONT_RENDERING = SHADER_KEYWORD_PREFIX + "SPLINE_FONT_RENDERING";
 
-        internal static readonly int PROP_CONTROLS = Shader.PropertyToID("_Controls");
+        internal static readonly int PROP_SPLINES = Shader.PropertyToID("_Splines");
+        internal static readonly int PROP_SPLINES_NUM = Shader.PropertyToID("_SplinesNum");
+        internal static readonly int PROP_LINES = Shader.PropertyToID("_Lines");
+        internal static readonly int PROP_LINES_NUM = Shader.PropertyToID("_LinesNum");
         internal static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
-        internal static readonly int PROP_NUM = Shader.PropertyToID("_Num");
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
         [SerializeField] private bool m_closed = false;
@@ -44,7 +47,8 @@ namespace TLab.UI.SDF
         [SerializeField] private RenderMode m_renderMode = RenderMode.DISTANCE;
         [SerializeField] private Vector2[] m_controls;
 
-        private GraphicsBuffer m_buffer;
+        private GraphicsBuffer m_bufferSpline;
+        private GraphicsBuffer m_bufferLine;
 
         public enum RenderMode
         {
@@ -179,22 +183,31 @@ namespace TLab.UI.SDF
             this[index] = corner;
         }
 
-        private void ReleaseBuffer()
+        private void ReleaseBuffer(ref GraphicsBuffer buffer)
         {
-            if (m_buffer != null)
+            if (buffer != null)
             {
-                m_buffer.Release();
-                m_buffer.Dispose();
+                buffer.Release();
+                buffer.Dispose();
             }
-            m_buffer = null;
+            buffer = null;
         }
 
-        private void AllocateBuffer(int count, int stride)
+        private void AllocateBuffer(ref GraphicsBuffer buffer, int count, int stride)
         {
-            if (m_buffer == null || m_buffer.count != count)
+            if (buffer == null || buffer.count != count)
             {
-                ReleaseBuffer();
-                m_buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, count, stride);
+                ReleaseBuffer(ref buffer);
+                buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, count, stride);
+            }
+        }
+
+        private void AllocateZeroBuffre(ref GraphicsBuffer buffer, int stride)
+        {
+            if (buffer == null || buffer.count != 1)
+            {
+                ReleaseBuffer(ref buffer);
+                buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 1, stride);   // Because GraphicsBuffer doesn't allow count zero
             }
         }
 
@@ -202,37 +215,95 @@ namespace TLab.UI.SDF
         {
             var minSize = this.minSize;
             var stride = Marshal.SizeOf(Vector2.zero);
+
+            var splines = new Vector2[0].Select((v) => v);
+            var lines = new Vector2[0].Select((v) => v);
+
             if (m_controls.Length > 1)
             {
                 var controls = m_controls.Select((v) => v * minSize);
                 if (m_closed)
-                {
-                    if (controls.Count() % 2 == 0)
-                        controls = controls.Append(controls.ElementAt(0));
-                    else
-                        controls = controls.Take(controls.Count() - 1).Append(controls.ElementAt(0));
-                }
+                    controls = controls.Append(controls.ElementAt(0));
                 if (m_reverse)
                     controls = controls.Reverse();
-                AllocateBuffer(controls.Count(), stride);
-                m_buffer.SetData(controls.ToArray());
+
+                int pass = 0;
+                for (int i = 0; i < (controls.Count() - 2); i += 2)
+                {
+                    var v0 = controls.ElementAt(i + 0);
+                    var v1 = controls.ElementAt(i + 1);
+                    var v2 = controls.ElementAt(i + 2);
+
+                    var abEqual = v0 == v1;
+                    var bcEqual = v1 == v2;
+                    var acEqual = v0 == v2;
+
+                    if (abEqual && bcEqual)
+                    {
+                        // ignore
+                    }
+                    else if (abEqual || acEqual)
+                    {
+                        lines = lines.Append(v1);
+                        lines = lines.Append(v2);
+                    }
+                    else if (bcEqual)
+                    {
+                        lines = lines.Append(v0);
+                        lines = lines.Append(v2);
+                    }
+                    else
+                    {
+                        splines = splines.Append(v0);
+                        splines = splines.Append(v1);
+                        splines = splines.Append(v2);
+                    }
+
+                    pass += 2;
+                }
+
+                if (pass <= (controls.Count() - 2))
+                    lines = lines.Concat(controls.TakeLast(2));
+
+                if (splines.Count() > 0)
+                {
+                    AllocateBuffer(ref m_bufferSpline, splines.Count(), stride);
+                    m_bufferSpline.SetData(splines.ToArray());
+                }
+                else
+                    AllocateZeroBuffre(ref m_bufferSpline, stride);
+
+                if (lines.Count() > 0)
+                {
+                    AllocateBuffer(ref m_bufferLine, lines.Count(), stride);
+                    m_bufferLine.SetData(lines.ToArray());
+                }
+                else
+                    AllocateZeroBuffre(ref m_bufferLine, stride);
             }
             else
             {
-                AllocateBuffer(1, stride);  // Because GraphicsBuffer doesn't allow count zero
-                m_buffer.SetData(new Vector2[1]);
+                AllocateZeroBuffre(ref m_bufferSpline, stride);
+                AllocateZeroBuffre(ref m_bufferLine, stride);
             }
+
+            _materialRecord.SetBuffer(PROP_SPLINES, m_bufferSpline);
+            _materialRecord.SetBuffer(PROP_LINES, m_bufferLine);
+            _materialRecord.SetInteger(PROP_SPLINES_NUM, splines.Count());
+            _materialRecord.SetInteger(PROP_LINES_NUM, lines.Count());
         }
 
         protected override void OnDisable()
         {
-            ReleaseBuffer();
+            ReleaseBuffer(ref m_bufferSpline);
+            ReleaseBuffer(ref m_bufferLine);
             base.OnDisable();
         }
 
         protected override void OnDestroy()
         {
-            ReleaseBuffer();
+            ReleaseBuffer(ref m_bufferSpline);
+            ReleaseBuffer(ref m_bufferLine);
             base.OnDestroy();
         }
 
@@ -250,8 +321,6 @@ namespace TLab.UI.SDF
             _materialRecord.SetFloat(PROP_WIDTH, m_width * minSize * 0.5f);
 
             UpdateBuffer();
-            _materialRecord.SetBuffer(PROP_CONTROLS, m_buffer);
-            _materialRecord.SetInteger(PROP_NUM, m_buffer.count);
 
             if (m_fill)
                 _materialRecord.EnableKeyword(KEYWORD_SPLINE_FILL);
