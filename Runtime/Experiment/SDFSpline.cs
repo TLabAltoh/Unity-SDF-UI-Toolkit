@@ -5,7 +5,6 @@
 **/
 
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -32,7 +31,7 @@ namespace TLab.UI.SDF
 
         internal const string KEYWORD_SPLINE_FILL = SHADER_KEYWORD_PREFIX + "SPLINE_FILL";
 
-        internal const string KEYWORD_SPLINE_FONT_RENDERING = SHADER_KEYWORD_PREFIX + "SPLINE_FONT_RENDERING";
+        //internal const string KEYWORD_SPLINE_FONT_RENDERING = SHADER_KEYWORD_PREFIX + "SPLINE_FONT_RENDERING";
 
         internal static readonly int PROP_SPLINES = Shader.PropertyToID("_Splines");
         internal static readonly int PROP_SPLINES_NUM = Shader.PropertyToID("_SplinesNum");
@@ -44,7 +43,6 @@ namespace TLab.UI.SDF
         [SerializeField] private bool m_closed = false;
         [SerializeField] private bool m_fill = false;
         [SerializeField] private bool m_reverse = false;
-        [SerializeField] private RenderMode m_renderMode = RenderMode.DISTANCE;
         [SerializeField] private Vector2[] m_controls;
 
         private GraphicsBuffer m_bufferSpline;
@@ -117,20 +115,6 @@ namespace TLab.UI.SDF
                 if (m_fill != value)
                 {
                     m_fill = value;
-
-                    SetAllDirty();
-                }
-            }
-        }
-
-        public RenderMode renderMode
-        {
-            get => m_renderMode;
-            set
-            {
-                if (m_renderMode != value)
-                {
-                    m_renderMode = value;
 
                     SetAllDirty();
                 }
@@ -326,11 +310,6 @@ namespace TLab.UI.SDF
                 _materialRecord.EnableKeyword(KEYWORD_SPLINE_FILL);
             else
                 _materialRecord.DisableKeyword(KEYWORD_SPLINE_FILL);
-
-            if (m_renderMode == RenderMode.FONT)
-                _materialRecord.EnableKeyword(KEYWORD_SPLINE_FONT_RENDERING);
-            else
-                _materialRecord.DisableKeyword(KEYWORD_SPLINE_FONT_RENDERING);
         }
     }
 }

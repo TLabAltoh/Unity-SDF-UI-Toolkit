@@ -4,7 +4,7 @@
 * https://www.shadertoy.com/view/dls3Wr
 **/
 
-#pragma multi_compile_local _ SDF_UI_SPLINE_FONT_RENDERING
+//#pragma multi_compile_local _ SDF_UI_SPLINE_FONT_RENDERING
 #pragma multi_compile_local _ SDF_UI_SPLINE_FILL
 
 #include "Spline-Properties.hlsl"
@@ -43,11 +43,11 @@ float calculateHorizontalCoverage(float2 pixelPos, float pixelSize) {
 	float coverage = 0;
 	float invPixelSize = 1 / pixelSize;
 
-	for (int i = 0; i < _Num - 2; i += 2) {
+	for (int i = 0; i < _SplinesNum - 2; i += 2) {
 		// Get positions of curve's control points relative to the current pixel
-		float2 p0 = _Controls[i + 0] - pixelPos;
-		float2 p1 = _Controls[i + 1] - pixelPos;
-		float2 p2 = _Controls[i + 2] - pixelPos;
+		float2 p0 = _Splines[i + 0] - pixelPos;
+		float2 p1 = _Splines[i + 1] - pixelPos;
+		float2 p2 = _Splines[i + 2] - pixelPos;
 
 		// Check if curve segment is going downwards (this means that a ray crossing
 		// it from left to right would be exiting the shape at this point).
