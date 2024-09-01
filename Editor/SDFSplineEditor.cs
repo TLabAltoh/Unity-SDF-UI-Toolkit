@@ -38,7 +38,6 @@ namespace TLab.UI.SDF.Editor
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.fill), "Fill");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.reverse), "Reverse");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.controls), "Controls");
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.renderMode), "RenderMode");
 			EditorGUI.indentLevel--;
 		}
 
