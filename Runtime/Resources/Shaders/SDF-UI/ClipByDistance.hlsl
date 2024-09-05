@@ -28,16 +28,20 @@ delta = 0;
 #endif
 
 #ifdef SDF_UI_AA_SUBPIXEL
-float4 alpha = 0;
+float4 alpha = 0, tmp0 = 0, tmp1 = 0;
 #else
-float alpha = 0;
+float alpha = 0, tmp0 = 0, tmp1 = 0;
 #endif
 
 #ifdef SDF_UI_OUTLINE_INSIDE
-alpha = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
+tmp0 = 1 - saturaterange((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
+tmp1 = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
-alpha = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
+tmp0 = 1 - saturaterange(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
+tmp0 = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
 #endif
+
+alpha = tmp0 * (1. - _ShadowGaussian) + tmp1 * _ShadowGaussian;
 
 {
 	half4 layer0 = _ShadowColor;
@@ -71,11 +75,11 @@ float graphicAlpha = 0, outlineAlpha = 0;
 #if defined(SDF_UI_AA_SUBPIXEL) || defined(SDF_UI_AA_SUPER_SAMPLING) || defined(SDF_UI_AA_FASTER)
 
 #ifdef SDF_UI_OUTLINE_INSIDE
-graphicAlpha = 1 - smoothstep(-_OutlineWidth - delta, -_OutlineWidth + delta, dist);
-outlineAlpha = 1 - smoothstep(-delta, delta, dist);
+graphicAlpha = 1 - saturaterange(-_OutlineWidth - delta, -_OutlineWidth + delta, dist);
+outlineAlpha = 1 - saturaterange(-delta, delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
-outlineAlpha = 1 - smoothstep(_OutlineWidth - delta, _OutlineWidth + delta, dist);
-graphicAlpha = 1 - smoothstep(-delta, delta, dist);
+outlineAlpha = 1 - saturaterange(_OutlineWidth - delta, _OutlineWidth + delta, dist);
+graphicAlpha = 1 - saturaterange(-delta, delta, dist);
 #endif
 
 #else

@@ -19,7 +19,7 @@ MonoBehaviour:
   sdfSettings:
     maxDist: 20
   shape: 1
-  previewMode: 0
+  previewMode: 1
   circlePainter:
     handleRadius: 10
     handleColor: {r: 0, g: 1, b: 0, a: 1}

@@ -12,6 +12,7 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _ShadowGaussian("ShadowGaussian", Float) = 0
 
         [HideInInspector] _Num("Num", Int) = 0
         _Width("Width", Float) = 0

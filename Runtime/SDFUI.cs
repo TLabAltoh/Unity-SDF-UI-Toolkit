@@ -50,6 +50,7 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_SHADOW_DILATE = Shader.PropertyToID("_ShadowDilate");
 		internal static readonly int PROP_SHADOW_COLOR = Shader.PropertyToID("_ShadowColor");
 		internal static readonly int PROP_SHADOW_OFFSET = Shader.PropertyToID("_ShadowOffset");
+		internal static readonly int PROP_SHADOW_GAUSSIAN = Shader.PropertyToID("_ShadowGaussian");
 
 		internal static readonly int PROP_OUTLINE_TYPE = Shader.PropertyToID("_OutlineType");
 		internal static readonly int PROP_OUTLINE_COLOR = Shader.PropertyToID("_OutlineColor");
@@ -741,6 +742,7 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_SHADOW_BLUR, m_shadowSoftness * (m_shadowWidth + m_shadowInnerSoftWidth));
 				_materialRecord.SetFloat(PROP_SHADOW_DILATE, m_shadowDilate);
 				_materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
+				_materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, m_shadowSoftness > 0 ? 1 : 0);
 
 				MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 				_materialRecord.SetVector(PROP_SHADOW_OFFSET, sizeOffset);
