@@ -27,6 +27,12 @@ inline float saturaterange(float a, float b, float x)
     return t;
 }
 
+inline float4 saturaterange(float4 a, float4 b, float4 x)
+{
+    float4 t = saturate((x - a) / (b - a));
+    return t;
+}
+
 inline float dot2(float2 v) {
     return dot(v, v);
 }

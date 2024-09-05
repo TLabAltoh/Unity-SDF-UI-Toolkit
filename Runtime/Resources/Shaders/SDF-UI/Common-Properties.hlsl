@@ -15,6 +15,7 @@ float _ShadowBlur;
 float _ShadowDilate;
 float4 _ShadowColor;
 float4 _ShadowOffset;
+float _ShadowGaussian;
 
 float4 _ClipRect;
 
