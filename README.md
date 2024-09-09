@@ -40,23 +40,26 @@ add package from git URL ...
 https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 ```
 
+### Setup
+- Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
+
 ## SDF Texture
 Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to the asset.
 
 ### Circle
-|  |   |
-| ------ | ------ |
-| Mouse Drag | Move Handle |
-| Shift + Left Click | Select Handle |
-| Delete | Delete Selected Handle |
+|                    |                        |
+| ------------------ | ---------------------- |
+| Mouse Drag         | Move Handle            |
+| Shift + Left Click | Select Handle          |
+| Delete             | Delete Selected Handle |
 
 ### Bezier
-|  |   |
-| ------ | ------ |
-| Mouse Drag | Move Anchor Handle |
-| Crtl + Mouse Drag | Move Control Handle |
-| Shift + Left Click | Select Anchor Handle |
-| Delete | Delete Selected Handle |
+|                    |                        |
+| ------------------ | ---------------------- |
+| Mouse Drag         | Move Anchor Handle     |
+| Crtl + Mouse Drag  | Move Control Handle    |
+| Shift + Left Click | Select Anchor Handle   |
+| Delete             | Delete Selected Handle |
 
 ### Cu2Qu
 SDF Text Painter converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu).
