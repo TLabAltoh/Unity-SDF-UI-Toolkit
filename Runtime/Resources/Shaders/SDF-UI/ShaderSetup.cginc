@@ -31,13 +31,10 @@ v2f vert(appdata v) {
 #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
 #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-#pragma multi_compile_local _ SDF_UI_AA_FASTER
-#pragma multi_compile_local _ SDF_UI_AA_SUPER_SAMPLING
-#pragma multi_compile_local _ SDF_UI_AA_SUBPIXEL
+#pragma multi_compile_local _ SDF_UI_AA_FASTER SDF_UI_AA_SUPER_SAMPLING SDF_UI_AA_SUBPIXEL
+
+#pragma multi_compile_local SDF_UI_OUTLINE_INSIDE SDF_UI_OUTLINE_OUTSIDE
 
 #pragma multi_compile_local _ SDF_UI_ONION
-
-#pragma multi_compile_local _ SDF_UI_OUTLINE_INSIDE
-#pragma multi_compile_local _ SDF_UI_OUTLINE_OUTSIDE
 
 #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
