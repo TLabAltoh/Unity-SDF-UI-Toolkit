@@ -93,7 +93,7 @@ namespace TLab.UI.SDF.Registry
 		}
 
 		public void SetBuffer(int propertyID, GraphicsBuffer buffer)
-        {
+		{
 			MaterialProperty property = new()
 			{
 				Type = MaterialProperty.PropertyType.Buffer,
@@ -101,7 +101,7 @@ namespace TLab.UI.SDF.Registry
 				Buffer = buffer,
 			};
 			SetProperty(property);
-        }
+		}
 
 		public void SetKeywordActive(string keyword, bool active)
 		{
@@ -111,6 +111,11 @@ namespace TLab.UI.SDF.Registry
 				Active = active
 			};
 			_keywords[keyword] = materialKeyword;
+		}
+
+		public void ResetKeywords()
+		{
+			_keywords.Clear();
 		}
 
 		public void EnableKeyword(string keyword)

@@ -13,7 +13,7 @@ Shader "Hidden/UI/SDF/Tex/Outline" {
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
         [HideInInspector] _MaxDist("MaxDist", Float) = 0
-        [HideInInspector] _ShadowGaussian("ShadowGaussian", Float) = 0
+        [HideInInspector] _ShadowGaussian("Shadow Gaussian", Float) = 0
 
         _SDFTex("SDFTex", 2D) = "white" {}
 
