@@ -38,7 +38,7 @@ tmp0 = 1 - saturaterange((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (
 tmp1 = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
 #elif SDF_UI_OUTLINE_OUTSIDE
 tmp0 = 1 - saturaterange(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
-tmp0 = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
+tmp1 = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
 #endif
 
 alpha = tmp0 * (1. - _ShadowGaussian) + tmp1 * _ShadowGaussian;

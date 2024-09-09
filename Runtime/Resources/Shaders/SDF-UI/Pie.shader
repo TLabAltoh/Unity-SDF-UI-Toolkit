@@ -12,7 +12,7 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
-        [HideInInspector] _ShadowGaussian("ShadowGaussian", Float) = 0
+        [HideInInspector] _ShadowGaussian("Shadow Gaussian", Float) = 0
 
         _Radius("Radius", Float) = 0
         _Theta("Theta", Float) = 0
@@ -25,7 +25,6 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
         _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
-        _OutlineType("Outline Type", Int) = 0
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
