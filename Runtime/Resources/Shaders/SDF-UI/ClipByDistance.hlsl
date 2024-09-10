@@ -33,14 +33,8 @@ float4 alpha = 0, tmp0 = 0, tmp1 = 0;
 float alpha = 0, tmp0 = 0, tmp1 = 0;
 #endif
 
-#ifdef SDF_UI_OUTLINE_INSIDE
-tmp0 = 1 - saturaterange((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
-tmp1 = 1 - smoothstep((_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, (_ShadowWidth - _ShadowDilate) + delta, dist);
-#elif SDF_UI_OUTLINE_OUTSIDE
-tmp0 = 1 - saturaterange(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
-tmp1 = 1 - smoothstep(_OutlineWidth + (_ShadowWidth - _ShadowDilate) - _ShadowBlur - delta, _OutlineWidth + (_ShadowWidth - _ShadowDilate) + delta, dist);
-#endif
-
+tmp0 = 1 - saturaterange(_ShadowBorder - _ShadowBlur - delta, _ShadowBorder + delta, dist);
+tmp1 = 1 - smoothstep(_ShadowBorder - _ShadowBlur - delta, _ShadowBorder + delta, dist);
 alpha = tmp0 * (1. - _ShadowGaussian) + tmp1 * _ShadowGaussian;
 
 {
@@ -74,17 +68,12 @@ float graphicAlpha = 0, outlineAlpha = 0;
 
 #if defined(SDF_UI_AA_SUBPIXEL) || defined(SDF_UI_AA_SUPER_SAMPLING) || defined(SDF_UI_AA_FASTER)
 
-#ifdef SDF_UI_OUTLINE_INSIDE
-graphicAlpha = 1 - saturaterange(-_OutlineWidth - delta, -_OutlineWidth + delta, dist);
-outlineAlpha = 1 - saturaterange(-delta, delta, dist);
-#elif SDF_UI_OUTLINE_OUTSIDE
-outlineAlpha = 1 - saturaterange(_OutlineWidth - delta, _OutlineWidth + delta, dist);
-graphicAlpha = 1 - saturaterange(-delta, delta, dist);
-#endif
+outlineAlpha = 1 - saturaterange(_OutlineBorder - delta, _OutlineBorder + delta, dist);
+graphicAlpha = 1 - saturaterange(_GraphicBorder - delta, _GraphicBorder + delta, dist);
 
 #else
-graphicAlpha = 1 - (dist >= -_OutlineWidth);
-outlineAlpha = 1 - (dist >= 0);
+graphicAlpha = 1 - (dist >= _GraphicBorder);
+outlineAlpha = 1 - (dist >= _OutlineBorder);
 #endif
 
 {

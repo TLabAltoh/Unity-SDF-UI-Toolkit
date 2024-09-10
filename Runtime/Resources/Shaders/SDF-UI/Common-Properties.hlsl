@@ -9,8 +9,12 @@ float4 _OuterUV;
 
 float _OnionWidth;
 float _OutlineWidth;
+float _OutlineBorder;
+
+float _GraphicBorder;
 
 float _ShadowWidth;
+float _ShadowBorder;
 float _ShadowBlur;
 float _ShadowDilate;
 float4 _ShadowColor;
