@@ -33,8 +33,6 @@ v2f vert(appdata v) {
 
 #pragma multi_compile_local _ SDF_UI_AA_FASTER SDF_UI_AA_SUPER_SAMPLING SDF_UI_AA_SUBPIXEL
 
-#pragma multi_compile_local SDF_UI_OUTLINE_INSIDE SDF_UI_OUTLINE_OUTSIDE
-
 #pragma multi_compile_local _ SDF_UI_ONION
 
 #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED

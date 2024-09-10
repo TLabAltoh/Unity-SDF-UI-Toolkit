@@ -29,9 +29,6 @@ namespace TLab.UI.SDF
 		internal const string KEYWORD_AA_SUPER_SAMPLING = SHADER_KEYWORD_PREFIX + "AA_SUPER_SAMPLING";
 		internal const string KEYWORD_AA_SUBPIXEL = SHADER_KEYWORD_PREFIX + "AA_SUBPIXEL";
 
-		internal const string KEYWORD_OUTLINE_INSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_INSIDE";
-		internal const string KEYWORD_OUTLINE_OUTSIDE = SHADER_KEYWORD_PREFIX + "OUTLINE_OUTSIDE";
-
 		#endregion SHADER_KEYWORD
 
 		#region SHADER_PROP
@@ -44,6 +41,10 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_ONION_WIDTH = Shader.PropertyToID("_OnionWidth");
 
 		internal static readonly int PROP_MAINTEX = Shader.PropertyToID("_MainTex");
+
+		internal static readonly int PROP_SHADOW_BORDER = Shader.PropertyToID("_ShadowBorder");
+		internal static readonly int PROP_OUTLINE_BORDER = Shader.PropertyToID("_OutlineBorder");
+		internal static readonly int PROP_GRAPHIC_BORDER = Shader.PropertyToID("_GraphicBorder");
 
 		internal static readonly int PROP_SHADOW_WIDTH = Shader.PropertyToID("_ShadowWidth");
 		internal static readonly int PROP_SHADOW_BLUR = Shader.PropertyToID("_ShadowBlur");
@@ -757,12 +758,14 @@ namespace TLab.UI.SDF
 			switch (m_outlineType)
 			{
 				case OutlineType.Inside:
-					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_INSIDE);
-					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_OUTSIDE);
+					_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
+					_materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
+					_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, -m_outlineWidth);
 					break;
 				case OutlineType.Outside:
-					_materialRecord.EnableKeyword(KEYWORD_OUTLINE_OUTSIDE);
-					_materialRecord.DisableKeyword(KEYWORD_OUTLINE_INSIDE);
+					_materialRecord.SetFloat(PROP_SHADOW_BORDER, m_outlineWidth + (m_shadowWidth - m_shadowDilate));
+					_materialRecord.SetFloat(PROP_OUTLINE_BORDER, m_outlineWidth);
+					_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
 					break;
 			}
 
