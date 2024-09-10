@@ -9,8 +9,12 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
         [HideInInspector] _ColorMask("Color Mask", Float) = 15
         [HideInInspector] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 
+
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
+        [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
+        [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
+        [HideInInspector] _GraphicBorder("Graphic Border", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
         [HideInInspector] _ShadowGaussian("Shadow Gaussian", Float) = 0
 
