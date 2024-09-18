@@ -144,7 +144,7 @@ MonoBehaviour:
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
   m_shadowSoftness: 0.5
-  m_shadowDilate: 1
+  m_shadowDilate: 0
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
   m_outline: 0
@@ -1242,7 +1242,6 @@ MonoBehaviour:
   m_closed: 0
   m_fill: 0
   m_reverse: 0
-  m_renderMode: 0
   m_controls:
   - {x: 0.121625975, y: 0.39047804}
   - {x: -0.43572986, y: 0.47052735}
