@@ -755,29 +755,33 @@ namespace TLab.UI.SDF
 				_materialRecord.DisableKeyword(KEYWORD_SHADOW_ENABLED);
 			}
 
-			switch (m_outlineType)
-			{
-				case OutlineType.Inside:
-					_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
-					_materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
-					_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, -m_outlineWidth);
-					break;
-				case OutlineType.Outside:
-					_materialRecord.SetFloat(PROP_SHADOW_BORDER, m_outlineWidth + (m_shadowWidth - m_shadowDilate));
-					_materialRecord.SetFloat(PROP_OUTLINE_BORDER, m_outlineWidth);
-					_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
-					break;
-			}
-
 			if (m_outline && m_outlineWidth > 0)
 			{
 				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
+
+				switch (m_outlineType)
+				{
+					case OutlineType.Inside:
+						_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
+						_materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
+						_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, -m_outlineWidth);
+						break;
+					case OutlineType.Outside:
+						_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate) + m_outlineWidth);
+						_materialRecord.SetFloat(PROP_OUTLINE_BORDER, m_outlineWidth);
+						_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
+						break;
+				}
 			}
 			else
 			{
 				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, 0);
 				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_fillColor);
+
+				_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
+				_materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
+				_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
 			}
 
 			AntialiasingType antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;
