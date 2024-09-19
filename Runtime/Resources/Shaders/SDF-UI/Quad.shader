@@ -60,9 +60,10 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
 #define SDF_UI_QUAD
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
+
             #include "Quad-Properties.hlsl"
+            #include "SDFUtils.cginc"
+            #include "ShaderSetup.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
                 #include "FragmentSetup.hlsl"

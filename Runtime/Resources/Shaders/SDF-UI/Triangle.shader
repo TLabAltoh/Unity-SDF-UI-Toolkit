@@ -64,8 +64,9 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
+
             #include "Triangle-Properties.hlsl"
+            #include "ShaderSetup.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
 

@@ -62,8 +62,9 @@ Shader "Hidden/UI/SDF/Ring/Outline" {
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
+
             #include "Ring-Properties.hlsl"
+            #include "ShaderSetup.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
 
