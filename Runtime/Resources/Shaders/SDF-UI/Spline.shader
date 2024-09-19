@@ -61,8 +61,9 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
+
             #include "Spline-ShaderSetup.hlsl"
+            #include "ShaderSetup.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
 
