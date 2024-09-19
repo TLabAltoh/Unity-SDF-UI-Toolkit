@@ -22,6 +22,8 @@ float4 _ShadowOffset;
 float _ShadowGaussian;
 
 float4 _ClipRect;
+float _UIMaskSoftnessX;
+float _UIMaskSoftnessY;
 
 sampler2D _MainTex;
 float4 _MainTex_ST;

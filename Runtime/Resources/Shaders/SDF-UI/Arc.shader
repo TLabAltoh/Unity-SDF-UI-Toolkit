@@ -63,8 +63,9 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
-            #include "ShaderSetup.cginc"
+
             #include "Arc-Properties.hlsl"
+            #include "ShaderSetup.hlsl"
 
             fixed4 frag(v2f i) : SV_Target {
 
