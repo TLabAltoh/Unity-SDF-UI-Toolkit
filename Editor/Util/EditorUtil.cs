@@ -7,198 +7,66 @@ namespace TLab.UI.SDF.Editor
     {
         public static string THIS_NAME => "[EditorUtil] ";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="aspect"></param>
-        /// <returns></returns>
-        public static Rect CreatePreviewArea(float aspect)
+        public static Rect CreatePreviewArea(float aspect, Color faceColor, Color outlineColor)
         {
-            var margin = 0.8f;
-            var xoffset = Screen.width * (1 - margin) * 0.25f;
-
-            var area = GUILayoutUtility.GetRect(Screen.width * margin, Screen.width * margin * aspect, GUILayout.ExpandWidth(false));
-            area.xMax += xoffset;
-            area.x += xoffset;
-
-            Handles.DrawSolidRectangleWithOutline(area, Color.black, Color.white);
-
+            var area = GUILayoutUtility.GetAspectRect(aspect);
+            Handles.DrawSolidRectangleWithOutline(area, faceColor, outlineColor);
             return area;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="area"></param>
-        /// <returns></returns>
-        public static bool CheckArea(Vector2 position, Rect area)
-        {
-            return (position.x >= area.xMin) && (position.x <= area.xMax) && (position.y >= area.yMin) && (position.y <= area.yMax);
-        }
+        public static bool IsInTheArea(Vector2 pos, Rect area) => (pos.x >= area.xMin) && (pos.x <= area.xMax) && (pos.y >= area.yMin) && (pos.y <= area.yMax);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="rect"></param>
-        /// <param name="rectTransformSize"></param>
-        /// <returns></returns>
-        public static Vector2 RectToRectTransform(Vector2 position, Rect rect, Vector2 rectTransformSize)
+        public static bool MouseIsInTheArea(Rect area) => IsInTheArea(Event.current.mousePosition, area);
+
+        public static Vector2 RectToRectTransform(Vector2 pos, Rect rect, Vector2 rectTransformSize)
         {
-            var x = (position.x - rect.xMin) / rect.width;
-            var y = (position.y - rect.yMin) / rect.height;
+            var x = (pos.x - rect.xMin) / rect.width;
+            var y = (pos.y - rect.yMin) / rect.height;
 
             return new Vector2((x - 0.5f) * rectTransformSize.x, (y - 0.5f) * rectTransformSize.y);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="rect"></param>
-        /// <param name="rectTransformSize"></param>
-        /// <returns></returns>
-        public static Vector2 RectTransformToRect(Vector2 position, Rect rect, Vector2 rectTransformSize)
+        public static Vector2 RectTransformToRect(Vector2 pos, Rect rect, Vector2 rectTransformSize)
         {
-            var x = (position.x + rectTransformSize.x * 0.5f) / rectTransformSize.x;
-            var y = (position.y + rectTransformSize.y * 0.5f) / rectTransformSize.y;
+            var x = (pos.x + rectTransformSize.x * 0.5f) / rectTransformSize.x;
+            var y = (pos.y + rectTransformSize.y * 0.5f) / rectTransformSize.y;
 
             return new Vector2((1f - x) * rect.xMin + x * rect.xMax, (1f - y) * rect.yMin + y * rect.yMax);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="rect"></param>
-        /// <param name="texSize"></param>
-        /// <returns></returns>
-        public static Vector2 TextureToRect(Vector2 position, Rect rect, Vector2Int texSize)
+        public static Vector2 ActualPosToRect(Vector2 pos, Rect rect, Vector2Int size) => GetCenterOfRect(rect) + pos / size * rect.size;
+
+        public static Vector2[] ActualPosToRect(Vector2[] pos, Rect rect, Vector2Int size)
         {
-            var center = GetCenter(rect);
-
-            return center + new Vector2(position.x / texSize.x * rect.width, position.y / texSize.y * rect.height);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="positions"></param>
-        /// <param name="rect"></param>
-        /// <param name="texSize"></param>
-        /// <returns></returns>
-        public static Vector2[] TextureToRect(Vector2[] positions, Rect rect, Vector2Int texSize)
-        {
-            var result = new Vector2[positions.Length];
-
-            var center = GetCenter(rect);
-
+            var result = new Vector2[pos.Length];
+            var center = GetCenterOfRect(rect);
             for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = center + new Vector2(positions[i].x / texSize.x * rect.width, positions[i].y / texSize.y * rect.height);
-            }
-
+                result[i] = center + pos[i] / size * rect.size;
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="rect"></param>
-        /// <param name="texSize"></param>
-        /// <returns></returns>
-        public static float TextureToRect(float value, Rect rect, Vector2Int texSize)
+        public static Vector2 RectToActualVec(Vector2 vec, Rect area, Vector2Int size) => vec / area.size * size;
+
+        public static Vector2 RectToActualPos(Vector2 pos, Rect area, Vector2Int size) => (pos - GetCenterOfRect(area)) / area.size * size;
+
+        public static Vector2 GetCenterOfRect(Rect area) => new Vector2(area.xMin + area.xMax, area.yMin + area.yMax) * 0.5f;
+
+        public static void DrawBezier(Vector3[] points, bool isClosed, float width = 2.0f)
         {
-            return value / texSize.x * rect.width;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="rect"></param>
-        /// <param name="texSize"></param>
-        /// <returns></returns>
-        public static float[] TextureToRect(float[] values, Rect rect, Vector2Int texSize)
-        {
-            var result = new float[values.Length];
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = TextureToRect(values[i], rect, texSize);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="area"></param>
-        /// <param name="texSize"></param>
-        /// <returns></returns>
-        public static Vector2 RectToTexture(Vector2 position, Rect area, Vector2Int texSize)
-        {
-            var center = GetCenter(area);
-
-            return new Vector2(((position.x - center.x) / area.width * texSize.x), ((position.y - center.y) / area.height * texSize.y));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="area"></param>
-        /// <returns></returns>
-        public static Vector2 GetCenter(Rect area)
-        {
-            return new Vector2(area.xMin + area.xMax, area.yMin + area.yMax) * 0.5f;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="startPosition"></param>
-        /// <param name="endPosition"></param>
-        /// <param name="startTangent"></param>
-        /// <param name="endTangent"></param>
-        public static void DrawBezier(Vector3 startPosition, Vector3 endPosition, Vector3 startTangent, Vector3 endTangent)
-        {
-            Handles.DrawBezier(startPosition, endPosition, startTangent, endTangent, Handles.color, null, 2.0f);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="closed"></param>
-        public static void DrawBezier(Vector3[] points, bool closed)
-        {
-            if (closed)
-            {
-                DrawBezier(points[points.Length - 2], points[1], points[points.Length - 1], points[0]);
-            }
+            if (isClosed)
+                Handles.DrawBezier(points[points.Length - 2], points[1], points[points.Length - 1], points[0], Handles.color, null, width);
 
             for (int i = 3; i < points.Length; i += 3)
-            {
-                DrawBezier(points[i - 2], points[i + 1], points[i - 1], points[i]);
-            }
+                Handles.DrawBezier(points[i - 2], points[i + 1], points[i - 1], points[i], Handles.color, null, width);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="center"></param>
-        /// <param name="xSize"></param>
-        /// <param name="ySize"></param>
         public static void DrawCube(Vector3 center, float xSize, float ySize)
         {
-            Handles.DrawAAConvexPolygon(center + new Vector3(xSize, ySize, 0),
-                center + new Vector3(xSize, -ySize, 0),
-                center + new Vector3(-xSize, -ySize, 0),
-                center + new Vector3(-xSize, ySize, 0));
+            var c0 = new Vector3(+xSize, +ySize, 0);
+            var c1 = new Vector3(+xSize, -ySize, 0);
+            var c2 = new Vector3(-xSize, -ySize, 0);
+            var c3 = new Vector3(-xSize, +ySize, 0);
+            Handles.DrawAAConvexPolygon(center + c0, center + c1, center + c2, center + c3);
         }
     }
 }

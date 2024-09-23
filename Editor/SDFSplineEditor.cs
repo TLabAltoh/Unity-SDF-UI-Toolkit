@@ -16,43 +16,31 @@ namespace TLab.UI.SDF.Editor
 			m_instance = target as SDFSpline;
 		}
 
-		protected Vector2[] Edit()
-		{
-			var controls = new Vector2[m_instance.length];
-			for (int i = 0; i < controls.Length; i++)
-			{
-				var oldPos = m_instance.GetControl(i, true);
-				var newPos = Handles.PositionHandle(oldPos, Quaternion.identity);
-
-				controls[i] = newPos;
-			}
-			return controls;
-		}
-
 		protected override void DrawShapeProp()
 		{
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.width), "Width");
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.closed), "Closed");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.isClosed), "Is Closed");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.fill), "Fill");
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.reverse), "Reverse");
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.controls), "Controls");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.splines), "Splines");
 			EditorGUI.indentLevel--;
 		}
 
-		protected void OnSceneGUI()
+		protected unsafe void OnSceneGUI()
 		{
-			EditorGUI.BeginChangeCheck();
-
-			var controls = Edit();
-
-			if (EditorGUI.EndChangeCheck())
+			for (var i = 0; i < m_instance.splines.Length; i++)
 			{
-				Undo.RecordObject(m_instance, $"[{nameof(SDFSpline)}] Edit");
-
-				for (int i = 0; i < controls.Length; i++)
-					m_instance.SetControl(i, controls[i], true);
+				EditorGUI.BeginChangeCheck();
+				var controls = m_instance.GetControls(i, true);
+				fixed (Vector2* start = controls)
+					for (Vector2* current = start; current < (start + controls.Length); current++)
+						*current = Handles.PositionHandle(*current, Quaternion.identity);
+				if (EditorGUI.EndChangeCheck())
+				{
+					Undo.RecordObject(m_instance, $"[{nameof(SDFSpline)}] Edit");
+					m_instance.SetControls(i, controls, true);
+				}
 			}
 		}
 	}

@@ -2,13 +2,6 @@ using UnityEngine;
 
 namespace TLab.UI.SDF.Editor
 {
-    public enum Shape
-    {
-        CIRCLE,
-        BEZIER,
-        NONE
-    };
-
     public enum PreviewMode
     {
         PATH,
@@ -18,21 +11,12 @@ namespace TLab.UI.SDF.Editor
     [CreateAssetMenu(fileName = "SDF Tex Painter", menuName = "TLab/UI/SDF/SDF Tex Painter")]
     public class SDFTexPainter : ScriptableObject
     {
-        [Min(0f)] public int texWidth = 512;
-        [Min(0f)] public int texHeight = 512;
-        [Min(0f)] public int sdfWidth = 256;
-        [Min(0f)] public int sdfHeight = 256;
-
+        [Min(0f)] public Vector2Int size = new Vector2Int(512, 512);
+        [Min(0f)] public int texScale = 100;
         public SDFSettings sdfSettings;
-
-        public Shape shape = Shape.NONE;
         public PreviewMode previewMode = PreviewMode.PATH;
-
-        public CirclePainter circlePainter;
         public BezierPainter bezierPainter;
-
         public Texture2D sdfTex;
-
         public string savePath = "";
     }
 }

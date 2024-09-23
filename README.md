@@ -1,6 +1,5 @@
 # Unity-SDF-UI-Toolkit
-
-This plugin is based on [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov) and [Unity-UI-SDF](https://github.com/BlenMiner/Unity-UI-SDF) created by [BlenMiner](https://github.com/BlenMiner). UI components that render based on SDF. Rounded corners, outlines, SDFTexture editor. Additional shapes implemented based on [this article](https://iquilezles.org/articles/distfunctions2d/) (not all)
+This Unity plugin provides a UI component and utility for rendering UI graphics with features such as outlines, shadows, and rounded corners using signed distance functions (SDF). It supports a variety of simple shapes (e.g., quads, triangles, circles) as well as more complex shapes (currently splines and SDF textures). Additionally, the utility includes an SDF texture painter that allows for editing Bezier curves within the Unity editor and converting them to SDF textures.
 
 ## Screenshot
 <table>
@@ -43,29 +42,38 @@ https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
 
-## SDF Texture
-Select ```Create/TLab/UI/SDF/SDF Tex Painter``` to add a Scriptable Object to the asset.
+## Feature
+### Vector UI
+Vector UI offers advantages in quality and dynamic UI creation. This plugin includes the ```SDFUI``` class, and most of the main components inherit from it. Additionally, most ```SDFUI``` components render graphics as Vector UI using signed distance functions.
 
-### Circle
-|                    |                        |
-| ------------------ | ---------------------- |
-| Mouse Drag         | Move Handle            |
-| Shift + Left Click | Select Handle          |
-| Delete             | Delete Selected Handle |
+### Batch rendering
+To optimise performance, this plugin will batch-render ```SDFUI```s that have the same properties. This feature was implemented thanks to [AAAYako](https://github.com/AAAYaKo).
 
-### Bezier
-|                    |                        |
-| ------------------ | ---------------------- |
-| Mouse Drag         | Move Anchor Handle     |
-| Crtl + Mouse Drag  | Move Control Handle    |
-| Shift + Left Click | Select Anchor Handle   |
-| Delete             | Delete Selected Handle |
+### SDF Texture Painter
+If the shape is complex (like an ```SDF-Spline```, which might be the only one at the moment), it can significantly impact performance. If you want to use a complex shape while considering app performance, replacing the current shape with an ```SDF-Tex``` might be more efficient. The ```SDF Tex Painter``` has the ability to edit cubic Bezier curves and convert them to SDF textures (```Texture2D```).
 
-### Cu2Qu
-SDF Text Painter converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu).
+#### How to make a new one
+Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 
-## TODO
-- support mask in shape editor
+#### How to Edit a Bezier Path
+- ```Left Click``` + ```Mouse Drag```: Move Anchor Handle
+- ```Ctrl``` + ```Left Click``` + ```Mouse Drag```: Move Control Handle
+- ```Shift``` + ```Left Click```: Select Anchor Handles
+- ```Shift``` + ```Ctrl``` + ```Left Click```: Select all Handles of the Bezier segment
+- ```G```: Move selected handles
+- ```R```: Rotate selected handles
+- ```S```: Scale selected handles
+- ```Right Click```: Deselect Anchor Handles or Cancel Editing
+- ```Delete```: Delete Selected Handle
+
+#### Implementation Approach
+##### Cu2Qu
+It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
 
 ## Lisence
 This repository is MIT licensed.
+
+## References
+- [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov)
+- [Unity-UI-SDF](https://github.com/BlenMiner/Unity-UI-SDF) created by [BlenMiner](https://github.com/BlenMiner)
+- [distfunctions2d](https://iquilezles.org/articles/distfunctions2d/)

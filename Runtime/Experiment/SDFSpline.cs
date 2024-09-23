@@ -5,6 +5,7 @@
 **/
 
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -31,38 +32,32 @@ namespace TLab.UI.SDF
 
         internal const string KEYWORD_SPLINE_FILL = SHADER_KEYWORD_PREFIX + "SPLINE_FILL";
 
-        //internal const string KEYWORD_SPLINE_FONT_RENDERING = SHADER_KEYWORD_PREFIX + "SPLINE_FONT_RENDERING";
-
         internal static readonly int PROP_SPLINES = Shader.PropertyToID("_Splines");
         internal static readonly int PROP_SPLINES_NUM = Shader.PropertyToID("_SplinesNum");
         internal static readonly int PROP_LINES = Shader.PropertyToID("_Lines");
         internal static readonly int PROP_LINES_NUM = Shader.PropertyToID("_LinesNum");
         internal static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
 
+        [System.Serializable]
+        public class QuadraticBezier
+        {
+            public Vector2[] controls;
+        }
+
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
-        [SerializeField] private bool m_closed = false;
+        [SerializeField] private bool m_isClosed = false;
         [SerializeField] private bool m_fill = false;
-        [SerializeField] private bool m_reverse = false;
-        [SerializeField] private Vector2[] m_controls;
+        [SerializeField] private QuadraticBezier[] m_splines;
 
         private GraphicsBuffer m_bufferSpline;
         private GraphicsBuffer m_bufferLine;
+
+        private const float EPSILON = 1e-2f;
 
         public enum RenderMode
         {
             DISTANCE,
             FONT
-        }
-
-        public int length
-        {
-            get
-            {
-                if (m_controls == null)
-                    return 0;
-
-                return m_controls.Length;
-            }
         }
 
         public float width
@@ -79,28 +74,14 @@ namespace TLab.UI.SDF
             }
         }
 
-        public bool closed
+        public bool isClosed
         {
-            get => m_closed;
+            get => m_isClosed;
             set
             {
-                if (m_closed != value)
+                if (m_isClosed != value)
                 {
-                    m_closed = value;
-
-                    SetAllDirty();
-                }
-            }
-        }
-
-        public bool reverse
-        {
-            get => m_reverse;
-            set
-            {
-                if (m_reverse != value)
-                {
-                    m_reverse = value;
+                    m_isClosed = value;
 
                     SetAllDirty();
                 }
@@ -121,50 +102,88 @@ namespace TLab.UI.SDF
             }
         }
 
-        public Vector2[] controls
+        public QuadraticBezier[] splines
         {
-            get => m_controls;
+            get => m_splines;
             set
             {
-                if (m_controls != value)
+                if (m_splines != value)
                 {
-                    m_controls = value;
+                    m_splines = value;
 
                     SetAllDirty();
                 }
             }
         }
 
-        public Vector2 this[int i]
+        public Vector2 this[int i, int j]
         {
-            get => m_controls[i];
+            get => m_splines[i].controls[j];
             set
             {
-                if (m_controls[i] != value)
+                if (m_splines[i].controls[j] != value)
                 {
-                    m_controls[i] = value;
+                    m_splines[i].controls[j] = value;
 
                     SetAllDirty();
                 }
             }
         }
 
-        public Vector2 GetControl(int index, bool isWorldSpace = false)
+        public QuadraticBezier this[int i]
         {
-            Vector2 corner = this[index];
+            get => m_splines[i];
+            set
+            {
+                if (m_splines[i] != value)
+                {
+                    m_splines[i] = value;
 
-            return isWorldSpace ? rectTransform.TransformPoint(new Vector2(corner.x, -corner.y) * minSize) : corner;
+                    SetAllDirty();
+                }
+            }
         }
 
-        public void SetControl(int index, Vector2 corner, bool isWorldSpace = false)
+        public unsafe Vector2[] GetControls(int i, bool isWorldSpace = false)
+        {
+            var controls = this[i].controls.Clone() as Vector2[];
+            var minSize = this.minSize;
+            if (isWorldSpace)
+                fixed (Vector2* start = controls)
+                    for (var current = start; current < (start + controls.Length); current++)
+                        *current = transform.TransformPoint(new Vector2((*current).x, -(*current).y) * minSize);
+            return controls;
+        }
+
+        public Vector2 GetControl(int i, int j, bool isWorldSpace = false)
+        {
+            var control = this[i, j];
+            return isWorldSpace ? transform.TransformPoint(new Vector2(control.x, -control.y) * minSize) : control;
+        }
+
+        public unsafe void SetControls(int i, Vector2[] controls, bool isWorldSpace = false)
+        {
+            controls = controls.Clone() as Vector2[];
+            var minSize = this.minSize;
+            if (isWorldSpace)
+                fixed (Vector2* start = controls)
+                    for (var current = start; current < (start + controls.Length); current++)
+                    {
+                        *current = transform.InverseTransformPoint(*current) / minSize;
+                        *current = new Vector2((*current).x, -(*current).y);
+                    }
+            this[i].controls = controls;
+            SetAllDirty();
+        }
+
+        public void SetControl(int i, int j, Vector2 control, bool isWorldSpace = false)
         {
             if (isWorldSpace)
             {
-                corner = rectTransform.InverseTransformPoint(corner) / minSize;
-                corner = new Vector2(corner.x, -corner.y);
+                control = transform.InverseTransformPoint(control) / minSize;
+                control = new Vector2(control.x, -control.y);
             }
-
-            this[index] = corner;
+            this[i, j] = control;
         }
 
         private void ReleaseBuffer(ref GraphicsBuffer buffer)
@@ -200,76 +219,72 @@ namespace TLab.UI.SDF
             var minSize = this.minSize;
             var stride = Marshal.SizeOf(Vector2.zero);
 
-            var splines = new Vector2[0].Select((v) => v);
-            var lines = new Vector2[0].Select((v) => v);
+            var splines = new Vector2[0] as IEnumerable<Vector2>;
+            var lines = new Vector2[0] as IEnumerable<Vector2>;
 
-            if (m_controls.Length > 1)
+            for (var i = 0; i < m_splines.Length; i++)
             {
-                var controls = m_controls.Select((v) => v * minSize);
-                if (m_closed)
+                var controls = m_splines[i].controls.Select((v) => v * minSize);
+                if (m_isClosed)
                     controls = controls.Append(controls.ElementAt(0));
-                if (m_reverse)
-                    controls = controls.Reverse();
 
-                int pass = 0;
-                for (int i = 0; i < (controls.Count() - 2); i += 2)
+                if (controls.Count() > 1)
                 {
-                    var v0 = controls.ElementAt(i + 0);
-                    var v1 = controls.ElementAt(i + 1);
-                    var v2 = controls.ElementAt(i + 2);
+                    var pass = 0;
+                    for (var j = 0; j < (controls.Count() - 2); j += 2)
+                    {
+                        var v0 = controls.ElementAt(j + 0);
+                        var v1 = controls.ElementAt(j + 1);
+                        var v2 = controls.ElementAt(j + 2);
 
-                    var abEqual = v0 == v1;
-                    var bcEqual = v1 == v2;
-                    var acEqual = v0 == v2;
+                        var abEqual = v0 == v1;
+                        var bcEqual = v1 == v2;
+                        var acEqual = v0 == v2;
 
-                    if (abEqual && bcEqual)
-                    {
-                        // ignore
-                    }
-                    else if (abEqual || acEqual)
-                    {
-                        lines = lines.Append(v1);
-                        lines = lines.Append(v2);
-                    }
-                    else if (bcEqual)
-                    {
-                        lines = lines.Append(v0);
-                        lines = lines.Append(v2);
-                    }
-                    else
-                    {
-                        splines = splines.Append(v0);
-                        splines = splines.Append(v1);
-                        splines = splines.Append(v2);
+                        if (abEqual && bcEqual)
+                        {
+                            // ignore
+                        }
+                        else if (abEqual || acEqual)
+                        {
+                            lines = lines.Append(v1);
+                            lines = lines.Append(v2);
+                        }
+                        else if (bcEqual || (Mathf.Abs(MathUtils.Cross(v0 - v1, v1 - v2)) <= EPSILON))
+                        {
+                            lines = lines.Append(v0);
+                            lines = lines.Append(v2);
+                        }
+                        else
+                        {
+                            splines = splines.Append(v0);
+                            splines = splines.Append(v1);
+                            splines = splines.Append(v2);
+                        }
+
+                        pass += 2;
                     }
 
-                    pass += 2;
+                    if (pass <= (controls.Count() - 2))
+                        lines = lines.Concat(controls.TakeLast(2));
                 }
+            }
 
-                if (pass <= (controls.Count() - 2))
-                    lines = lines.Concat(controls.TakeLast(2));
-
-                if (splines.Count() > 0)
-                {
-                    AllocateBuffer(ref m_bufferSpline, splines.Count(), stride);
-                    m_bufferSpline.SetData(splines.ToArray());
-                }
-                else
-                    AllocateZeroBuffre(ref m_bufferSpline, stride);
-
-                if (lines.Count() > 0)
-                {
-                    AllocateBuffer(ref m_bufferLine, lines.Count(), stride);
-                    m_bufferLine.SetData(lines.ToArray());
-                }
-                else
-                    AllocateZeroBuffre(ref m_bufferLine, stride);
+            if (splines.Count() > 0)
+            {
+                AllocateBuffer(ref m_bufferSpline, splines.Count(), stride);
+                m_bufferSpline.SetData(splines.ToArray());
             }
             else
-            {
                 AllocateZeroBuffre(ref m_bufferSpline, stride);
-                AllocateZeroBuffre(ref m_bufferLine, stride);
+
+            if (lines.Count() > 0)
+            {
+                AllocateBuffer(ref m_bufferLine, lines.Count(), stride);
+                m_bufferLine.SetData(lines.ToArray());
             }
+            else
+                AllocateZeroBuffre(ref m_bufferLine, stride);
 
             _materialRecord.SetBuffer(PROP_SPLINES, m_bufferSpline);
             _materialRecord.SetBuffer(PROP_LINES, m_bufferLine);
