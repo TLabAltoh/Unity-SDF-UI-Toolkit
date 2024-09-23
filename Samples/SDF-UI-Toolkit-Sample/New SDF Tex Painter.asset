@@ -12,66 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222c946049b965d4b917c69e3cfde75e, type: 3}
   m_Name: New SDF Tex Painter
   m_EditorClassIdentifier: 
-  texWidth: 512
-  texHeight: 512
-  sdfWidth: 512
-  sdfHeight: 512
+  size: {x: 512, y: 512}
+  texScale: 100
   sdfSettings:
     maxDist: 20
-  shape: 1
-  previewMode: 1
-  circlePainter:
-    handleRadius: 10
-    handleColor: {r: 0, g: 1, b: 0, a: 1}
-    selectColor: {r: 1, g: 0, b: 1, a: 1}
-    showHandle: 1
-    editMode: 1
-    radius: 40
-    thickness: 5
-    draw: 0
-    circles:
-    - position: {x: -57.299297, y: 89.35849}
-      radius: 80
-      thickness: 20
-      draw: 1
-    - position: {x: 132.99481, y: -132.11304}
-      radius: 80
-      thickness: 40
-      draw: 0
-    - position: {x: -190.65039, y: -185.15723}
-      radius: 120
-      thickness: 40
-      draw: 2
-    - position: {x: -94.618706, y: -83.64066}
-      radius: 80
-      thickness: 5
-      draw: 2
+  previewMode: 0
   bezierPainter:
-    handleRadius: 7.5
+    handleRadius: 5
     anchorColor: {r: 0, g: 1, b: 0, a: 1}
     bezierColor: {r: 0, g: 1, b: 0, a: 1}
     controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectColor: {r: 1, g: 0, b: 1, a: 1}
     showHandle: 1
     split: 0
-    maxNum: 25
-    maxErr: 25
-    editMode: 1
+    maxNum: 50
+    maxErr: 5
+    editMode: 2
+    primitiveSettings:
+      primitiveType: 0
+      numPoints: 4
+      scale: 25
+      fitCanvasX: 1
     thickness: 10
-    closed: 1
+    isClosed: 1
     draw: 1
     beziers:
     - handles:
-      - anchor: {x: -166.7701, y: -11.278236}
-        controlA: {x: 93.64091, y: -12.763817}
-        controlB: {x: 57.78853, y: 78.141235}
-      - anchor: {x: 88.339966, y: -26.315504}
-        controlA: {x: 83.91504, y: 127.0747}
-        controlB: {x: -106.8408, y: 80.277336}
-      - anchor: {x: -9.451902, y: 186.38123}
-        controlA: {x: -59.785046, y: -71.87205}
-        controlB: {x: 113.424995, y: 14.776276}
-      closed: 1
+      - anchor: {x: -179.81032, y: -11.013601}
+        controlA: {x: 99.99967, y: -31.110569}
+        controlB: {x: 59.49476, y: 80.448364}
+      - anchor: {x: 78.04, y: -34.880768}
+        controlA: {x: 86.392654, y: 130.82663}
+        controlB: {x: -109.9953, y: 82.64754}
+      - anchor: {x: -22.639154, y: 184.09587}
+        controlA: {x: -61.550224, y: -73.99409}
+        controlB: {x: 116.77391, y: 15.212551}
+      isClosed: 1
       thickness: 20
       draw: 2
     - handles:
@@ -84,8 +60,56 @@ MonoBehaviour:
       - anchor: {x: 85.656456, y: 200.6601}
         controlA: {x: -90.527145, y: -94.310295}
         controlB: {x: 34.64837, y: -34.1799}
-      closed: 1
+      isClosed: 1
       thickness: 40
       draw: 2
+    - handles:
+      - anchor: {x: -143.08203, y: -251.29636}
+        controlA: {x: 35.614384, y: 35.614384}
+        controlB: {x: -35.614384, y: -35.614384}
+      - anchor: {x: -143.08203, y: -122.32524}
+        controlA: {x: -35.614388, y: 35.61438}
+        controlB: {x: 35.614388, y: -35.61438}
+      - anchor: {x: -272.05313, y: -122.32529}
+        controlA: {x: -35.61437, y: -35.614395}
+        controlB: {x: 35.61437, y: 35.614395}
+      - anchor: {x: -272.0531, y: -251.29636}
+        controlA: {x: 35.614384, y: -35.614384}
+        controlB: {x: -35.614384, y: 35.614384}
+      isClosed: 1
+      thickness: 10
+      draw: 2
+    - handles:
+      - anchor: {x: -93.58163, y: -134.74269}
+        controlA: {x: 25.286448, y: 25.286448}
+        controlB: {x: -25.286448, y: -25.286448}
+      - anchor: {x: -93.581635, y: -43.172356}
+        controlA: {x: -25.286451, y: 25.286444}
+        controlB: {x: 25.286451, y: -25.286444}
+      - anchor: {x: -185.15198, y: -43.17238}
+        controlA: {x: -25.286438, y: -25.286455}
+        controlB: {x: 25.286438, y: 25.286455}
+      - anchor: {x: -185.15195, y: -134.74269}
+        controlA: {x: 25.286448, y: -25.286448}
+        controlB: {x: -25.286448, y: 25.286448}
+      isClosed: 1
+      thickness: 10
+      draw: 2
+    - handles:
+      - anchor: {x: 196.07977, y: -212.88286}
+        controlA: {x: 39.51002, y: 39.51002}
+        controlB: {x: -39.51002, y: -39.51002}
+      - anchor: {x: 196.07974, y: -69.8044}
+        controlA: {x: -39.510025, y: 39.510014}
+        controlB: {x: 39.510025, y: -39.510014}
+      - anchor: {x: 53.001297, y: -69.80443}
+        controlA: {x: -39.510006, y: -39.510033}
+        controlB: {x: 39.510006, y: 39.510033}
+      - anchor: {x: 53.00132, y: -212.88286}
+        controlA: {x: 39.51002, y: -39.51002}
+        controlB: {x: -39.51002, y: 39.51002}
+      isClosed: 1
+      thickness: 40
+      draw: 0
   sdfTex: {fileID: 0}
-  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-Tex-Painter-Sample/sdf-ui-toolkit-sample.asset
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-sample.asset
