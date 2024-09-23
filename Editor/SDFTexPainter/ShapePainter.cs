@@ -6,38 +6,22 @@ namespace TLab.UI.SDF.Editor
     [System.Serializable]
     public class ShapePainter
     {
+        protected Object m_texPainter;
         protected Rect m_area;
+        protected Vector2Int m_size;
         protected Vector2Int m_texSize;
-        protected Vector2Int m_sdfTexSize;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="area"></param>
-        /// <param name="texSize"></param>
-        /// <param name="sdfTexSize"></param>
-        public virtual void Update(Rect area, Vector2Int texSize, Vector2Int sdfTexSize)
+        public virtual void Update(Rect area, SDFTexPainter texPainter)
         {
+            m_texPainter = texPainter;
             m_area = area;
-            m_texSize = texSize;
-            m_sdfTexSize = sdfTexSize;
+            m_size = texPainter.size;
+            m_texSize = texPainter.size * texPainter.texScale / 100;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual void DrawPath()
-        {
+        public virtual void DrawPath() { }
 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual void Edit()
-        {
-
-        }
+        public virtual void Edit() { }
 
         /// <summary>
         /// This function is called as a layout event 
@@ -46,7 +30,7 @@ namespace TLab.UI.SDF.Editor
         /// </summary>
         public void Repaint()
         {
-            var view = GUIView.Current;
+            var view = GUIView.current;
 
             var @event = EditorGUIUtility.CommandEvent("Repaint");
             @event.type = EventType.Used;
@@ -54,14 +38,6 @@ namespace TLab.UI.SDF.Editor
             GUIView.SendEvent(view, @event);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point0"></param>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <param name="tangent"></param>
-        /// <param name="scale"></param>
         protected void GetNormal(Vector2 point0, Vector2 point1, Vector2 point2,
             out Vector2 tangent, out float scale)
         {
@@ -77,12 +53,6 @@ namespace TLab.UI.SDF.Editor
             scale = 1 / sin;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point0"></param>
-        /// <param name="point1"></param>
-        /// <param name="tangent"></param>
         protected void GetNormal(Vector2 point0, Vector2 point1,
             out Vector2 tangent)
         {
@@ -91,27 +61,20 @@ namespace TLab.UI.SDF.Editor
             tangent = new Vector2(-tangent.y, tangent.x);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="result"></param>
-        /// <param name="points"></param>
-        /// <param name="offset"></param>
-        /// <param name="closed"></param>
-        /// <returns></returns>
-        protected bool GetPathOffseted(out Vector2[] result, Vector2[] points, float offset, bool closed = false)
+        protected bool GetPathExpanded(out Vector2[] result, Vector2[] points, float offset, bool isClosed = false)
         {
-            result = new Vector2[points.Length];
-
             if (points.Length < 2)
             {
+                result = new Vector2[0];
                 return false;
             }
+
+            result = new Vector2[points.Length];
 
             Vector2 tangent;
             float scale;
 
-            if (closed)
+            if (isClosed)
             {
                 GetNormal(points[points.Length - 1], points[0], points[1], out tangent, out scale);
                 result[0] = points[0] + tangent * offset * scale;
@@ -129,86 +92,41 @@ namespace TLab.UI.SDF.Editor
             }
 
             if (points.Length > 2)
-            {
                 for (int i = 2; i < points.Length; i++)
                 {
                     GetNormal(points[i - 2], points[i - 1], points[i - 0], out tangent, out scale);
                     result[i - 1] = points[i - 1] + tangent * offset * scale;
                 }
-            }
 
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        protected Vector2[] GetOffseted(Vector2[] points, Vector2 offset)
+        protected Vector2[] GetPointsWithOffset(Vector2[] points, Vector2 offset)
         {
             var result = new Vector2[points.Length];
-
             for (int i = 0; i < points.Length; i++)
-            {
                 result[i] = points[i] + offset;
-            }
-
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        protected Vector3[] GetOffseted(Vector3[] points, Vector3 offset)
+        protected Vector3[] GetPointsWithOffset(Vector3[] points, Vector3 offset)
         {
             var result = new Vector3[points.Length];
-
             for (int i = 0; i < points.Length; i++)
-            {
                 result[i] = points[i] + offset;
-            }
-
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="offset"></param>
-        /// <param name="closed"></param>
-        /// <returns></returns>
-        protected Vector3[] Vector3ArrayFrom(Vector2[] points, Vector2 offset, bool closed)
+        protected Vector3[] Vector3ArrayFrom(Vector2[] points, Vector2 offset, bool isClosed)
         {
-            var result = new Vector3[points.Length + (closed ? 1 : 0)];
-
+            var result = new Vector3[points.Length + (isClosed ? 1 : 0)];
             for (int i = 0; i < points.Length; i++)
-            {
                 result[i] = points[i] + offset;
-            }
-
-            if (closed)
-            {
+            if (isClosed)
                 result[result.Length - 1] = result[0];
-            }
-
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="closed"></param>
-        /// <returns></returns>
-        protected Vector3[] Vector3ArrayFrom(Vector2[] points, bool closed)
-        {
-            return Vector3ArrayFrom(points, Vector2.zero, closed);
-        }
+        protected Vector3[] Vector3ArrayFrom(Vector2[] points, bool isClosed) => Vector3ArrayFrom(points, Vector2.zero, isClosed);
     }
 }
