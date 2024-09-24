@@ -46,6 +46,7 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] protected float m_width = 10;
 
 		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
+		public static readonly int PROP_CERCLE_BORDER = Shader.PropertyToID("_CircleBorder");
 
 		public float width
 		{
@@ -65,9 +66,9 @@ namespace TLab.UI.SDF
 		{
 			base.UpdateMaterialRecord();
 
-			float width = m_width * 0.5f;
-			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f - width);
-			_materialRecord.SetFloat(PROP_WIDTH, width);
+			_materialRecord.SetFloat(PROP_RADIUSE, (minSize - m_width) * 0.5f);
+			_materialRecord.SetFloat(PROP_WIDTH, m_width);
+			_materialRecord.SetFloat(PROP_CERCLE_BORDER, m_width * 0.5f);
 		}
 	}
 }
