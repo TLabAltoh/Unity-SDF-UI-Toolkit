@@ -148,7 +148,7 @@ MonoBehaviour:
   m_shadowOffset: {x: 0, y: 0}
   m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
   m_outline: 0
-  m_outlineWidth: 10
+  m_outlineWidth: 9.69
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -322,10 +322,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 129.71863, y: 0}
+  m_AnchoredPosition: {x: 104, y: 21.5}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106449154359137032
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 106449154651375642}
   - component: {fileID: 5921955124495854554}
   m_Layer: 5
-  m_Name: SDF Arc
+  m_Name: 'SDF Arc (Rounding: 1)'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,7 +513,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -177.99997, y: 171.99998}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106449154655706011
 CanvasRenderer:
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154655706015}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 106449154935094097}
   - component: {fileID: 5618969891840910918}
   m_Layer: 5
-  m_Name: SDF Arc Onion
+  m_Name: 'SDF Arc Onion (Rounding: 0.5)'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -911,7 +911,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 106449154209904391}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 43.881}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -178, y: 63.3}
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
-  m_shadow: 0
+  m_shadow: 1
   m_shadowWidth: 8.86
   m_shadowInnerSoftWidth: 0
   m_shadowSoftness: 0.5
@@ -969,7 +969,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_fillAmount: 0.75
+  m_fillAmount: 0.741
   m_width: 25
   m_cornersRounding: 1
   m_startAngle: 0.375
@@ -1222,7 +1222,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 1
+  m_antialiasing: 2
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
