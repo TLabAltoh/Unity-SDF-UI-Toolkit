@@ -468,21 +468,21 @@ namespace TLab.UI.SDF.Editor
                         if (m_selector.editMode != Selector.EditMode.Scale)
                         {
                             m_selector.BeginEdit(Selector.EditMode.Scale, m_area, m_size);
-                            Repaint();
+                            HandleUtility.Repaint();
                         }
                         break;
                     case KeyCode.R:
                         if (m_selector.editMode != Selector.EditMode.Rotation)
                         {
                             m_selector.BeginEdit(Selector.EditMode.Rotation, m_area, m_size);
-                            Repaint();
+                            HandleUtility.Repaint();
                         }
                         break;
                     case KeyCode.G:
                         if (m_selector.editMode != Selector.EditMode.Position)
                         {
                             m_selector.BeginEdit(Selector.EditMode.Position, m_area, m_size);
-                            Repaint();
+                            HandleUtility.Repaint();
                         }
                         break;
                 }
@@ -493,17 +493,17 @@ namespace TLab.UI.SDF.Editor
                 case Selector.EditMode.Scale:
                     Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit scale of selected segments");
                     m_selector.EditScale();
-                    Repaint();
+                    HandleUtility.Repaint();
                     break;
                 case Selector.EditMode.Rotation:
                     Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit rotation of selected segments");
                     m_selector.EditRotation();
-                    Repaint();
+                    HandleUtility.Repaint();
                     break;
                 case Selector.EditMode.Position:
                     Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit position of selected segments");
                     m_selector.EditPosition();
-                    Repaint();
+                    HandleUtility.Repaint();
                     break;
             }
 
@@ -567,7 +567,7 @@ namespace TLab.UI.SDF.Editor
                                     m_selector.Add(bezier);
                                 else
                                     m_selector.Add(bezier, handle);
-                                Repaint();
+                                HandleUtility.Repaint();
                             }
                         }
                         break;
@@ -578,7 +578,7 @@ namespace TLab.UI.SDF.Editor
                                 m_selector.CancleEdit();
                             else
                                 m_selector.Clear();
-                            Repaint();
+                            HandleUtility.Repaint();
                         }
                         break;
                 }

@@ -23,21 +23,6 @@ namespace TLab.UI.SDF.Editor
 
         public virtual void Edit() { }
 
-        /// <summary>
-        /// This function is called as a layout event 
-        /// after the current event has finished. Also, 
-        /// the command name was ignored.
-        /// </summary>
-        public void Repaint()
-        {
-            var view = GUIView.current;
-
-            var @event = EditorGUIUtility.CommandEvent("Repaint");
-            @event.type = EventType.Used;
-
-            GUIView.SendEvent(view, @event);
-        }
-
         protected void GetNormal(Vector2 point0, Vector2 point1, Vector2 point2,
             out Vector2 tangent, out float scale)
         {

@@ -109,36 +109,18 @@ inline float sdPie(float2 p, float2 c, float r)
 #ifdef SDF_UI_ARC
 /*
 * p:
-* sc: range (sin(theta), cos(theta))
-* ra: radius
-* rb: width
-*/
-inline float sdArc(float2 p, float2 sc, float ra, float rb)
-{
-    p.x = abs(p.x);
-    return ((sc.y * p.x > sc.x * p.y) ? length(p - sc * ra) :
-        abs(length(p) - ra)) - rb;
-}
-#endif
-
-#ifdef SDF_UI_RING
-/*
-* p:
 * n: range (cos(theta), sin(theta))
 * r: raidus
 * th: width
+* ru: rounding
 */
-inline float sdRing(float2 p, float2 n, float r, float th)
+inline float sdRing(float2 p, float2 n, float r, float th, float ru)
 {
     p.x = abs(p.x);
-
     float2 t = p;
-
     p.x = t.x * n.x - t.y * n.y;
     p.y = t.x * n.y + t.y * n.x;
-
-    return max(abs(length(p) - r) - th * 0.5,
-        length(float2(p.x, max(0.0, abs(r - p.y) - th * 0.5))) * sign(p.x));
+    return round(max(abs(length(t) - r) - th * 0.5, length(float2(p.x, max(0.0, abs(r - p.y) - th * 0.5))) * sign(p.x)), ru);
 }
 #endif
 
