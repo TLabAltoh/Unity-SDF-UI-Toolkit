@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449154651375641}
   - component: {fileID: 106449154651375642}
-  - component: {fileID: 1995785414780415119}
+  - component: {fileID: 6641370025972352552}
   m_Layer: 5
   m_Name: 'SDF Arc (Rounding: 1)'
   m_TagString: Untagged
@@ -428,7 +428,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154651375646}
   m_CullTransparentMesh: 0
---- !u!114 &1995785414780415119
+--- !u!114 &6641370025972352552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449154935094100}
   - component: {fileID: 106449154935094097}
-  - component: {fileID: 2918312544869324744}
+  - component: {fileID: 7586444286865846871}
   m_Layer: 5
   m_Name: 'SDF Arc Onion (Rounding: 0.5)'
   m_TagString: Untagged
@@ -647,7 +647,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154935094101}
   m_CullTransparentMesh: 0
---- !u!114 &2918312544869324744
+--- !u!114 &7586444286865846871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -890,7 +890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449155087394941}
   - component: {fileID: 106449155087394942}
-  - component: {fileID: 3067358024797886822}
+  - component: {fileID: 8726164489675252388}
   m_Layer: 5
   m_Name: SDF Arc
   m_TagString: Untagged
@@ -925,7 +925,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449155087394930}
   m_CullTransparentMesh: 0
---- !u!114 &3067358024797886822
+--- !u!114 &8726164489675252388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
