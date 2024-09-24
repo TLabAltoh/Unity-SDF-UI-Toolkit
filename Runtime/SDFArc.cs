@@ -4,14 +4,14 @@
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
 **/
 
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine;
 
 namespace TLab.UI.SDF
 {
-	public class SDFArc : SDFUI
+	public class SDFArc : SDFCircleBasedArc
 	{
 #if UNITY_EDITOR
 		[MenuItem("GameObject/UI/SDFUI/SDFArc", false)]
@@ -23,37 +23,37 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Arc/Outline";
 
-		[SerializeField, Min(0)] private float m_width = 10;
+		[SerializeField, Range(0, 1)]
+		private float m_cornersRounding = 0;
 
-		[Range(0, 1), SerializeField]
-		private float m_fillAmount = 0.5f;
+		[SerializeField, Range(0, 1)]
+		private float m_startAngle = 0;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
-		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
-		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
+		public static readonly int PROP_ANGLE_OFFSET = Shader.PropertyToID("_AngleOffset");
+		public static readonly int PROP_CORNERS_ROUNDING = Shader.PropertyToID("_CornersRounding");
 
-		public float width
+		public float cornersRounding
 		{
-			get => m_width;
+			get => m_cornersRounding;
 			set
 			{
-				if (m_width != value)
+				if (m_cornersRounding != value)
 				{
-					m_width = value;
+					m_cornersRounding = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public float fillAmount
+		public float startAngle
 		{
-			get => m_fillAmount;
+			get => m_startAngle;
 			set
 			{
-				if (m_fillAmount != value)
+				if (m_startAngle != value)
 				{
-					m_fillAmount = value;
+					m_startAngle = value;
 
 					SetAllDirty();
 				}
@@ -64,9 +64,13 @@ namespace TLab.UI.SDF
 		{
 			base.UpdateMaterialRecord();
 
-			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f - m_width);
-			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
-			_materialRecord.SetFloat(PROP_WIDTH, m_width);
+			var cornersRounding = Mathf.Max(0, m_width * m_cornersRounding);
+			_materialRecord.SetFloat(PROP_WIDTH, m_width - cornersRounding);
+			_materialRecord.SetFloat(PROP_CORNERS_ROUNDING, cornersRounding * 0.5f);
+
+			var angleOffsetTheta = (m_fillAmount - startAngle * 2) * Mathf.PI;
+			var angleOffset = new Vector2(Mathf.Cos(angleOffsetTheta), Mathf.Sin(angleOffsetTheta));
+			_materialRecord.SetVector(PROP_ANGLE_OFFSET, angleOffset);
 		}
 	}
 }

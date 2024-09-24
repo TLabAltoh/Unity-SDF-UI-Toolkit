@@ -3,9 +3,7 @@
 */
 
 float2 uv;
-#ifdef SDF_UI_TEX
-uv = i.uv;
-#elif defined(SDF_UI_TRIANGLE) || defined(SDF_UI_SPLINE)
+#if defined(SDF_UI_TRIANGLE) || defined(SDF_UI_SPLINE)
 uv.x = i.uv.x;
 uv.y = 1.0 - i.uv.y;
 #else

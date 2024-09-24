@@ -13,6 +13,7 @@ float r, g, b;
 float dist;
 #endif
 
+float2 sincos;
 float2x2 j;
 
 #endif  // SDF_UI_STEP_SETUP
@@ -32,11 +33,12 @@ if (_Theta >= 3.14) {
 }
 else {
     j = JACOBIAN(p);
+    sincos = float2(sin(_Theta), cos(_Theta));
     dist = 0.25 * (
-        sdPie(p + mul(j, float2(1, 1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius) +
-        sdPie(p + mul(j, float2(1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius) +
-        sdPie(p + mul(j, float2(-1, 1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius) +
-        sdPie(p + mul(j, float2(-1, -1) * 0.25), float2(sin(_Theta), cos(_Theta)), _Radius));
+        sdPie(p + mul(j, float2(1, 1) * 0.25), sincos, _Radius) +
+        sdPie(p + mul(j, float2(1, -1) * 0.25), sincos, _Radius) +
+        sdPie(p + mul(j, float2(-1, 1) * 0.25), sincos, _Radius) +
+        sdPie(p + mul(j, float2(-1, -1) * 0.25), sincos, _Radius));
 }
 #elif SDF_UI_AA_SUBPIXEL
 if (_Theta >= 3.14) {
@@ -48,9 +50,10 @@ if (_Theta >= 3.14) {
 }
 else {
     j = JACOBIAN(p);
-    r = sdPie(p + mul(j, float2(-0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius);
-    g = sdPie(p, float2(sin(_Theta), cos(_Theta)), _Radius);
-    b = sdPie(p + mul(j, float2(0.333, 0)), float2(sin(_Theta), cos(_Theta)), _Radius);
+    sincos = float2(sin(_Theta), cos(_Theta));
+    r = sdPie(p + mul(j, float2(-0.333, 0)), sincos, _Radius);
+    g = sdPie(p, sincos, _Radius);
+    b = sdPie(p + mul(j, float2(0.333, 0)), sincos, _Radius);
     dist = half4(r, g, b, (r + g + b) / 3.);
 }
 #else
@@ -58,7 +61,8 @@ if (_Theta >= 3.14) {
     dist = length(p) - _Radius;
 }
 else {
-    dist = sdPie(p, float2(sin(_Theta), cos(_Theta)), _Radius);
+    sincos = float2(sin(_Theta), cos(_Theta));
+    dist = sdPie(p, sincos, _Radius);
 }
 #endif
 

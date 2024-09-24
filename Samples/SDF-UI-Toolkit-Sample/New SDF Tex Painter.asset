@@ -27,9 +27,9 @@ MonoBehaviour:
     split: 0
     maxNum: 50
     maxErr: 5
-    editMode: 2
+    editMode: 3
     primitiveSettings:
-      primitiveType: 0
+      primitiveType: 1
       numPoints: 4
       scale: 25
       fitCanvasX: 1
@@ -111,5 +111,21 @@ MonoBehaviour:
       isClosed: 1
       thickness: 40
       draw: 0
+    - handles:
+      - anchor: {x: 51.917053, y: 102.689285}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -27.595318, y: 226.57312}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -151.47913, y: 147.06073}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -71.96681, y: 23.176926}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      isClosed: 1
+      thickness: 10
+      draw: 1
   sdfTex: {fileID: 0}
   savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-sample.asset
