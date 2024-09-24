@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449154651375641}
   - component: {fileID: 106449154651375642}
-  - component: {fileID: 2976226323905728894}
+  - component: {fileID: 3209056583503801122}
   m_Layer: 5
   m_Name: 'SDF Arc (Rounding: 1)'
   m_TagString: Untagged
@@ -428,7 +428,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154651375646}
   m_CullTransparentMesh: 0
---- !u!114 &2976226323905728894
+--- !u!114 &3209056583503801122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 106449154651375646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a1b8877299db24599601e66ad6f78b, type: 3}
+  m_Script: {fileID: 11500000, guid: a9b4282439b0e704e88560545febacfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
   m_outline: 1
   m_outlineWidth: 8.4
-  m_outlineColor: {r: 1, g: 0.65517235, b: 0, a: 1}
+  m_outlineColor: {r: 1, g: 0.654902, b: 0, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
@@ -612,7 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449154935094100}
   - component: {fileID: 106449154935094097}
-  - component: {fileID: 4344748740973087528}
+  - component: {fileID: 8724393396008069806}
   m_Layer: 5
   m_Name: 'SDF Arc Onion (Rounding: 0.5)'
   m_TagString: Untagged
@@ -647,7 +647,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154935094101}
   m_CullTransparentMesh: 0
---- !u!114 &4344748740973087528
+--- !u!114 &8724393396008069806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 106449154935094101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a1b8877299db24599601e66ad6f78b, type: 3}
+  m_Script: {fileID: 11500000, guid: a9b4282439b0e704e88560545febacfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -890,7 +890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106449155087394941}
   - component: {fileID: 106449155087394942}
-  - component: {fileID: 6001086057999439445}
+  - component: {fileID: 4036212650130889201}
   m_Layer: 5
   m_Name: SDF Arc
   m_TagString: Untagged
@@ -925,7 +925,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449155087394930}
   m_CullTransparentMesh: 0
---- !u!114 &6001086057999439445
+--- !u!114 &4036212650130889201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -934,7 +934,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 106449155087394930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a1b8877299db24599601e66ad6f78b, type: 3}
+  m_Script: {fileID: 11500000, guid: a9b4282439b0e704e88560545febacfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -954,7 +954,7 @@ MonoBehaviour:
   m_shadowSoftness: 0.5
   m_shadowDilate: 0
   m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+  m_shadowColor: {r: 0.9529412, g: 0.16470589, b: 0.16470589, a: 1}
   m_outline: 1
   m_outlineWidth: 5.14
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
