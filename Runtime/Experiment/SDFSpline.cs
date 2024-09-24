@@ -24,7 +24,7 @@ namespace TLab.UI.SDF
         [MenuItem("GameObject/UI/SDFUI/SDFSpline", false)]
         private static void Create(MenuCommand menuCommand)
         {
-            Create<SDFTriangle>(menuCommand);
+            Create<SDFSpline>(menuCommand);
         }
 #endif
 
@@ -205,7 +205,7 @@ namespace TLab.UI.SDF
             }
         }
 
-        private void AllocateZeroBuffre(ref GraphicsBuffer buffer, int stride)
+        private void AllocateZeroBuffer(ref GraphicsBuffer buffer, int stride)
         {
             if (buffer == null || buffer.count != 1)
             {
@@ -276,7 +276,7 @@ namespace TLab.UI.SDF
                 m_bufferSpline.SetData(splines.ToArray());
             }
             else
-                AllocateZeroBuffre(ref m_bufferSpline, stride);
+                AllocateZeroBuffer(ref m_bufferSpline, stride);
 
             if (lines.Count() > 0)
             {
@@ -284,7 +284,7 @@ namespace TLab.UI.SDF
                 m_bufferLine.SetData(lines.ToArray());
             }
             else
-                AllocateZeroBuffre(ref m_bufferLine, stride);
+                AllocateZeroBuffer(ref m_bufferLine, stride);
 
             _materialRecord.SetBuffer(PROP_SPLINES, m_bufferSpline);
             _materialRecord.SetBuffer(PROP_LINES, m_bufferLine);
