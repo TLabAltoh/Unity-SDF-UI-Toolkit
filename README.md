@@ -18,7 +18,7 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 
 ## Requirement
 - [com.unity.burst](https://docs.unity3d.com/2021.1/Documentation/Manual/com.unity.burst.html)
-- [com.unity.mathematics](https://docs.unity3d.com/ja/2021.3/Manual/com.unity.mathematics.html)
+- [com.unity.mathematics](https://docs.unity3d.com/2021.3/Documentation/Manual/com.unity.mathematics.html)
 - [com.unity.nuget.newtonsoft-json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html)
 
 ## Install
