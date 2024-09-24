@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 106449155087394942}
   - component: {fileID: 106449155087394940}
   m_Layer: 5
-  m_Name: SDF Ring
+  m_Name: SDF Arc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
