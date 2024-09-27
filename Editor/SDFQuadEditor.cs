@@ -25,7 +25,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected override void DrawShapeProp()
 		{
-			serializedObject.TryDrawLeftToggle("m_" + nameof(m_sdfQued.independent), "Independent Corner");
+			serializedObject.TryDrawProperty("m_" + nameof(m_sdfQued.independent), "Independent Corner");
 			EditorGUI.indentLevel++;
 			if (m_sdfQued.independent)
 			{

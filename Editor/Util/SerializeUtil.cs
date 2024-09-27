@@ -198,21 +198,6 @@ namespace TLab.UI.SDF.Editor
 			return false;
 		}
 
-		public static bool TryDrawLeftToggle(this SerializedObject serializedObject, string name, string label)
-		{
-			var prop = serializedObject.FindProperty(name);
-
-			if (prop?.propertyType is SerializedPropertyType.Boolean)
-			{
-				bool nextValue = EditorGUILayout.ToggleLeft(label, prop.boolValue, style);
-				if (nextValue != prop.boolValue)
-					prop.boolValue = nextValue;
-				return true;
-			}
-
-			return false;
-		}
-
 		public static bool TryDrawEnumProperty(this SerializedObject serializedObject, string name, string label, string[] options)
 		{
 			var prop = serializedObject.FindProperty(name);
