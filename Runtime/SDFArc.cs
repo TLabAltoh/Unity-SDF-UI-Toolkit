@@ -80,7 +80,7 @@ namespace TLab.UI.SDF
 			base.UpdateMaterialRecord();
 
 			float cornersRounding = math.max(0, m_cornersRounding);
-			float width = minSize * m_ratio * 0.5f;
+			float width = minSize * (1 - m_ratio) * 0.5f;
 			cornersRounding = math.min(cornersRounding, width);
 			_materialRecord.SetFloat(PROP_RADIUSE, (minSize - width) * 0.5f);
 			_materialRecord.SetFloat(PROP_WIDTH, width - cornersRounding);
