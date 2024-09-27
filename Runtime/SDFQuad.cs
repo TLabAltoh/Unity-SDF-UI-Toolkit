@@ -5,6 +5,8 @@
 **/
 
 using UnityEngine;
+using TLab.UI.SDF.Editor;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -23,7 +25,7 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Quad/Outline";
 
-		[SerializeField] private bool m_independent = false;
+		[SerializeField, LeftToggle] private bool m_independent = false;
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 

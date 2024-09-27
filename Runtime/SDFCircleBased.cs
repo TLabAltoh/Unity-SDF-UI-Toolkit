@@ -12,7 +12,7 @@ namespace TLab.UI.SDF
 {
 	public abstract class SDFCircleBased : SDFUI
 	{
-		[Range(0, 1), SerializeField]
+		[Range(-1, 1), SerializeField]
 		protected float m_fillAmount = 0.5f;
 
 		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
@@ -38,37 +38,6 @@ namespace TLab.UI.SDF
 
 			_materialRecord.SetFloat(PROP_THETA, m_fillAmount * Mathf.PI);
 			_materialRecord.SetFloat(PROP_RADIUSE, minSize * 0.5f);
-		}
-	}
-
-	public abstract class SDFCircleBasedArc : SDFCircleBased
-	{
-		[SerializeField, Min(0)] protected float m_width = 10;
-
-		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
-		public static readonly int PROP_CERCLE_BORDER = Shader.PropertyToID("_CircleBorder");
-
-		public float width
-		{
-			get => m_width;
-			set
-			{
-				if (m_width != value)
-				{
-					m_width = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		protected override void UpdateMaterialRecord()
-		{
-			base.UpdateMaterialRecord();
-
-			_materialRecord.SetFloat(PROP_RADIUSE, (minSize - m_width) * 0.5f);
-			_materialRecord.SetFloat(PROP_WIDTH, m_width);
-			_materialRecord.SetFloat(PROP_CERCLE_BORDER, m_width * 0.5f);
 		}
 	}
 }
