@@ -27,21 +27,21 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] private float m_cornersRounding = 0;
 
 		[SerializeField] private float m_startAngle = 0;
-		[SerializeField, Min(0)] protected float m_width = 10;
+		[SerializeField, Range(0, 1)] protected float m_ratio = 10;
 
 		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
 		public static readonly int PROP_CIRCLE_BORDER = Shader.PropertyToID("_CircleBorder");
 		public static readonly int PROP_ANGLE_OFFSET = Shader.PropertyToID("_AngleOffset");
 		public static readonly int PROP_CORNERS_ROUNDING = Shader.PropertyToID("_CornersRounding");
 
-		public float width
+		public float ratio
 		{
-			get => m_width;
+			get => m_ratio;
 			set
 			{
-				if (m_width != value)
+				if (m_ratio != value)
 				{
-					m_width = value;
+					m_ratio = value;
 
 					SetAllDirty();
 				}
@@ -80,11 +80,12 @@ namespace TLab.UI.SDF
 			base.UpdateMaterialRecord();
 
 			float cornersRounding = math.max(0, m_cornersRounding);
-			cornersRounding = math.min(cornersRounding, m_width);
-			_materialRecord.SetFloat(PROP_RADIUSE, (minSize - m_width) * 0.5f);
-			_materialRecord.SetFloat(PROP_WIDTH, m_width - cornersRounding);
+			float width = minSize * m_ratio * 0.5f;
+			cornersRounding = math.min(cornersRounding, width);
+			_materialRecord.SetFloat(PROP_RADIUSE, (minSize - width) * 0.5f);
+			_materialRecord.SetFloat(PROP_WIDTH, width - cornersRounding);
 			_materialRecord.SetFloat(PROP_CORNERS_ROUNDING, cornersRounding * 0.5f);
-			_materialRecord.SetFloat(PROP_CIRCLE_BORDER, m_width * 0.5f);
+			_materialRecord.SetFloat(PROP_CIRCLE_BORDER, width * 0.5f);
 
 			float fill = fillAmount * 180;
 			float start = startAngle;
