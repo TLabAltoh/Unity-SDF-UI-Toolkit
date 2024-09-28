@@ -1,4 +1,4 @@
-using TLab.UI.SDF.Registry;
+using System.Text;
 using Unity.Mathematics;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
 using TLab.UI.SDF.Editor;
+using TLab.UI.SDF.Registry;
 
 namespace TLab.UI.SDF
 {
@@ -16,7 +17,7 @@ namespace TLab.UI.SDF
 	[RequireComponent(typeof(CanvasRenderer))]
 	public abstract class SDFUI : MaskableGraphic
 	{
-		protected virtual string SHADER_NAME => "";
+		protected virtual string SHAPE_NAME => "";
 
 		#region SHADER_KEYWORD
 
@@ -121,6 +122,8 @@ namespace TLab.UI.SDF
 		protected readonly static Color alpha0 = new Color(0, 0, 0, 0);
 
 		protected float eulerZ = float.NaN;
+
+		private StringBuilder m_stringBuilder = new StringBuilder();
 
 		protected float m_extraMargin
 		{
@@ -357,17 +360,12 @@ namespace TLab.UI.SDF
 			get
 			{
 				if (m_Material != null)
-				{
 					return m_Material;
-				}
 
 				return defaultMaterial;
 			}
 
-			set
-			{
-				base.material = value;
-			}
+			set => base.material = value;
 		}
 
 		public ActiveImageType activeImageType
@@ -413,21 +411,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public Sprite activeSprite
-		{
-			get
-			{
-				return m_overrideSprite != null ? m_overrideSprite : sprite;
-			}
-		}
+		public Sprite activeSprite => m_overrideSprite != null ? m_overrideSprite : sprite;
 
-		public Texture activeTexture
-		{
-			get
-			{
-				return m_overrideTexture != null ? m_overrideTexture : texture;
-			}
-		}
+		public Texture activeTexture => m_overrideTexture != null ? m_overrideTexture : texture;
 
 		public override Texture mainTexture
 		{
@@ -477,6 +463,7 @@ namespace TLab.UI.SDF
 				if (m_sprite != value)
 				{
 					m_sprite = value;
+
 					SetVerticesDirty();
 					SetMaterialDirty();
 				}
@@ -491,6 +478,7 @@ namespace TLab.UI.SDF
 				if (m_texture != value)
 				{
 					m_texture = value;
+
 					SetVerticesDirty();
 					SetMaterialDirty();
 				}
@@ -505,6 +493,7 @@ namespace TLab.UI.SDF
 				if (m_uvRect != value)
 				{
 					m_uvRect = value;
+
 					SetVerticesDirty();
 				}
 			}
@@ -608,10 +597,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		public virtual bool MaskEnabled()
-		{
-			return (m_mask != null && m_mask.MaskEnabled());
-		}
+		public virtual bool MaskEnabled() => (m_mask != null && m_mask.MaskEnabled());
 
 		internal virtual void OnLateUpdate()
 		{
@@ -689,12 +675,18 @@ namespace TLab.UI.SDF
 			return new Color(color.r, color.g, color.b, 0.0f);
 		}
 
-		protected virtual void UpdateMaterialRecord()
+		public string GetShaderName(in string shapeName)
 		{
-			var minSize = this.minSize;
-			var maxSize = this.maxSize;
+			m_stringBuilder.Clear();
+			m_stringBuilder.Append("Hidden/UI/SDF/");
+			m_stringBuilder.Append(shapeName);
+			m_stringBuilder.Append("/Outline");
+			return m_stringBuilder.ToString();
+		}
 
-			_materialRecord.ShaderName = SHADER_NAME;
+		protected virtual bool UpdateMaterialRecord(in string shapeName, bool simplification = false)
+		{
+			_materialRecord.ShaderName = GetShaderName(shapeName);
 
 			_materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 
@@ -807,6 +799,8 @@ namespace TLab.UI.SDF
 			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
+
+			return true;
 		}
 
 		public override void SetMaterialDirty()
@@ -818,7 +812,7 @@ namespace TLab.UI.SDF
 
 			materialDirty = true;
 
-			UpdateMaterialRecord();
+			UpdateMaterialRecord(SHAPE_NAME, simplification: true);
 		}
 	}
 }

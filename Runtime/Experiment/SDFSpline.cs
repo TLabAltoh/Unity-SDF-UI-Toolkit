@@ -28,7 +28,7 @@ namespace TLab.UI.SDF
         }
 #endif
 
-        protected override string SHADER_NAME => "Hidden/UI/SDF/Spline/Outline";
+        protected override string SHAPE_NAME => "Spline";
 
         internal const string KEYWORD_SPLINE_FILL = SHADER_KEYWORD_PREFIX + "SPLINE_FILL";
 
@@ -311,9 +311,9 @@ namespace TLab.UI.SDF
             base.OnEnable();
         }
 
-        protected override void UpdateMaterialRecord()
+        protected override bool UpdateMaterialRecord(in string shapeName, bool simplification = false)
         {
-            base.UpdateMaterialRecord();
+            base.UpdateMaterialRecord(shapeName);
 
             var minSize = this.minSize;
 
@@ -325,6 +325,8 @@ namespace TLab.UI.SDF
                 _materialRecord.EnableKeyword(KEYWORD_SPLINE_FILL);
             else
                 _materialRecord.DisableKeyword(KEYWORD_SPLINE_FILL);
+
+            return true;
         }
     }
 }

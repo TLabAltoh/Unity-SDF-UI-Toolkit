@@ -2,7 +2,6 @@
 * Properties used in the CutDisk.shader
 */
 
-#include "Common-Properties.hlsl"
+#include "Circle-Properties.hlsl"
 
 float _Height;
-float _Radius;

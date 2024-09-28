@@ -19,6 +19,7 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
 
         _Radius("Radius", Float) = 0
         _Theta("Theta", Float) = 0
+        _AngleOffset("Angle Offset", Vector) = (0.0, 0.0, 0.0, 0.0)
 
         _OnionWidth("Onion Width", Float) = 0
 

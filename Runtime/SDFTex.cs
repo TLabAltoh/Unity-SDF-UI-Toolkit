@@ -22,7 +22,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Tex/Outline";
+		protected override string SHAPE_NAME => "Tex";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField, Min(0)] private float m_maxDist = 50;
@@ -106,14 +106,16 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		protected override void UpdateMaterialRecord()
+		protected override bool UpdateMaterialRecord(in string shapeName, bool simplification = false)
 		{
-			base.UpdateMaterialRecord();
+			base.UpdateMaterialRecord(shapeName);
 
 			_materialRecord.SetFloat(PROP_PADDING, 0);   // Override
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius);
 			_materialRecord.SetTexture(PROP_SDFTEX, m_sdfTexture);
 			_materialRecord.SetFloat(PROP_MAXDIST, m_maxDist);
+
+			return true;
 		}
 	}
 }

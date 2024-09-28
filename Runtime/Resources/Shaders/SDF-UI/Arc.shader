@@ -20,8 +20,9 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
         _Radius("Radius", Float) = 0
         _Width("Width", Float) = 0
         _ActualWidth("Actual Width", Float) = 0
-        _Theta("Theta", Float) = 0
         _CircleBorder("Circle Border", Float) = 0.0
+
+        _Theta("Theta", Float) = 0
         _AngleOffset("Angle Offset", Vector) = (0.0, 0.0, 0.0, 0.0)
 
         _OnionWidth("Onion Width", Float) = 0

@@ -21,7 +21,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Triangle/Outline";
+		protected override string SHAPE_NAME => "Triangle";
 
 		[SerializeField, Range(0, 1)] private float m_radius = 0.1f;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-0.45f, -0.45f);
@@ -133,15 +133,17 @@ namespace TLab.UI.SDF
 			this[index] = corner;
 		}
 
-		protected override void UpdateMaterialRecord()
+		protected override bool UpdateMaterialRecord(in string shapeName, bool simplification = false)
 		{
-			base.UpdateMaterialRecord();
+			base.UpdateMaterialRecord(shapeName);
 
 			var minSize = this.minSize;
 			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * minSize);
 			_materialRecord.SetVector(PROP_CORNER0, m_corner0 * minSize);
 			_materialRecord.SetVector(PROP_CORNER1, m_corner1 * minSize);
 			_materialRecord.SetVector(PROP_CORNER2, m_corner2 * minSize);
+
+			return true;
 		}
 	}
 }

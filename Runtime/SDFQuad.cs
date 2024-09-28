@@ -23,7 +23,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Quad/Outline";
+		protected override string SHAPE_NAME => "Quad";
 
 		[SerializeField, LeftToggle] private bool m_independent = false;
 
@@ -120,9 +120,9 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		protected override void UpdateMaterialRecord()
+		protected override bool UpdateMaterialRecord(in string shapeName, bool simplification = false)
 		{
-			base.UpdateMaterialRecord();
+			base.UpdateMaterialRecord(in shapeName);
 
 			var halfRect = ((RectTransform)transform).rect.size * .5f;
 
@@ -147,6 +147,8 @@ namespace TLab.UI.SDF
 			}
 
 			_materialRecord.SetVector(PROP_RADIUSE, corners);
+
+			return true;
 		}
 	}
 }

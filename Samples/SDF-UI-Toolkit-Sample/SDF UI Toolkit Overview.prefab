@@ -473,9 +473,9 @@ MonoBehaviour:
     width: 1
     height: 1
   m_fillAmount: 0.5
-  m_width: 37.4
-  m_cornersRounding: 1
-  m_startAngle: 0.25
+  m_startAngle: 180
+  m_cornersRounding: 40
+  m_ratio: 0.338
 --- !u!1 &106449154655706015
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,9 +692,9 @@ MonoBehaviour:
     width: 1
     height: 1
   m_fillAmount: 0.75
-  m_width: 28.19
+  m_startAngle: -135
   m_cornersRounding: 0
-  m_startAngle: 0.375
+  m_ratio: 0.398
 --- !u!1 &106449155009625114
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +785,7 @@ MonoBehaviour:
     width: 1
     height: 1
   m_fillAmount: 0.75
+  m_startAngle: 0
 --- !u!1 &106449155051947346
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,10 +970,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_fillAmount: 0.741
-  m_width: 25
-  m_cornersRounding: 1
-  m_startAngle: 0.375
+  m_fillAmount: 0.75
+  m_startAngle: -135
+  m_cornersRounding: 10
+  m_ratio: 0.5
 --- !u!1 &106449155366452262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,8 +1063,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_min: 0
-  m_max: 1
 --- !u!1 &106449155371979679
 GameObject:
   m_ObjectHideFlags: 0

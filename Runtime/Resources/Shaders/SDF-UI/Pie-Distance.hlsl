@@ -13,7 +13,7 @@ float r, g, b;
 float dist;
 #endif
 
-float2 sincos;
+float2 sincos, t;
 float2x2 j;
 
 #endif  // SDF_UI_STEP_SETUP
@@ -21,6 +21,10 @@ float2x2 j;
 //////////////////////////////////////////////////////////////
 
 #if defined(SDF_UI_STEP_SHAPE_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
+
+t = p;
+p.x = t.x * _AngleOffset.x - t.y * _AngleOffset.y;
+p.y = t.x * _AngleOffset.y + t.y * _AngleOffset.x;
 
 #ifdef SDF_UI_AA_SUPER_SAMPLING
 if (_Theta >= 3.14) {

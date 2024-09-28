@@ -2,7 +2,7 @@
 * Properties used in the Pie.shader
 */
 
-#include "Common-Properties.hlsl"
+#include "Circle-Properties.hlsl"
 
 float _Theta;
-float _Radius;
+float2 _AngleOffset;
