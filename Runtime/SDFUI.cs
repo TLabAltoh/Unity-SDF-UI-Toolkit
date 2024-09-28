@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
+using TLab.UI.SDF.Editor;
 
 namespace TLab.UI.SDF
 {
@@ -80,12 +81,12 @@ namespace TLab.UI.SDF
 			Texture
 		};
 
-		[SerializeField] protected bool m_onion = false;
+		[SerializeField, LeftToggle] protected bool m_onion = false;
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
 
 		[SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.Default;
 
-		[SerializeField] protected bool m_shadow = false;
+		[SerializeField, LeftToggle] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
 		[SerializeField, Min(0f)] protected float m_shadowInnerSoftWidth = 0;
 		[SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.5f;
@@ -93,7 +94,7 @@ namespace TLab.UI.SDF
 		[SerializeField] protected Vector2 m_shadowOffset;
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
 
-		[SerializeField] protected bool m_outline = true;
+		[SerializeField, LeftToggle] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;

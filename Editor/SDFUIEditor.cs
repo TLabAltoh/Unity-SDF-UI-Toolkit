@@ -141,7 +141,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected virtual void DrawOutlineProp()
 		{
-			serializedObject.TryDrawLeftToggle("m_" + nameof(m_baseInstance.outline), "Outline");
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outline), "Outline");
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.outline)
 			{
@@ -154,7 +154,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected virtual void DrawOnionProp()
 		{
-			serializedObject.TryDrawLeftToggle("m_" + nameof(m_baseInstance.onion), "Onion");
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.onion), "Onion");
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.onion)
 			{
@@ -165,7 +165,7 @@ namespace TLab.UI.SDF.Editor
 
 		protected virtual void DrawShadowProp()
 		{
-			serializedObject.TryDrawLeftToggle("m_" + nameof(m_baseInstance.shadow), "Shadow");
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadow), "Shadow");
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.shadow)
 			{

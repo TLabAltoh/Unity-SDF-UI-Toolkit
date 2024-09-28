@@ -6,8 +6,8 @@ using UnityEditor;
 
 namespace TLab.UI.SDF.Editor
 {
-    // Tools for the editor
-    internal class SpriteDrawUtility
+	// Tools for the editor
+	internal class SpriteDrawUtility
     {
         static Texture2D s_BackdropTex;
         static Texture2D s_ContrastTex;
@@ -211,4 +211,5 @@ namespace TLab.UI.SDF.Editor
             GUI.EndGroup();
         }
     }
+
 }
