@@ -5,10 +5,10 @@
 **/
 
 #if UNITY_EDITOR
-using Unity.Mathematics;
 using UnityEditor;
 #endif
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace TLab.UI.SDF
 {
