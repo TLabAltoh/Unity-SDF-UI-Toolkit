@@ -2,6 +2,8 @@
 * This code is adapted from
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/ImageWithRoundedCorners.cs
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
+* 
+* NOTE: SDFSpline is not supported in WebGL platform because SDFSpline uses StructuredBuffer and WebGL doesn't support it.
 **/
 
 using System.Runtime.InteropServices;

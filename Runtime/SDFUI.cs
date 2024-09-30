@@ -1,3 +1,5 @@
+using TLab.UI.SDF.Registry;
+using TLab.UI.SDF.Editor;
 using System.Text;
 using Unity.Mathematics;
 #if UNITY_EDITOR
@@ -6,8 +8,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
-using TLab.UI.SDF.Editor;
-using TLab.UI.SDF.Registry;
 
 namespace TLab.UI.SDF
 {
