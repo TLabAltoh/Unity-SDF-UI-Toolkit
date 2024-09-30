@@ -23,7 +23,6 @@ namespace TLab.UI.SDF.Registry
 		public Texture Texture { get; set; }
 		public float4 TextureUV { get; set; }
 		public Color TextureColor { get; set; }
-		public GraphicsBuffer Buffer { get; set; }
 
 
 		public void SetInteger(int propertyID, int value)
@@ -224,8 +223,7 @@ namespace TLab.UI.SDF.Registry
 			return ShaderName == record.ShaderName &&
 				   Texture == record.Texture &&
 				   TextureUV.Equals(record.TextureUV) &&
-				   TextureColor == record.TextureColor &&
-				   Buffer == record.Buffer;
+				   TextureColor == record.TextureColor;
 		}
 
 		public override int GetHashCode()
@@ -246,7 +244,7 @@ namespace TLab.UI.SDF.Registry
 				hc = (hc << 7) | (hc >> (32 - 7));
 			}
 
-			return hc + HashCode.Combine(ShaderName, Texture, TextureUV, TextureColor, Buffer);
+			return hc + HashCode.Combine(ShaderName, Texture, TextureUV, TextureColor);
 		}
 
 		public object Clone()
@@ -256,7 +254,6 @@ namespace TLab.UI.SDF.Registry
 			clone.Texture = Texture;
 			clone.TextureUV = TextureUV;
 			clone.TextureColor = TextureColor;
-			clone.Buffer = Buffer;
 
 			foreach (var property in _properties)
 				clone._properties[property.Key] = property.Value;
