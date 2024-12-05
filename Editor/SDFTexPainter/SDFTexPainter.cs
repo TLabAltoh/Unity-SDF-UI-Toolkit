@@ -4,7 +4,7 @@ namespace TLab.UI.SDF.Editor
 {
     public enum PreviewMode
     {
-        PATH,
+        Path,
         SDF
     };
 
@@ -14,7 +14,7 @@ namespace TLab.UI.SDF.Editor
         [Min(0f)] public Vector2Int size = new Vector2Int(512, 512);
         [Min(0f)] public int texScale = 100;
         public SDFSettings sdfSettings;
-        public PreviewMode previewMode = PreviewMode.PATH;
+        public PreviewMode previewMode = PreviewMode.Path;
         public BezierPainter bezierPainter;
         public Texture2D sdfTex;
         public string savePath = "";
