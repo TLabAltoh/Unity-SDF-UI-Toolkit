@@ -56,12 +56,6 @@ namespace TLab.UI.SDF
 
         private const float EPSILON = 1e-2f;
 
-        public enum RenderMode
-        {
-            DISTANCE,
-            FONT
-        }
-
         public float width
         {
             get => m_width;
