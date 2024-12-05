@@ -218,10 +218,10 @@ namespace TLab.UI.SDF.Editor
 
         public enum EditMode
         {
-            PRIMITIVE,
-            ADD,
-            MOVE,
-            NONE,
+            Primitive,
+            Add,
+            Move,
+            None,
         };
 
         [Header("Brush Settings")]
@@ -590,13 +590,13 @@ namespace TLab.UI.SDF.Editor
 
             switch (editMode)
             {
-                case EditMode.PRIMITIVE:
+                case EditMode.Primitive:
                     AddPrimitive();
                     break;
-                case EditMode.ADD:
+                case EditMode.Add:
                     AddSegment();
                     break;
-                case EditMode.MOVE:
+                case EditMode.Move:
                     MoveSegment();
                     break;
             }

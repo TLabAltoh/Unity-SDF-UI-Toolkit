@@ -657,19 +657,6 @@ namespace TLab.UI.SDF
 			vh.AddTriangle(2, 3, 0);
 		}
 
-		public override Material materialForRendering
-		{
-			get
-			{
-				var currentMat = base.materialForRendering;
-
-				if (currentMat != material)
-					_materialRecord.Populate(currentMat);
-
-				return currentMat;
-			}
-		}
-
 		public virtual Color GetAlpha0(Color color)
 		{
 			return new Color(color.r, color.g, color.b, 0.0f);
