@@ -15,7 +15,7 @@ namespace TLab.UI.SDF.Editor
 
         private string[] m_previewModeOptions = new string[]
         {
-            PreviewMode.PATH.ToString(),
+            PreviewMode.Path.ToString(),
             PreviewMode.SDF.ToString()
         };
 
@@ -140,7 +140,7 @@ namespace TLab.UI.SDF.Editor
         {
             switch (m_instance.previewMode)
             {
-                case PreviewMode.PATH:
+                case PreviewMode.Path:
                     m_instance.bezierPainter.DrawPath();
                     break;
                 case PreviewMode.SDF:
