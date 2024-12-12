@@ -571,6 +571,8 @@ namespace TLab.UI.SDF
 #endif
 				SDFUIGraphicsRegistry.AddToRegistry(this);
 
+			materialDirty = true;
+
 			base.OnEnable();
 		}
 
