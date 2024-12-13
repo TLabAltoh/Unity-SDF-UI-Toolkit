@@ -26,9 +26,7 @@ namespace TLab.UI.SDF
 
 		internal const string KEYWORD_ONION = SHADER_KEYWORD_PREFIX + "ONION";
 
-		internal const string KEYWORD_AA_FASTER = SHADER_KEYWORD_PREFIX + "AA_FASTER";
-		internal const string KEYWORD_AA_SUPER_SAMPLING = SHADER_KEYWORD_PREFIX + "AA_SUPER_SAMPLING";
-		internal const string KEYWORD_AA_SUBPIXEL = SHADER_KEYWORD_PREFIX + "AA_SUBPIXEL";
+		internal const string KEYWORD_AA = SHADER_KEYWORD_PREFIX + "AA";
 
 		#endregion SHADER_KEYWORD
 
@@ -70,9 +68,7 @@ namespace TLab.UI.SDF
 		{
 			Default = -1,
 			None = 0,
-			Faster = 1,
-			SuperSampling = 2,
-			SubPixel = 3,
+			Distance = 1,
 		}
 
 		public enum ActiveImageType
@@ -660,7 +656,9 @@ namespace TLab.UI.SDF
 
 			float2 shadowOffset = shadow ? m_shadowOffset : float2.zero;
 
-			MeshUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z, m_antialiasing,
+			AntialiasingType antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;
+
+			MeshUtils.CalculateVertexes(rectTransform.rect.size, rectTransform.pivot, m_extraMargin, shadowOffset, rectTransform.eulerAngles.z, antialiasing,
 				out var vertex0, out var vertex1, out var vertex2, out var vertex3);
 
 			var color32 = color;
@@ -779,19 +777,10 @@ namespace TLab.UI.SDF
 			switch (antialiasing)
 			{
 				case AntialiasingType.None:
-					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
+					_materialRecord.DisableKeyword(KEYWORD_AA);
 					break;
-				case AntialiasingType.Faster:
-					_materialRecord.EnableKeyword(KEYWORD_AA_FASTER);
-					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_SUBPIXEL);
-					break;
-				case AntialiasingType.SuperSampling:
-					_materialRecord.EnableKeyword(KEYWORD_AA_SUPER_SAMPLING);
-					_materialRecord.DisableKeyword(KEYWORD_AA_FASTER, KEYWORD_AA_SUBPIXEL);
-					break;
-				case AntialiasingType.SubPixel:
-					_materialRecord.EnableKeyword(KEYWORD_AA_SUBPIXEL);
-					_materialRecord.DisableKeyword(KEYWORD_AA_SUPER_SAMPLING, KEYWORD_AA_FASTER);
+				case AntialiasingType.Distance:
+					_materialRecord.EnableKeyword(KEYWORD_AA);
 					break;
 			}
 

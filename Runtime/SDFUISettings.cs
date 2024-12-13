@@ -9,7 +9,7 @@ namespace TLab.UI.SDF
 	{
 		private const string Path = "Assets/SDF-UI-Toolkit/Resources";
 		private const float D9 = 217f / 255f;
-		[SerializeField] private AntialiasingType _defaultAA = AntialiasingType.Faster;
+		[SerializeField] private AntialiasingType _defaultAA = AntialiasingType.Distance;
 		[SerializeField] private bool _useOutline;
 		[SerializeField, Min(0)] private float _outlineWidth = 1;
 		[SerializeField] private Color _outlineColor = Color.black;
