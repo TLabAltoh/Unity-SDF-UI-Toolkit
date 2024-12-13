@@ -71,18 +71,6 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
 
 #define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
-#undef SDF_UI_STEP_SETUP
-
-#ifdef SDF_UI_SPLINE_FONT_RENDERING
-
-#define SDF_UI_STEP_SHAPE_OUTLINE
-                #include "SamplingPosition.hlsl"
-                #include "Spline-FontRendering.hlsl"
-#undef SDF_UI_STEP_SHAPE_OUTLINE
-
-#else   // Distance
-
-#define SDF_UI_STEP_SETUP
                 #include "Spline-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
@@ -99,7 +87,6 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SHADOW
 
-#endif
                 #include "FragmentOutput.hlsl"
             }
 #undef SDF_UI_SPLINE

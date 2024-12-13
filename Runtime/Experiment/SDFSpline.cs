@@ -47,8 +47,8 @@ namespace TLab.UI.SDF
         }
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
-        [SerializeField] private bool m_isClosed = false;
         [SerializeField] private bool m_fill = false;
+        [SerializeField] private bool m_close = false;
         [SerializeField] private QuadraticBezier[] m_splines;
 
         private GraphicsBuffer m_bufferSpline;
@@ -70,14 +70,14 @@ namespace TLab.UI.SDF
             }
         }
 
-        public bool isClosed
+        public bool close
         {
-            get => m_isClosed;
+            get => m_close;
             set
             {
-                if (m_isClosed != value)
+                if (m_close != value)
                 {
-                    m_isClosed = value;
+                    m_close = value;
 
                     SetAllDirty();
                 }
@@ -221,7 +221,7 @@ namespace TLab.UI.SDF
             for (var i = 0; i < m_splines.Length; i++)
             {
                 var controls = m_splines[i].controls.Select((v) => v * minSize);
-                if (m_isClosed)
+                if (m_close)
                     controls = controls.Append(controls.ElementAt(0));
 
                 if (controls.Count() > 1)

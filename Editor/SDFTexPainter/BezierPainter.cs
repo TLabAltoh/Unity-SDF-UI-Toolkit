@@ -374,7 +374,7 @@ namespace TLab.UI.SDF.Editor
                     handles.AddRange(Primitive.Circle(numPoints, size, offset));
                     break;
                 case Primitive.PrimitiveType.Polygon:
-                    handles.AddRange(Primitive.Box(numPoints, size, offset));
+                    handles.AddRange(Primitive.Polygon(numPoints, size, offset));
                     break;
             }
             beziers.Add(new Bezier

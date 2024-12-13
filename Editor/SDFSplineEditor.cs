@@ -21,7 +21,7 @@ namespace TLab.UI.SDF.Editor
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.width), "Width");
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.isClosed), "Is Closed");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.close), "Close");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.fill), "Fill");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.splines), "Splines");
 			EditorGUI.indentLevel--;

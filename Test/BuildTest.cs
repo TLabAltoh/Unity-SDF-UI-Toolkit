@@ -8,10 +8,7 @@ namespace TLab.UI.SDF.Test
     {
         [SerializeField] private TextMeshProUGUI m_log;
 
-        public void AddQuad()
-        {
-            this.gameObject.AddComponent<SDFQuad>();
-        }
+        public void AddQuad() => gameObject.AddComponent<SDFQuad>();
 
         public void MakeLog()
         {
@@ -19,8 +16,9 @@ namespace TLab.UI.SDF.Test
             if (quad != null)
             {
                 var color = quad.fillColor;
-                var shadow = quad.material.enabledKeywords.Select((e) => e.name).Contains("SDF_UI_AA_FASTER");
-                m_log.text = color + ", " + shadow;
+                var keywords = quad.material.enabledKeywords.Select((e) => e.name);
+                var antialiasing = keywords.Contains("SFD_UI_AA");
+                m_log.text = $"Color: {color}, AA: {antialiasing}";
             }
         }
     }

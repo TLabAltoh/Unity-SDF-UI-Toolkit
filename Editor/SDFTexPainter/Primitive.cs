@@ -30,7 +30,7 @@ namespace TLab.UI.SDF.Editor
             return handles.ToArray();
         }
 
-        public static Bezier.Handle[] Box(int numPoints, float size, Vector2 offset)
+        public static Bezier.Handle[] Polygon(int numPoints, float size, Vector2 offset)
         {
             size *= 0.5f;   // radius
             var handles = new List<Bezier.Handle>();

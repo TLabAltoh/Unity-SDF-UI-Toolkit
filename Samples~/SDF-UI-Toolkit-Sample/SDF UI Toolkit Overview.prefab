@@ -558,7 +558,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 2
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowInnerSoftWidth: 0
@@ -762,7 +762,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 16.75
-  m_antialiasing: 2
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 17.72
   m_shadowInnerSoftWidth: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 1
   m_onionWidth: 19.6
-  m_antialiasing: 3
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowInnerSoftWidth: 0
@@ -1040,7 +1040,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 23
-  m_antialiasing: 3
+  m_antialiasing: 1
   m_shadow: 1
   m_shadowWidth: 15
   m_shadowInnerSoftWidth: 0
@@ -1222,7 +1222,7 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 0
   m_onionWidth: 10
-  m_antialiasing: 2
+  m_antialiasing: 1
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0

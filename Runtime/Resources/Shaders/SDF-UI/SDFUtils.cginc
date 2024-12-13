@@ -4,8 +4,6 @@
 * https://iquilezles.org/articles/distfunctions2d/
 **/
 
-#define JACOBIAN(uv) (transpose( float2x2( ddx(uv), ddy(uv) ) ))
-
 inline float round(float d, float r)
 {
     return d - r;
