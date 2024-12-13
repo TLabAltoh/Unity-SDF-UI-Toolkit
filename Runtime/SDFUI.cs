@@ -366,6 +366,17 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public override Material materialForRendering
+		{
+			get
+			{
+				var currentMat = base.materialForRendering;
+				if (currentMat != material && currentMat.shader.name.StartsWith("Hidden/UI/SDF/"))
+					_materialRecord.Populate(currentMat);
+				return currentMat;
+			}
+		}
+
 		public ActiveImageType activeImageType
 		{
 			get => m_activeImageType;
