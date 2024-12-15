@@ -39,7 +39,7 @@ namespace TLab.UI.SDF
 
 			float4 expand = shadowExpand;
 
-			if (antialiasing != SDFUI.AntialiasingType.None && rectSize.x > 0 && rectSize.y > 0)
+			if (antialiasing != SDFUI.AntialiasingType.OFF && rectSize.x > 0 && rectSize.y > 0)
 			{
 				expand += new float4(-1, 1, -1, 1);
 			}

@@ -67,8 +67,8 @@ namespace TLab.UI.SDF
 		public enum AntialiasingType
 		{
 			Default = -1,
-			None = 0,
-			Distance = 1,
+			OFF = 0,
+			ON = 1,
 		}
 
 		public enum ActiveImageType
@@ -787,10 +787,10 @@ namespace TLab.UI.SDF
 
 			switch (antialiasing)
 			{
-				case AntialiasingType.None:
+				case AntialiasingType.OFF:
 					_materialRecord.DisableKeyword(KEYWORD_AA);
 					break;
-				case AntialiasingType.Distance:
+				case AntialiasingType.ON:
 					_materialRecord.EnableKeyword(KEYWORD_AA);
 					break;
 			}
