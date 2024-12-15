@@ -11,7 +11,7 @@
         <ui:GroupBox name="settings" style="display: flex; visibility: visible; opacity: 1;">
             <ui:Foldout text="Anti-Aliasing" name="anti-aliasing">
                 <ui:DropdownField label="Default Algorithm" name="aa-algorithm" />
-                <ui:HelpBox text="&lt;b&gt;None&lt;/b&gt; - rendering without anti-aliasing&#10;&lt;b&gt;Distance&lt;/b&gt; - rendering with distance-based anti-aliasing done by shader" message-type="None" name="anti-aliasing-help" style="-unity-paragraph-spacing: 50px;" />
+                <ui:HelpBox text="&lt;b&gt;OFF&lt;/b&gt; - rendering without anti-aliasing&#10;&lt;b&gt;ON&lt;/b&gt; - rendering with distance-based anti-aliasing done by shader" message-type="None" name="anti-aliasing-help" style="-unity-paragraph-spacing: 50px;" />
             </ui:Foldout>
             <ui:Foldout text="Outline" name="outline">
                 <ui:Toggle label="Enable" name="outline-enable" binding-path="_useOutline" style="flex-direction: row; flex-shrink: 0;" />
