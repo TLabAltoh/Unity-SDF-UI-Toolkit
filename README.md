@@ -10,12 +10,12 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 </table>
 <table>
     <tr>
-        <td><img src="Media/demo.0.gif" width="512"><img></td>
-        <td><img src="Media/demo.1.gif" width="512"><img></td>
-        <td><img src="Media/demo.2.gif" width="512"><img></td>
-        <td><img src="Media/demo.3.gif" width="512"><img></td>
-        <td><img src="Media/demo.4.gif" width="512"><img></td>
-        <td><img src="Media/demo.5.gif" width="512"><img></td>
+        <td><img src="Media/demo.0.gif" width="256"><img></td>
+        <td><img src="Media/demo.1.gif" width="256"><img></td>
+        <td><img src="Media/demo.2.gif" width="256"><img></td>
+        <td><img src="Media/demo.3.gif" width="256"><img></td>
+        <td><img src="Media/demo.4.gif" width="256"><img></td>
+        <td><img src="Media/demo.5.gif" width="256"><img></td>
     </tr>
 </table>
 <table>
