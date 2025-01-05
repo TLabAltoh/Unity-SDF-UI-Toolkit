@@ -43,12 +43,20 @@ namespace TLab.UI.SDF
         [System.Serializable]
         public class QuadraticBezier
         {
+            public bool active = true;
             public Vector2[] controls;
         }
+
+        public enum CurveMode
+        {
+            Free,
+            Auto,
+        };
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
         [SerializeField] private bool m_fill = false;
         [SerializeField] private bool m_close = false;
+        [SerializeField] private CurveMode m_curveMode = CurveMode.Free;
         [SerializeField] private QuadraticBezier[] m_splines;
 
         private GraphicsBuffer m_bufferSpline;
@@ -98,6 +106,20 @@ namespace TLab.UI.SDF
             }
         }
 
+        public CurveMode curveMode
+        {
+            get => m_curveMode;
+            set
+            {
+                if (m_curveMode != value)
+                {
+                    m_curveMode = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
         public QuadraticBezier[] splines
         {
             get => m_splines;
@@ -111,6 +133,8 @@ namespace TLab.UI.SDF
                 }
             }
         }
+
+        public int splinesCount => m_splines.Length;
 
         public Vector2 this[int i, int j]
         {
@@ -138,6 +162,24 @@ namespace TLab.UI.SDF
                     SetAllDirty();
                 }
             }
+        }
+
+        public bool TryGetControlsCount(int i, out int count)
+        {
+            if (m_splines.Length > i)
+            {
+                count = m_splines[i].controls.Length;
+                return true;
+            }
+            count = -1;
+            return false;
+        }
+
+        public int GetControlsCount(int i)
+        {
+            if (m_splines.Length > i)
+                return m_splines[i].controls.Length;
+            return -1;
         }
 
         public unsafe Vector2[] GetControls(int i, bool isWorldSpace = false)
@@ -220,50 +262,82 @@ namespace TLab.UI.SDF
 
             for (var i = 0; i < m_splines.Length; i++)
             {
-                var controls = m_splines[i].controls.Select((v) => v * minSize);
-                if (m_close)
-                    controls = controls.Append(controls.ElementAt(0));
+                if (!m_splines[i].active)
+                    continue;
 
-                if (controls.Count() > 1)
+                var count = m_splines[i].controls.Length;
+
+                IEnumerable<Vector2> controls;
+
+                if (count >= 2)
                 {
-                    var pass = 0;
-                    for (var j = 0; j < (controls.Count() - 2); j += 2)
+                    switch (m_curveMode)
                     {
-                        var v0 = controls.ElementAt(j + 0);
-                        var v1 = controls.ElementAt(j + 1);
-                        var v2 = controls.ElementAt(j + 2);
-
-                        var abEqual = v0 == v1;
-                        var bcEqual = v1 == v2;
-                        var acEqual = v0 == v2;
-
-                        if (abEqual && bcEqual)
-                        {
-                            // ignore
-                        }
-                        else if (abEqual || acEqual)
-                        {
-                            lines = lines.Append(v1);
-                            lines = lines.Append(v2);
-                        }
-                        else if (bcEqual || (Mathf.Abs(MathUtils.Cross(v0 - v1, v1 - v2)) <= EPSILON))
-                        {
-                            lines = lines.Append(v0);
-                            lines = lines.Append(v2);
-                        }
-                        else
-                        {
-                            splines = splines.Append(v0);
-                            splines = splines.Append(v1);
-                            splines = splines.Append(v2);
-                        }
-
-                        pass += 2;
+                        case CurveMode.Free:
+                            controls = m_splines[i].controls.Select((v) => v * minSize);
+                            break;
+                        default:    // CurveMode.Auto
+                            var limmit = count - 2;
+                            var source = m_splines[i].controls.Select((v) => v * minSize).ToArray();
+                            for (int j = 2; j < limmit; j += 2)
+                                source[j] = (source[j - 1] + source[j + 1]) * 0.5f;
+                            controls = source;
+                            break;
                     }
 
-                    if (pass <= (controls.Count() - 2))
-                        lines = lines.Concat(controls.TakeLast(2));
+                    if (m_close && (count >= 3))
+                        controls = controls.Append(controls.ElementAt(0));
+
+                    if (controls.Count() > 1)
+                    {
+                        var pass = 0;
+                        for (var j = 0; j < (controls.Count() - 2); j += 2)
+                        {
+                            var v0 = controls.ElementAt(j + 0);
+                            var v1 = controls.ElementAt(j + 1);
+                            var v2 = controls.ElementAt(j + 2);
+
+                            var abEqual = v0 == v1;
+                            var bcEqual = v1 == v2;
+                            var acEqual = v0 == v2;
+
+                            if (abEqual && bcEqual)
+                            {
+                                lines = lines.Append(v1);
+                                lines = lines.Append(v1);
+                            }
+                            else if (abEqual || acEqual)
+                            {
+                                lines = lines.Append(v1);
+                                lines = lines.Append(v2);
+                            }
+                            else if (bcEqual || (Mathf.Abs(MathUtils.Cross(v0 - v1, v1 - v2)) <= EPSILON))
+                            {
+                                lines = lines.Append(v0);
+                                lines = lines.Append(v2);
+                            }
+                            else
+                            {
+                                splines = splines.Append(v0);
+                                splines = splines.Append(v1);
+                                splines = splines.Append(v2);
+                            }
+
+                            pass += 2;
+                        }
+
+                        if (pass <= (controls.Count() - 2))
+                            lines = lines.Concat(controls.TakeLast(2));
+                    }
                 }
+                else if (count == 1)
+                {
+                    var point = m_splines[i].controls[0] * minSize;
+                    lines = lines.Append(point);
+                    lines = lines.Append(point);
+                }
+                else
+                    continue;
             }
 
             if (splines.Count() > 0)
