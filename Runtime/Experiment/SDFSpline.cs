@@ -43,20 +43,34 @@ namespace TLab.UI.SDF
         [System.Serializable]
         public class QuadraticBezier
         {
-            public bool active = true;
-            public Vector2[] controls;
-        }
+            public enum CurveMode
+            {
+                Free,
+                Auto,
+            };
 
-        public enum CurveMode
-        {
-            Free,
-            Auto,
-        };
+            public bool active = true;
+            public bool close = false;
+            public CurveMode curveMode = CurveMode.Free;
+            public Vector2[] controls;
+
+            public QuadraticBezier()
+            {
+                active = true;
+                close = false;
+            }
+
+            public QuadraticBezier(bool active, bool close, CurveMode curveMode, Vector2[] controls)
+            {
+                this.active = active;
+                this.close = close;
+                this.curveMode = curveMode;
+                this.controls = controls;
+            }
+        }
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
         [SerializeField] private bool m_fill = false;
-        [SerializeField] private bool m_close = false;
-        [SerializeField] private CurveMode m_curveMode = CurveMode.Free;
         [SerializeField] private QuadraticBezier[] m_splines;
 
         private GraphicsBuffer m_bufferSpline;
@@ -78,20 +92,6 @@ namespace TLab.UI.SDF
             }
         }
 
-        public bool close
-        {
-            get => m_close;
-            set
-            {
-                if (m_close != value)
-                {
-                    m_close = value;
-
-                    SetAllDirty();
-                }
-            }
-        }
-
         public bool fill
         {
             get => m_fill;
@@ -100,20 +100,6 @@ namespace TLab.UI.SDF
                 if (m_fill != value)
                 {
                     m_fill = value;
-
-                    SetAllDirty();
-                }
-            }
-        }
-
-        public CurveMode curveMode
-        {
-            get => m_curveMode;
-            set
-            {
-                if (m_curveMode != value)
-                {
-                    m_curveMode = value;
 
                     SetAllDirty();
                 }
@@ -224,9 +210,21 @@ namespace TLab.UI.SDF
             this[i, j] = control;
         }
 
-        public void SetControlsActive(int i, bool active)
+        public void SetActive(int i, bool active)
         {
             this[i].active = active;
+            SetAllDirty();
+        }
+
+        public void SetClose(int i, bool close)
+        {
+            this[i].close = close;
+            SetAllDirty();
+        }
+
+        public void SetCurveMode(int i, QuadraticBezier.CurveMode curveMode)
+        {
+            this[i].curveMode = curveMode;
             SetAllDirty();
         }
 
@@ -268,30 +266,32 @@ namespace TLab.UI.SDF
 
             for (var i = 0; i < m_splines.Length; i++)
             {
-                if (!m_splines[i].active)
+                var bezier = m_splines[i];
+
+                if (!bezier.active)
                     continue;
 
-                var count = m_splines[i].controls.Length;
+                var count = bezier.controls.Length;
 
                 IEnumerable<Vector2> controls;
 
                 if (count >= 2)
                 {
-                    switch (m_curveMode)
+                    switch (bezier.curveMode)
                     {
-                        case CurveMode.Free:
-                            controls = m_splines[i].controls.Select((v) => v * minSize);
+                        case QuadraticBezier.CurveMode.Free:
+                            controls = bezier.controls.Select((v) => v * minSize);
                             break;
-                        default:    // CurveMode.Auto
+                        default:    // QuadraticBezier.CurveMode.Auto
                             var limmit = count - 2;
-                            var source = m_splines[i].controls.Select((v) => v * minSize).ToArray();
+                            var source = bezier.controls.Select((v) => v * minSize).ToArray();
                             for (int j = 2; j < limmit; j += 2)
                                 source[j] = (source[j - 1] + source[j + 1]) * 0.5f;
                             controls = source;
                             break;
                     }
 
-                    if (m_close && (count >= 3))
+                    if (bezier.close && (count >= 3))
                         controls = controls.Append(controls.ElementAt(0));
 
                     if (controls.Count() > 1)
@@ -338,7 +338,7 @@ namespace TLab.UI.SDF
                 }
                 else if (count == 1)
                 {
-                    var point = m_splines[i].controls[0] * minSize;
+                    var point = bezier.controls[0] * minSize;
                     lines = lines.Append(point);
                     lines = lines.Append(point);
                 }
