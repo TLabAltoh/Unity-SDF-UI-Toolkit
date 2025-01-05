@@ -1167,7 +1167,7 @@ GameObject:
   - component: {fileID: 2629568452742628567}
   - component: {fileID: 6540742326595616271}
   m_Layer: 5
-  m_Name: SDFSpline
+  m_Name: SDF Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1245,8 +1245,8 @@ MonoBehaviour:
     width: 1
     height: 1
   m_width: 0.113
-  m_isClosed: 0
   m_fill: 0
+  m_close: 0
   m_splines:
   - controls:
     - {x: 0.121625975, y: 0.39047804}
