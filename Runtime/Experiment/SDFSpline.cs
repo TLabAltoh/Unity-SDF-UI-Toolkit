@@ -224,6 +224,12 @@ namespace TLab.UI.SDF
             this[i, j] = control;
         }
 
+        public void SetControlsActive(int i, bool active)
+        {
+            this[i].active = active;
+            SetAllDirty();
+        }
+
         private void ReleaseBuffer(ref GraphicsBuffer buffer)
         {
             if (buffer != null)
