@@ -18,6 +18,7 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
         <td><img src="Media/demo.5.gif" width="256"><img></td>
     </tr>
 </table>
+<table><td><img src="Media/demo.6.gif" width="256"><img></td></table>
 <table>
     <caption>Editor for creating Custom Shapes</caption>
     <tr>
