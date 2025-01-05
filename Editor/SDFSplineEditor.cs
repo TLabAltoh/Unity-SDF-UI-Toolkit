@@ -62,11 +62,6 @@ namespace TLab.UI.SDF.Editor
 				Undo.RecordObject(m_instance, $"[{nameof(SDFSpline)}] Edit");
 				m_instance.SetControls(i, controls, true);
 			}
-
-			if (controls.Length % 2 == 1)
-				MoveLastHandleGUI(bezier, i);
-			else if (controls.Length > 1)
-				MoveHandleGUI(bezier, i, controls.Length - 2);
 		}
 
 		public void MoveHandleGUILoop()
@@ -87,6 +82,12 @@ namespace TLab.UI.SDF.Editor
 					default:    // SDFSpline.QuadraticBezier.CurveMode.Auto
 						MoveHandleGUI(bezier, i, 0);
 						MoveHandleGUI(bezier, i, 1, 2);
+
+						var num = bezier.controls.Length;
+						if (num % 2 == 1)
+							MoveLastHandleGUI(bezier, i);
+						else if (num > 1)
+							MoveHandleGUI(bezier, i, num - 2);
 						break;
 				}
 			}
