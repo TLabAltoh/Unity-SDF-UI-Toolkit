@@ -77,6 +77,7 @@ namespace TLab.UI.SDF.Editor
 				switch (bezier.curveMode)
 				{
 					case SDFSpline.QuadraticBezier.CurveMode.Free:
+					case SDFSpline.QuadraticBezier.CurveMode.Line:
 						MoveHandleGUI(bezier, i, 0, 1);
 						break;
 					default:    // SDFSpline.QuadraticBezier.CurveMode.Auto
