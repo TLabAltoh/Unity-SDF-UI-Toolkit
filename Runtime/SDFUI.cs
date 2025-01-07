@@ -95,7 +95,7 @@ namespace TLab.UI.SDF
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
-		[SerializeField, ColorUsage(true, true)] protected Color m_fillColor = Color.white;
+		[SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
 
 		[SerializeField] protected ActiveImageType m_activeImageType;
 		[SerializeField] protected Sprite m_sprite;
