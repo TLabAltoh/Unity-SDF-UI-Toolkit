@@ -460,7 +460,7 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
   m_outline: 1
   m_outlineWidth: 8.4
-  m_outlineColor: {r: 1, g: 0.65517235, b: 0, a: 1}
+  m_outlineColor: {r: 1, g: 0.31193793, b: 0, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
@@ -1246,9 +1246,11 @@ MonoBehaviour:
     height: 1
   m_width: 0.113
   m_fill: 0
-  m_close: 0
   m_splines:
-  - controls:
+  - active: 1
+    close: 0
+    curveMode: 0
+    controls:
     - {x: 0.121625975, y: 0.39047804}
     - {x: -0.43572986, y: 0.47052735}
     - {x: -0.3982637, y: -0.09839798}
