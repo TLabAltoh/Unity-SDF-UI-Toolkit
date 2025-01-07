@@ -24,11 +24,11 @@ Shader "Hidden/UI/SDF/Circle/Outline" {
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
         _ShadowPower("Shadow Dilate", Float) = 0
-        _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
         _OutlineWidth("Outline Width", Float) = 0
-        _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        [HDR] _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
 
     SubShader{

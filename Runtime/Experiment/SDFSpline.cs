@@ -300,7 +300,12 @@ namespace TLab.UI.SDF
                         IEnumerable<Vector2> controls;
 
                         if (spline.curveMode == QuadraticBezier.CurveMode.Free)
+                        {
                             controls = spline.controls.Select((v) => v * minSize);
+
+                            if (spline.close && (count >= 3))
+                                controls = controls.Append(controls.ElementAt(0));
+                        }
                         else
                         {
                             var limmit = count - 2;
@@ -308,10 +313,12 @@ namespace TLab.UI.SDF
                             for (int j = 2; j < limmit; j += 2)
                                 source[j] = (source[j - 1] + source[j + 1]) * 0.5f;
                             controls = source;
-                        }
 
-                        if (spline.close && (count >= 3))
-                            controls = controls.Append(controls.ElementAt(0));
+                            if (spline.close && (count >= 3))
+                            {
+                                controls = controls.Append(controls.ElementAt(0));
+                            }
+                        }
 
                         if (controls.Count() > 1)
                         {
