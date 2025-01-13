@@ -118,7 +118,7 @@ namespace TLab.UI.SDF
 
 		protected float eulerZ = float.NaN;
 
-		protected float m_extraMargin
+		protected virtual float m_extraMargin
 		{
 			get
 			{

@@ -4,7 +4,7 @@
 
 #include "Common-Properties.hlsl"
 
-float _Radius;
+float _Roundness;
 
 float4 _Corner0;
 float4 _Corner1;

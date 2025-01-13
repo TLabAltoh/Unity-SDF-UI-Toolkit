@@ -20,7 +20,7 @@ dist = sdTriangle(p, _Corner0.xy, _Corner1.xy, _Corner2.xy);
 dist = abs(dist) - _OnionWidth;
 #endif
 
-dist = round(dist, _Radius);
+dist = round(dist, _Roundness);
 
 #endif
 

@@ -33,7 +33,7 @@ namespace TLab.UI.SDF.Editor
 		{
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
-			serializedObject.TryDrawProperty("m_" + nameof(m_instance.radius), "Radius");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.roundness), "Roundness");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner0), "Corner0");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner1), "Corner1");
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.corner2), "Corner2");
