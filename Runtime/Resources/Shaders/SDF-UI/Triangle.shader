@@ -17,7 +17,7 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
         [HideInInspector] _ShadowGaussian("Shadow Gaussian", Float) = 0
 
-        _Radius("Radius", Float) = 0
+        __Roundness("Roundness", Float) = 0
 
         _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
         _Corner1("Corner 1", Vector) = (0, 0, 0, 0)

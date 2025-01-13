@@ -6,3 +6,4 @@
 
 float _Theta;
 float _Radius;
+float _Roundness;

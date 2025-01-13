@@ -23,12 +23,12 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Triangle/Outline";
 
-		[SerializeField, Range(0, 1)] private float m_radius = 0.1f;
+		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-0.45f, -0.45f);
 		[SerializeField] private Vector2 m_corner1 = new Vector2(0.45f, -0.45f);
 		[SerializeField] private Vector2 m_corner2 = new Vector2(0.0f, 0.45f);
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		private static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
 		private static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
 		private static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
 		private static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
@@ -37,14 +37,14 @@ namespace TLab.UI.SDF
 
 		public int length => 3;
 
-		public float radius
+		public float roundness
 		{
-			get => m_radius;
+			get => m_roundness;
 			set
 			{
-				if (m_radius != value)
+				if (m_roundness != value)
 				{
-					m_radius = value;
+					m_roundness = value;
 
 					SetAllDirty();
 				}
@@ -138,7 +138,7 @@ namespace TLab.UI.SDF
 			base.UpdateMaterialRecord();
 
 			var minSize = this.minSize;
-			_materialRecord.SetFloat(PROP_RADIUSE, m_radius * minSize);
+			_materialRecord.SetFloat(PROP_ROUNDNESS, m_roundness * minSize);
 			_materialRecord.SetVector(PROP_CORNER0, m_corner0 * minSize);
 			_materialRecord.SetVector(PROP_CORNER1, m_corner1 * minSize);
 			_materialRecord.SetVector(PROP_CORNER2, m_corner2 * minSize);

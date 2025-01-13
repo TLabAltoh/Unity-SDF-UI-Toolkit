@@ -27,6 +27,8 @@ else {
 dist = abs(dist) - _OnionWidth;
 #endif
 
+dist = round(dist, _Roundness);
+
 #endif
 
 //////////////////////////////////////////////////////////////
