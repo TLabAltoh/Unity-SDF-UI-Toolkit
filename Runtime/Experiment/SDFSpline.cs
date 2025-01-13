@@ -72,7 +72,7 @@ namespace TLab.UI.SDF
 
         [SerializeField, Range(0, 1)] private float m_width = 0.15f;
         [SerializeField] private bool m_fill = false;
-        [SerializeField] private QuadraticBezier[] m_splines;
+        [SerializeField] private QuadraticBezier[] m_splines = new QuadraticBezier[0];
 
         private GraphicsBuffer m_bufferSpline;
         private GraphicsBuffer m_bufferLine;
