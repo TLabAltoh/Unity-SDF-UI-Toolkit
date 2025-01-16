@@ -62,7 +62,20 @@ Shader "Hidden/UI/SDF/Circle/Outline" {
             #include "SDFUtils.cginc"
 
             #include "Circle-Properties.hlsl"
+
             #include "ShaderSetup.hlsl"
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
+
+            #pragma multi_compile_local _ SDF_UI_AA
+
+            #pragma multi_compile_local _ SDF_UI_ONION
+
+            #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
 
             fixed4 frag(v2f i) : SV_Target {
 
