@@ -161,7 +161,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_radius: 0
+  m_roundness: 0
   m_corner0: {x: -0.45, y: -0.45}
   m_corner1: {x: 0.45, y: -0.45}
   m_corner2: {x: 0, y: 0.45}
@@ -785,6 +785,7 @@ MonoBehaviour:
     width: 1
     height: 1
   m_fillAmount: 0.75
+  m_roundness: 0.1
 --- !u!1 &106449155051947346
 GameObject:
   m_ObjectHideFlags: 0
