@@ -288,7 +288,7 @@ namespace TLab.UI.SDF
                             prev = current;
                         }
 
-                        if (spline.close && (count >= 3))
+                        if ((m_fill || spline.close) && (count >= 3))
                         {
                             current = source.ElementAt(0);
                             lines = lines.Append(prev);
@@ -303,7 +303,7 @@ namespace TLab.UI.SDF
                         {
                             controls = spline.controls.Select((v) => v * minSize);
 
-                            if (spline.close && (count >= 3))
+                            if ((m_fill || spline.close) && (count >= 3))
                                 controls = controls.Append(controls.ElementAt(0));
                         }
                         else
@@ -314,10 +314,8 @@ namespace TLab.UI.SDF
                                 source[j] = (source[j - 1] + source[j + 1]) * 0.5f;
                             controls = source;
 
-                            if (spline.close && (count >= 3))
-                            {
+                            if ((m_fill || spline.close) && (count >= 3))
                                 controls = controls.Append(controls.ElementAt(0));
-                            }
                         }
 
                         if (controls.Count() > 1)
