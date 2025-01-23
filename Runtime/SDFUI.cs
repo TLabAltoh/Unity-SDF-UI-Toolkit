@@ -55,6 +55,8 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINE_TYPE = Shader.PropertyToID("_OutlineType");
 		internal static readonly int PROP_OUTLINE_COLOR = Shader.PropertyToID("_OutlineColor");
 		internal static readonly int PROP_OUTLINE_WIDTH = Shader.PropertyToID("_OutlineWidth");
+		internal static readonly int PROP_OUTLINE_INNER_BLUR = Shader.PropertyToID("_OutlineInnerBlur");
+		internal static readonly int PROP_OUTLINE_INNER_GAUSSIAN = Shader.PropertyToID("_OutlineInnerGaussian");
 
 		#endregion SHADER_PROP
 
@@ -92,6 +94,8 @@ namespace TLab.UI.SDF
 
 		[SerializeField, LeftToggle] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
+		[SerializeField, Min(0f)] protected float m_outlineInnerSoftWidth = 0;
+		[SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.5f;
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
@@ -300,6 +304,34 @@ namespace TLab.UI.SDF
 				if (m_outlineWidth != value)
 				{
 					m_outlineWidth = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineInnerSoftWidth
+        {
+			get => m_outlineInnerSoftWidth;
+			set
+            {
+				if (m_outlineInnerSoftWidth != value)
+                {
+					m_outlineInnerSoftWidth = value;
+
+					SetAllDirty();
+                }
+            }
+        }
+
+		public float outlineInnerSoftness
+		{
+			get => m_outlineInnerSoftness;
+			set
+			{
+				if (m_outlineInnerSoftness != value)
+				{
+					m_outlineInnerSoftness = value;
 
 					SetAllDirty();
 				}
@@ -758,6 +790,8 @@ namespace TLab.UI.SDF
 			{
 				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
+				_materialRecord.SetFloat(PROP_OUTLINE_INNER_BLUR, m_outlineInnerSoftness * m_outlineInnerSoftWidth);
+				_materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, m_outlineInnerSoftness > 0 ? 1 : 0);
 
 				switch (m_outlineType)
 				{

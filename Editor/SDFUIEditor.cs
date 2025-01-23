@@ -147,6 +147,8 @@ namespace TLab.UI.SDF.Editor
 			{
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineWidth), "Width");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineColor), "Color");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftWidth), "InnerSoftWidth");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftness), "InnerSoftness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Type");
 			}
 			EditorGUI.indentLevel--;

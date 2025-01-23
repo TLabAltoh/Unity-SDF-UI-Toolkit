@@ -10,6 +10,8 @@ float4 _OuterUV;
 float _OnionWidth;
 float _OutlineWidth;
 float _OutlineBorder;
+float _OutlineInnerBlur;
+float _OutlineInnerGaussian;
 
 float _GraphicBorder;
 

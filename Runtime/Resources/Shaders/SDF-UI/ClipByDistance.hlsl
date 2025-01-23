@@ -6,7 +6,7 @@
 
 #ifdef SDF_UI_STEP_SETUP
 
-float delta = 0;
+float delta = 0, softness = 0, tmp0 = 0, tmp1 = 0;
 
 #endif // SDF_UI_STEP_SETUP
 
@@ -21,15 +21,13 @@ delta = fwidth(dist) * .5;
 delta = 0;
 #endif
 
-float alpha = 0, tmp0 = 0, tmp1 = 0;
-
 tmp0 = 1 - saturaterange(_ShadowBorder - _ShadowBlur - delta, _ShadowBorder + delta, dist);
 tmp1 = 1 - smoothstep(_ShadowBorder - _ShadowBlur - delta, _ShadowBorder + delta, dist);
-alpha = tmp0 * (1. - _ShadowGaussian) + tmp1 * _ShadowGaussian;
+softness = tmp0 * (1. - _ShadowGaussian) + tmp1 * _ShadowGaussian;
 
 {
 	half4 layer0 = _ShadowColor;
-	layer0.a *= alpha;
+	layer0.a *= softness;
 	layer0.a *= (1. - effects.a);
 	layer0.rgb *= layer0.a;
 	effects = effects + layer0;
@@ -50,6 +48,10 @@ delta = 0;
 
 float graphicAlpha = 0, outlineAlpha = 0;
 
+tmp0 = saturaterange(_GraphicBorder - _OutlineInnerBlur, _GraphicBorder, dist);
+tmp1 = smoothstep(_GraphicBorder - _OutlineInnerBlur, _GraphicBorder, dist);
+softness = tmp0 * (1. - _OutlineInnerGaussian) + tmp1 * _OutlineInnerGaussian;
+
 #ifdef SDF_UI_AA
 outlineAlpha = 1 - saturaterange(_OutlineBorder - delta, _OutlineBorder + delta, dist);
 graphicAlpha = 1 - saturaterange(_GraphicBorder - delta, _GraphicBorder + delta, dist);
@@ -62,7 +64,7 @@ outlineAlpha = 1 - (dist >= _OutlineBorder);
 	half4 layer0 = _OutlineColor; layer0.rgb *= layer0.a;
 	half4 layer1 = color; layer1.rgb *= layer1.a;
 	half4 layer2 = lerp(layer0, layer1, graphicAlpha);
-	effects = layer2 * outlineAlpha;
+	effects = lerp(layer2, layer0, softness) * outlineAlpha;
 }
 
 #endif	// SDF_UI_STEP_SHAPE_OUTLINE
