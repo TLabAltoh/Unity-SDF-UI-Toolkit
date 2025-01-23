@@ -22,6 +22,12 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 </table>
 <table>
     <tr>
+        <td><img src="Media/demo.8.png" width="256"><img></td>
+        <td><img src="Media/demo.9.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <tr>
         <td><img src="Media/demo.6.gif" width="256"><img></td>
         <td><img src="Media/demo.7.gif" width="256"><img></td>
     </tr>
@@ -66,6 +72,20 @@ Vector UI offers advantages in quality and dynamic UI creation. This plugin incl
 
 > [!NOTE]  
 > ```SDFSpline``` is not supported in [WebGL](https://docs.unity3d.com/Manual/webgl.html) platform because ```SDFSpline``` uses [```StructuredBuffer```](https://docs.unity3d.com/ScriptReference/GraphicsBuffer.Target.Structured.html) and WebGL doesn't support it.
+
+<details><summary>How to set the default option of SDFUI</summary>
+
+Please open ```SDFUISettings``` from ```TLab\UI\SDF\Settings```.
+
+<img src="Media/settings-ui.0.png" width="256"></img>  
+
+Here you can set the default value of ```SFUUI```.
+
+<img src="Media/settings-ui.1.png" width="256"></img>
+
+This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
+
+</details>
 
 ### Batch rendering
 To optimise performance, this plugin will batch-render ```SDFUI```s that have the same properties. This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
