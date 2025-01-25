@@ -87,7 +87,7 @@ namespace TLab.UI.SDF
 		[SerializeField, LeftToggle] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
 		[SerializeField, Min(0f)] protected float m_shadowInnerSoftWidth = 0;
-		[SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.5f;
+		[SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.0f;
 		[SerializeField, Min(0f)] protected float m_shadowDilate = 0;
 		[SerializeField] protected Vector2 m_shadowOffset;
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
@@ -95,7 +95,7 @@ namespace TLab.UI.SDF
 		[SerializeField, LeftToggle] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
 		[SerializeField, Min(0f)] protected float m_outlineInnerSoftWidth = 0;
-		[SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.5f;
+		[SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.0f;
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = new Color(0.0f, 1.0f, 1.0f, 1.0f);
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
@@ -774,7 +774,7 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_SHADOW_BLUR, m_shadowSoftness * (m_shadowWidth + m_shadowInnerSoftWidth));
 				_materialRecord.SetFloat(PROP_SHADOW_DILATE, m_shadowDilate);
 				_materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
-				_materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, m_shadowSoftness > 0 ? 1 : 0);
+				_materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, (m_shadowSoftness > 0) ? 1 : 0);
 
 				MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 				_materialRecord.SetVector(PROP_SHADOW_OFFSET, sizeOffset);
@@ -791,7 +791,7 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
 				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
 				_materialRecord.SetFloat(PROP_OUTLINE_INNER_BLUR, m_outlineInnerSoftness * m_outlineInnerSoftWidth);
-				_materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, m_outlineInnerSoftness > 0 ? 1 : 0);
+				_materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, (m_outlineInnerSoftness > 0) && (m_outlineInnerSoftWidth > 0) ? 1 : 0);
 
 				switch (m_outlineType)
 				{

@@ -11,11 +11,11 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
 
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
-        [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
-        [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
-        [HideInInspector] _GraphicBorder("Graphic Border", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
-        [HideInInspector] _ShadowGaussian("Shadow Gaussian", Float) = 0
+
+        [HideInInspector] _GraphicBorder("Graphic Border", Float) = 0
+        [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
+        [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
         __Roundness("Roundness", Float) = 0
 
@@ -25,14 +25,18 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
 
         _OnionWidth("Onion Width", Float) = 0
 
+        _OutlineWidth("Outline Width", Float) = 0
+        _OutlineBorder("Outline Border", Float) = 0
+        _OutlineInnerBlur("Outline Inner Blur", Float) = 0
+        _OutlineInnerGaussian("Outline Inner Gaussian", Float) = 0
+        [HDR] _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
+
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
         _ShadowPower("Shadow Dilate", Float) = 0
-        [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowGaussian("Shadow Gaussian", Float) = 0
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
-
-        _OutlineWidth("Outline Width", Float) = 0
-        [HDR] _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
     }
 
     SubShader{
