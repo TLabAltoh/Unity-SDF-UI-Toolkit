@@ -149,6 +149,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
   m_outline: 0
   m_outlineWidth: 9.69
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -368,6 +370,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
   m_outline: 1
   m_outlineWidth: 24.2
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -454,13 +458,15 @@ MonoBehaviour:
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
+  m_shadowSoftness: 0
   m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 4}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0, g: 1, b: 0.9806144, a: 0.25}
   m_outline: 1
   m_outlineWidth: 8.4
-  m_outlineColor: {r: 1, g: 0.31193793, b: 0, a: 1}
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
+  m_outlineColor: {r: 1, g: 0.24280253, b: 0, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
@@ -568,6 +574,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
   m_outline: 1
   m_outlineWidth: 6.67
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -679,6 +687,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
   m_outline: 1
   m_outlineWidth: 5.49
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0.5
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -772,6 +782,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
   m_outline: 1
   m_outlineWidth: 6.25
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -863,6 +875,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_outline: 1
   m_outlineWidth: 9.34
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -958,6 +972,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
   m_outline: 1
   m_outlineWidth: 5.14
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1051,6 +1067,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
   m_outline: 1
   m_outlineWidth: 6.83
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1142,6 +1160,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
   m_outline: 1
   m_outlineWidth: 5.2
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1233,6 +1253,8 @@ MonoBehaviour:
   m_shadowColor: {r: 0.3788519, g: 0, b: 1, a: 1}
   m_outline: 1
   m_outlineWidth: 2.12
+  m_outlineInnerSoftWidth: 0
+  m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
