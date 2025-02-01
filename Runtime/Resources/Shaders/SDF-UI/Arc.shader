@@ -82,9 +82,7 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
 
             #pragma multi_compile_local _ SDF_UI_AA
 
-            #pragma multi_compile_local _ SDF_UI_ONION
-
-            #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
+            #pragma multi_compile_local _ SDF_UI_SHADOW
 
             fixed4 frag(v2f i) : SV_Target {
 
@@ -100,11 +98,11 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
-#define SDF_UI_STEP_SHAPE_OUTLINE
+#define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Arc-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-#undef SDF_UI_STEP_SHAPE_OUTLINE
+#undef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #define SDF_UI_STEP_SHADOW
                 #include "SamplingPosition.hlsl"

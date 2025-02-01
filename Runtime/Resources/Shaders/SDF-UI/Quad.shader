@@ -78,9 +78,10 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
 
             #pragma multi_compile_local _ SDF_UI_AA
 
-            #pragma multi_compile_local _ SDF_UI_ONION
+            #pragma multi_compile_local _ SDF_UI_SHADOW
 
-            #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
+            #pragma multi_compile_local _ SDF_UI_OUTLINE_PATTERN_SHINY SDF_UI_OUTLINE_PATTERN_TEX
+            #pragma multi_compile_local _ SDF_UI_GRAPHIC_PATTERN_SHINY SDF_UI_GRAPHIC_PATTERN_TEX
 
             fixed4 frag(v2f i) : SV_Target {
                 #include "FragmentSetup.hlsl"
@@ -88,14 +89,16 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
 #define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
                 #include "Quad-Distance.hlsl"
+                #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
-#define SDF_UI_STEP_SHAPE_OUTLINE
+#define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Quad-Distance.hlsl"
+                #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-#undef SDF_UI_STEP_SHAPE_OUTLINE
+#undef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #define SDF_UI_STEP_SHADOW
                 #include "SamplingPosition.hlsl"

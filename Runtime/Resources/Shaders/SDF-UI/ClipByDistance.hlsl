@@ -13,7 +13,7 @@ float delta = 0, softBorder0 = 0, softBorder1 = 0, softAlpha0 = 0, softAlpha1 = 
 //////////////////////////////////////////////////////////////
 
 #ifdef SDF_UI_STEP_SHADOW
-#ifdef SDF_UI_SHADOW_ENABLED
+#ifdef SDF_UI_SHADOW
 
 #ifdef SDF_UI_AA
 delta = fwidth(dist) * .5;
@@ -42,12 +42,12 @@ float shadowAlpha = softAlpha0 * (1. - _ShadowGaussian) + softAlpha1 * _ShadowGa
 	effects = effects + layer0;
 }
 
-#endif	// SDF_UI_SHADOW_ENABLED
+#endif	// SDF_UI_SHADOW
 #endif	// SDF_UI_STEP_SHADOW
 
 //////////////////////////////////////////////////////////////
 
-#ifdef SDF_UI_STEP_SHAPE_OUTLINE
+#ifdef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #ifdef SDF_UI_AA
 delta = fwidth(dist) * .5;
@@ -74,16 +74,24 @@ softAlpha0 = 1 - (dist >= softBorder0);
 softAlpha1 = 1 - smoothstep(softBorder0, softBorder1, dist);
 
 graphicAlpha = softAlpha0 * (1. - _OutlineInnerGaussian) + softAlpha1 * _OutlineInnerGaussian;
-//graphicAlpha = softAlpha0;
-//graphicAlpha = softAlpha1;
 
 {
+#if defined(SDF_UI_OUTLINE_PATTERN_SHINY) || defined(SDF_UI_OUTLINE_PATTERN_TEX)
+	half4 layer0 = half4(lerp(_OutlineColor.rgb, _OutlinePatternColor.rgb, outlinePattern * _OutlinePatternColor.a), _OutlineColor.a); layer0.rgb *= layer0.a;
+#else
 	half4 layer0 = _OutlineColor; layer0.rgb *= layer0.a;
+#endif
+
+#if defined(SDF_UI_GRAPHIC_PATTERN_SHINY) || defined(SDF_UI_GRAPHIC_PATTERN_TEX)
+	half4 layer1 = half4(lerp(color.rgb, _GraphicPatternColor.rgb, graphicPattern * _GraphicPatternColor.a), color.a); layer1.rgb *= layer1.a;
+#else
 	half4 layer1 = color; layer1.rgb *= layer1.a;
+#endif
+
 	half4 layer2 = lerp(layer0, layer1, graphicAlpha);
 	effects = layer2 * outlineAlpha;
 }
 
-#endif	// SDF_UI_STEP_SHAPE_OUTLINE
+#endif	// SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 //////////////////////////////////////////////////////////////

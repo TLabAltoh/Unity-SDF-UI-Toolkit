@@ -13,7 +13,10 @@ namespace TLab.UI.SDF.Editor
     {
         [Min(0f)] public Vector2Int size = new Vector2Int(512, 512);
         [Min(0f)] public int texScale = 100;
-        public SDFSettings sdfSettings;
+        public Color areaBorderCol = Color.gray;
+        public Vector2Int areaPos;
+        [Min(0f)] public float areaScale = 1.0f;
+        public RasterizeOptions rasterizeOptions;
         public PreviewMode previewMode = PreviewMode.Path;
         public BezierPainter bezierPainter;
         public Texture2D sdfTex;

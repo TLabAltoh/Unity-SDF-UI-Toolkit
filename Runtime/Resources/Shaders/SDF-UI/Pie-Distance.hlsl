@@ -6,14 +6,14 @@
 
 #ifdef SDF_UI_STEP_SETUP
 
-float dist;
+float dist, onion;
 float2 sincos;
 
 #endif  // SDF_UI_STEP_SETUP
 
 //////////////////////////////////////////////////////////////
 
-#if defined(SDF_UI_STEP_SHAPE_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
+#if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
 if (_Theta >= 3.14) {
     dist = length(p) - _Radius;
@@ -23,9 +23,9 @@ else {
     dist = sdPie(p, sincos, _Radius);
 }
 
-#ifdef SDF_UI_ONION
-dist = abs(dist) - _OnionWidth;
-#endif
+onion = abs(dist) - _OnionWidth;
+
+dist = dist * (1. - _Onion) + onion * _Onion;
 
 dist = round(dist, _Roundness);
 

@@ -78,9 +78,7 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
 
             #pragma multi_compile_local _ SDF_UI_AA
 
-            #pragma multi_compile_local _ SDF_UI_ONION
-
-            #pragma multi_compile_local _ SDF_UI_SHADOW_ENABLED
+            #pragma multi_compile_local _ SDF_UI_SHADOW
 
             #pragma multi_compile_local _ SDF_UI_SPLINE_FILL
 
@@ -94,11 +92,11 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
-#define SDF_UI_STEP_SHAPE_OUTLINE
+#define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Spline-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-#undef SDF_UI_STEP_SHAPE_OUTLINE
+#undef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #define SDF_UI_STEP_SHADOW
                 #include "SamplingPosition.hlsl"

@@ -131,6 +131,25 @@ namespace TLab.UI.SDF.Editor
 					break;
 			}
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
+
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicPatternType), "Pattern");
+			EditorGUI.indentLevel++;
+			var patternType = m_baseInstance.graphicPatternType;
+			switch (patternType)
+			{
+				case SDFUI.PatternType.None:
+					break;
+				case SDFUI.PatternType.Shiny:
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicPatternColor), "Color");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicShinyWidth), "Width");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicShinyAngle), "Angle");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicShinyBlur), "Blur");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicPatternOffset), "Offset");
+					break;
+				case SDFUI.PatternType.Texture:
+					break;
+			}
+			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 
@@ -150,7 +169,32 @@ namespace TLab.UI.SDF.Editor
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftWidth), "InnerSoftWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftness), "InnerSoftness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Type");
+
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternType), "Pattern");
+
+				EditorGUI.indentLevel++;
+				var patternType = m_baseInstance.outlinePatternType;
+				switch (patternType)
+				{
+					case SDFUI.PatternType.None:
+						break;
+					case SDFUI.PatternType.Shiny:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternColor), "Color");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineShinyWidth), "Width");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineShinyAngle), "Angle");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineShinyBlur), "Blur");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternOffset), "Offset");
+						break;
+					case SDFUI.PatternType.Texture:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternColor), "Color");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternTexture), "Texture");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternTextureRow), "Row");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternTextureScale), "Scale");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlinePatternOffset), "Offset");
+						break;
+				}
 			}
+			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 

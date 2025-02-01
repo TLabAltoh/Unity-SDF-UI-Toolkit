@@ -153,6 +153,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -374,6 +386,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -468,6 +492,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 1, g: 0.24280253, b: 0, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -578,6 +614,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 0, g: 1, b: 0.0064702034, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 0.3647059, b: 0, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 21300000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
@@ -691,6 +739,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0.5
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -786,6 +846,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -879,6 +951,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -976,6 +1060,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1071,6 +1167,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 21300000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
@@ -1164,6 +1272,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1257,6 +1377,18 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
+  m_graphicPatternType: -1
+  m_graphicPatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicShinyWidth: 0.25
+  m_graphicShinyAngle: 0
+  m_graphicShinyBlur: 0
+  m_graphicPatternOffset: {x: 0, y: 0}
+  m_outlinePatternType: -1
+  m_outlinePatternColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineShinyWidth: 0.25
+  m_outlineShinyAngle: 0
+  m_outlineShinyBlur: 0
+  m_outlinePatternOffset: {x: 0, y: 0}
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
