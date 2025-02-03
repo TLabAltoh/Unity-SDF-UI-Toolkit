@@ -19,7 +19,7 @@ MonoBehaviour:
   areaScale: 1
   rasterizeOptions:
     maxDist: 20
-  previewMode: 1
+  previewMode: 0
   bezierPainter:
     handleRadius: 5
     anchorColor: {r: 0, g: 1, b: 0, a: 1}
