@@ -32,8 +32,10 @@ namespace TLab.UI.SDF.Editor
             private Vector2 m_initMousePos;
             private Vector2 m_initDir;
 
+            private float m_areaZoom;
             private Rect m_area;
             private Vector2Int m_size;
+            private Vector2Int m_areaPos;
 
             public Vector2 initMousePos => m_initMousePos;
 
@@ -41,7 +43,7 @@ namespace TLab.UI.SDF.Editor
 
             public EditMode editMode => m_editMode;
 
-            public void BeginEdit(EditMode editMode, Rect area, Vector2Int size)
+            public void BeginEdit(EditMode editMode, Rect area, Vector2Int size, float areaScale, Vector2Int areaPos)
             {
                 foreach (var element in m_selects)
                     element.Item2.MakeCache();
@@ -49,8 +51,10 @@ namespace TLab.UI.SDF.Editor
                 m_editMode = editMode;
                 m_area = area;
                 m_size = size;
+                m_areaPos = areaPos;
+                m_areaZoom = areaScale;
                 m_initActualPos = m_selects.Average((v) => v.Item2.cache.anchor);
-                m_initPos = EditorUtil.ActualPosToRect(m_initActualPos, area, size);
+                m_initPos = EditorUtil.ActualPosToRect(m_initActualPos, m_area, m_size, m_areaZoom, m_areaPos);
                 m_initMousePos = Event.current.mousePosition;
                 m_initDir = (m_initMousePos - m_initPos).normalized;
             }
@@ -85,7 +89,7 @@ namespace TLab.UI.SDF.Editor
 
             public void EditPosition()
             {
-                var offset = EditorUtil.RectToActualVec(Event.current.mousePosition - m_initMousePos, m_area, m_size);
+                var offset = EditorUtil.RectToActualVec(Event.current.mousePosition - m_initMousePos, m_area, m_size, m_areaZoom);
                 foreach (var element in m_selects)
                     element.Item2.anchor = element.Item2.cache.anchor + offset;
             }
@@ -144,6 +148,7 @@ namespace TLab.UI.SDF.Editor
             private Bezier.Handle m_handle;
             private Bezier.Control m_control = Bezier.Control.None;
 
+            private Vector2 m_current;
             private Vector2 m_grabPos;
             private Vector2 m_grabDist;
 
@@ -153,11 +158,14 @@ namespace TLab.UI.SDF.Editor
             public Bezier.Handle handle => m_handle;
             public Bezier.Control control => m_control;
 
+            public Vector2 current => m_current;
             public Vector2 grabPos => m_grabPos;
             public Vector2 dist => m_grabDist;
 
             public void Update(Vector2 pos)
             {
+                m_current = pos;
+
                 switch (m_control)
                 {
                     case Bezier.Control.A:
@@ -180,6 +188,7 @@ namespace TLab.UI.SDF.Editor
                 m_handle = handle;
                 m_control = control;
 
+                m_current = grabPos;
                 m_grabPos = grabPos;
 
                 switch (m_control)
@@ -218,10 +227,10 @@ namespace TLab.UI.SDF.Editor
 
         public enum EditMode
         {
-            Primitive,
+            None,
             Add,
             Move,
-            None,
+            Primitive,
         };
 
         [Header("Brush Settings")]
@@ -271,7 +280,7 @@ namespace TLab.UI.SDF.Editor
                 else
                     bezier.GetCubicAsArray(out points);
 
-                points = EditorUtil.ActualPosToRect(points, m_area, m_size);
+                points = EditorUtil.ActualPosToRect(points, m_area, m_size, m_areaZoom, m_areaPos);
 
                 Handles.color = bezierColor;
 
@@ -324,8 +333,8 @@ namespace TLab.UI.SDF.Editor
 
                 for (int i = 0; i < handles.Count; i += 3)
                 {
-                    EditorUtil.DrawCube(handles[i + 0], handleRadius, handleRadius);
-                    EditorUtil.DrawCube(handles[i + 2], handleRadius, handleRadius);
+                    Handles.DrawSolidDisc(handles[i + 0], normal, handleRadius);
+                    Handles.DrawSolidDisc(handles[i + 2], normal, handleRadius);
                 }
 
                 Handles.color = selectColor;
@@ -334,7 +343,7 @@ namespace TLab.UI.SDF.Editor
                 {
                     var bezier = element.Item1;
                     var anchor = element.Item2;
-                    var position = EditorUtil.ActualPosToRect(anchor.anchor, m_area, m_size);
+                    var position = EditorUtil.ActualPosToRect(anchor.anchor, m_area, m_size, m_areaZoom, m_areaPos);
                     Handles.DrawWireDisc(position, normal, handleRadius + 1);
                 });
             }
@@ -363,11 +372,11 @@ namespace TLab.UI.SDF.Editor
         {
             if ((Event.current.button != 0) || (Event.current.rawType != EventType.MouseUp) || !EditorUtil.MouseIsInTheArea(m_area))
                 return;
-            Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Add Primitive");
+            Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Add Primitive");
             var handles = new List<Bezier.Handle>();
             var numPoints = primitiveSettings.numPoints;
             var size = primitiveSettings.GetSize(m_area);
-            var offset = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size);
+            var offset = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size, m_areaZoom, m_areaPos);
             switch (primitiveSettings.primitiveType)
             {
                 case Primitive.PrimitiveType.Circle:
@@ -390,7 +399,7 @@ namespace TLab.UI.SDF.Editor
         {
             if ((Event.current.button != 0) || (Event.current.rawType != EventType.MouseUp) || !EditorUtil.MouseIsInTheArea(m_area))
                 return;
-            Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Add Segment");
+            Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Add Segment");
             if (beziers.Count == 0)
                 beziers.Add(new Bezier
                 {
@@ -401,7 +410,7 @@ namespace TLab.UI.SDF.Editor
                 });
             beziers[beziers.Count - 1].handles.Add(new Bezier.Handle
             {
-                anchor = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size),
+                anchor = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size, m_areaZoom, m_areaPos),
                 controlA = Vector2.zero,
                 controlB = Vector2.zero,
             });
@@ -414,6 +423,8 @@ namespace TLab.UI.SDF.Editor
             bezier = null;
             handle = null;
             control = Bezier.Control.None;
+
+            var handleRadius = this.handleRadius * m_areaZoom;
 
             for (int i = 0; i < beziers.Count; i++)
                 for (int j = 0; j < beziers[i].handles.Count; j++)
@@ -444,6 +455,8 @@ namespace TLab.UI.SDF.Editor
             bezier = null;
             handle = null;
 
+            var handleRadius = this.handleRadius * m_areaZoom;
+
             for (int i = 0; i < beziers.Count; i++)
                 for (int j = 0; j < beziers[i].handles.Count; j++)
                 {
@@ -467,21 +480,21 @@ namespace TLab.UI.SDF.Editor
                     case KeyCode.S:
                         if (m_selector.editMode != Selector.EditMode.Scale)
                         {
-                            m_selector.BeginEdit(Selector.EditMode.Scale, m_area, m_size);
+                            m_selector.BeginEdit(Selector.EditMode.Scale, m_area, m_size, m_areaZoom, m_areaPos);
                             HandleUtility.Repaint();
                         }
                         break;
                     case KeyCode.R:
                         if (m_selector.editMode != Selector.EditMode.Rotation)
                         {
-                            m_selector.BeginEdit(Selector.EditMode.Rotation, m_area, m_size);
+                            m_selector.BeginEdit(Selector.EditMode.Rotation, m_area, m_size, m_areaZoom, m_areaPos);
                             HandleUtility.Repaint();
                         }
                         break;
                     case KeyCode.G:
                         if (m_selector.editMode != Selector.EditMode.Position)
                         {
-                            m_selector.BeginEdit(Selector.EditMode.Position, m_area, m_size);
+                            m_selector.BeginEdit(Selector.EditMode.Position, m_area, m_size, m_areaZoom, m_areaPos);
                             HandleUtility.Repaint();
                         }
                         break;
@@ -491,18 +504,21 @@ namespace TLab.UI.SDF.Editor
             switch (m_selector.editMode)
             {
                 case Selector.EditMode.Scale:
-                    Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit scale of selected segments");
+                    Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Edit scale of selected segments");
                     m_selector.EditScale();
+                    EditorUtility.SetDirty(m_recordObject);
                     HandleUtility.Repaint();
                     break;
                 case Selector.EditMode.Rotation:
-                    Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit rotation of selected segments");
+                    Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Edit rotation of selected segments");
                     m_selector.EditRotation();
+                    EditorUtility.SetDirty(m_recordObject);
                     HandleUtility.Repaint();
                     break;
                 case Selector.EditMode.Position:
-                    Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Edit position of selected segments");
+                    Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Edit position of selected segments");
                     m_selector.EditPosition();
+                    EditorUtility.SetDirty(m_recordObject);
                     HandleUtility.Repaint();
                     break;
             }
@@ -515,7 +531,7 @@ namespace TLab.UI.SDF.Editor
         {
             if ((Event.current.keyCode == KeyCode.Delete) && (Event.current.rawType == EventType.KeyUp))
             {
-                Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Delete Segment");
+                Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Delete Segment");
                 m_selector.Foreach((element) =>
                 {
                     var bezier = element.Item1;
@@ -523,6 +539,7 @@ namespace TLab.UI.SDF.Editor
                     bezier.handles.Remove(handle);
                 });
                 m_selector.Clear();
+                EditorUtility.SetDirty(m_recordObject);
             }
         }
 
@@ -532,7 +549,7 @@ namespace TLab.UI.SDF.Editor
                 switch (Event.current.rawType)
                 {
                     case EventType.MouseDown:
-                        var grabPos = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size);
+                        var grabPos = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size, m_areaZoom, m_areaPos);
                         m_grabber.Release();
                         if (Event.current.control && GetControl(grabPos, out var bezier, out var handle, out var control))
                             m_grabber.Grab(grabPos, bezier, handle, control);
@@ -542,8 +559,14 @@ namespace TLab.UI.SDF.Editor
                     case EventType.MouseDrag:
                         if (m_grabber.isGrab)
                         {
-                            Undo.RecordObject(m_texPainter, $"[{THIS_NAME}] Move Segment");
-                            m_grabber.Update(EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size));
+                            var newPos = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size, m_areaZoom, m_areaPos);
+                            if (m_grabber.current != newPos)
+                            {
+                                Undo.RecordObject(m_recordObject, $"[{THIS_NAME}] Move Segment");
+                                m_grabber.Update(newPos);
+                                EditorUtility.SetDirty(m_recordObject);
+                                HandleUtility.Repaint();
+                            }
                         }
                         break;
                     case EventType.MouseUp:
@@ -560,7 +583,7 @@ namespace TLab.UI.SDF.Editor
                     case 0:
                         if (Event.current.shift)
                         {
-                            var input = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size);
+                            var input = EditorUtil.RectToActualPos(Event.current.mousePosition, m_area, m_size, m_areaZoom, m_areaPos);
                             if (GetAnchor(input, out var bezier, out var handle))
                             {
                                 if (Event.current.control)
@@ -606,9 +629,9 @@ namespace TLab.UI.SDF.Editor
             DeleteSegment();
         }
 
-        public void GenSDFTexture(in NativeArray<byte> pixelBuffer, Vector2Int size, Vector2Int texSize, SDFSettings settings)
+        public void GenSDFTexture(in NativeArray<byte> pixelBuffer, Vector2Int size, Vector2Int texSize, RasterizeOptions options)
         {
-            Debug.Log(THIS_NAME + "Start generate sdf from bezier shape");
+            Debug.Log(THIS_NAME + $"{nameof(GenSDFTexture)}:Start");
 
             var halfSize = 0.5f * new Vector2(size.x, size.y);
 
@@ -645,17 +668,17 @@ namespace TLab.UI.SDF.Editor
                     splinesOffset += splines[i].Length;
                 }
 
-            var rasterizeCircle = new SDFBezierJob
+            var rasterizeJob = new SDFBezierJob
             {
                 beziers = beziersN,
                 splines = splinesN,
                 size = size,
                 texSize = texSize,
-                maxDist = settings.maxDist,
+                maxDist = options.maxDist,
                 result = pixelBuffer
             };
 
-            var handle = rasterizeCircle.Schedule(pixelBuffer.Length, 1);
+            var handle = rasterizeJob.Schedule(pixelBuffer.Length, 1);
 
             JobHandle.ScheduleBatchedJobs();
 
@@ -664,7 +687,7 @@ namespace TLab.UI.SDF.Editor
             splinesN.Dispose();
             beziersN.Dispose();
 
-            Debug.Log(THIS_NAME + "Finish generate sdf from bezier shape");
+            Debug.Log(THIS_NAME + $"{nameof(GenSDFTexture)}:Finish");
         }
     }
 }

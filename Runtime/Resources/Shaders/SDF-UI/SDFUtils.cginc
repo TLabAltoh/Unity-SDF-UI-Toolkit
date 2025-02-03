@@ -235,3 +235,32 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
     return sqrt(res) * sign(sgn);
 }
 #endif
+
+#if defined(SDF_UI_OUTLINE_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_SHINY)
+inline float shiny(float2 p, float width, float angle, float blur) {
+    float fill = width >= 3.14; float empty = width == 0;
+    if (fill || empty) {
+        return 1.0 * fill;
+    }
+
+    p = float2(p.x * cos(angle) - p.y * sin(angle), p.x * sin(angle) + p.y * cos(angle));
+    p.x = abs(p.x);
+    p.y = abs(p.y);
+
+    float2 c = float2(sin(width), cos(width));
+    float m = length(p - c * max(dot(p, c), 0.0));
+    float dist = m * sign(c.y * p.x - c.x * p.y);
+
+#ifdef SDF_UI_AA
+    float delta = fwidth(dist) * .5;
+#else
+    float delta = 0.0;
+#endif
+
+    float isBlur = blur > 0.0;
+    float smooth0 = smoothstep(-delta, blur + delta, dist);
+    float smooth1 = saturaterange(-delta, delta, dist);
+
+    return 1. - (isBlur * smooth0 + (1. - isBlur) * smooth1);
+}
+#endif

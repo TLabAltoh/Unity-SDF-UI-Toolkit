@@ -8,7 +8,7 @@ float2 p;
 
 #ifdef SDF_UI_TEX
 
-#ifdef SDF_UI_STEP_SHAPE_OUTLINE
+#ifdef SDF_UI_STEP_SHAPE_AND_OUTLINE
 p = uv;
 #endif
 
@@ -18,7 +18,7 @@ p = uv - _ShadowOffset.xy;
 
 #else
 
-#ifdef SDF_UI_STEP_SHAPE_OUTLINE
+#ifdef SDF_UI_STEP_SHAPE_AND_OUTLINE
 p = (uv - .5) * (halfSize + _OnionWidth) * 2;
 #endif
 

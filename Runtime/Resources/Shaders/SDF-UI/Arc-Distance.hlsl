@@ -6,14 +6,14 @@
 
 #ifdef SDF_UI_STEP_SETUP
 
-float dist, radius;
+float dist, radius, onion;
 float2 cossin, t;
 
 #endif  // SDF_UI_STEP_SETUP
 
 //////////////////////////////////////////////////////////////
 
-#if defined(SDF_UI_STEP_SHAPE_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
+#if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
 t = p;
 p.x = t.x * _AngleOffset.x - t.y * _AngleOffset.y;
@@ -27,9 +27,9 @@ else {
     dist = sdRing(p, cossin, _Radius, _Width, _CornersRounding);
 }
 
-#ifdef SDF_UI_ONION
-dist = abs(dist) - _OnionWidth;
-#endif
+onion = abs(dist) - _OnionWidth;
+
+dist = dist * (1. - _Onion) + onion * _Onion;
 
 #endif
 

@@ -11,7 +11,7 @@ namespace TLab.UI.SDF.Editor
 
         private string THIS_NAME => "[" + GetType() + "] ";
 
-        const TextureFormat TEX_FORMAT = TextureFormat.ARGB32;
+        private const TextureFormat TEX_FORMAT = TextureFormat.ARGB32;
 
         private string[] m_previewModeOptions = new string[]
         {
@@ -35,11 +35,15 @@ namespace TLab.UI.SDF.Editor
 
             EditorGUILayout.Space();
 
-            serializedObject.TryDrawProperty(nameof(m_instance.sdfSettings), "SDF Settings");
+            serializedObject.TryDrawProperty(nameof(m_instance.rasterizeOptions), "Rasterize Options");
 
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Preview");
+
+            serializedObject.TryDrawProperty(nameof(m_instance.areaScale), "Zoom");
+            serializedObject.TryDrawProperty(nameof(m_instance.areaPos), "Position");
+            serializedObject.TryDrawProperty(nameof(m_instance.areaBorderCol), "Border Color");
 
             EditorGUILayout.Space();
 
@@ -76,10 +80,8 @@ namespace TLab.UI.SDF.Editor
                 {
                     GenSDFTexture();
                 });
-
             if (GUILayout.Button("Save"))
                 Save();
-
             if (GUILayout.Button("Save as"))
                 SaveAs();
             EditorGUILayout.EndHorizontal();
@@ -93,11 +95,24 @@ namespace TLab.UI.SDF.Editor
                 serializedObject.TryGetObject(nameof(m_instance.sdfTex), out Texture2D sdfTex))
             {
                 if (AssetUtil.DirectoryExists(savePath))
-                    AssetUtil.SaveTexture(savePath, ref sdfTex);
-                else if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
                     AssetUtil.SaveTexture(savePath, ref sdfTex);
 
-                serializedObject.TrySetValue(nameof(m_instance.savePath), savePath);
+                    serializedObject.Call(() =>
+                    {
+                        AssetUtil.SaveTexture(savePath, ref sdfTex);
+                    });
+                }
+                else if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
+                    AssetUtil.SaveTexture(savePath, ref sdfTex);
+
+                    serializedObject.Call(() =>
+                    {
+                        m_instance.savePath = savePath;
+                        EditorUtility.SetDirty(m_instance);
+                    });
+                }
             }
         }
 
@@ -107,9 +122,15 @@ namespace TLab.UI.SDF.Editor
                 serializedObject.TryGetObject(nameof(m_instance.sdfTex), out Texture2D sdfTex))
             {
                 if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
                     AssetUtil.SaveTexture(savePath, ref sdfTex);
 
-                serializedObject.TrySetValue(nameof(m_instance.savePath), savePath);
+                    serializedObject.Call(() =>
+                    {
+                        m_instance.savePath = savePath;
+                        EditorUtility.SetDirty(m_instance);
+                    });
+                }
             }
         }
 
@@ -124,10 +145,10 @@ namespace TLab.UI.SDF.Editor
             var size = m_instance.size;
             var texSize = size * m_instance.texScale / 100;
             var sdfTex = new Texture2D(texSize.x, texSize.y, TEX_FORMAT, false);
+            var options = m_instance.rasterizeOptions;
             var pixelBuffer = new NativeArray<byte>(texSize.x * texSize.y, Allocator.TempJob);
-            var settings = m_instance.sdfSettings;
 
-            m_instance.bezierPainter.GenSDFTexture(in pixelBuffer, size, texSize, settings);
+            m_instance.bezierPainter.GenSDFTexture(in pixelBuffer, size, texSize, options);
 
             PixelFormatUtil.LoadR8AsARGB32(in pixelBuffer, in sdfTex);
 

@@ -6,20 +6,32 @@ namespace TLab.UI.SDF.Editor
     [System.Serializable]
     public class ShapePainter
     {
-        protected Object m_texPainter;
+        protected Object m_recordObject;
+        protected float m_areaZoom;
         protected Rect m_area;
+        protected Color m_areaBorderCol;
         protected Vector2Int m_size;
         protected Vector2Int m_texSize;
+        protected Vector2Int m_areaPos;
 
-        public virtual void Update(Rect area, SDFTexPainter texPainter)
+        public virtual void Update(Rect area, SDFTexPainter sdfTexPainter)
         {
-            m_texPainter = texPainter;
+            m_recordObject = sdfTexPainter;
             m_area = area;
-            m_size = texPainter.size;
-            m_texSize = texPainter.size * texPainter.texScale / 100;
+            m_areaBorderCol = sdfTexPainter.areaBorderCol;
+            m_areaPos = sdfTexPainter.areaPos;
+            m_areaZoom = sdfTexPainter.areaScale;
+            m_size = sdfTexPainter.size;
+            m_texSize = sdfTexPainter.size * sdfTexPainter.texScale / 100;
         }
 
-        public virtual void DrawPath() { }
+        private Vector2[] borders => new Vector2[] { (Vector2)m_size * -0.5f, (Vector2)m_size * 0.5f };
+
+        public virtual void DrawPath()
+        {
+            var area = EditorUtil.ActualPosToRect(borders, m_area, m_size, m_areaZoom, m_areaPos);
+            EditorUtil.DrawQuadArea(new Rect(area[0], area[1] - area[0]), new Color(), m_areaBorderCol);
+        }
 
         public virtual void Edit() { }
 

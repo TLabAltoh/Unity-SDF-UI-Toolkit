@@ -6,7 +6,7 @@
 
 #ifdef SDF_UI_STEP_SETUP
 
-float dist, tmp;
+float dist, onion, tmp;
 
 int idx = 0;
 
@@ -18,7 +18,7 @@ float winding = 1.;
 
 //////////////////////////////////////////////////////////////
 
-#if defined(SDF_UI_STEP_SHAPE_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
+#if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
 dist = 3.402823466e+38F;
 
@@ -58,9 +58,9 @@ for (idx = 0; idx < _LinesNum; idx += 2) {
 dist *= winding;
 #endif
 
-#ifdef SDF_UI_ONION
-dist = abs(dist) - _OnionWidth;
-#endif
+onion = abs(dist) - _OnionWidth;
+
+dist = dist * (1. - _Onion) + onion * _Onion;
 
 dist = round(dist, _Width);
 

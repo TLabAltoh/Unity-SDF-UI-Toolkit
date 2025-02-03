@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 222c946049b965d4b917c69e3cfde75e, type: 3}
-  m_Name: New SDF Tex Painter
+  m_Name: New SDF Tex Painter 0
   m_EditorClassIdentifier: 
   size: {x: 512, y: 512}
   texScale: 100
-  sdfSettings:
+  areaBorderCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  areaPos: {x: 0, y: 0}
+  areaScale: 1
+  rasterizeOptions:
     maxDist: 20
-  previewMode: 0
+  previewMode: 1
   bezierPainter:
     handleRadius: 5
     anchorColor: {r: 0, g: 1, b: 0, a: 1}
@@ -27,7 +30,7 @@ MonoBehaviour:
     split: 0
     maxNum: 50
     maxErr: 5
-    editMode: 3
+    editMode: 0
     primitiveSettings:
       primitiveType: 1
       numPoints: 4

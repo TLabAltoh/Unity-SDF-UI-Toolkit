@@ -17,19 +17,20 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
         <td><img src="Media/demo.2.gif" width="256"><img></td>
         <td><img src="Media/demo.3.gif" width="256"><img></td>
         <td><img src="Media/demo.4.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <tr>
         <td><img src="Media/demo.5.gif" width="256"><img></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td><img src="Media/demo.8.png" width="256"><img></td>
-        <td><img src="Media/demo.9.gif" width="256"><img></td>
-    </tr>
-</table>
-<table>
-    <tr>
         <td><img src="Media/demo.6.gif" width="256"><img></td>
         <td><img src="Media/demo.7.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <caption>Additional UI Effect (Shiny and SDF Tex Pattern)</caption>
+    <tr>
+        <td><img src="Media/demo.8.png" width="256"><img></td>
+        <td><img src="Media/demo.9.png" width="256"><img></td>
     </tr>
 </table>
 <table>
@@ -97,8 +98,10 @@ If the shape is complex (like an ```SDFSpline```, which might be the only one at
 Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 
 #### How to Edit a Bezier Path
-- ```Left Click``` + ```Mouse Drag```: Move Anchor Handle
-- ```Ctrl``` + ```Left Click``` + ```Mouse Drag```: Move Control Handle
+<img src="Media/sdf-tex-painter-bezier-prop.png" width="256"></img>  
+
+##### Common
+
 - ```Shift``` + ```Left Click```: Select Anchor Handles
 - ```Shift``` + ```Ctrl``` + ```Left Click```: Select all Handles of the Bezier segment
 - ```G```: Move selected handles
@@ -106,6 +109,16 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 - ```S```: Scale selected handles
 - ```Right Click```: Deselect Anchor Handles or Cancel Editing
 - ```Delete```: Delete Selected Handle
+
+##### EditMode "Move"
+- ```Left Click``` + ```Mouse Drag```: Move Anchor Handle
+- ```Ctrl``` + ```Left Click``` + ```Mouse Drag```: Move Control Handle
+
+##### EditMode "Add"
+- ```Left Click```: Add new Bezier Handle
+
+##### EditMode "Primitive"
+- ```Left Click```: Add new Bezier Primitive (```Circle``` or ```Box```)
 
 #### Implementation Approach
 ##### Cu2Qu

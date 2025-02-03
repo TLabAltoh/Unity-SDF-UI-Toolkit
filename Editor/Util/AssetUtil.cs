@@ -13,9 +13,7 @@ namespace TLab.UI.SDF.Editor
             {
                 string[] split = fileName.Split('.');
                 if (split.Length > 1 && !split[split.Length - 1].Contains('\\') && !split[split.Length - 1].Contains('/'))
-                {
                     return split[split.Length - 2];
-                }
             }
             return fileName;
         }
@@ -23,13 +21,12 @@ namespace TLab.UI.SDF.Editor
         public static void SaveTexture(string savePath, ref Texture2D texture)
         {
             if (Path.GetExtension(savePath) != ".asset")
-            {
                 savePath += ".asset";
-            }
 
-            Texture2D asset = AssetDatabase.LoadAssetAtPath<Texture2D>(savePath);
+            var asset = AssetDatabase.LoadAssetAtPath<Texture2D>(savePath);
 
             texture.name = GetFileName(savePath, true);
+            texture.wrapMode = TextureWrapMode.Clamp;
 
             if (asset != null)
             {
@@ -37,14 +34,12 @@ namespace TLab.UI.SDF.Editor
                 EditorUtility.CopySerialized(texture, asset);
             }
             else
-            {
                 AssetDatabase.CreateAsset(texture, savePath);
-            }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log("Save texture: " + savePath);
+            Debug.Log($"{nameof(SaveTexture)}: " + savePath);
         }
 
         public static string GetDiskPath(string assetPath)

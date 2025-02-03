@@ -131,6 +131,51 @@ namespace TLab.UI.SDF.Editor
 					break;
 			}
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
+
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectType), "Effect");
+			EditorGUI.indentLevel++;
+			var effectType = m_baseInstance.graphicEffectType;
+			switch (effectType)
+			{
+				case SDFUI.EffectType.None:
+					break;
+				case SDFUI.EffectType.Shiny:
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectAngle), "Angle");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectShinyWidth), "Width");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectShinyBlur), "Blur");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectOffset), "Offset");
+					break;
+				case SDFUI.EffectType.Pattern:
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectAngle), "Angle");
+
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternTexture), "Texture");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternRow), "Row");
+
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectOffset), "Offset");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternScale), "Scale");
+
+					EditorGUILayout.BeginHorizontal();
+					{
+						EditorGUILayout.LabelField("Params");
+						EditorGUILayout.BeginVertical();
+						{
+							serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.graphicEffectPatternParamsX));
+							serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.graphicEffectPatternParamsZ));
+						}
+						EditorGUILayout.EndVertical();
+						EditorGUILayout.BeginVertical();
+						{
+							serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.graphicEffectPatternParamsY));
+							serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.graphicEffectPatternParamsW));
+						}
+						EditorGUILayout.EndVertical();
+					}
+					EditorGUILayout.EndHorizontal();
+					break;
+			}
+			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 
@@ -150,7 +195,53 @@ namespace TLab.UI.SDF.Editor
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftWidth), "InnerSoftWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftness), "InnerSoftness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Type");
+
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectType), "Effect");
+
+				EditorGUI.indentLevel++;
+				var effectType = m_baseInstance.outlineEffectType;
+				switch (effectType)
+				{
+					case SDFUI.EffectType.None:
+						break;
+					case SDFUI.EffectType.Shiny:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectAngle), "Angle");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectShinyWidth), "Width");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectShinyBlur), "Blur");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectOffset), "Offset");
+						break;
+					case SDFUI.EffectType.Pattern:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectAngle), "Angle");
+
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternTexture), "Texture");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternRow), "Row");
+
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectOffset), "Offset");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternScale), "Scale");
+
+						EditorGUILayout.BeginHorizontal();
+						{
+							EditorGUILayout.LabelField("Params");
+							EditorGUILayout.BeginVertical();
+							{
+								serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.outlineEffectPatternParamsX));
+								serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.outlineEffectPatternParamsZ));
+							}
+							EditorGUILayout.EndVertical();
+							EditorGUILayout.BeginVertical();
+							{
+								serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.outlineEffectPatternParamsY));
+								serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_baseInstance.outlineEffectPatternParamsW));
+							}
+							EditorGUILayout.EndVertical();
+						}
+						EditorGUILayout.EndHorizontal();
+						break;
+				}
 			}
+			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 

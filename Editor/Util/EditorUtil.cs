@@ -10,9 +10,12 @@ namespace TLab.UI.SDF.Editor
         public static Rect CreatePreviewArea(float aspect, Color faceColor, Color outlineColor)
         {
             var area = GUILayoutUtility.GetAspectRect(aspect);
-            Handles.DrawSolidRectangleWithOutline(area, faceColor, outlineColor);
+            DrawQuadArea(area, faceColor, outlineColor);
             return area;
         }
+
+        public static void DrawQuadArea(Rect area, Color faceColor, Color outlineColor) =>
+            Handles.DrawSolidRectangleWithOutline(area, faceColor, outlineColor);
 
         public static bool IsInTheArea(Vector2 pos, Rect area) => (pos.x >= area.xMin) && (pos.x <= area.xMax) && (pos.y >= area.yMin) && (pos.y <= area.yMax);
 
@@ -34,20 +37,20 @@ namespace TLab.UI.SDF.Editor
             return new Vector2((1f - x) * rect.xMin + x * rect.xMax, (1f - y) * rect.yMin + y * rect.yMax);
         }
 
-        public static Vector2 ActualPosToRect(Vector2 pos, Rect rect, Vector2Int size) => GetCenterOfRect(rect) + pos / size * rect.size;
+        public static Vector2 ActualPosToRect(Vector2 pos, Rect rect, Vector2Int size, float areaZoom, Vector2Int areaPos) => GetCenterOfRect(rect) + (pos + areaPos) / ((Vector2)size * areaZoom) * rect.size;
 
-        public static Vector2[] ActualPosToRect(Vector2[] pos, Rect rect, Vector2Int size)
+        public static Vector2[] ActualPosToRect(Vector2[] pos, Rect rect, Vector2Int size, float areaZoom, Vector2Int areaPos)
         {
             var result = new Vector2[pos.Length];
             var center = GetCenterOfRect(rect);
             for (int i = 0; i < result.Length; i++)
-                result[i] = center + pos[i] / size * rect.size;
+                result[i] = center + (pos[i] + areaPos) / ((Vector2)size * areaZoom) * rect.size;
             return result;
         }
 
-        public static Vector2 RectToActualVec(Vector2 vec, Rect area, Vector2Int size) => vec / area.size * size;
+        public static Vector2 RectToActualVec(Vector2 vec, Rect area, Vector2Int size, float areaZoom) => vec / area.size * ((Vector2)size * areaZoom);
 
-        public static Vector2 RectToActualPos(Vector2 pos, Rect area, Vector2Int size) => (pos - GetCenterOfRect(area)) / area.size * size;
+        public static Vector2 RectToActualPos(Vector2 pos, Rect area, Vector2Int size, float areaZoom, Vector2Int areaPos) => (pos - GetCenterOfRect(area)) / area.size * ((Vector2)size * areaZoom) - areaPos;
 
         public static Vector2 GetCenterOfRect(Rect area) => new Vector2(area.xMin + area.xMax, area.yMin + area.yMax) * 0.5f;
 
