@@ -17,19 +17,20 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
         <td><img src="Media/demo.2.gif" width="256"><img></td>
         <td><img src="Media/demo.3.gif" width="256"><img></td>
         <td><img src="Media/demo.4.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <tr>
         <td><img src="Media/demo.5.gif" width="256"><img></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td><img src="Media/demo.8.png" width="256"><img></td>
-        <td><img src="Media/demo.9.gif" width="256"><img></td>
-    </tr>
-</table>
-<table>
-    <tr>
         <td><img src="Media/demo.6.gif" width="256"><img></td>
         <td><img src="Media/demo.7.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <caption>Additional UI Effect (Shiny and SDF Tex Pattern)</caption>
+    <tr>
+        <td><img src="Media/demo.8.png" width="256"><img></td>
+        <td><img src="Media/demo.9.png" width="256"><img></td>
     </tr>
 </table>
 <table>

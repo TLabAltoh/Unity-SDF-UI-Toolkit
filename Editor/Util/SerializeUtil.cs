@@ -130,6 +130,11 @@ namespace TLab.UI.SDF.Editor
 			return false;
 		}
 
+		/// <summary>
+		/// This function seems to need to call EditorUtility.SetDirty after calling this one to save the property change (But not sure, it is possible I missed something somewhere ...).
+		/// In most cases, I prefer to replace it with serializeObject.Call(() => {@object.value = value; EditorUtility.SetDirty(@object)});
+		/// </summary>
+		/// <returns></returns>
 		public static bool TrySetValue<T>(this SerializedObject serializedObject, string name, T value) where T : class
 		{
 			try
@@ -220,13 +225,7 @@ namespace TLab.UI.SDF.Editor
 		}
 
 		//
-		// For Custom Class
 		// link: https://gist.github.com/douduck08/6d3e323b538a741466de00c30aa4b61f
-		//
-		// I found that assigning a value to the setter
-		// of prop.objectReferenceValue returns only null
-		// from the getter. is prop.objectReferenceValue a
-		// property for objects with asset references ?
 		//
 
 		private static readonly Regex rgx = new Regex(@"\[\d+\]", RegexOptions.Compiled);
@@ -240,6 +239,7 @@ namespace TLab.UI.SDF.Editor
 		public static T GetValue<T>(this SerializedProperty property) where T : class
 		{
 			property.serializedObject.QuickApply();
+
 			var obj = (object)property.serializedObject.targetObject;
 			var path = property.propertyPath.Replace(".Array.data", "");
 			var fieldStructure = path.Split('.');

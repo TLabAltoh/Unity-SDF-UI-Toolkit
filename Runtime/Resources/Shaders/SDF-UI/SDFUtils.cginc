@@ -236,7 +236,7 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
 }
 #endif
 
-#if defined(SDF_UI_OUTLINE_PATTERN_SHINY) || defined(SDF_UI_GRAPHIC_PATTERN_SHINY)
+#if defined(SDF_UI_OUTLINE_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_SHINY)
 inline float shiny(float2 p, float width, float angle, float blur) {
     float fill = width >= 3.14; float empty = width == 0;
     if (fill || empty) {

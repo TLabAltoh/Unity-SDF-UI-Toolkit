@@ -35,9 +35,9 @@ Texture2D:
     m_FilterMode: 1
     m_Aniso: 1
     m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
   m_LightmapFormat: 0
   m_ColorSpace: 1
   m_PlatformBlob: 

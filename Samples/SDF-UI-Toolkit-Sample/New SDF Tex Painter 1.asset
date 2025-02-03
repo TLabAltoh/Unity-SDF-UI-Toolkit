@@ -30,7 +30,7 @@ MonoBehaviour:
     split: 0
     maxNum: 50
     maxErr: 5
-    editMode: 0
+    editMode: 2
     primitiveSettings:
       primitiveType: 1
       numPoints: 4
@@ -41,20 +41,38 @@ MonoBehaviour:
     draw: 1
     beziers:
     - handles:
-      - anchor: {x: -128, y: 500}
+      - anchor: {x: 98.20777, y: 65.59787}
         controlA: {x: 0, y: 0}
         controlB: {x: 0, y: 0}
-      - anchor: {x: 128, y: 500}
+      - anchor: {x: 195.60233, y: -22.805193}
         controlA: {x: 0, y: 0}
         controlB: {x: 0, y: 0}
-      - anchor: {x: 128, y: -500}
+      - anchor: {x: 42.197037, y: -34.396786}
         controlA: {x: 0, y: 0}
         controlB: {x: 0, y: 0}
-      - anchor: {x: -128, y: -500}
+      - anchor: {x: -16.196144, y: -190.40216}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -71.50247, y: -32.50112}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -201.50691, y: -22.100758}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -118.30408, y: 84.502914}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -139.10478, y: 206.7071}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -22.100761, y: 149.50514}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: 123.50424, y: 204.10703}
         controlA: {x: 0, y: 0}
         controlB: {x: 0, y: 0}
       isClosed: 1
       thickness: 10
       draw: 1
   sdfTex: {fileID: 0}
-  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-sample.asset
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-pattern.asset

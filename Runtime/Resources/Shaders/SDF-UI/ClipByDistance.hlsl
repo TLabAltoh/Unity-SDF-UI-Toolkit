@@ -76,14 +76,22 @@ softAlpha1 = 1 - smoothstep(softBorder0, softBorder1, dist);
 graphicAlpha = softAlpha0 * (1. - _OutlineInnerGaussian) + softAlpha1 * _OutlineInnerGaussian;
 
 {
-#if defined(SDF_UI_OUTLINE_PATTERN_SHINY) || defined(SDF_UI_OUTLINE_PATTERN_TEX)
-	half4 layer0 = half4(lerp(_OutlineColor.rgb, _OutlinePatternColor.rgb, outlinePattern * _OutlinePatternColor.a), _OutlineColor.a); layer0.rgb *= layer0.a;
+#if defined(SDF_UI_OUTLINE_EFFECT_SHINY) || defined(SDF_UI_OUTLINE_EFFECT_PATTERN)
+#if SDF_UI_OUTLINE_EFFECT_PATTERN
+	_OutlineEffectColor.a /= outlinePatternAlpha;
+	_OutlineEffectColor.a *= 1. - saturaterange(_OutlineEffectPatternParams.z, _OutlineEffectPatternParams.z + _OutlineEffectPatternParams.w, outlinePatternFade0);
+#endif
+	half4 layer0 = half4(lerp(_OutlineColor.rgb, _OutlineEffectColor.rgb, outlineEffect * _OutlineEffectColor.a), _OutlineColor.a); layer0.rgb *= layer0.a;
 #else
 	half4 layer0 = _OutlineColor; layer0.rgb *= layer0.a;
 #endif
 
-#if defined(SDF_UI_GRAPHIC_PATTERN_SHINY) || defined(SDF_UI_GRAPHIC_PATTERN_TEX)
-	half4 layer1 = half4(lerp(color.rgb, _GraphicPatternColor.rgb, graphicPattern * _GraphicPatternColor.a), color.a); layer1.rgb *= layer1.a;
+#if defined(SDF_UI_GRAPHIC_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_PATTERN)
+#if SDF_UI_GRAPHIC_EFFECT_PATTERN
+	_GraphicEffectColor.a /= graphicPatternAlpha;
+	_GraphicEffectColor.a *= 1. - saturaterange(_GraphicEffectPatternParams.z, _GraphicEffectPatternParams.z + _GraphicEffectPatternParams.w, graphicPatternFade0);
+#endif
+	half4 layer1 = half4(lerp(color.rgb, _GraphicEffectColor.rgb, graphicEffect * _GraphicEffectColor.a), color.a); layer1.rgb *= layer1.a;
 #else
 	half4 layer1 = color; layer1.rgb *= layer1.a;
 #endif

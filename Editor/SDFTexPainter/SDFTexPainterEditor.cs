@@ -80,10 +80,8 @@ namespace TLab.UI.SDF.Editor
                 {
                     GenSDFTexture();
                 });
-
             if (GUILayout.Button("Save"))
                 Save();
-
             if (GUILayout.Button("Save as"))
                 SaveAs();
             EditorGUILayout.EndHorizontal();
@@ -97,11 +95,24 @@ namespace TLab.UI.SDF.Editor
                 serializedObject.TryGetObject(nameof(m_instance.sdfTex), out Texture2D sdfTex))
             {
                 if (AssetUtil.DirectoryExists(savePath))
-                    AssetUtil.SaveTexture(savePath, ref sdfTex);
-                else if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
                     AssetUtil.SaveTexture(savePath, ref sdfTex);
 
-                serializedObject.TrySetValue(nameof(m_instance.savePath), savePath);
+                    serializedObject.Call(() =>
+                    {
+                        AssetUtil.SaveTexture(savePath, ref sdfTex);
+                    });
+                }
+                else if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
+                    AssetUtil.SaveTexture(savePath, ref sdfTex);
+
+                    serializedObject.Call(() =>
+                    {
+                        m_instance.savePath = savePath;
+                        EditorUtility.SetDirty(m_instance);
+                    });
+                }
             }
         }
 
@@ -111,9 +122,15 @@ namespace TLab.UI.SDF.Editor
                 serializedObject.TryGetObject(nameof(m_instance.sdfTex), out Texture2D sdfTex))
             {
                 if (AssetUtil.SelectSavePath(savePath, out savePath))
+                {
                     AssetUtil.SaveTexture(savePath, ref sdfTex);
 
-                serializedObject.TrySetValue(nameof(m_instance.savePath), savePath);
+                    serializedObject.Call(() =>
+                    {
+                        m_instance.savePath = savePath;
+                        EditorUtility.SetDirty(m_instance);
+                    });
+                }
             }
         }
 

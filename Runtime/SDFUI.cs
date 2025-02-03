@@ -26,11 +26,11 @@ namespace TLab.UI.SDF
 
 		internal const string KEYWORD_SHADOW = SHADER_KEYWORD_PREFIX + "SHADOW";
 
-		internal const string KEYWORD_OUTLINE_PATTERN_TEX = SHADER_KEYWORD_PREFIX + "OUTLINE_PATTERN_TEX";
-		internal const string KEYWORD_GRAPHIC_PATTERN_TEX = SHADER_KEYWORD_PREFIX + "GRAPHIC_PATTERN_TEX";
+		internal const string KEYWORD_OUTLINE_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "OUTLINE_EFFECT_PATTERN";
+		internal const string KEYWORD_GRAPHIC_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "GRAPHIC_EFFECT_PATTERN";
 
-		internal const string KEYWORD_OUTLINE_PATTERN_SHINY = SHADER_KEYWORD_PREFIX + "OUTLINE_PATTERN_SHINY";
-		internal const string KEYWORD_GRAPHIC_PATTERN_SHINY = SHADER_KEYWORD_PREFIX + "GRAPHIC_PATTERN_SHINY";
+		internal const string KEYWORD_OUTLINE_EFFECT_SHINY = SHADER_KEYWORD_PREFIX + "OUTLINE_EFFECT_SHINY";
+		internal const string KEYWORD_GRAPHIC_EFFECT_SHINY = SHADER_KEYWORD_PREFIX + "GRAPHIC_EFFECT_SHINY";
 
 		#endregion SHADER_KEYWORD
 
@@ -63,22 +63,29 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINE_INNER_BLUR = Shader.PropertyToID("_OutlineInnerBlur");
 		internal static readonly int PROP_OUTLINE_INNER_GAUSSIAN = Shader.PropertyToID("_OutlineInnerGaussian");
 
-		internal static readonly int PROP_GRAPHIC_SHINY_WIDTH = Shader.PropertyToID("_GraphicShinyWidth");
-		internal static readonly int PROP_GRAPHIC_SHINY_ANGLE = Shader.PropertyToID("_GraphicShinyAngle");
-		internal static readonly int PROP_GRAPHIC_SHINY_BLUR = Shader.PropertyToID("_GraphicShinyBlur");
+		internal static readonly int PROP_GRAPHIC_EFFECT_SHINY_WIDTH = Shader.PropertyToID("_GraphicEffectShinyWidth");
+		internal static readonly int PROP_GRAPHIC_EFFECT_SHINY_BLUR = Shader.PropertyToID("_GraphicEffectShinyBlur");
 
-		internal static readonly int PROP_OUTLINE_SHINY_WIDTH = Shader.PropertyToID("_OutlineShinyWidth");
-		internal static readonly int PROP_OUTLINE_SHINY_ANGLE = Shader.PropertyToID("_OutlineShinyAngle");
-		internal static readonly int PROP_OUTLINE_SHINY_BLUR = Shader.PropertyToID("_OutlineShinyBlur");
+		internal static readonly int PROP_OUTLINE_EFFECT_SHINY_WIDTH = Shader.PropertyToID("_OutlineEffectShinyWidth");
+		internal static readonly int PROP_OUTLINE_EFFECT_SHINY_BLUR = Shader.PropertyToID("_OutlineEffectShinyBlur");
 
-		internal static readonly int PROP_OUTLINE_PATTERN_TEXTURE = Shader.PropertyToID("_OutlinePatternTexture");
-		internal static readonly int PROP_OUTLINE_PATTERN_TEXTURE_ROW = Shader.PropertyToID("_OutlinePatternTextureRow");
-		internal static readonly int PROP_OUTLINE_PATTERN_TEXTURE_SCALE = Shader.PropertyToID("_OutlinePatternTextureScale");
+		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_TEX = Shader.PropertyToID("_OutlineEffectPatternTex");
+		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_ROW = Shader.PropertyToID("_OutlineEffectPatternRow");
+		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_SCALE = Shader.PropertyToID("_OutlineEffectPatternScale");
+		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_PARAMS = Shader.PropertyToID("_OutlineEffectPatternParams");
 
-		internal static readonly int PROP_OUTLINE_PATTERN_COLOR = Shader.PropertyToID("_OutlinePatternColor");
-		internal static readonly int PROP_GRAPHIC_PATTERN_COLOR = Shader.PropertyToID("_GraphicPatternColor");
-		internal static readonly int PROP_OUTLINE_PATTERN_OFFSET = Shader.PropertyToID("_OutlinePatternOffset");
-		internal static readonly int PROP_GRAPHIC_PATTERN_OFFSET = Shader.PropertyToID("_GraphicPatternOffset");
+		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_TEX = Shader.PropertyToID("_GraphicEffectPatternTex");
+		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_ROW = Shader.PropertyToID("_GraphicEffectPatternRow");
+		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_SCALE = Shader.PropertyToID("_GraphicEffectPatternScale");
+		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_PARAMS = Shader.PropertyToID("_GraphicEffectPatternParams");
+
+		internal static readonly int PROP_GRAPHIC_EFFECT_ANGLE = Shader.PropertyToID("_GraphicEffectAngle");
+		internal static readonly int PROP_GRAPHIC_EFFECT_COLOR = Shader.PropertyToID("_GraphicEffectColor");
+		internal static readonly int PROP_OUTLINE_EFFECT_OFFSET = Shader.PropertyToID("_OutlineEffectOffset");
+
+		internal static readonly int PROP_OUTLINE_EFFECT_ANGLE = Shader.PropertyToID("_OutlineEffectAngle");
+		internal static readonly int PROP_OUTLINE_EFFECT_COLOR = Shader.PropertyToID("_OutlineEffectColor");
+		internal static readonly int PROP_GRAPHIC_EFFECT_OFFSET = Shader.PropertyToID("_GraphicEffectOffset");
 
 		#endregion SHADER_PROP
 
@@ -101,11 +108,11 @@ namespace TLab.UI.SDF
 			Texture = 1,
 		};
 
-		public enum PatternType
+		public enum EffectType
 		{
 			None = 0,
 			Shiny = 1,
-			Texture = 2,
+			Pattern = 2,
 		};
 
 		[SerializeField, LeftToggle] protected bool m_onion = false;
@@ -128,22 +135,33 @@ namespace TLab.UI.SDF
 		[SerializeField] protected Vector2 m_shadowOffset;
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
 
-		[SerializeField] protected PatternType m_graphicPatternType = PatternType.None;
-		[SerializeField] protected Color m_graphicPatternColor = Color.white;
-		[SerializeField, Range(0, 1)] protected float m_graphicShinyWidth = 0.25f;
-		[SerializeField, Range(0, 1)] protected float m_graphicShinyAngle = 0.0f;
-		[SerializeField, Range(0, 1)] protected float m_graphicShinyBlur = 0.0f;
-		[SerializeField] protected Vector2 m_graphicPatternOffset;
+		[SerializeField] protected EffectType m_graphicEffectType = EffectType.None;
+		[SerializeField, ColorUsage(true, true)] protected Color m_graphicEffectColor = Color.white;
+		[SerializeField] protected Vector2 m_graphicEffectOffset;
+		[SerializeField, Range(0, 1)] protected float m_graphicEffectAngle = 0.0f;
+		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyWidth = 0.25f;
+		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyBlur = 0.0f;
+		[SerializeField] protected Texture m_graphicEffectPatternTexture;
+		[SerializeField, Min(0)] protected int m_graphicEffectPatternRow = 5;
+		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsX = 1;
+		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsY = 1;
+		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsZ = 1;
+		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsW = 1;
+		[SerializeField, Min(0)] protected Vector2 m_graphicEffectPatternScale = Vector2.one;
 
-		[SerializeField] protected PatternType m_outlinePatternType = PatternType.None;
-		[SerializeField, ColorUsage(true, true)] protected Color m_outlinePatternColor = Color.white;
-		[SerializeField, Range(0, 1)] protected float m_outlineShinyWidth = 0.25f;
-		[SerializeField, Range(0, 1)] protected float m_outlineShinyAngle = 0.0f;
-		[SerializeField, Range(0, 1)] protected float m_outlineShinyBlur = 0.0f;
-		[SerializeField] protected Texture m_outlinePatternTexture;
-		[SerializeField] protected Vector2 m_outlinePatternTextureScale;
-		[SerializeField, Min(0)] protected int m_outlinePatternTextureRow = 5;
-		[SerializeField] protected Vector2 m_outlinePatternOffset;
+		[SerializeField] protected EffectType m_outlineEffectType = EffectType.None;
+		[SerializeField, ColorUsage(true, true)] protected Color m_outlineEffectColor = Color.white;
+		[SerializeField] protected Vector2 m_outlineEffectOffset;
+		[SerializeField, Range(-1, 1)] protected float m_outlineEffectAngle = 0.0f;
+		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyWidth = 0.25f;
+		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
+		[SerializeField] protected Texture m_outlineEffectPatternTexture;
+		[SerializeField, Min(0)] protected int m_outlineEffectPatternRow = 5;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsX = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsY = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsZ = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsW = 1;
+		[SerializeField, Min(0)] protected Vector2 m_outlineEffectPatternScale = Vector2.one;
 
 		[SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
 
@@ -421,42 +439,46 @@ namespace TLab.UI.SDF
 
 		#region GRAPHIC_PATTERN
 
-		public PatternType graphicPatternType
+		public EffectType graphicEffectType
 		{
-			get => m_graphicPatternType;
+			get => m_graphicEffectType;
 			set
 			{
-				if (m_graphicPatternType != value)
+				if (m_graphicEffectType != value)
 				{
-					m_graphicPatternType = value;
+					m_graphicEffectType = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Color graphicPatternColor
+		public Color graphicEffectColor
 		{
-			get => m_graphicPatternColor;
+			get => m_graphicEffectColor;
 			set
 			{
-				if (m_graphicPatternColor != value)
+				if (m_graphicEffectColor != value)
 				{
-					m_graphicPatternColor = value;
+					m_graphicEffectColor = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Vector2 graphicPatternOffset
+		public Vector2 graphicEffectOffset
 		{
-			get => m_graphicPatternOffset;
+			get => m_graphicEffectOffset;
 			set
 			{
-				if (m_graphicPatternOffset != value)
+				var tmp = value;
+				tmp.x = Mathf.Clamp(tmp.x, 0, 1);
+				tmp.y = Mathf.Clamp(tmp.y, 0, 1);
+
+				if (m_graphicEffectOffset != tmp)
 				{
-					m_graphicPatternOffset = value;
+					m_graphicEffectOffset = tmp;
 
 					SetAllDirty();
 				}
@@ -464,42 +486,154 @@ namespace TLab.UI.SDF
 
 		}
 
-		public float graphicShinyWidth
+		public float graphicEffectShinyWidth
 		{
-			get => m_graphicShinyWidth;
+			get => m_graphicEffectShinyWidth;
 			set
 			{
-				if (m_graphicShinyWidth != value)
+				if (m_graphicEffectShinyWidth != value)
 				{
-					m_graphicShinyWidth = value;
+					m_graphicEffectShinyWidth = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public float graphicShinyAngle
+		public float graphicEffectAngle
 		{
-			get => m_graphicShinyAngle;
+			get => m_graphicEffectAngle;
 			set
 			{
-				if (m_graphicShinyAngle != value)
+				if (m_graphicEffectAngle != value)
 				{
-					m_graphicShinyAngle = value;
+					m_graphicEffectAngle = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public float graphicShinyBlur
+		public float graphicEffectShinyBlur
 		{
-			get => m_graphicShinyBlur;
+			get => m_graphicEffectShinyBlur;
 			set
 			{
-				if (m_graphicShinyBlur != value)
+				if (m_graphicEffectShinyBlur != value)
 				{
-					m_graphicShinyBlur = value;
+					m_graphicEffectShinyBlur = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Texture graphicEffectPatternTexture
+		{
+			get => m_graphicEffectPatternTexture;
+			set
+			{
+				if (m_graphicEffectPatternTexture != value)
+				{
+					m_graphicEffectPatternTexture = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 graphicEffectPatternScale
+		{
+			get => m_graphicEffectPatternScale;
+			set
+			{
+				var tmp = value;
+				tmp.x = Mathf.Max(tmp.x, 0);
+				tmp.y = Mathf.Max(tmp.y, 0);
+
+				if (m_graphicEffectPatternScale != tmp)
+				{
+					m_graphicEffectPatternScale = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsX
+		{
+			get => m_graphicEffectPatternParamsX;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsX != tmp)
+				{
+					m_graphicEffectPatternParamsX = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsY
+		{
+			get => m_graphicEffectPatternParamsY;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsY != tmp)
+				{
+					m_graphicEffectPatternParamsY = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsZ
+		{
+			get => m_graphicEffectPatternParamsZ;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsZ != tmp)
+				{
+					m_graphicEffectPatternParamsZ = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsW
+		{
+			get => m_graphicEffectPatternParamsW;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsW != tmp)
+				{
+					m_graphicEffectPatternParamsW = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public int graphicEffectPatternRow
+		{
+			get => m_graphicEffectPatternRow;
+			set
+			{
+				var tmp = Mathf.Max(0, value);
+
+				if (m_graphicEffectPatternRow != tmp)
+				{
+					m_graphicEffectPatternRow = tmp;
 
 					SetAllDirty();
 				}
@@ -510,133 +644,203 @@ namespace TLab.UI.SDF
 
 		#region OUTILNE_PATTERN
 
-		public PatternType outlinePatternType
+		public EffectType outlineEffectType
 		{
-			get => m_outlinePatternType;
+			get => m_outlineEffectType;
 			set
 			{
-				if (m_outlinePatternType != value)
+				if (m_outlineEffectType != value)
 				{
-					m_outlinePatternType = value;
+					m_outlineEffectType = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Color outlinePatternColor
+		public Color outlineEffectColor
 		{
-			get => m_outlinePatternColor;
+			get => m_outlineEffectColor;
 			set
 			{
-				if (m_outlinePatternColor != value)
+				if (m_outlineEffectColor != value)
 				{
-					m_outlinePatternColor = value;
+					m_outlineEffectColor = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Vector2 outlinePatternOffset
+		public Vector2 outlineEffectOffset
 		{
-			get => m_outlinePatternOffset;
-			set
-			{
-				if (m_outlinePatternOffset != value)
-				{
-					m_outlinePatternOffset = value;
-
-					SetAllDirty();
-				}
-			}
-
-		}
-
-		public float outlineShinyWidth
-		{
-			get => m_outlineShinyWidth;
-			set
-			{
-				if (m_outlineShinyWidth != value)
-				{
-					m_outlineShinyWidth = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float outlineShinyAngle
-		{
-			get => m_outlineShinyAngle;
-			set
-			{
-				if (m_outlineShinyAngle != value)
-				{
-					m_outlineShinyAngle = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float outlineShinyBlur
-		{
-			get => m_outlineShinyBlur;
-			set
-			{
-				if (m_outlineShinyBlur != value)
-				{
-					m_outlineShinyBlur = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public Texture outlinePatternTexture
-		{
-			get => m_outlinePatternTexture;
-			set
-			{
-				if (m_outlinePatternTexture != value)
-				{
-					m_outlinePatternTexture = value;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public Vector2 outlinePatternTextureScale
-		{
-			get => m_outlinePatternTextureScale;
+			get => m_outlineEffectOffset;
 			set
 			{
 				var tmp = value;
 				tmp.x = Mathf.Clamp(tmp.x, 0, 2);
 				tmp.y = Mathf.Clamp(tmp.y, 0, 2);
 
-				if (m_outlinePatternTextureScale != tmp)
+				if (m_outlineEffectOffset != tmp)
 				{
-					m_outlinePatternTextureScale = tmp;
+					m_outlineEffectOffset = tmp;
+
+					SetAllDirty();
+				}
+			}
+
+		}
+
+		public float outlineEffectShinyWidth
+		{
+			get => m_outlineEffectShinyWidth;
+			set
+			{
+				if (m_outlineEffectShinyWidth != value)
+				{
+					m_outlineEffectShinyWidth = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public int outlinePatternTextureRow
+		public float outlineEffectAngle
 		{
-			get => m_outlinePatternTextureRow;
+			get => m_outlineEffectAngle;
+			set
+			{
+				var tmp = Mathf.Clamp(value, -1, 1);
+
+				if (m_outlineEffectAngle != tmp)
+				{
+					m_outlineEffectAngle = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectShinyBlur
+		{
+			get => m_outlineEffectShinyBlur;
+			set
+			{
+				if (m_outlineEffectShinyBlur != value)
+				{
+					m_outlineEffectShinyBlur = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Texture outlineEffectPatternTexture
+		{
+			get => m_outlineEffectPatternTexture;
+			set
+			{
+				if (m_outlineEffectPatternTexture != value)
+				{
+					m_outlineEffectPatternTexture = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 outlineEffectPatternScale
+		{
+			get => m_outlineEffectPatternScale;
+			set
+			{
+				var tmp = value;
+				tmp.x = Mathf.Max(tmp.x, 0);
+				tmp.y = Mathf.Max(tmp.y, 0);
+
+				if (m_outlineEffectPatternScale != tmp)
+				{
+					m_outlineEffectPatternScale = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectPatternParamsX
+		{
+			get => m_outlineEffectPatternParamsX;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_outlineEffectPatternParamsX != tmp)
+				{
+					m_outlineEffectPatternParamsX = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectPatternParamsY
+		{
+			get => m_outlineEffectPatternParamsY;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_outlineEffectPatternParamsY != tmp)
+				{
+					m_outlineEffectPatternParamsY = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectPatternParamsZ
+		{
+			get => m_outlineEffectPatternParamsZ;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_outlineEffectPatternParamsZ != tmp)
+				{
+					m_outlineEffectPatternParamsZ = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectPatternParamsW
+		{
+			get => m_outlineEffectPatternParamsW;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_outlineEffectPatternParamsW != tmp)
+				{
+					m_outlineEffectPatternParamsW = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public int outlineEffectPatternRow
+		{
+			get => m_outlineEffectPatternRow;
 			set
 			{
 				var tmp = Mathf.Max(0, value);
 
-				if (m_outlinePatternTextureRow != tmp)
+				if (m_outlineEffectPatternRow != tmp)
 				{
-					m_outlinePatternTextureRow = tmp;
+					m_outlineEffectPatternRow = tmp;
 
 					SetAllDirty();
 				}
@@ -1070,24 +1274,35 @@ namespace TLab.UI.SDF
 			}
 
 			{
-				var patternType = m_graphicPatternType;
+				var patternType = m_graphicEffectType;
 				switch (patternType)
 				{
-					case PatternType.None:
-						_materialRecord.DisableKeyword(KEYWORD_GRAPHIC_PATTERN_SHINY, KEYWORD_GRAPHIC_PATTERN_TEX);
+					case EffectType.None:
+						_materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY, KEYWORD_GRAPHIC_EFFECT_PATTERN);
 						break;
-					case PatternType.Shiny:
-						_materialRecord.EnableKeyword(KEYWORD_GRAPHIC_PATTERN_SHINY);
+					case EffectType.Shiny:
+						_materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
+						_materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
 
-						_materialRecord.SetFloat(PROP_GRAPHIC_SHINY_ANGLE, Mathf.PI * m_graphicShinyAngle);
-						_materialRecord.SetFloat(PROP_GRAPHIC_SHINY_WIDTH, Mathf.PI * m_graphicShinyWidth);
-						_materialRecord.SetFloat(PROP_GRAPHIC_SHINY_BLUR, hminSize * m_graphicShinyBlur);
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_WIDTH, Mathf.PI * m_graphicEffectShinyWidth);
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_BLUR, hminSize * m_graphicEffectShinyBlur);
+						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_OFFSET, m_graphicEffectOffset);
 
-						_materialRecord.SetColor(PROP_GRAPHIC_PATTERN_COLOR, m_graphicPatternColor);
-						_materialRecord.SetVector(PROP_GRAPHIC_PATTERN_OFFSET, m_graphicPatternOffset);
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_ANGLE, Mathf.PI * m_graphicEffectAngle);
+						_materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
 						break;
-					case PatternType.Texture:
-						_materialRecord.EnableKeyword(KEYWORD_GRAPHIC_PATTERN_TEX);
+					case EffectType.Pattern:
+						_materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
+						_materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
+
+						_materialRecord.SetTexture(PROP_GRAPHIC_EFFECT_PATTERN_TEX, m_graphicEffectPatternTexture);
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_PATTERN_ROW, m_graphicEffectPatternRow);
+						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_PATTERN_SCALE, m_graphicEffectPatternScale);
+						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_PATTERN_PARAMS, new float4(m_graphicEffectPatternParamsX, m_graphicEffectPatternParamsY, m_graphicEffectPatternParamsZ, m_graphicEffectPatternParamsW));
+
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_ANGLE, Mathf.PI * m_graphicEffectAngle);
+						_materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
+						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_OFFSET, m_graphicEffectOffset);
 						break;
 				}
 			}
@@ -1114,30 +1329,35 @@ namespace TLab.UI.SDF
 						break;
 				}
 
-				var patternType = m_outlinePatternType;
+				var patternType = m_outlineEffectType;
 				switch (patternType)
 				{
-					case PatternType.None:
-						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_PATTERN_SHINY, KEYWORD_OUTLINE_PATTERN_TEX);
+					case EffectType.None:
+						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY, KEYWORD_OUTLINE_EFFECT_PATTERN);
 						break;
-					case PatternType.Shiny:
-						_materialRecord.EnableKeyword(KEYWORD_OUTLINE_PATTERN_SHINY);
-						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_PATTERN_TEX);
+					case EffectType.Shiny:
+						_materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
+						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
 
-						_materialRecord.SetFloat(PROP_OUTLINE_SHINY_ANGLE, Mathf.PI * m_outlineShinyAngle);
-						_materialRecord.SetFloat(PROP_OUTLINE_SHINY_WIDTH, Mathf.PI * m_outlineShinyWidth);
-						_materialRecord.SetFloat(PROP_OUTLINE_SHINY_BLUR, hminSize * m_outlineShinyBlur);
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_WIDTH, Mathf.PI * m_outlineEffectShinyWidth);
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_BLUR, hminSize * m_outlineEffectShinyBlur);
 
-						_materialRecord.SetColor(PROP_OUTLINE_PATTERN_COLOR, m_outlinePatternColor);
-						_materialRecord.SetVector(PROP_OUTLINE_PATTERN_OFFSET, m_outlinePatternOffset);
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
+						_materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
+						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
 						break;
-					case PatternType.Texture:
-						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_PATTERN_SHINY);
-						_materialRecord.EnableKeyword(KEYWORD_OUTLINE_PATTERN_TEX);
+					case EffectType.Pattern:
+						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
+						_materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
 
-						_materialRecord.SetTexture(PROP_OUTLINE_PATTERN_TEXTURE, m_outlinePatternTexture);
-						_materialRecord.SetFloat(PROP_OUTLINE_PATTERN_TEXTURE_ROW, m_outlinePatternTextureRow);
-						_materialRecord.SetVector(PROP_OUTLINE_PATTERN_TEXTURE_SCALE, m_outlinePatternTextureScale);
+						_materialRecord.SetTexture(PROP_OUTLINE_EFFECT_PATTERN_TEX, m_outlineEffectPatternTexture);
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_PATTERN_ROW, m_outlineEffectPatternRow);
+						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_PATTERN_SCALE, m_outlineEffectPatternScale);
+						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_PATTERN_PARAMS, new float4(m_outlineEffectPatternParamsX, m_outlineEffectPatternParamsY, m_outlineEffectPatternParamsZ, m_outlineEffectPatternParamsW));
+
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
+						_materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
+						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
 						break;
 				}
 			}
@@ -1151,8 +1371,7 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
 			}
 
-			AntialiasingType antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;
-
+			var antialiasing = m_antialiasing is AntialiasingType.Default ? SDFUISettings.Instance.DefaultAA : m_antialiasing;
 			switch (antialiasing)
 			{
 				case AntialiasingType.OFF:

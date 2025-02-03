@@ -14,34 +14,34 @@ namespace TLab.UI.SDF.Editor
 	[CanEditMultipleObjects]
 	public class SDFQuadEditor : SDFUIEditor
 	{
-		private SDFQuad m_sdfQued;
+		private SDFQuad m_sdfQuad;
 
 		protected override void OnEnable()
 		{
 			base.OnEnable();
 
-			m_sdfQued = target as SDFQuad;
+			m_sdfQuad = target as SDFQuad;
 		}
 
 		protected override void DrawShapeProp()
 		{
-			serializedObject.TryDrawProperty("m_" + nameof(m_sdfQued.independent), "Independent Corner");
+			serializedObject.TryDrawProperty("m_" + nameof(m_sdfQuad.independent), "Independent Corner");
 			EditorGUI.indentLevel++;
-			if (m_sdfQued.independent)
+			if (m_sdfQuad.independent)
 			{
 				EditorGUILayout.BeginHorizontal();
 				{
 					EditorGUILayout.LabelField("Corners");
 					EditorGUILayout.BeginVertical();
 					{
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusZ));
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusW));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQuad.radiusZ));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQuad.radiusW));
 					}
 					EditorGUILayout.EndVertical();
 					EditorGUILayout.BeginVertical();
 					{
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusX));
-						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQued.radiusY));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQuad.radiusX));
+						serializedObject.TryDrawPropertyNoLabel("m_" + nameof(m_sdfQuad.radiusY));
 					}
 					EditorGUILayout.EndVertical();
 				}
@@ -49,7 +49,7 @@ namespace TLab.UI.SDF.Editor
 			}
 			else
 			{
-				serializedObject.TryDrawProperty("m_" + nameof(m_sdfQued.radius), "Corner");
+				serializedObject.TryDrawProperty("m_" + nameof(m_sdfQuad.radius), "Corner");
 			}
 			EditorGUI.indentLevel--;
 		}

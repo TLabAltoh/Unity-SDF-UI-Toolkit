@@ -631,7 +631,7 @@ namespace TLab.UI.SDF.Editor
 
         public void GenSDFTexture(in NativeArray<byte> pixelBuffer, Vector2Int size, Vector2Int texSize, RasterizeOptions options)
         {
-            Debug.Log(THIS_NAME + "Start generate sdf from bezier shape");
+            Debug.Log(THIS_NAME + $"{nameof(GenSDFTexture)}:Start");
 
             var halfSize = 0.5f * new Vector2(size.x, size.y);
 
@@ -687,7 +687,7 @@ namespace TLab.UI.SDF.Editor
             splinesN.Dispose();
             beziersN.Dispose();
 
-            Debug.Log(THIS_NAME + "Finish generate sdf from bezier shape");
+            Debug.Log(THIS_NAME + $"{nameof(GenSDFTexture)}:Finish");
         }
     }
 }

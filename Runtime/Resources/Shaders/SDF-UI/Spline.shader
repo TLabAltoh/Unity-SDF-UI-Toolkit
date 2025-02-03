@@ -35,6 +35,23 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
         _ShadowGaussian("Shadow Gaussian", Float) = 0
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
         [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+
+        _GraphicEffectAngle("Graphic Effect Angle", Float) = 0
+        [HDR] _GraphicEffectColor("Graphic Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicEffectOffset("Graphic Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineEffectAngle("Outline Effect Angle", Float) = 0
+        [HDR] _OutlineEffectColor("Outline Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineEffectOffset("Outline Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
+
+        _GraphicEffectShinyWidth("Graphic Effect Shiny Width", Float) = 0
+        _GraphicEffectShinyBlur("Graphic Effect Shiny Blur", Float) = 0
+        _OutlineEffectShinyWidth("Outline Effect Shiny Width", Float) = 0
+        _OutlineEffectShinyBlur("Outline Effect Shiny Blur", Float) = 0
+
+        _OutlineEffectPatternTex("Outline Effect Pattern Tex", 2D) = "white" {}
+        _OutlineEffectPatternRow("Outline Effect Pattern Row", Float) = 0
+        _OutlineEffectPatternScale("Outline Effect Pattern Scale", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineEffectPatternParams("Outline Effect Pattern Params", Vector) = (0.0, 0.0, 0.0, 1.0)
     }
 
     SubShader{
@@ -76,11 +93,12 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
+            #pragma multi_compile_local _ SDF_UI_SPLINE_FILL
             #pragma multi_compile_local _ SDF_UI_AA
-
             #pragma multi_compile_local _ SDF_UI_SHADOW
 
-            #pragma multi_compile_local _ SDF_UI_SPLINE_FILL
+            #pragma multi_compile_local _ SDF_UI_OUTLINE_EFFECT_SHINY SDF_UI_OUTLINE_EFFECT_PATTERN
+            #pragma multi_compile_local _ SDF_UI_GRAPHIC_EFFECT_SHINY SDF_UI_GRAPHIC_EFFECT_PATTERN
 
             fixed4 frag(v2f i) : SV_Target {
 
@@ -89,12 +107,14 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
 #define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
                 #include "Spline-Distance.hlsl"
+                #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
 #define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
                 #include "Spline-Distance.hlsl"
+                #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
