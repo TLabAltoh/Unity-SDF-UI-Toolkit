@@ -23,6 +23,7 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
         _Corner1("Corner 1", Vector) = (0, 0, 0, 0)
         _Corner2("Corner 2", Vector) = (0, 0, 0, 0)
 
+        _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
         _OutlineWidth("Outline Width", Float) = 0

@@ -24,6 +24,7 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
         _CircleBorder("Circle Border", Float) = 0.0
         _AngleOffset("Angle Offset", Vector) = (0.0, 0.0, 0.0, 0.0)
 
+        _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
         _OutlineWidth("Outline Width", Float) = 0

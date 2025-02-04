@@ -27,9 +27,10 @@ float2 graphicPatternUV = graphicPatternPos;
 graphicPatternUV -= float2(.5, .5 * aspect);
 graphicPatternUV = float2(graphicPatternUV.x * cos(_GraphicEffectAngle) - graphicPatternUV.y * sin(_GraphicEffectAngle), graphicPatternUV.x * sin(_GraphicEffectAngle) + graphicPatternUV.y * cos(_GraphicEffectAngle));
 graphicPatternUV += float2(.5, .5 * aspect);
-float graphicPatternFade0 = graphicPatternUV.x;
-float graphicPatternFade1 = _GraphicEffectOffset.x * _GraphicEffectPatternRow * _GraphicEffectPatternScale.x;
 graphicPatternUV -= _GraphicEffectOffset;
+float graphicPatternFade0 = graphicPatternUV.x;
+float graphicPatternFade1 = _GraphicEffectPatternScroll * _GraphicEffectPatternRow * _GraphicEffectPatternScale.x;
+graphicPatternUV.x -= _GraphicEffectPatternScroll;
 
 graphicPatternPos = graphicPatternUV;
 graphicPatternPos *= _GraphicEffectPatternRow;
@@ -58,9 +59,10 @@ float2 outlinePatternUV = outlinePatternPos;
 outlinePatternUV -= float2(.5, .5 * aspect);
 outlinePatternUV = float2(outlinePatternUV.x * cos(_OutlineEffectAngle) - outlinePatternUV.y * sin(_OutlineEffectAngle), outlinePatternUV.x * sin(_OutlineEffectAngle) + outlinePatternUV.y * cos(_OutlineEffectAngle));
 outlinePatternUV += float2(.5, .5 * aspect);
-float outlinePatternFade0 = outlinePatternUV.x;
-float outlinePatternFade1 = _OutlineEffectOffset.x * _OutlineEffectPatternRow * _OutlineEffectPatternScale.x;
 outlinePatternUV -= _OutlineEffectOffset;
+float outlinePatternFade0 = outlinePatternUV.x;
+float outlinePatternFade1 = _OutlineEffectPatternScroll * _OutlineEffectPatternRow * _OutlineEffectPatternScale.x;
+outlinePatternUV.x -= _OutlineEffectPatternScroll;
 
 outlinePatternPos = outlinePatternUV;
 outlinePatternPos *= _OutlineEffectPatternRow;

@@ -1,5 +1,7 @@
 /**
+* 
 * SDF fragment to determin distance from shape (Triangle.shader)
+* 
 */
 
 //////////////////////////////////////////////////////////////

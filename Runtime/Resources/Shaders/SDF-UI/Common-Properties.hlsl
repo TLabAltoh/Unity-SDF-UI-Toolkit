@@ -8,8 +8,8 @@ float _Padding;
 float4 _OuterUV;
 
 float _Onion;
-
 float _OnionWidth;
+
 float _GraphicBorder;
 
 float _OutlineWidth;
@@ -31,10 +31,12 @@ float _OutlineEffectShinyBlur;
 
 sampler2D _GraphicEffectPatternTex;
 float _GraphicEffectPatternRow;
+float _GraphicEffectPatternScroll;
 float4 _GraphicEffectPatternScale;
 float4 _GraphicEffectPatternParams;
 sampler2D _OutlineEffectPatternTex;
 float _OutlineEffectPatternRow;
+float _OutlineEffectPatternScroll;
 float4 _OutlineEffectPatternScale;
 float4 _OutlineEffectPatternParams;
 

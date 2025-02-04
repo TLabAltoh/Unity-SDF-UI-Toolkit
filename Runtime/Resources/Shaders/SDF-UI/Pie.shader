@@ -21,6 +21,7 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
         _Theta("Theta", Float) = 0
         _Roundness("Roundness", Float) = 0
 
+        _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
         _OutlineWidth("Outline Width", Float) = 0

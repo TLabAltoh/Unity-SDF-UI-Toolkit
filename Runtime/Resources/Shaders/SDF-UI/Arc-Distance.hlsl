@@ -1,5 +1,7 @@
 /**
-* SDF fragment to determin distance from shape (Ring.shader)
+* 
+* SDF fragment to determin distance from shape (Arc.shader)
+* 
 */
 
 //////////////////////////////////////////////////////////////

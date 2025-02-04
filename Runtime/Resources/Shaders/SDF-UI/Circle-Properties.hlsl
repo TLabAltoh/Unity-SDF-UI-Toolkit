@@ -1,5 +1,7 @@
 /**
-* Properties used in the Circle-Outline.shader
+* 
+* Properties used in the Circle.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

@@ -1,5 +1,7 @@
 /**
-* SDF fragment to determin distance from shape (Circle-Outline.shader)
+* 
+* SDF fragment to determin distance from shape (Circle.shader)
+* 
 */
 
 //////////////////////////////////////////////////////////////

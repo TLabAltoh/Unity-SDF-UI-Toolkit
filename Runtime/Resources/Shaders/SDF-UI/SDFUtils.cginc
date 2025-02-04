@@ -2,6 +2,7 @@
 * This code is adapted and modified from
 * https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/SDFUtils.cginc
 * https://iquilezles.org/articles/distfunctions2d/
+* https://www.shadertoy.com/view/7stcR4
 **/
 
 inline float round(float d, float r)
@@ -158,6 +159,52 @@ inline float sdCutDisk(float2 p, float r, float h)
     return (s < 0.0) ? length(p) - r :
         (p.x < w) ? h - p.y :
         length(p - float2(w, h));
+}
+#endif
+
+#ifdef SDF_UI_SQUIRCLE
+inline float sdSquircle(float2 p, float n, int iteration)
+{
+    p = abs(p);
+    float tmp = p.y > p.x;
+    p = tmp * p.yx + (1.0 - tmp) * p;
+    n = 2.0 / n;
+
+    float xa = 0.0, xb = 6.283185 / 8.0;
+    for (int i = 0; i < iteration; i++)
+    {
+        float x = 0.5 * (xa + xb);
+        float c = cos(x);
+        float s = sin(x);
+        float cn = pow(c, n);
+        float sn = pow(s, n);
+        float y = (p.x - cn) * cn * s * s - (p.y - sn) * sn * c * c;
+
+        tmp = y < 0.0;
+        xa = tmp * x + (1.0 - tmp) * xa;
+        xb = (1.0 - tmp) * x + tmp * xb;
+    }
+
+    float2 qa = float2(pow(cos(xa), n), pow(sin(xa), n));
+    float2 qb = float2(pow(cos(xb), n), pow(sin(xb), n));
+    float2 pa = p - qa, ba = qb - qa;
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    return length(pa - ba * h) * sign(pa.x * ba.y - pa.y * ba.x);
+}
+#endif
+
+#ifdef SDF_UI_APPROX_SQUIRCLE
+inline float sdApproxSquircle(float2 p, float n)
+{
+    float tmp = p.y > p.x;
+    p = abs(p);
+    p = tmp * p.yx + (1.0 - tmp) * p;
+
+    float w = pow(p.x, n) + pow(p.y, n);
+
+    float b = 2.0 * n - 2.0;
+    float a = 1.0 - 1.0 / n;
+    return (w - pow(w, a)) * rsqrt(pow(p.x, b) + pow(p.y, b));
 }
 #endif
 

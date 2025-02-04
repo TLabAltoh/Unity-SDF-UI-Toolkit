@@ -34,6 +34,13 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
     </tr>
 </table>
 <table>
+    <caption>Squircle (left: Basic, right approximate (lightweight) version)</caption>
+    <tr>
+        <td><img src="Media/demo.10.gif" width="256"><img></td>
+        <td><img src="Media/demo.11.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
     <caption>Editor for creating Custom Shapes</caption>
     <tr>
         <td><img src="Media/sdf-tex-painter-path-view.png" width="512"><img></td>

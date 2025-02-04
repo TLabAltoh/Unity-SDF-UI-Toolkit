@@ -1,5 +1,7 @@
 /**
+* 
 * Properties used in the Triangle.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

@@ -1,5 +1,4 @@
 using TLab.UI.SDF.Registry;
-using TLab.UI.SDF.Editor;
 using Unity.Mathematics;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -72,11 +71,13 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_TEX = Shader.PropertyToID("_OutlineEffectPatternTex");
 		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_ROW = Shader.PropertyToID("_OutlineEffectPatternRow");
 		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_SCALE = Shader.PropertyToID("_OutlineEffectPatternScale");
+		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_SCROLL = Shader.PropertyToID("_OutlineEffectPatternScroll");
 		internal static readonly int PROP_OUTLINE_EFFECT_PATTERN_PARAMS = Shader.PropertyToID("_OutlineEffectPatternParams");
 
 		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_TEX = Shader.PropertyToID("_GraphicEffectPatternTex");
 		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_ROW = Shader.PropertyToID("_GraphicEffectPatternRow");
 		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_SCALE = Shader.PropertyToID("_GraphicEffectPatternScale");
+		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_SCROLL = Shader.PropertyToID("_GraphicEffectPatternScroll");
 		internal static readonly int PROP_GRAPHIC_EFFECT_PATTERN_PARAMS = Shader.PropertyToID("_GraphicEffectPatternParams");
 
 		internal static readonly int PROP_GRAPHIC_EFFECT_ANGLE = Shader.PropertyToID("_GraphicEffectAngle");
@@ -143,6 +144,7 @@ namespace TLab.UI.SDF
 		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyBlur = 0.0f;
 		[SerializeField] protected Texture m_graphicEffectPatternTexture;
 		[SerializeField, Min(0)] protected int m_graphicEffectPatternRow = 5;
+		[SerializeField] protected float m_graphicEffectPatternScroll = 0;
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsX = 1;
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsY = 1;
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsZ = 1;
@@ -157,6 +159,7 @@ namespace TLab.UI.SDF
 		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
 		[SerializeField] protected Texture m_outlineEffectPatternTexture;
 		[SerializeField, Min(0)] protected int m_outlineEffectPatternRow = 5;
+		[SerializeField] protected float m_outlineEffectPatternScroll = 0;
 		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsX = 1;
 		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsY = 1;
 		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsZ = 1;
@@ -560,6 +563,20 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public float graphicEffectPatternScroll
+        {
+			get => m_graphicEffectPatternScroll;
+			set
+            {
+				if (m_graphicEffectPatternScroll != value)
+                {
+					m_graphicEffectPatternScroll = value;
+
+					SetAllDirty();
+                }
+            }
+        }
+
 		public float graphicEffectPatternParamsX
 		{
 			get => m_graphicEffectPatternParamsX;
@@ -761,6 +778,20 @@ namespace TLab.UI.SDF
 				if (m_outlineEffectPatternScale != tmp)
 				{
 					m_outlineEffectPatternScale = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float outlineEffectPatternScroll
+		{
+			get => m_outlineEffectPatternScroll;
+			set
+			{
+				if (m_outlineEffectPatternScroll != value)
+				{
+					m_outlineEffectPatternScroll = value;
 
 					SetAllDirty();
 				}
@@ -1297,6 +1328,7 @@ namespace TLab.UI.SDF
 
 						_materialRecord.SetTexture(PROP_GRAPHIC_EFFECT_PATTERN_TEX, m_graphicEffectPatternTexture);
 						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_PATTERN_ROW, m_graphicEffectPatternRow);
+						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_PATTERN_SCROLL, m_graphicEffectPatternScroll);
 						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_PATTERN_SCALE, m_graphicEffectPatternScale);
 						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_PATTERN_PARAMS, new float4(m_graphicEffectPatternParamsX, m_graphicEffectPatternParamsY, m_graphicEffectPatternParamsZ, m_graphicEffectPatternParamsW));
 
@@ -1352,6 +1384,7 @@ namespace TLab.UI.SDF
 
 						_materialRecord.SetTexture(PROP_OUTLINE_EFFECT_PATTERN_TEX, m_outlineEffectPatternTexture);
 						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_PATTERN_ROW, m_outlineEffectPatternRow);
+						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_PATTERN_SCROLL, m_outlineEffectPatternScroll);
 						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_PATTERN_SCALE, m_outlineEffectPatternScale);
 						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_PATTERN_PARAMS, new float4(m_outlineEffectPatternParamsX, m_outlineEffectPatternParamsY, m_outlineEffectPatternParamsZ, m_outlineEffectPatternParamsW));
 
