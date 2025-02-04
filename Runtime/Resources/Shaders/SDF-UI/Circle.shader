@@ -19,6 +19,7 @@ Shader "Hidden/UI/SDF/Circle/Outline" {
 
         _Radius("Radius", Float) = 0
 
+        _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
         _OutlineWidth("Outline Width", Float) = 0

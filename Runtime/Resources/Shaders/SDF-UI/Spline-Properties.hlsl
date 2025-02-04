@@ -1,5 +1,7 @@
 /**
+* 
 * Properties used in the Spline.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

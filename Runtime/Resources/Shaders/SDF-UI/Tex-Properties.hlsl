@@ -1,5 +1,7 @@
 /**
+* 
 * Properties used in the Tex.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

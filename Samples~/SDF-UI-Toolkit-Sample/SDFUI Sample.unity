@@ -123,82 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &9414120
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1046434949
-  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _GraphicBorder: -9.34
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 19.6
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 9.34
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: -1
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &13775048
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +255,84 @@ Material:
     - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &18847535
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -2142488462
+  m_Shader: {fileID: 4800000, guid: f844595698d00494c9a6353fa05e6650, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_OUTLINE_EFFECT_PATTERN
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 47aff06692d530e4e8bd6ae3ee5a8c72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -10.71
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Iteration: 4
+    - _MinSize: 100
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0.7822566
+    - _OutlineEffectPatternRow: 5
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 10.71
+    - _Padding: 0
+    - _Roundness: 2.5
+    - _ShadowBlur: 0
+    - _ShadowBorder: 10
+    - _ShadowGaussian: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 0.24705882, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0.39272022, b: 1, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineEffectPatternParams: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectPatternScale: {r: 1, g: 1, b: 0, a: 0}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
@@ -628,161 +630,6 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!21 &177506830
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1026548450
-  m_Shader: {fileID: 4800000, guid: 00979378acd93c6438b7f248a1f7151e, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _GraphicBorder: 0
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 0
-    - _Padding: 10
-    - _ShadowBlur: 5
-    - _ShadowBorder: 10
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 10
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    - __Roundness: 0
-    m_Colors:
-    - _Corner0: {r: -45, g: -45, b: 0, a: 0}
-    - _Corner1: {r: 45, g: -45, b: 0, a: 0}
-    - _Corner2: {r: 0, g: 45, b: 0, a: 0}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &180725406
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1539170039
-  m_Shader: {fileID: 4800000, guid: f939f2f46a339fa44bb557ea076fa0c3, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _GraphicBorder: -6.25
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 6.25
-    - _Padding: 22.72
-    - _Radius: 50
-    - _Roundness: 5
-    - _ShadowBlur: 17.72
-    - _ShadowBorder: 16.72
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 17.72
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Theta: 2.3561945
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!21 &181637898
 Material:
   serializedVersion: 8
@@ -844,82 +691,6 @@ Material:
     - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
     - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &205666044
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1867446587
-  m_Shader: {fileID: 4800000, guid: b3e4e2a259f88274ab2874a8a66ff118, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _GraphicBorder: -5.2
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _Height: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 5.2
-    - _Padding: 10
-    - _Radius: 50
-    - _ShadowBlur: 5
-    - _ShadowBorder: 9
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 10
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &224738083
@@ -1266,19 +1037,20 @@ Material:
     - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &240771752
+--- !u!21 &246647319
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -152059482
-  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Name: -1735274646
+  m_Shader: {fileID: 4800000, guid: 00979378acd93c6438b7f248a1f7151e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - SDF_UI_AA
+  - SDF_UI_SHADOW
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -1300,14 +1072,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ActualWidth: 0
-    - _CircleBorder: 14.575
     - _ColorMask: 15
-    - _GraphicBorder: -5.49
+    - _GraphicBorder: 0
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 11.5
+    - _Onion: 0
+    - _OnionWidth: 0
     - _OutlineBorder: 0
     - _OutlineEffectAngle: 0
     - _OutlineEffectPatternRow: 0
@@ -1315,35 +1086,35 @@ Material:
     - _OutlineEffectShinyWidth: 0
     - _OutlineInnerBlur: 0
     - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 5.49
-    - _Padding: 0
-    - _Radius: 35.425
-    - _ShadowBlur: 0
+    - _OutlineWidth: 0
+    - _Padding: 10
+    - _ShadowBlur: 5
     - _ShadowBorder: 10
-    - _ShadowGaussian: 0
+    - _ShadowGaussian: 1
     - _ShadowPower: 0
-    - _ShadowWidth: 0
+    - _ShadowWidth: 10
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _Theta: 2.3561945
     - _UseUIAlphaClip: 0
-    - _Width: 29.15
+    - __Roundness: 0
     m_Colors:
-    - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
+    - _Corner0: {r: -45, g: -45, b: 0, a: 0}
+    - _Corner1: {r: 45, g: -45, b: 0, a: 0}
+    - _Corner2: {r: 0, g: 45, b: 0, a: 0}
     - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
     - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &252727245
 GameObject:
@@ -1426,6 +1197,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -1439,6 +1211,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -1722,6 +1495,83 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!21 &324518808
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -1235863678
+  m_Shader: {fileID: 4800000, guid: 275de541f4d8b1f4aa6093f6c6635b7e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 47aff06692d530e4e8bd6ae3ee5a8c72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: 0
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Iteration: 0
+    - _MinSize: 100
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 0
+    - _Padding: 0
+    - _Roundness: 2.4
+    - _ShadowBlur: 0
+    - _ShadowBorder: 10
+    - _ShadowGaussian: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &334514098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,86 +1784,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &537182378
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 701174402
-  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ActualWidth: 0
-    - _CircleBorder: 14.925
-    - _ColorMask: 15
-    - _GraphicBorder: -5.14
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 5.14
-    - _Padding: 8.86
-    - _Radius: 35.075
-    - _ShadowBlur: 4.43
-    - _ShadowBorder: 8.86
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 8.86
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Theta: 2.3561945
-    - _UseUIAlphaClip: 0
-    - _Width: 19.85
-    m_Colors:
-    - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &593568192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +1865,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -2108,6 +1879,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -2143,82 +1915,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593568192}
   m_CullTransparentMesh: 0
---- !u!21 &607100143
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: -1648371518
-  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _GraphicBorder: -6.67
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 6.67
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: -1
-    - _ShadowGaussian: 1
-    - _ShadowPower: 0
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
-    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
-    - _ShadowOffset: {r: -0.125, g: -0.125, b: -15, a: -15}
-  m_BuildTextureStacks: []
 --- !u!1 &608137605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +1996,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -2313,6 +2010,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -2475,14 +2173,91 @@ Material:
     - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &697253969
+--- !u!21 &662066574
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -152059482
+  m_Name: -271998987
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -9.34
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Onion: 0
+    - _OnionWidth: 19.6
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0.8105309
+    - _OutlineEffectPatternRow: 5
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 9.34
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: -1
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 1, g: 0.5719801, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0.1, b: 0, a: 0}
+    - _OutlineEffectPatternParams: {r: 0, g: 0.5, b: 0, a: 0.9}
+    - _OutlineEffectPatternScale: {r: 1.58, g: 1.38, b: 0, a: 0}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &734774671
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -356014369
   m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -2516,6 +2291,7 @@ Material:
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
+    - _Onion: 0
     - _OnionWidth: 0
     - _OutlineBorder: 0
     - _OutlineEffectAngle: 0
@@ -2672,6 +2448,87 @@ Material:
     - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!21 &992206664
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -1475187738
+  m_Shader: {fileID: 4800000, guid: 59d96a5ca475adf4e9e5eca527d020c1, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SDFTex:
+        m_Texture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -24.2
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _MaxDist: 50
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 24.2
+    - _Padding: 0
+    - _Radius: 0
+    - _ShadowBlur: 35
+    - _ShadowBorder: 34
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 35
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 150, g: 150, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!21 &1029879797
 Material:
   serializedVersion: 8
@@ -2812,6 +2669,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -2825,6 +2683,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -2940,6 +2799,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -2953,6 +2813,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -2980,6 +2841,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051571447}
   m_CullTransparentMesh: 0
+--- !u!21 &1153543730
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -413881857
+  m_Shader: {fileID: 4800000, guid: 31ef02593fd983d4fb5008a9b47a7706, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -6.83
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 6.83
+    - _Padding: 15
+    - _Radius: 50
+    - _ShadowBlur: 15
+    - _ShadowBorder: 14
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!21 &1219834793
 Material:
   serializedVersion: 8
@@ -3202,15 +3139,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!21 &1269691707
+--- !u!21 &1259638323
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1212247
-  m_Shader: {fileID: 4800000, guid: 59d96a5ca475adf4e9e5eca527d020c1, type: 3}
+  m_Name: -946164033
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -3235,19 +3172,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SDFTex:
-        m_Texture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _GraphicBorder: -24.2
+    - _GraphicBorder: -9.34
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
-    - _MaxDist: 50
-    - _OnionWidth: 0
+    - _Onion: 1
+    - _OnionWidth: 19.6
     - _OutlineBorder: 0
     - _OutlineEffectAngle: 0
     - _OutlineEffectPatternRow: 0
@@ -3255,14 +3188,13 @@ Material:
     - _OutlineEffectShinyWidth: 0
     - _OutlineInnerBlur: 0
     - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 24.2
+    - _OutlineWidth: 9.34
     - _Padding: 0
-    - _Radius: 0
-    - _ShadowBlur: 35
-    - _ShadowBorder: 34
+    - _ShadowBlur: 0
+    - _ShadowBorder: -1
     - _ShadowGaussian: 1
     - _ShadowPower: 0
-    - _ShadowWidth: 35
+    - _ShadowWidth: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -3270,6 +3202,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
     - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
@@ -3278,8 +3211,9 @@ Material:
     - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _RectSize: {r: 150, g: 150, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &1335178054
@@ -3363,6 +3297,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -3376,6 +3311,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -3577,6 +3513,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -3590,6 +3527,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -3689,19 +3627,101 @@ Material:
     - _ShadowColor: {r: 0, g: 1, b: 0.8708036, a: 0.25}
     - _ShadowOffset: {r: 0.11220709, g: -0.28829235, b: 22.05685, a: -53.804432}
   m_BuildTextureStacks: []
---- !u!21 &1484724888
+--- !u!21 &1492017252
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1271200000
-  m_Shader: {fileID: 4800000, guid: 26168e358bfd58746bf4a67da34e3e75, type: 3}
+  m_Name: 787059229
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ActualWidth: 0
+    - _CircleBorder: 14.925
+    - _ColorMask: 15
+    - _GraphicBorder: -5.14
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.14
+    - _Padding: 8.86
+    - _Radius: 35.075
+    - _ShadowBlur: 4.43
+    - _ShadowBorder: 8.86
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 8.86
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 2.3561945
+    - _UseUIAlphaClip: 0
+    - _Width: 19.85
+    m_Colors:
+    - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &1499809396
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1568648146
+  m_Shader: {fileID: 4800000, guid: f939f2f46a339fa44bb557ea076fa0c3, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -3724,11 +3744,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _GraphicBorder: -2.12
+    - _GraphicBorder: -6.25
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
-    - _Num: 0
+    - _Onion: 0
     - _OnionWidth: 0
     - _OutlineBorder: 0
     - _OutlineEffectAngle: 0
@@ -3737,20 +3757,22 @@ Material:
     - _OutlineEffectShinyWidth: 0
     - _OutlineInnerBlur: 0
     - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 2.12
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: 9
-    - _ShadowGaussian: 0
+    - _OutlineWidth: 6.25
+    - _Padding: 22.72
+    - _Radius: 50
+    - _Roundness: 5
+    - _ShadowBlur: 17.72
+    - _ShadowBorder: 16.72
+    - _ShadowGaussian: 1
     - _ShadowPower: 0
-    - _ShadowWidth: 0
+    - _ShadowWidth: 17.72
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _Theta: 2.3561945
     - _UseUIAlphaClip: 0
-    - _Width: 5.65
     m_Colors:
     - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
     - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
@@ -3761,8 +3783,8 @@ Material:
     - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &1543640241
 Material:
@@ -3824,6 +3846,82 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!21 &1635748945
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1968349650
+  m_Shader: {fileID: 4800000, guid: 26168e358bfd58746bf4a67da34e3e75, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -2.12
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Num: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 2.12
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: 9
+    - _ShadowGaussian: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    - _Width: 5.65
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!21 &1784720119
 Material:
   serializedVersion: 8
@@ -3879,6 +3977,83 @@ Material:
     - _RectSize: {r: 931.92, g: 313.9723, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &1814626195
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -1283950651
+  m_Shader: {fileID: 4800000, guid: b3e4e2a259f88274ab2874a8a66ff118, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _GraphicBorder: -5.2
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Height: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.2
+    - _Padding: 10
+    - _Radius: 50
+    - _ShadowBlur: 5
+    - _ShadowBorder: 9
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 10
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &1817816409
 GameObject:
@@ -3961,6 +4136,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -3974,6 +4150,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1
@@ -4071,15 +4248,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832012105}
   m_CullTransparentMesh: 1
---- !u!21 &1897882233
+--- !u!21 &1860752697
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -129715130
-  m_Shader: {fileID: 4800000, guid: 31ef02593fd983d4fb5008a9b47a7706, type: 3}
+  m_Name: 25721283
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -4097,7 +4274,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineEffectPatternTex:
@@ -4107,10 +4284,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _GraphicBorder: -6.83
+    - _GraphicBorder: -6.67
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
+    - _Onion: 0
     - _OnionWidth: 0
     - _OutlineBorder: 0
     - _OutlineEffectAngle: 0
@@ -4119,14 +4297,13 @@ Material:
     - _OutlineEffectShinyWidth: 0
     - _OutlineInnerBlur: 0
     - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 6.83
-    - _Padding: 15
-    - _Radius: 50
-    - _ShadowBlur: 15
-    - _ShadowBorder: 14
+    - _OutlineWidth: 6.67
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: -1
     - _ShadowGaussian: 1
     - _ShadowPower: 0
-    - _ShadowWidth: 15
+    - _ShadowWidth: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -4134,6 +4311,88 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
+    - _ShadowOffset: {r: -0.125, g: -0.125, b: -15, a: -15}
+  m_BuildTextureStacks: []
+--- !u!21 &1936245249
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -356014369
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ActualWidth: 0
+    - _CircleBorder: 14.575
+    - _ColorMask: 15
+    - _GraphicBorder: -5.49
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _Onion: 1
+    - _OnionWidth: 11.5
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.49
+    - _Padding: 0
+    - _Radius: 35.425
+    - _ShadowBlur: 4.43
+    - _ShadowBorder: 10
+    - _ShadowGaussian: 1
+    - _ShadowPower: 0
+    - _ShadowWidth: 8.86
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 2.3561945
+    - _UseUIAlphaClip: 0
+    - _Width: 29.15
+    m_Colors:
+    - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
     - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
     - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
@@ -4143,7 +4402,7 @@ Material:
     - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
     - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+    - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1001 &1941739169
@@ -4178,11 +4437,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SDF UI Toolkit Overview
-      objectReference: {fileID: 0}
-    - target: {fileID: 106449154209904388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 106449154209904391, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
@@ -4309,6 +4563,11 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2091824442}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 662066574}
     - target: {fileID: 106449154655706015, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_IsActive
@@ -4420,11 +4679,42 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 1543640241}
+    - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 47aff06692d530e4e8bd6ae3ee5a8c72,
+        type: 3}
+    - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 18847535}
+    - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6641370025972352552, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 1225586973}
+    - target: {fileID: 6827085950631911884, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 324518808}
     - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Material
@@ -4435,6 +4725,11 @@ PrefabInstance:
       propertyPath: m_antialiasing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7828680576775026353, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 179.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Material
@@ -4444,6 +4739,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972358074308158159, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4622,6 +4922,7 @@ MonoBehaviour:
   m_graphicEffectShinyBlur: 0
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
   m_graphicEffectPatternParamsX: 1
   m_graphicEffectPatternParamsY: 1
   m_graphicEffectPatternParamsZ: 1
@@ -4635,6 +4936,7 @@ MonoBehaviour:
   m_outlineEffectShinyBlur: 0
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 1
   m_outlineEffectPatternParamsY: 1
   m_outlineEffectPatternParamsZ: 1

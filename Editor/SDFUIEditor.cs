@@ -155,6 +155,7 @@ namespace TLab.UI.SDF.Editor
 
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectOffset), "Offset");
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternScale), "Scale");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternScroll), "Scroll");
 
 					EditorGUILayout.BeginHorizontal();
 					{
@@ -220,6 +221,7 @@ namespace TLab.UI.SDF.Editor
 
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectOffset), "Offset");
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternScale), "Scale");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternScroll), "Scroll");
 
 						EditorGUILayout.BeginHorizontal();
 						{
@@ -240,8 +242,8 @@ namespace TLab.UI.SDF.Editor
 						EditorGUILayout.EndHorizontal();
 						break;
 				}
+				EditorGUI.indentLevel--;
 			}
-			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 

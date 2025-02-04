@@ -1,5 +1,7 @@
 /**
+* 
 * Properties used in the Ring.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

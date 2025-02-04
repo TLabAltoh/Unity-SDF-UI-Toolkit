@@ -1,5 +1,7 @@
 /**
+* 
 * SDF fragment to determin distance from shape (Quad.shader)
+* 
 */
 
 //////////////////////////////////////////////////////////////

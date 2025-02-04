@@ -1,12 +1,4 @@
-﻿/***
-* This code is adapted and modified from
-* https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/ImageWithRoundedCorners.cs
-* https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
-**/
-
-using UnityEngine;
-#if UNITY_EDITOR
-#endif
+﻿using UnityEngine;
 
 namespace TLab.UI.SDF
 {

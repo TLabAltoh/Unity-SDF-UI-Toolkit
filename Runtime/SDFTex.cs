@@ -1,9 +1,3 @@
-/***
-* This code is adapted from
-* https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/ImageWithRoundedCorners.cs
-* https://github.com/kirevdokimov/Unity-UI-Rounded-Corners/blob/master/UiRoundedCorners/Editor/ImageWithIndependentRoundedCornersInspector.cs
-**/
-
 using UnityEngine;
 using UnityEngine.UI;
 #if UNITY_EDITOR

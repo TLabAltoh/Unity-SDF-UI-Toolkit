@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace TLab.UI.SDF.Editor
+namespace TLab.UI.SDF
 {
 	public class LeftToggleAttribute : PropertyAttribute
 	{

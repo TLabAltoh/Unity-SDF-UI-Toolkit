@@ -1,5 +1,7 @@
 /**
+* 
 * Properties used in the Quad.shader
+* 
 */
 
 #include "Common-Properties.hlsl"

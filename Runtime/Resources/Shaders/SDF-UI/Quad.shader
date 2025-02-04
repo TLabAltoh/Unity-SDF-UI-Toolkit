@@ -20,6 +20,7 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
 
         _Radius("Radius", Vector) = (0, 0, 0, 0)
 
+        _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
         _OutlineWidth("Outline Width", Float) = 0
