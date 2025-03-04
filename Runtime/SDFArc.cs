@@ -88,12 +88,14 @@ namespace TLab.UI.SDF
 			{
 				start += math.mad(-2, fill, 360);
 				fill = -fill;
-				_materialRecord.SetFloat(PROP_THETA, -m_fillAmount * Mathf.PI);
+				_materialRecord.SetFloat(PROP_THETA, -m_fillAmount * math.PI);
 			}
 
 			float angleOffsetTheta = math.radians(start - fill);
 			math.sincos(angleOffsetTheta, out angleOffset.x, out angleOffset.y);
 			_materialRecord.SetVector(PROP_ANGLE_OFFSET, angleOffset);
+
+			_materialRecord.SetFloat(PROP_EULER_Z, math.radians(eulerZ) + math.radians(startAngle) - (fillAmount * math.PI) - (math.PI * 0.5f));
 		}
 	}
 }

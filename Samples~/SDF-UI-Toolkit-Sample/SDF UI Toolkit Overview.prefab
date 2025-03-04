@@ -146,33 +146,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -181,6 +167,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 10
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 0
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -191,6 +191,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_roundness: 0
   m_corner0: {x: -0.45, y: -0.45}
   m_corner1: {x: 0.45, y: -0.45}
@@ -397,33 +418,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 35
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 1
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -432,6 +439,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 35
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 1
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -442,6 +463,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_radius: 0
   m_maxDist: 50
   m_sdfTexture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
@@ -519,33 +561,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 1, g: 0.24280253, b: 0, a: 1}
   m_outlineType: 0
-  m_shadow: 0
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0
-  m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0, g: 1, b: 0.9806144, a: 0.25}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 0.20780945, b: 1, a: 1}
+  m_outlineGradationAngle: 0.796
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.604
+  m_outlineGradationRange: {x: 0, y: 1}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -554,6 +582,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 0
+  m_shadowWidth: 10
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0
+  m_shadowDilate: 0
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0, g: 1, b: 0.9806144, a: 0.25}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -564,6 +606,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_fillAmount: 0.5
   m_cornersRounding: 40
   m_startAngle: 180
@@ -652,41 +715,25 @@ MonoBehaviour:
   m_onionWidth: 10
   m_antialiasing: 1
   m_outline: 1
-  m_outlineWidth: 6.67
+  m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 0
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 1
-  m_shadowOffset: {x: -15, y: -15}
-  m_shadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: -6.7, y: 0}
-  m_graphicEffectAngle: 0.258
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479,
-    type: 2}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 0
-  m_graphicEffectPatternParamsY: 0.5
-  m_graphicEffectPatternParamsZ: 0.18
-  m_graphicEffectPatternParamsW: 0.3
-  m_graphicEffectPatternScale: {x: 1.55, y: 1.38}
+  m_outlineGradationColor: {r: 1, g: 0.22711667, b: 0, a: 1}
+  m_outlineGradationAngle: 0.2
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.3
+  m_outlineGradationRange: {x: 0.20149253, y: 0.74067163}
+  m_outlineGradationOffset: {x: 0.25, y: 0.25}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
-  m_outlineEffectColor: {r: 1, g: 0.5719801, b: 0, a: 1}
-  m_outlineEffectOffset: {x: 0, y: 0.1}
-  m_outlineEffectAngle: 0.258
-  m_outlineEffectShinyWidth: 0.25
-  m_outlineEffectShinyBlur: 0
-  m_outlineEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479,
-    type: 2}
+  m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_outlineEffectOffset: {x: -0.59, y: 0.72}
+  m_outlineEffectAngle: -0.041
+  m_outlineEffectShinyBlur: 0.444
+  m_outlineEffectShinyWidth: 0.12
+  m_outlineEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479, type: 2}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
   m_outlineEffectPatternParamsX: 0
@@ -694,16 +741,51 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 0
   m_outlineEffectPatternParamsW: 0.9
   m_outlineEffectPatternScale: {x: 1.58, y: 1.38}
+  m_shadow: 1
+  m_shadowWidth: 0
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0
+  m_shadowDilate: 0
+  m_shadowOffset: {x: -15, y: -15}
+  m_shadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
+  m_shadowGradationColor: {r: 1, g: 0.44585127, b: 0, a: 1}
+  m_shadowGradationAngle: 0.2
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.3
+  m_shadowGradationRange: {x: 0, y: 1}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 21300000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
-  m_texture: {fileID: 2800000, guid: 3d9f5988ec89dc647814c2b56c90738d, type: 3}
+  m_texture: {fileID: 0}
   m_uvRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0.13333334, g: 1, b: 0, a: 1}
+  m_gradationAngle: 0.2
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.3
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0.25, y: 0.25}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: -6.7, y: 0}
+  m_graphicEffectAngle: 0.258
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479, type: 2}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 0
+  m_graphicEffectPatternParamsY: 0.5
+  m_graphicEffectPatternParamsZ: 0.18
+  m_graphicEffectPatternParamsW: 0.3
+  m_graphicEffectPatternScale: {x: 1.55, y: 1.38}
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -718,13 +800,14 @@ Animation:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106449154655706015}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: fe6caeb7e1e116d46b4195d645f33b8e, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: fe6caeb7e1e116d46b4195d645f33b8e, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
+  m_UpdateMode: 0
   m_CullingType: 0
 --- !u!1 &106449154935094101
 GameObject:
@@ -793,40 +876,26 @@ MonoBehaviour:
       m_Calls: []
   m_onion: 1
   m_onionWidth: 11.5
-  m_antialiasing: -1
+  m_antialiasing: 1
   m_outline: 1
   m_outlineWidth: 5.49
   m_outlineInnerSoftWidth: 0
   m_outlineInnerSoftness: 0.5
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 0
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 4}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0.1339904, g: 1, b: 0, a: 1}
+  m_outlineGradationAngle: 0.5
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0, y: 1}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
-  m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyBlur: 0.233
+  m_outlineEffectShinyWidth: 0.134
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -835,6 +904,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 0
+  m_shadowWidth: 5.49
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0
+  m_shadowDilate: 0
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 1, g: 0.21773261, b: 0, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0.5517826, b: 1, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0, y: 1}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 2
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -845,10 +928,31 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  m_fillAmount: 0.75
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_fillAmount: -0.753
   m_cornersRounding: 0
-  m_startAngle: -135
-  m_ratio: 0.417
+  m_startAngle: -45
+  m_ratio: 0.406
 --- !u!1 &106449155009625114
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,33 +1027,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 17.72
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 1
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -958,6 +1048,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 17.72
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 1
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -968,6 +1072,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_fillAmount: 0.75
   m_roundness: 0.1
 --- !u!1 &106449155051947346
@@ -1044,33 +1169,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 0
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 1, g: 0.29354292, b: 0, a: 1}
+  m_outlineGradationAngle: 0.789
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.645
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 1
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1079,6 +1190,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 0
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1089,6 +1214,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1169,33 +1315,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 8.86
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1204,6 +1336,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 8.86
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 0
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1214,6 +1360,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_fillAmount: 0.75
   m_cornersRounding: 10
   m_startAngle: -135
@@ -1292,33 +1459,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 15
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 1
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1327,6 +1480,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 15
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 1
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 21300000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
@@ -1337,6 +1504,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_min: 0
   m_max: 1
 --- !u!1 &106449155371979679
@@ -1413,33 +1601,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 1
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1448,6 +1622,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 1
+  m_shadowWidth: 10
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1458,6 +1646,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_fillAmount: 0.5
 --- !u!1 &3522970763213088703
 GameObject:
@@ -1534,33 +1743,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 1, a: 1}
   m_outlineType: 0
-  m_shadow: 0
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0.5
-  m_shadowDilate: 1
-  m_shadowOffset: {x: 0, y: 0}
-  m_shadowColor: {r: 0.3788519, g: 0, b: 1, a: 1}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1569,6 +1764,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
+  m_shadow: 0
+  m_shadowWidth: 10
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0.5
+  m_shadowDilate: 1
+  m_shadowOffset: {x: 0, y: 0}
+  m_shadowColor: {r: 0.3788519, g: 0, b: 1, a: 1}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 0}
@@ -1579,6 +1788,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_width: 0.113
   m_fill: 0
   m_splines:
@@ -1680,33 +1910,19 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 0.24642348, a: 1}
   m_outlineType: 0
-  m_shadow: 0
-  m_shadowWidth: 10
-  m_shadowInnerSoftWidth: 0
-  m_shadowSoftness: 0
-  m_shadowDilate: 0
-  m_shadowOffset: {x: 0, y: 4}
-  m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
-  m_graphicEffectType: 0
-  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_graphicEffectOffset: {x: 0, y: 0}
-  m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
-  m_graphicEffectShinyBlur: 0
-  m_graphicEffectPatternTexture: {fileID: 0}
-  m_graphicEffectPatternRow: 5
-  m_graphicEffectPatternScroll: 0
-  m_graphicEffectPatternParamsX: 1
-  m_graphicEffectPatternParamsY: 1
-  m_graphicEffectPatternParamsZ: 1
-  m_graphicEffectPatternParamsW: 1
-  m_graphicEffectPatternScale: {x: 1, y: 1}
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
   m_outlineEffectType: 0
   m_outlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_outlineEffectOffset: {x: 0, y: 0}
   m_outlineEffectAngle: 0
-  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
   m_outlineEffectPatternTexture: {fileID: 0}
   m_outlineEffectPatternRow: 5
   m_outlineEffectPatternScroll: 0
@@ -1715,6 +1931,20 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_shadow: 0
+  m_shadowWidth: 10
+  m_shadowInnerSoftWidth: 0
+  m_shadowSoftness: 0
+  m_shadowDilate: 0
+  m_shadowOffset: {x: 0, y: 4}
+  m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
   m_sprite: {fileID: 21300000, guid: 47aff06692d530e4e8bd6ae3ee5a8c72, type: 3}
@@ -1725,6 +1955,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
+  m_graphicEffectType: 0
+  m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_graphicEffectOffset: {x: 0, y: 0}
+  m_graphicEffectAngle: 0
+  m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
+  m_graphicEffectPatternTexture: {fileID: 0}
+  m_graphicEffectPatternRow: 5
+  m_graphicEffectPatternScroll: 0
+  m_graphicEffectPatternParamsX: 1
+  m_graphicEffectPatternParamsY: 1
+  m_graphicEffectPatternParamsZ: 1
+  m_graphicEffectPatternParamsW: 1
+  m_graphicEffectPatternScale: {x: 1, y: 1}
   m_roundness: 2.4
 --- !u!1 &8972358074308158159
 GameObject:
@@ -1743,7 +1994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7828680576775026353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1751,7 +2002,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8972358074308158159}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
@@ -1760,7 +2011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169.8, y: 171.5}
+  m_AnchoredPosition: {x: 179.9, y: 171.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3608127829638399074
@@ -1800,6 +2051,27 @@ MonoBehaviour:
   m_outlineInnerSoftness: 0
   m_outlineColor: {r: 0, g: 1, b: 0.24705882, a: 1}
   m_outlineType: 0
+  m_outlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+  m_outlineGradationAngle: 0
+  m_outlineGradationRadius: 0.5
+  m_outlineGradationSmooth: 0.5
+  m_outlineGradationRange: {x: 0.5, y: 1.5}
+  m_outlineGradationOffset: {x: 0, y: 0}
+  m_outlineGradationShape: 0
+  m_outlineEffectType: 2
+  m_outlineEffectColor: {r: 0, g: 0.39272022, b: 1, a: 1}
+  m_outlineEffectOffset: {x: 0, y: 0}
+  m_outlineEffectAngle: 0.249
+  m_outlineEffectShinyBlur: 0
+  m_outlineEffectShinyWidth: 0.25
+  m_outlineEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479, type: 2}
+  m_outlineEffectPatternRow: 5
+  m_outlineEffectPatternScroll: 0
+  m_outlineEffectPatternParamsX: 1
+  m_outlineEffectPatternParamsY: 1
+  m_outlineEffectPatternParamsZ: 1
+  m_outlineEffectPatternParamsW: 1
+  m_outlineEffectPatternScale: {x: 1, y: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -1807,12 +2079,36 @@ MonoBehaviour:
   m_shadowDilate: 0
   m_shadowOffset: {x: 0, y: 4}
   m_shadowColor: {r: 0, g: 0, b: 0, a: 0.25}
+  m_shadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_shadowGradationAngle: 0
+  m_shadowGradationRadius: 0.5
+  m_shadowGradationSmooth: 0.5
+  m_shadowGradationRange: {x: 0.5, y: 1.5}
+  m_shadowGradationOffset: {x: 0, y: 0}
+  m_shadowGradationShape: 0
+  m_fillColor: {r: 1, g: 1, b: 1, a: 1}
+  m_activeImageType: 0
+  m_sprite: {fileID: 21300000, guid: 47aff06692d530e4e8bd6ae3ee5a8c72, type: 3}
+  m_texture: {fileID: 0}
+  m_uvRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  m_gradationColor: {r: 0, g: 0, b: 0, a: 1}
+  m_gradationAngle: 0
+  m_gradationRadius: 0.5
+  m_gradationSmooth: 0.5
+  m_gradationRange: {x: 0.25, y: 0.75}
+  m_gradationOffset: {x: 0, y: 0}
+  m_gradationShape: 0
   m_graphicEffectType: 0
   m_graphicEffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_graphicEffectOffset: {x: 0, y: 0}
   m_graphicEffectAngle: 0
-  m_graphicEffectShinyWidth: 0.25
   m_graphicEffectShinyBlur: 0
+  m_graphicEffectShinyWidth: 0.25
   m_graphicEffectPatternTexture: {fileID: 0}
   m_graphicEffectPatternRow: 5
   m_graphicEffectPatternScroll: 0
@@ -1821,30 +2117,5 @@ MonoBehaviour:
   m_graphicEffectPatternParamsZ: 1
   m_graphicEffectPatternParamsW: 1
   m_graphicEffectPatternScale: {x: 1, y: 1}
-  m_outlineEffectType: 2
-  m_outlineEffectColor: {r: 0, g: 0.39272022, b: 1, a: 1}
-  m_outlineEffectOffset: {x: 0, y: 0}
-  m_outlineEffectAngle: 0.249
-  m_outlineEffectShinyWidth: 0.25
-  m_outlineEffectShinyBlur: 0
-  m_outlineEffectPatternTexture: {fileID: 2800000, guid: ce40131843527fe44b78755a61574479,
-    type: 2}
-  m_outlineEffectPatternRow: 5
-  m_outlineEffectPatternScroll: 0
-  m_outlineEffectPatternParamsX: 1
-  m_outlineEffectPatternParamsY: 1
-  m_outlineEffectPatternParamsZ: 1
-  m_outlineEffectPatternParamsW: 1
-  m_outlineEffectPatternScale: {x: 1, y: 1}
-  m_fillColor: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
-  m_activeImageType: 0
-  m_sprite: {fileID: 0}
-  m_texture: {fileID: 0}
-  m_uvRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
   m_roundness: 2.5
   m_iteration: 4

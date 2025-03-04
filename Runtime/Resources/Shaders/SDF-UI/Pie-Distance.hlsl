@@ -4,6 +4,8 @@
 * 
 */
 
+#define PI 3.14
+
 //////////////////////////////////////////////////////////////
 
 #ifdef SDF_UI_STEP_SETUP
@@ -17,7 +19,7 @@ float2 sincos;
 
 #if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
-if (_Theta >= 3.14) {
+if (_Theta >= PI) {
     dist = length(p) - _Radius;
 }
 else {

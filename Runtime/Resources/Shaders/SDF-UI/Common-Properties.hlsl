@@ -5,6 +5,7 @@
 float4 _RectSize;
 
 float _Padding;
+float _EulerZ;
 float4 _OuterUV;
 
 float _Onion;
@@ -12,10 +13,26 @@ float _OnionWidth;
 
 float _GraphicBorder;
 
+float _GraphicGradationAngle;
+float _GraphicGradationRadius;
+float _GraphicGradationSmooth;
+float4 _GraphicGradationColor;
+float4 _GraphicGradationLayer;
+float4 _GraphicGradationRange;
+float4 _GraphicGradationOffset;
+
 float _OutlineWidth;
 float _OutlineBorder;
 float _OutlineInnerBlur;
 float _OutlineInnerGaussian;
+float _OutlineGradationAngle;
+float _OutlineGradationRadius;
+float _OutlineGradationSmooth;
+float4 _OutlineColor;
+float4 _OutlineGradationLayer;
+float4 _OutlineGradationColor;
+float4 _OutlineGradationRange;
+float4 _OutlineGradationOffset;
 
 float _GraphicEffectAngle;
 float4 _GraphicEffectColor;
@@ -34,6 +51,7 @@ float _GraphicEffectPatternRow;
 float _GraphicEffectPatternScroll;
 float4 _GraphicEffectPatternScale;
 float4 _GraphicEffectPatternParams;
+
 sampler2D _OutlineEffectPatternTex;
 float _OutlineEffectPatternRow;
 float _OutlineEffectPatternScroll;
@@ -44,9 +62,16 @@ float _ShadowWidth;
 float _ShadowBlur;
 float _ShadowBorder;
 float _ShadowDilate;
+float _ShadowGaussian;
+float _ShadowGradationAngle;
+float _ShadowGradationRadius;
+float _ShadowGradationSmooth;
 float4 _ShadowColor;
 float4 _ShadowOffset;
-float _ShadowGaussian;
+float4 _ShadowGradationColor;
+float4 _ShadowGradationLayer;
+float4 _ShadowGradationRange;
+float4 _ShadowGradationOffset;
 
 float4 _ClipRect;
 float _UIMaskSoftnessX;
@@ -54,6 +79,5 @@ float _UIMaskSoftnessY;
 
 sampler2D _MainTex;
 float4 _MainTex_ST;
-float4 _OutlineColor;
 fixed4 _Color;
 fixed4 _TextureSampleAdd;

@@ -4,6 +4,8 @@
 * 
 */
 
+#define PI 3.14
+
 //////////////////////////////////////////////////////////////
 
 #ifdef SDF_UI_STEP_SETUP
@@ -21,7 +23,7 @@ t = p;
 p.x = t.x * _AngleOffset.x - t.y * _AngleOffset.y;
 p.y = t.x * _AngleOffset.y + t.y * _AngleOffset.x;
 
-if (_Theta >= 3.14) {
+if (_Theta >= PI) {
     dist = abs(length(p) - _Radius) - _CircleBorder;
 }
 else {
