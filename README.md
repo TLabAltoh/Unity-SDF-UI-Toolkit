@@ -41,6 +41,14 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
     </tr>
 </table>
 <table>
+    <caption>Gradation (Linear, Radial, Conical)</caption>
+    <tr>
+        <td><img src="Media/demo.12.jpg" width="256"><img></td>
+        <td><img src="Media/demo.13.jpg" width="256"><img></td>
+        <td><img src="Media/demo.14.jpg" width="256"><img></td>
+    </tr>
+</table>
+<table>
     <caption>Editor for creating Custom Shapes</caption>
     <tr>
         <td><img src="Media/sdf-tex-painter-path-view.png" width="512"><img></td>

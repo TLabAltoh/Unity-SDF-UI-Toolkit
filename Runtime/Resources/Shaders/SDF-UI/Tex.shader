@@ -11,6 +11,7 @@ Shader "Hidden/UI/SDF/Tex/Outline" {
 
         [HideInInspector] _RectSize("RectSize", Vector) = (0, 0, 0, 0)
         [HideInInspector] _Padding("Padding", Float) = 0
+        [HideInInspector] _EulerZ("EulerZ", Float) = 0
         [HideInInspector] _OuterUV("OuterUV", Vector) = (0, 0, 0, 0)
         [HideInInspector] _MaxDist("MaxDist", Float) = 0
 
@@ -25,18 +26,37 @@ Shader "Hidden/UI/SDF/Tex/Outline" {
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
+        _GraphicGradationAngle("Graphic Gradation Angle", Float) = 0
+        _GraphicGradationSmooth("Graphic Gradation Smooth", Float) = 0
+        _GraphicGradationRange("Graphic Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicGradationLayer("Graphic Gradation Layer", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicGradationOffset("Graphic Gradation Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicGradationColor("Graphic Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
+
         _OutlineWidth("Outline Width", Float) = 0
         _OutlineBorder("Outline Border", Float) = 0
         _OutlineInnerBlur("Outline Inner Blur", Float) = 0
         _OutlineInnerGaussian("Outline Inner Gaussian", Float) = 0
+        _OutlineGradationAngle("Outline Gradation Angle", Float) = 0
+        _OutlineGradationSmooth("Outline Gradation Smooth", Float) = 0
+        _OutlineGradationRange("Outline Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineGradationLayer("Outline Gradation Layer", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineGradationOffset("Outline Gradation Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
         [HDR] _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        [HDR] _OutlineGradationColor("Outline Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
         _ShadowPower("Shadow Dilate", Float) = 0
         _ShadowGaussian("Shadow Gaussian", Float) = 0
         _ShadowOffset("Shadow Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowGradationAngle("Shadow Gradation Angle", Float) = 0
+        _ShadowGradationSmooth("Shadow Gradation Smooth", Float) = 0
+        _ShadowGradationRange("Shadow Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowGradationLayer("Shadow Gradation Layer", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowGradationOffset("Shadow Gradation Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
         [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        [HDR] _ShadowGradationColor("Shadow Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         _GraphicEffectAngle("Graphic Effect Angle", Float) = 0
         [HDR] _GraphicEffectColor("Graphic Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)

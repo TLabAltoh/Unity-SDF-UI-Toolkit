@@ -18,14 +18,14 @@ uv = uv * (1 + normalizedPadding * 2) - normalizedPadding;
 #endif
 
 float2 halfSize = _RectSize * .5;
-float aspect = halfSize.y / halfSize.x;
+float aspect = halfSize.y / halfSize.x, hminSize = min(halfSize.x, halfSize.y), minSize = 2 * hminSize;
 
 #ifdef SDF_UI_GRAPHIC_EFFECT_PATTERN
 float2 graphicPatternPos = float2(i.uv.x, (1. - i.uv.y) * aspect);
 
 float2 graphicPatternUV = graphicPatternPos;
 graphicPatternUV -= float2(.5, .5 * aspect);
-graphicPatternUV = float2(graphicPatternUV.x * cos(_GraphicEffectAngle) - graphicPatternUV.y * sin(_GraphicEffectAngle), graphicPatternUV.x * sin(_GraphicEffectAngle) + graphicPatternUV.y * cos(_GraphicEffectAngle));
+graphicPatternUV = rotate(graphicPatternUV, _GraphicEffectAngle - _EulerZ);
 graphicPatternUV += float2(.5, .5 * aspect);
 graphicPatternUV -= _GraphicEffectOffset;
 float graphicPatternFade0 = graphicPatternUV.x;
@@ -57,7 +57,7 @@ float2 outlinePatternPos = float2(i.uv.x, (1. - i.uv.y) * aspect);
 
 float2 outlinePatternUV = outlinePatternPos;
 outlinePatternUV -= float2(.5, .5 * aspect);
-outlinePatternUV = float2(outlinePatternUV.x * cos(_OutlineEffectAngle) - outlinePatternUV.y * sin(_OutlineEffectAngle), outlinePatternUV.x * sin(_OutlineEffectAngle) + outlinePatternUV.y * cos(_OutlineEffectAngle));
+outlinePatternUV = rotate(outlinePatternUV, _OutlineEffectAngle - _EulerZ);
 outlinePatternUV += float2(.5, .5 * aspect);
 outlinePatternUV -= _OutlineEffectOffset;
 float outlinePatternFade0 = outlinePatternUV.x;
@@ -88,6 +88,8 @@ float2 texSample;
 texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
 texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
 
-half4 color = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd) * _Color;
+half4 texcr = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd);
+half4 color = texcr * _Color;
+_GraphicGradationColor *= texcr;
 
 half4 effects;

@@ -5,40 +5,160 @@
 * https://www.shadertoy.com/view/7stcR4
 **/
 
-inline float round(float d, float r)
-{
-    return d - r;
+#define PI 3.14
+
+/**
+*
+*
+*/
+
+inline float select(bool boolean, float a0, float a1) {
+    return boolean * a0 + (1. - boolean) * a1;
 }
 
-inline float round(float4 d, float r)
-{
-    return float4(round(d.r, r), round(d.g, r), round(d.b, r), round(d.a, r));
+inline float2 select(bool boolean, float2 a0, float2 a1) {
+    return boolean * a0 + (1. - boolean) * a1;
 }
 
-inline float onion(float2 d, float r)
-{
+inline float3 select(bool boolean, float3 a0, float3 a1) {
+    return boolean * a0 + (1. - boolean) * a1;
+}
+
+inline float4 select(bool boolean, float4 a0, float4 a1) {
+    return boolean * a0 + (1. - boolean) * a1;
+}
+
+/**
+*
+*
+*/
+
+inline float select(float3 layer, float a0, float a1, float a2) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2;
+}
+
+inline float2 select(float3 layer, float2 a0, float2 a1, float2 a2) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2;
+}
+
+inline float3 select(float3 layer, float3 a0, float3 a1, float3 a2) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2;
+}
+
+inline float4 select(float3 layer, float4 a0, float4 a1, float4 a2) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2;
+}
+
+/**
+*
+*
+*/
+
+inline float select(float4 layer, float a0, float a1, float a2, float a3) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2 + layer.w * a3;
+}
+
+inline float2 select(float4 layer, float2 a0, float2 a1, float2 a2, float2 a3) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2 + layer.w * a3;
+}
+
+inline float3 select(float4 layer, float3 a0, float3 a1, float3 a2, float3 a3) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2 + layer.w * a3;
+}
+
+inline float4 select(float4 layer, float4 a0, float4 a1, float4 a2, float4 a3) {
+    return layer.x * a0 + layer.y * a1 + layer.z * a2 + layer.w * a3;
+}
+
+/**
+*
+*
+*/
+
+inline float onion(float2 d, float r) {
     return abs(d) - r;
 }
 
-inline float saturaterange(float a, float b, float x)
-{
-    float t = saturate((x - a) / (b - a));
-    return t;
+inline float round(float d, float r) {
+    return d - r;
 }
 
-inline float4 saturaterange(float4 a, float4 b, float4 x)
-{
-    float4 t = saturate((x - a) / (b - a));
-    return t;
+inline float round(float4 d, float r) {
+    return float4(round(d.r, r), round(d.g, r), round(d.b, r), round(d.a, r));
 }
+
+inline float saturaterange(float a, float b, float x) {
+    return saturate((x - a) / (b - a));
+}
+
+inline float4 saturaterange(float4 a, float4 b, float4 x) {
+    return saturate((x - a) / (b - a));
+}
+
+/**
+*
+*
+*/
 
 inline float dot2(float2 v) {
     return dot(v, v);
 }
 
-inline float cro(float2 a, float2 b) {
+inline float cross(float2 a, float2 b) {
     return a.x * b.y - a.y * b.x;
 }
+
+inline float2 rotate(float2 pos, float theta) {
+    return float2(pos.x * cos(theta) - pos.y * sin(theta), pos.x * sin(theta) + pos.y * cos(theta));
+}
+
+/**
+*
+*
+*/
+
+inline float4 conicalGradation(float2 p, float smooth, float2 range, float4 colorA, float4 colorB) {
+    float tmp = 0.0;
+    tmp = select(p.y >= 0.0, atan2(p.y, p.x), tmp);
+    tmp = select(p.y < 0.0, PI - atan2(p.y, -p.x), tmp);
+
+    tmp = smoothstep(range.x * 2 * PI, range.y * 2 * PI, tmp);
+    tmp = 1.0 - tmp;
+
+    return colorA * tmp + colorB * (1. - tmp);
+}
+
+inline float4 conicalGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float2 range, float4 colorA, float4 colorB) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return conicalGradation(p, smooth, range, colorA, colorB);
+}
+
+inline float4 radialGradation(float2 p, float radius, float smooth, float4 colorA, float4 colorB) {
+    float tmp = sqrt((p.x * p.x) + (p.y * p.y));
+    tmp = smoothstep(-smooth + radius, smooth + radius, tmp);
+    return colorA * tmp + colorB * (1. - tmp);
+}
+
+inline float4 radialGradation(float2 p, float angle, float rectAngle, float radius, float smooth, float2 offset, float4 colorA, float4 colorB) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return radialGradation(p, radius, smooth, colorA, colorB);
+}
+
+inline float4 linearGradation(float2 p, float smooth, float4 colorA, float4 colorB) {
+    float tmp = 0.0;
+    tmp = select(smooth > 0.0, smoothstep(-smooth, smooth, p.x), saturaterange(-smooth, smooth, p.x));
+    return colorA * tmp + colorB * (1. - tmp);
+}
+
+inline float4 linearGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float4 colorA, float4 colorB) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return linearGradation(p, smooth, colorA, colorB);
+}
+
+/**
+*
+*
+*/
 
 inline float windingSign(float2 p, float2 a, float2 b) {
     float2 e = b - a;
@@ -256,7 +376,7 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
         float t = clamp(uv.x + uv.y - kx, 0.0, 1.0);
         float2  q = d + (c + b * t) * t;
         res = dot2(q);
-        sgn = cro(c + 2.0 * b * t, q);
+        sgn = cross(c + 2.0 * b * t, q);
     }
     else { // 3 roots
         float z = sqrt(-p);
@@ -265,10 +385,10 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
         float n = sin(v) * 1.732050808;
         float3  t = clamp(float3(m + m, -n - m, n - m) * z - kx, 0.0, 1.0);
         float2  qx = d + (c + b * t.x) * t.x;
-        float dx = dot2(qx), sx = cro(c + 2.0 * b * t.x, qx);
+        float dx = dot2(qx), sx = cross(c + 2.0 * b * t.x, qx);
         float2  qy = d + (c + b * t.y) * t.y;
         float dy = dot2(qy);
-        float sy = cro(c + 2.0 * b * t.y, qy);
+        float sy = cross(c + 2.0 * b * t.y, qy);
         if (dx < dy) {
             res = dx;
             sgn = sx;
@@ -285,12 +405,12 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
 
 #if defined(SDF_UI_OUTLINE_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_SHINY)
 inline float shiny(float2 p, float width, float angle, float blur) {
-    float fill = width >= 3.14; float empty = width == 0;
+    float fill = width >= PI; float empty = width == 0;
     if (fill || empty) {
         return 1.0 * fill;
     }
 
-    p = float2(p.x * cos(angle) - p.y * sin(angle), p.x * sin(angle) + p.y * cos(angle));
+    p = rotate(p, angle);
     p.x = abs(p.x);
     p.y = abs(p.y);
 

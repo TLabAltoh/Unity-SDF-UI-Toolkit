@@ -25,11 +25,11 @@ namespace TLab.UI.SDF
 
 		internal const string KEYWORD_SHADOW = SHADER_KEYWORD_PREFIX + "SHADOW";
 
-		internal const string KEYWORD_OUTLINE_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "OUTLINE_EFFECT_PATTERN";
-		internal const string KEYWORD_GRAPHIC_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "GRAPHIC_EFFECT_PATTERN";
-
 		internal const string KEYWORD_OUTLINE_EFFECT_SHINY = SHADER_KEYWORD_PREFIX + "OUTLINE_EFFECT_SHINY";
 		internal const string KEYWORD_GRAPHIC_EFFECT_SHINY = SHADER_KEYWORD_PREFIX + "GRAPHIC_EFFECT_SHINY";
+
+		internal const string KEYWORD_OUTLINE_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "OUTLINE_EFFECT_PATTERN";
+		internal const string KEYWORD_GRAPHIC_EFFECT_PATTERN = SHADER_KEYWORD_PREFIX + "GRAPHIC_EFFECT_PATTERN";
 
 		#endregion SHADER_KEYWORD
 
@@ -37,6 +37,7 @@ namespace TLab.UI.SDF
 
 		internal static readonly int PROP_HALFSIZE = Shader.PropertyToID("_HalfSize");
 		internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
+		internal static readonly int PROP_EULER_Z = Shader.PropertyToID("_EulerZ");
 		internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
 		internal static readonly int PROP_RECTSIZE = Shader.PropertyToID("_RectSize");
 
@@ -49,18 +50,40 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINE_BORDER = Shader.PropertyToID("_OutlineBorder");
 		internal static readonly int PROP_GRAPHIC_BORDER = Shader.PropertyToID("_GraphicBorder");
 
+		internal static readonly int PROP_GRAPHIC_GRADATION_COLOR = Shader.PropertyToID("_GraphicGradationColor");
+		internal static readonly int PROP_GRAPHIC_GRADATION_LAYER = Shader.PropertyToID("_GraphicGradationLayer");
+		internal static readonly int PROP_GRAPHIC_GRADATION_RANGE = Shader.PropertyToID("_GraphicGradationRange");
+		internal static readonly int PROP_GRAPHIC_GRADATION_ANGLE = Shader.PropertyToID("_GraphicGradationAngle");
+		internal static readonly int PROP_GRAPHIC_GRADATION_RADIUS = Shader.PropertyToID("_GraphicGradationRadius");
+		internal static readonly int PROP_GRAPHIC_GRADATION_SMOOTH = Shader.PropertyToID("_GraphicGradationSmooth");
+		internal static readonly int PROP_GRAPHIC_GRADATION_OFFSET = Shader.PropertyToID("_GraphicGradationOffset");
+
 		internal static readonly int PROP_SHADOW_WIDTH = Shader.PropertyToID("_ShadowWidth");
 		internal static readonly int PROP_SHADOW_BLUR = Shader.PropertyToID("_ShadowBlur");
 		internal static readonly int PROP_SHADOW_DILATE = Shader.PropertyToID("_ShadowDilate");
 		internal static readonly int PROP_SHADOW_COLOR = Shader.PropertyToID("_ShadowColor");
 		internal static readonly int PROP_SHADOW_OFFSET = Shader.PropertyToID("_ShadowOffset");
 		internal static readonly int PROP_SHADOW_GAUSSIAN = Shader.PropertyToID("_ShadowGaussian");
+		internal static readonly int PROP_SHADOW_GRADATION_COLOR = Shader.PropertyToID("_ShadowGradationColor");
+		internal static readonly int PROP_SHADOW_GRADATION_LAYER = Shader.PropertyToID("_ShadowGradationLayer");
+		internal static readonly int PROP_SHADOW_GRADATION_RANGE = Shader.PropertyToID("_ShadowGradationRange");
+		internal static readonly int PROP_SHADOW_GRADATION_ANGLE = Shader.PropertyToID("_ShadowGradationAngle");
+		internal static readonly int PROP_SHADOW_GRADATION_RADIUS = Shader.PropertyToID("_ShadowGradationRadius");
+		internal static readonly int PROP_SHADOW_GRADATION_SMOOTH = Shader.PropertyToID("_ShadowGradationSmooth");
+		internal static readonly int PROP_SHADOW_GRADATION_OFFSET = Shader.PropertyToID("_ShadowGradationOffset");
 
 		internal static readonly int PROP_OUTLINE_TYPE = Shader.PropertyToID("_OutlineType");
-		internal static readonly int PROP_OUTLINE_COLOR = Shader.PropertyToID("_OutlineColor");
 		internal static readonly int PROP_OUTLINE_WIDTH = Shader.PropertyToID("_OutlineWidth");
+		internal static readonly int PROP_OUTLINE_COLOR = Shader.PropertyToID("_OutlineColor");
 		internal static readonly int PROP_OUTLINE_INNER_BLUR = Shader.PropertyToID("_OutlineInnerBlur");
 		internal static readonly int PROP_OUTLINE_INNER_GAUSSIAN = Shader.PropertyToID("_OutlineInnerGaussian");
+		internal static readonly int PROP_OUTLINE_GRADATION_COLOR = Shader.PropertyToID("_OutlineGradationColor");
+		internal static readonly int PROP_OUTLINE_GRADATION_LAYER = Shader.PropertyToID("_OutlineGradationLayer");
+		internal static readonly int PROP_OUTLINE_GRADATION_ANGLE = Shader.PropertyToID("_OutlineGradationAngle");
+		internal static readonly int PROP_OUTLINE_GRADATION_RANGE = Shader.PropertyToID("_OutlineGradationRange");
+		internal static readonly int PROP_OUTLINE_GRADATION_RADIUS = Shader.PropertyToID("_OutlineGradationRadius");
+		internal static readonly int PROP_OUTLINE_GRADATION_SMOOTH = Shader.PropertyToID("_OutlineGradationSmooth");
+		internal static readonly int PROP_OUTLINE_GRADATION_OFFSET = Shader.PropertyToID("_OutlineGradationOffset");
 
 		internal static readonly int PROP_GRAPHIC_EFFECT_SHINY_WIDTH = Shader.PropertyToID("_GraphicEffectShinyWidth");
 		internal static readonly int PROP_GRAPHIC_EFFECT_SHINY_BLUR = Shader.PropertyToID("_GraphicEffectShinyBlur");
@@ -90,6 +113,16 @@ namespace TLab.UI.SDF
 
 		#endregion SHADER_PROP
 
+		#region ENUM
+
+		public enum GradationShape
+		{
+			None,
+			Linear,
+			Radial,
+			Conical,
+		}
+
 		public enum OutlineType
 		{
 			Inside = 0,
@@ -116,10 +149,14 @@ namespace TLab.UI.SDF
 			Pattern = 2,
 		};
 
+		#endregion ENUM
+
 		[SerializeField, LeftToggle] protected bool m_onion = false;
 		[SerializeField, Min(0f)] protected float m_onionWidth = 10;
 
 		[SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.Default;
+
+		#region OUTLINE
 
 		[SerializeField, LeftToggle] protected bool m_outline = true;
 		[SerializeField, Min(0f)] protected float m_outlineWidth = 10;
@@ -127,6 +164,37 @@ namespace TLab.UI.SDF
 		[SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.0f;
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = Color.cyan;
 		[SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
+
+		#region GRADATION
+		[SerializeField, ColorUsage(true, true)] protected Color m_outlineGradationColor = Color.cyan;
+		[SerializeField, Range(0, 1)] protected float m_outlineGradationAngle = 0;
+		[SerializeField, Min(0)] protected float m_outlineGradationRadius = 0.5f;
+		[SerializeField, Min(0)] protected float m_outlineGradationSmooth = 0.5f;
+		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_outlineGradationRange = new Vector2(0.25f, 0.75f);
+		[SerializeField] protected Vector2 m_outlineGradationOffset;
+		[SerializeField] protected GradationShape m_outlineGradationShape = GradationShape.None;
+		#endregion GRADATION
+
+		#region EFFECT
+		[SerializeField] protected EffectType m_outlineEffectType = EffectType.None;
+		[SerializeField, ColorUsage(true, true)] protected Color m_outlineEffectColor = Color.white;
+		[SerializeField] protected Vector2 m_outlineEffectOffset;
+		[SerializeField, Range(-1, 1)] protected float m_outlineEffectAngle = 0.0f;
+		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
+		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyWidth = 0.25f;
+		[SerializeField] protected Texture m_outlineEffectPatternTexture;
+		[SerializeField, Min(0)] protected int m_outlineEffectPatternRow = 5;
+		[SerializeField] protected float m_outlineEffectPatternScroll = 0;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsX = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsY = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsZ = 1;
+		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsW = 1;
+		[SerializeField, Min(0)] protected Vector2 m_outlineEffectPatternScale = Vector2.one;
+		#endregion EFFECT
+
+		#endregion OUTLINE
+
+		#region SHADOW
 
 		[SerializeField, LeftToggle] protected bool m_shadow = false;
 		[SerializeField, Min(0f)] protected float m_shadowWidth = 10;
@@ -136,12 +204,43 @@ namespace TLab.UI.SDF
 		[SerializeField] protected Vector2 m_shadowOffset;
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
 
+		#region GRADATION
+		[SerializeField, ColorUsage(true, true)] protected Color m_shadowGradationColor = Color.black;
+		[SerializeField, Range(0, 1)] protected float m_shadowGradationAngle = 0;
+		[SerializeField, Min(0)] protected float m_shadowGradationRadius = 0.5f;
+		[SerializeField, Min(0)] protected float m_shadowGradationSmooth = 0.5f;
+		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_shadowGradationRange = new Vector2(0.25f, 0.75f);
+		[SerializeField] protected Vector2 m_shadowGradationOffset;
+		[SerializeField] protected GradationShape m_shadowGradationShape = GradationShape.None;
+		#endregion GRADATION
+
+		#endregion SHADOW
+
+		#region GRAPHIC
+
+		[SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
+		[SerializeField] protected ActiveImageType m_activeImageType;
+		[SerializeField] protected Sprite m_sprite;
+		[SerializeField] protected Texture m_texture;
+		[SerializeField] protected Rect m_uvRect = new Rect(0f, 0f, 1f, 1f);
+
+		#region GRADATION
+		[SerializeField, ColorUsage(true)] protected Color m_gradationColor = Color.white;
+		[SerializeField, Range(0, 1)] protected float m_gradationAngle = 0;
+		[SerializeField, Min(0)] protected float m_gradationRadius = 0.5f;
+		[SerializeField, Min(0)] protected float m_gradationSmooth = 0.5f;
+		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_gradationRange = new Vector2(0.25f, 0.75f);
+		[SerializeField] protected Vector2 m_gradationOffset;
+		[SerializeField] protected GradationShape m_gradationShape = GradationShape.None;
+		#endregion GRADATION
+
+		#region EFFECT
 		[SerializeField] protected EffectType m_graphicEffectType = EffectType.None;
 		[SerializeField, ColorUsage(true, true)] protected Color m_graphicEffectColor = Color.white;
 		[SerializeField] protected Vector2 m_graphicEffectOffset;
 		[SerializeField, Range(0, 1)] protected float m_graphicEffectAngle = 0.0f;
-		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyWidth = 0.25f;
 		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyBlur = 0.0f;
+		[SerializeField, Range(0, 1)] protected float m_graphicEffectShinyWidth = 0.25f;
 		[SerializeField] protected Texture m_graphicEffectPatternTexture;
 		[SerializeField, Min(0)] protected int m_graphicEffectPatternRow = 5;
 		[SerializeField] protected float m_graphicEffectPatternScroll = 0;
@@ -150,28 +249,9 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsZ = 1;
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsW = 1;
 		[SerializeField, Min(0)] protected Vector2 m_graphicEffectPatternScale = Vector2.one;
+		#endregion EFFECT
 
-		[SerializeField] protected EffectType m_outlineEffectType = EffectType.None;
-		[SerializeField, ColorUsage(true, true)] protected Color m_outlineEffectColor = Color.white;
-		[SerializeField] protected Vector2 m_outlineEffectOffset;
-		[SerializeField, Range(-1, 1)] protected float m_outlineEffectAngle = 0.0f;
-		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyWidth = 0.25f;
-		[SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
-		[SerializeField] protected Texture m_outlineEffectPatternTexture;
-		[SerializeField, Min(0)] protected int m_outlineEffectPatternRow = 5;
-		[SerializeField] protected float m_outlineEffectPatternScroll = 0;
-		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsX = 1;
-		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsY = 1;
-		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsZ = 1;
-		[SerializeField, Min(0)] protected float m_outlineEffectPatternParamsW = 1;
-		[SerializeField, Min(0)] protected Vector2 m_outlineEffectPatternScale = Vector2.one;
-
-		[SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
-
-		[SerializeField] protected ActiveImageType m_activeImageType;
-		[SerializeField] protected Sprite m_sprite;
-		[SerializeField] protected Texture m_texture;
-		[SerializeField] protected Rect m_uvRect = new Rect(0f, 0f, 1f, 1f);
+		#endregion GRAPHIC
 
 		protected SDFUI()
 		{
@@ -209,6 +289,8 @@ namespace TLab.UI.SDF
 
 		public float maxSize => Mathf.Max(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
+		#region ONION
+
 		public bool onion
 		{
 			get => m_onion;
@@ -237,19 +319,7 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public AntialiasingType antialiasing
-		{
-			get => m_antialiasing;
-			set
-			{
-				if (m_antialiasing != value)
-				{
-					m_antialiasing = value;
-
-					SetAllDirty();
-				}
-			}
-		}
+		#endregion ONION
 
 		#region SHADOW
 		public bool shadow
@@ -350,6 +420,110 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		#region GRADATION
+		public Color shadowGradationColor
+		{
+			get => m_shadowGradationColor;
+			set
+			{
+				if (m_shadowGradationColor != value)
+				{
+					m_shadowGradationColor = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public GradationShape shadowGradationShape
+		{
+			get => m_shadowGradationShape;
+			set
+			{
+				if (m_shadowGradationShape != value)
+				{
+					m_shadowGradationShape = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float shadowGradationAngle
+		{
+			get => m_shadowGradationAngle;
+			set
+			{
+				if (m_shadowGradationAngle != value)
+				{
+					var tmp = Mathf.Clamp01(value);
+					m_shadowGradationAngle = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float shadowGradationRadius
+		{
+			get => m_shadowGradationRadius;
+			set
+			{
+				if (m_shadowGradationRadius != value)
+				{
+					m_shadowGradationRadius = math.max(value, 0);
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float shadowGradationSmooth
+		{
+			get => m_shadowGradationSmooth;
+			set
+			{
+				if (m_shadowGradationSmooth != value)
+				{
+					m_shadowGradationSmooth = math.max(value, 0);
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 shadowGradationRange
+		{
+			get => m_shadowGradationRange;
+			set
+			{
+				if (m_shadowGradationRange != value)
+				{
+					var tmp = value;
+					tmp.x = Mathf.Clamp01(tmp.x);
+					tmp.y = Mathf.Clamp01(tmp.y);
+					m_shadowGradationRange = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 shadowGradationOffset
+		{
+			get => m_shadowGradationOffset;
+			set
+			{
+				if (m_shadowGradationOffset != value)
+				{
+					m_shadowGradationOffset = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+		#endregion GRADATION
+
 		#endregion SHADOW
 
 		#region OUTLINE
@@ -438,228 +612,111 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		#endregion
-
-		#region GRAPHIC_PATTERN
-
-		public EffectType graphicEffectType
+		#region GRADATION
+		public Color outlineGradationColor
 		{
-			get => m_graphicEffectType;
+			get => m_outlineGradationColor;
 			set
 			{
-				if (m_graphicEffectType != value)
+				if (m_outlineGradationColor != value)
 				{
-					m_graphicEffectType = value;
+					m_outlineGradationColor = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Color graphicEffectColor
+		public GradationShape outlineGradationShape
 		{
-			get => m_graphicEffectColor;
+			get => m_outlineGradationShape;
 			set
 			{
-				if (m_graphicEffectColor != value)
+				if (m_outlineGradationShape != value)
 				{
-					m_graphicEffectColor = value;
+					m_outlineGradationShape = value;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Vector2 graphicEffectOffset
+		public float outlineGradationAngle
 		{
-			get => m_graphicEffectOffset;
+			get => m_outlineGradationAngle;
 			set
 			{
-				var tmp = value;
-				tmp.x = Mathf.Clamp(tmp.x, 0, 1);
-				tmp.y = Mathf.Clamp(tmp.y, 0, 1);
-
-				if (m_graphicEffectOffset != tmp)
+				if (m_outlineGradationAngle != value)
 				{
-					m_graphicEffectOffset = tmp;
-
-					SetAllDirty();
-				}
-			}
-
-		}
-
-		public float graphicEffectShinyWidth
-		{
-			get => m_graphicEffectShinyWidth;
-			set
-			{
-				if (m_graphicEffectShinyWidth != value)
-				{
-					m_graphicEffectShinyWidth = value;
+					var tmp = Mathf.Clamp01(value);
+					m_outlineGradationAngle = tmp;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public float graphicEffectAngle
+		public float outlineGradationRadius
 		{
-			get => m_graphicEffectAngle;
+			get => m_outlineGradationRadius;
 			set
 			{
-				if (m_graphicEffectAngle != value)
+				if (m_outlineGradationRadius != value)
 				{
-					m_graphicEffectAngle = value;
+					m_outlineGradationRadius = math.max(value, 0);
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public float graphicEffectShinyBlur
+		public float outlineGradationSmooth
 		{
-			get => m_graphicEffectShinyBlur;
+			get => m_outlineGradationSmooth;
 			set
 			{
-				if (m_graphicEffectShinyBlur != value)
+				if (m_outlineGradationSmooth != value)
 				{
-					m_graphicEffectShinyBlur = value;
+					m_outlineGradationSmooth = math.max(value, 0);
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Texture graphicEffectPatternTexture
+		public Vector2 outlineGradationRange
 		{
-			get => m_graphicEffectPatternTexture;
+			get => m_outlineGradationRange;
 			set
 			{
-				if (m_graphicEffectPatternTexture != value)
+				if (m_outlineGradationRange != value)
 				{
-					m_graphicEffectPatternTexture = value;
+					var tmp = value;
+					tmp.x = Mathf.Clamp01(tmp.x);
+					tmp.y = Mathf.Clamp01(tmp.y);
+					m_outlineGradationRange = tmp;
 
 					SetAllDirty();
 				}
 			}
 		}
 
-		public Vector2 graphicEffectPatternScale
+		public Vector2 outlineGradationOffset
 		{
-			get => m_graphicEffectPatternScale;
+			get => m_outlineGradationOffset;
 			set
 			{
-				var tmp = value;
-				tmp.x = Mathf.Max(tmp.x, 0);
-				tmp.y = Mathf.Max(tmp.y, 0);
-
-				if (m_graphicEffectPatternScale != tmp)
+				if (m_outlineGradationOffset != value)
 				{
-					m_graphicEffectPatternScale = tmp;
+					m_outlineGradationOffset = value;
 
 					SetAllDirty();
 				}
 			}
 		}
+		#endregion GRADATION
 
-		public float graphicEffectPatternScroll
-        {
-			get => m_graphicEffectPatternScroll;
-			set
-            {
-				if (m_graphicEffectPatternScroll != value)
-                {
-					m_graphicEffectPatternScroll = value;
-
-					SetAllDirty();
-                }
-            }
-        }
-
-		public float graphicEffectPatternParamsX
-		{
-			get => m_graphicEffectPatternParamsX;
-			set
-			{
-				var tmp = Mathf.Max(value, 0);
-
-				if (m_graphicEffectPatternParamsX != tmp)
-				{
-					m_graphicEffectPatternParamsX = tmp;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float graphicEffectPatternParamsY
-		{
-			get => m_graphicEffectPatternParamsY;
-			set
-			{
-				var tmp = Mathf.Max(value, 0);
-
-				if (m_graphicEffectPatternParamsY != tmp)
-				{
-					m_graphicEffectPatternParamsY = tmp;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float graphicEffectPatternParamsZ
-		{
-			get => m_graphicEffectPatternParamsZ;
-			set
-			{
-				var tmp = Mathf.Max(value, 0);
-
-				if (m_graphicEffectPatternParamsZ != tmp)
-				{
-					m_graphicEffectPatternParamsZ = tmp;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public float graphicEffectPatternParamsW
-		{
-			get => m_graphicEffectPatternParamsW;
-			set
-			{
-				var tmp = Mathf.Max(value, 0);
-
-				if (m_graphicEffectPatternParamsW != tmp)
-				{
-					m_graphicEffectPatternParamsW = tmp;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		public int graphicEffectPatternRow
-		{
-			get => m_graphicEffectPatternRow;
-			set
-			{
-				var tmp = Mathf.Max(0, value);
-
-				if (m_graphicEffectPatternRow != tmp)
-				{
-					m_graphicEffectPatternRow = tmp;
-
-					SetAllDirty();
-				}
-			}
-		}
-
-		#endregion GRAPHIC_PATTERN
-
-		#region OUTILNE_PATTERN
+		#region EFFECT
 
 		public EffectType outlineEffectType
 		{
@@ -878,7 +935,38 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		#endregion OUTILNE_PATTERN
+		#endregion EFFECT
+
+		#endregion OUTLINE
+
+		#region GRAPHIC
+
+		public Rect uvRect
+		{
+			get => m_uvRect;
+			set
+			{
+				if (m_uvRect != value)
+				{
+					m_uvRect = value;
+					SetVerticesDirty();
+				}
+			}
+		}
+
+		public AntialiasingType antialiasing
+		{
+			get => m_antialiasing;
+			set
+			{
+				if (m_antialiasing != value)
+				{
+					m_antialiasing = value;
+
+					SetAllDirty();
+				}
+			}
+		}
 
 		public virtual Color fillColor
 		{
@@ -893,6 +981,330 @@ namespace TLab.UI.SDF
 				}
 			}
 		}
+
+		#region GRADATION
+		public Color gradationColor
+		{
+			get => m_gradationColor;
+			set
+			{
+				if (m_gradationColor != value)
+				{
+					m_gradationColor = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public GradationShape gradationShape
+		{
+			get => m_gradationShape;
+			set
+			{
+				if (m_gradationShape != value)
+				{
+					m_gradationShape = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float gradationAngle
+		{
+			get => m_gradationAngle;
+			set
+			{
+				if (m_gradationAngle != value)
+				{
+					var tmp = Mathf.Clamp01(value);
+					m_gradationAngle = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float gradationRadius
+		{
+			get => m_gradationRadius; set
+			{
+				if (m_gradationRadius != value)
+				{
+					m_gradationRadius = math.max(value, 0);
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float gradationSmooth
+		{
+			get => m_gradationSmooth;
+			set
+			{
+				if (m_gradationSmooth != value)
+				{
+					m_gradationSmooth = math.max(value, 0);
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 gradationRange
+		{
+			get => m_gradationRange;
+			set
+			{
+				if (m_gradationRange != value)
+				{
+					var tmp = value;
+					tmp.x = Mathf.Clamp01(tmp.x);
+					tmp.y = Mathf.Clamp01(tmp.y);
+					m_gradationRange = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 gradationOffset
+		{
+			get => m_gradationOffset;
+			set
+			{
+				if (m_gradationOffset != value)
+				{
+					m_gradationOffset = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+		#endregion GRADATION
+
+		#region EFFECT
+		public EffectType graphicEffectType
+		{
+			get => m_graphicEffectType;
+			set
+			{
+				if (m_graphicEffectType != value)
+				{
+					m_graphicEffectType = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Color graphicEffectColor
+		{
+			get => m_graphicEffectColor;
+			set
+			{
+				if (m_graphicEffectColor != value)
+				{
+					m_graphicEffectColor = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 graphicEffectOffset
+		{
+			get => m_graphicEffectOffset;
+			set
+			{
+				var tmp = value;
+				tmp.x = Mathf.Clamp(tmp.x, 0, 1);
+				tmp.y = Mathf.Clamp(tmp.y, 0, 1);
+
+				if (m_graphicEffectOffset != tmp)
+				{
+					m_graphicEffectOffset = tmp;
+
+					SetAllDirty();
+				}
+			}
+
+		}
+
+		public float graphicEffectShinyWidth
+		{
+			get => m_graphicEffectShinyWidth;
+			set
+			{
+				if (m_graphicEffectShinyWidth != value)
+				{
+					m_graphicEffectShinyWidth = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectAngle
+		{
+			get => m_graphicEffectAngle;
+			set
+			{
+				if (m_graphicEffectAngle != value)
+				{
+					m_graphicEffectAngle = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectShinyBlur
+		{
+			get => m_graphicEffectShinyBlur;
+			set
+			{
+				if (m_graphicEffectShinyBlur != value)
+				{
+					m_graphicEffectShinyBlur = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Texture graphicEffectPatternTexture
+		{
+			get => m_graphicEffectPatternTexture;
+			set
+			{
+				if (m_graphicEffectPatternTexture != value)
+				{
+					m_graphicEffectPatternTexture = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public Vector2 graphicEffectPatternScale
+		{
+			get => m_graphicEffectPatternScale;
+			set
+			{
+				var tmp = value;
+				tmp.x = Mathf.Max(tmp.x, 0);
+				tmp.y = Mathf.Max(tmp.y, 0);
+
+				if (m_graphicEffectPatternScale != tmp)
+				{
+					m_graphicEffectPatternScale = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternScroll
+		{
+			get => m_graphicEffectPatternScroll;
+			set
+			{
+				if (m_graphicEffectPatternScroll != value)
+				{
+					m_graphicEffectPatternScroll = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsX
+		{
+			get => m_graphicEffectPatternParamsX;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsX != tmp)
+				{
+					m_graphicEffectPatternParamsX = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsY
+		{
+			get => m_graphicEffectPatternParamsY;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsY != tmp)
+				{
+					m_graphicEffectPatternParamsY = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsZ
+		{
+			get => m_graphicEffectPatternParamsZ;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsZ != tmp)
+				{
+					m_graphicEffectPatternParamsZ = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float graphicEffectPatternParamsW
+		{
+			get => m_graphicEffectPatternParamsW;
+			set
+			{
+				var tmp = Mathf.Max(value, 0);
+
+				if (m_graphicEffectPatternParamsW != tmp)
+				{
+					m_graphicEffectPatternParamsW = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+
+		public int graphicEffectPatternRow
+		{
+			get => m_graphicEffectPatternRow;
+			set
+			{
+				var tmp = Mathf.Max(0, value);
+
+				if (m_graphicEffectPatternRow != tmp)
+				{
+					m_graphicEffectPatternRow = tmp;
+
+					SetAllDirty();
+				}
+			}
+		}
+		#endregion EFFECT
+
+		#endregion GRAPHIC
+
+		#region MATERIAL
 
 		public override Material material
 		{
@@ -922,6 +1334,10 @@ namespace TLab.UI.SDF
 				return currentMat;
 			}
 		}
+
+		#endregion MATERIAL
+
+		#region IMAGE
 
 		public ActiveImageType activeImageType
 		{
@@ -1017,11 +1433,6 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
-		private protected MaterialRecord _materialRecord { get; } = new();
-
-		protected bool materialDirty;
-
 		public Sprite sprite
 		{
 			get => m_sprite;
@@ -1050,18 +1461,12 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		public Rect uvRect
-		{
-			get => m_uvRect;
-			set
-			{
-				if (m_uvRect != value)
-				{
-					m_uvRect = value;
-					SetVerticesDirty();
-				}
-			}
-		}
+		#endregion IMAGE
+
+		internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
+		private protected MaterialRecord _materialRecord { get; } = new();
+
+		protected bool materialDirty;
 
 #if UNITY_EDITOR
 		protected static TSDFUI Create<TSDFUI>(MenuCommand menuCommand) where TSDFUI : SDFUI
@@ -1170,7 +1575,7 @@ namespace TLab.UI.SDF
 
 		internal virtual void OnLateUpdate()
 		{
-			if (shadow && !Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
+			if (!Mathf.Approximately(eulerZ, rectTransform.eulerAngles.z))
 			{
 				eulerZ = rectTransform.eulerAngles.z;
 
@@ -1275,6 +1680,35 @@ namespace TLab.UI.SDF
 					break;
 			}
 
+			{
+				var gradationShape = m_gradationShape;
+				switch (gradationShape)
+				{
+					case GradationShape.None:
+						_materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, m_fillColor);
+						_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_LAYER, new float4(1, 0, 0, 0));
+						break;
+					case GradationShape.Linear:
+						_materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, m_gradationColor);
+						_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_LAYER, new float4(0, 1, 0, 0));
+						break;
+					case GradationShape.Radial:
+						_materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, m_gradationColor);
+						_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_LAYER, new float4(0, 0, 1, 0));
+						break;
+					case GradationShape.Conical:
+						_materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, m_gradationColor);
+						_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_LAYER, new float4(0, 0, 0, 1));
+						break;
+				}
+
+				_materialRecord.SetFloat(PROP_GRAPHIC_GRADATION_ANGLE, m_gradationAngle);
+				_materialRecord.SetFloat(PROP_GRAPHIC_GRADATION_SMOOTH, m_gradationSmooth);
+				_materialRecord.SetFloat(PROP_GRAPHIC_GRADATION_RADIUS, m_gradationRadius);
+				_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_RANGE, m_gradationRange);
+				_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_OFFSET, m_gradationOffset);
+			}
+
 			if (m_onion)
 			{
 				_materialRecord.SetFloat(PROP_ONION, 1);
@@ -1294,15 +1728,40 @@ namespace TLab.UI.SDF
 				_materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
 				_materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, (m_shadowSoftness > 0) ? 1 : 0);
 
+				_materialRecord.SetFloat(PROP_SHADOW_GRADATION_ANGLE, m_shadowGradationAngle);
+				_materialRecord.SetFloat(PROP_SHADOW_GRADATION_SMOOTH, m_shadowGradationSmooth);
+				_materialRecord.SetFloat(PROP_SHADOW_GRADATION_RADIUS, m_shadowGradationRadius);
+				_materialRecord.SetVector(PROP_SHADOW_GRADATION_RANGE, m_shadowGradationRange);
+				_materialRecord.SetVector(PROP_SHADOW_GRADATION_OFFSET, m_shadowGradationOffset);
+
+				var gradationShape = m_shadowGradationShape;
+				switch (gradationShape)
+				{
+					case GradationShape.None:
+						_materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, m_shadowColor);
+						_materialRecord.SetVector(PROP_SHADOW_GRADATION_LAYER, new float4(1, 0, 0, 0));
+						break;
+					case GradationShape.Linear:
+						_materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, m_shadowGradationColor);
+						_materialRecord.SetVector(PROP_SHADOW_GRADATION_LAYER, new float4(0, 1, 0, 0));
+						break;
+					case GradationShape.Radial:
+						_materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, m_shadowGradationColor);
+						_materialRecord.SetVector(PROP_SHADOW_GRADATION_LAYER, new float4(0, 0, 1, 0));
+						break;
+					case GradationShape.Conical:
+						_materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, m_shadowGradationColor);
+						_materialRecord.SetVector(PROP_SHADOW_GRADATION_LAYER, new float4(0, 0, 0, 1));
+						break;
+				}
+
 				MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 				_materialRecord.SetVector(PROP_SHADOW_OFFSET, sizeOffset);
 
 				_materialRecord.EnableKeyword(KEYWORD_SHADOW);
 			}
 			else
-			{
 				_materialRecord.DisableKeyword(KEYWORD_SHADOW);
-			}
 
 			{
 				var patternType = m_graphicEffectType;
@@ -1346,6 +1805,12 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_OUTLINE_INNER_BLUR, m_outlineInnerSoftness * m_outlineInnerSoftWidth);
 				_materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, (m_outlineInnerSoftness > 0) && (m_outlineInnerSoftWidth > 0) ? 1 : 0);
 
+				_materialRecord.SetFloat(PROP_OUTLINE_GRADATION_ANGLE, m_outlineGradationAngle);
+				_materialRecord.SetFloat(PROP_OUTLINE_GRADATION_SMOOTH, m_outlineGradationSmooth);
+				_materialRecord.SetFloat(PROP_OUTLINE_GRADATION_RADIUS, m_outlineGradationRadius);
+				_materialRecord.SetVector(PROP_OUTLINE_GRADATION_RANGE, m_outlineGradationRange);
+				_materialRecord.SetVector(PROP_OUTLINE_GRADATION_OFFSET, m_outlineGradationOffset);
+
 				var outlineType = m_outlineType;
 				switch (outlineType)
 				{
@@ -1358,6 +1823,27 @@ namespace TLab.UI.SDF
 						_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate) + m_outlineWidth);
 						_materialRecord.SetFloat(PROP_OUTLINE_BORDER, m_outlineWidth);
 						_materialRecord.SetFloat(PROP_GRAPHIC_BORDER, 0);
+						break;
+				}
+
+				var gradationShape = m_outlineGradationShape;
+				switch (gradationShape)
+				{
+					case GradationShape.None:
+						_materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_outlineColor);
+						_materialRecord.SetVector(PROP_OUTLINE_GRADATION_LAYER, new float4(1, 0, 0, 0));
+						break;
+					case GradationShape.Linear:
+						_materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_outlineGradationColor);
+						_materialRecord.SetVector(PROP_OUTLINE_GRADATION_LAYER, new float4(0, 1, 0, 0));
+						break;
+					case GradationShape.Radial:
+						_materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_outlineGradationColor);
+						_materialRecord.SetVector(PROP_OUTLINE_GRADATION_LAYER, new float4(0, 0, 1, 0));
+						break;
+					case GradationShape.Conical:
+						_materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_outlineGradationColor);
+						_materialRecord.SetVector(PROP_OUTLINE_GRADATION_LAYER, new float4(0, 0, 0, 1));
 						break;
 				}
 
@@ -1398,6 +1884,7 @@ namespace TLab.UI.SDF
 			{
 				_materialRecord.SetFloat(PROP_OUTLINE_WIDTH, 0);
 				_materialRecord.SetColor(PROP_OUTLINE_COLOR, m_fillColor);
+				_materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_fillColor);
 
 				_materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
 				_materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
@@ -1416,6 +1903,7 @@ namespace TLab.UI.SDF
 			}
 
 			_materialRecord.SetFloat(PROP_PADDING, m_extraMargin);
+			_materialRecord.SetFloat(PROP_EULER_Z, eulerZ * Mathf.Deg2Rad);
 		}
 
 		public override void SetMaterialDirty()

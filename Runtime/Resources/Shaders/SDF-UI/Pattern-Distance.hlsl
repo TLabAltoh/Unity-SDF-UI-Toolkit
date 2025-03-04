@@ -21,7 +21,7 @@ float graphicEffect;
 #ifdef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #ifdef SDF_UI_OUTLINE_EFFECT_SHINY
-outlineEffect = shiny(p - _OutlineEffectOffset * halfSize, _OutlineEffectShinyWidth, _OutlineEffectAngle, _OutlineEffectShinyBlur);
+outlineEffect = shiny(p - _OutlineEffectOffset * halfSize, _OutlineEffectShinyWidth, _OutlineEffectAngle + _EulerZ, _OutlineEffectShinyBlur);
 #elif SDF_UI_OUTLINE_EFFECT_PATTERN
 
 outlineEffect = -(tex2D(_OutlineEffectPatternTex, outlinePatternSample)).a;
@@ -37,7 +37,7 @@ outlineEffect = 1 - (outlineEffect >= 0);
 #endif
 
 #ifdef SDF_UI_GRAPHIC_EFFECT_SHINY
-graphicEffect = shiny(p - _GraphicEffectOffset * halfSize, _GraphicEffectShinyWidth, _GraphicEffectAngle, _GraphicEffectShinyBlur);
+graphicEffect = shiny(p - _GraphicEffectOffset * halfSize, _GraphicEffectShinyWidth, _GraphicEffectAngle + _EulerZ, _GraphicEffectShinyBlur);
 #elif SDF_UI_GRAPHIC_EFFECT_PATTERN
 
 graphicEffect = -(tex2D(_GraphicEffectPatternTex, graphicPatternSample)).a;

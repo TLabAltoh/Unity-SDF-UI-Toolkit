@@ -132,6 +132,31 @@ namespace TLab.UI.SDF.Editor
 			}
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
 
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationShape), "Gradation Shape");
+			EditorGUI.indentLevel++;
+			bool drawGradationColor = m_baseInstance.gradationShape != SDFUI.GradationShape.None;
+			if (drawGradationColor)
+			{
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationColor), "Color");
+				switch (m_baseInstance.gradationShape)
+				{
+					case SDFUI.GradationShape.Linear:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationAngle), "Angle");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationSmooth), "Smooth");
+						break;
+					case SDFUI.GradationShape.Radial:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationRadius), "Radius");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationSmooth), "Smooth");
+						break;
+					case SDFUI.GradationShape.Conical:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationAngle), "Angle");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationRange), "Range");
+						break;
+				}
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationOffset), "Offset");
+			}
+			EditorGUI.indentLevel--;
+
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectType), "Effect");
 			EditorGUI.indentLevel++;
 			var effectType = m_baseInstance.graphicEffectType;
@@ -193,9 +218,35 @@ namespace TLab.UI.SDF.Editor
 			{
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineWidth), "Width");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineColor), "Color");
+
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationShape), "Gradation Shape");
+				EditorGUI.indentLevel++;
+				bool drawGradationColor = m_baseInstance.outlineGradationShape != SDFUI.GradationShape.None;
+				if (drawGradationColor)
+				{
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationColor), "Color");
+					switch (m_baseInstance.outlineGradationShape)
+					{
+						case SDFUI.GradationShape.Linear:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationAngle), "Angle");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationSmooth), "Smooth");
+							break;
+						case SDFUI.GradationShape.Radial:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationRadius), "Radius");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationSmooth), "Smooth");
+							break;
+						case SDFUI.GradationShape.Conical:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationAngle), "Angle");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationRange), "Range");
+							break;
+					}
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationOffset), "Offset");
+				}
+				EditorGUI.indentLevel--;
+
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftWidth), "InnerSoftWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineInnerSoftness), "InnerSoftness");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Type");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineType), "Direction");
 
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectType), "Effect");
 
@@ -265,6 +316,32 @@ namespace TLab.UI.SDF.Editor
 			if (m_baseInstance.shadow)
 			{
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowColor), "Color");
+
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationShape), "Gradation Shape");
+				EditorGUI.indentLevel++;
+				bool drawGradationColor = m_baseInstance.shadowGradationShape != SDFUI.GradationShape.None;
+				if (drawGradationColor)
+				{
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationColor), "Color");
+					switch (m_baseInstance.shadowGradationShape)
+					{
+						case SDFUI.GradationShape.Linear:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationAngle), "Angle");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationSmooth), "Smooth");
+							break;
+						case SDFUI.GradationShape.Radial:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationRadius), "Radius");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationSmooth), "Smooth");
+							break;
+						case SDFUI.GradationShape.Conical:
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationAngle), "Angle");
+							serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationRange), "Range");
+							break;
+					}
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationOffset), "Offset");
+				}
+				EditorGUI.indentLevel--;
+
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowOffset), "Offset");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowWidth), "Width");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowInnerSoftWidth), "InnerSoftWidth");

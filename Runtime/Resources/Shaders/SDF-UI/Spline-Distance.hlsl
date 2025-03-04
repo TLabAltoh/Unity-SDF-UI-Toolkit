@@ -32,7 +32,7 @@ for (idx = 0; idx < _SplinesNum; idx += 3) {
     tmp = sdBezier(p, v0, v1, v2);
 
 #ifdef SDF_UI_SPLINE_FILL
-    if ((tmp > 0.0) == (cro(v1 - v2, v1 - v0) < 0.0)) {
+    if ((tmp > 0.0) == (cross(v1 - v2, v1 - v0) < 0.0)) {
         winding *= windingSign(p, v0, v1);
         winding *= windingSign(p, v1, v2);
     }
