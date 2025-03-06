@@ -359,7 +359,7 @@ namespace TLab.UI.SDF.Editor
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowInnerSoftWidth), "InnerSoftWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowSoftness), "Softness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowDilate), "Dilate");
-                
+
                 serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowEffectType), "Effect");
                 EditorGUI.indentLevel++;
                 var shadowEffectType = m_baseInstance.shadowEffectType;
@@ -373,6 +373,9 @@ namespace TLab.UI.SDF.Editor
                         serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowHueOffset), "Hue Offset");
                         EditorGUILayout.HelpBox("Alpha from the shadow gradation color is applied to the rainbow.", MessageType.Info);
                         break;
+                    default:
+	                    EditorGUILayout.LabelField("Effect not implemented for Shadow");
+						break;
                 }
                 EditorGUI.indentLevel--;
 			}
