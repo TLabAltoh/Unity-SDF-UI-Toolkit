@@ -200,6 +200,12 @@ namespace TLab.UI.SDF.Editor
 					}
 					EditorGUILayout.EndHorizontal();
 					break;
+				case SDFUI.EffectType.Rainbow:
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowSaturation), "Saturation");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowValue), "Value");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowHueOffset), "Hue Offset");
+					EditorGUILayout.HelpBox("Alpha from the gradation color is applied to the rainbow.", MessageType.Info);
+					break;
 			}
 			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
@@ -292,6 +298,12 @@ namespace TLab.UI.SDF.Editor
 						}
 						EditorGUILayout.EndHorizontal();
 						break;
+					case SDFUI.EffectType.Rainbow:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowSaturation), "Saturation");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowValue), "Value");
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowHueOffset), "Hue Offset");
+						EditorGUILayout.HelpBox("Alpha from the outline gradation color is applied to the rainbow.", MessageType.Info);
+						break;
 				}
 				EditorGUI.indentLevel--;
 			}
@@ -347,6 +359,22 @@ namespace TLab.UI.SDF.Editor
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowInnerSoftWidth), "InnerSoftWidth");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowSoftness), "Softness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowDilate), "Dilate");
+                
+                serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowEffectType), "Effect");
+                EditorGUI.indentLevel++;
+                var shadowEffectType = m_baseInstance.shadowEffectType;
+                switch (shadowEffectType)
+                {
+                    case SDFUI.EffectType.None:
+                        break;
+                    case SDFUI.EffectType.Rainbow:
+                        serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowSaturation), "Saturation");
+                        serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowValue), "Value");
+                        serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.rainbowHueOffset), "Hue Offset");
+                        EditorGUILayout.HelpBox("Alpha from the shadow gradation color is applied to the rainbow.", MessageType.Info);
+                        break;
+                }
+                EditorGUI.indentLevel--;
 			}
 			EditorGUI.indentLevel--;
 		}
