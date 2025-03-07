@@ -58,6 +58,10 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_GRAPHIC_GRADATION_SMOOTH = Shader.PropertyToID("_GraphicGradationSmooth");
 		internal static readonly int PROP_GRAPHIC_GRADATION_OFFSET = Shader.PropertyToID("_GraphicGradationOffset");
 
+		internal static readonly int PROP_GRAPHIC_USE_RAINBOW = Shader.PropertyToID("_GraphicUseRainbow");
+		internal static readonly int PROP_GRAPHIC_RAINBOW_SATURATION = Shader.PropertyToID("_GraphicRainbowSaturation");
+		internal static readonly int PROP_GRAPHIC_RAINBOW_VALUE = Shader.PropertyToID("_GraphicRainbowValue");
+
 		internal static readonly int PROP_SHADOW_WIDTH = Shader.PropertyToID("_ShadowWidth");
 		internal static readonly int PROP_SHADOW_BLUR = Shader.PropertyToID("_ShadowBlur");
 		internal static readonly int PROP_SHADOW_DILATE = Shader.PropertyToID("_ShadowDilate");
@@ -111,6 +115,14 @@ namespace TLab.UI.SDF
 		internal static readonly int PROP_OUTLINE_EFFECT_COLOR = Shader.PropertyToID("_OutlineEffectColor");
 		internal static readonly int PROP_GRAPHIC_EFFECT_OFFSET = Shader.PropertyToID("_GraphicEffectOffset");
 
+		internal static readonly int PROP_GRAPHIC_RAINBOW_HUE_OFFSET = Shader.PropertyToID("_GraphicRainbowHueOffset");
+
+		// Add a new shader property ID for the outline rainbow
+		internal static readonly int PROP_OUTLINE_USE_RAINBOW = Shader.PropertyToID("_OutlineUseRainbow");
+
+		// Add a new shader property ID for the shadow rainbow
+		internal static readonly int PROP_SHADOW_USE_RAINBOW = Shader.PropertyToID("_ShadowUseRainbow");
+
 		#endregion SHADER_PROP
 
 		#region ENUM
@@ -147,6 +159,7 @@ namespace TLab.UI.SDF
 			None = 0,
 			Shiny = 1,
 			Pattern = 2,
+			Rainbow = 3,
 		};
 
 		#endregion ENUM
@@ -167,7 +180,7 @@ namespace TLab.UI.SDF
 
 		#region GRADATION
 		[SerializeField, ColorUsage(true, true)] protected Color m_outlineGradationColor = Color.cyan;
-		[SerializeField, Range(0, 1)] protected float m_outlineGradationAngle = 0;
+		[SerializeField, Range(0, 2)] protected float m_outlineGradationAngle = 0;
 		[SerializeField, Min(0)] protected float m_outlineGradationRadius = 0.5f;
 		[SerializeField, Min(0)] protected float m_outlineGradationSmooth = 0.5f;
 		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_outlineGradationRange = new Vector2(0.25f, 0.75f);
@@ -203,10 +216,11 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0f)] protected float m_shadowDilate = 0;
 		[SerializeField] protected Vector2 m_shadowOffset;
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
+		[SerializeField] protected EffectType m_shadowEffectType = EffectType.None;
 
 		#region GRADATION
 		[SerializeField, ColorUsage(true, true)] protected Color m_shadowGradationColor = Color.black;
-		[SerializeField, Range(0, 1)] protected float m_shadowGradationAngle = 0;
+		[SerializeField, Range(0, 2)] protected float m_shadowGradationAngle = 0;
 		[SerializeField, Min(0)] protected float m_shadowGradationRadius = 0.5f;
 		[SerializeField, Min(0)] protected float m_shadowGradationSmooth = 0.5f;
 		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_shadowGradationRange = new Vector2(0.25f, 0.75f);
@@ -226,7 +240,7 @@ namespace TLab.UI.SDF
 
 		#region GRADATION
 		[SerializeField, ColorUsage(true)] protected Color m_gradationColor = Color.white;
-		[SerializeField, Range(0, 1)] protected float m_gradationAngle = 0;
+		[SerializeField, Range(0, 2)] protected float m_gradationAngle = 0;
 		[SerializeField, Min(0)] protected float m_gradationRadius = 0.5f;
 		[SerializeField, Min(0)] protected float m_gradationSmooth = 0.5f;
 		[SerializeField, MinMaxRange(0, 1)] protected Vector2 m_gradationRange = new Vector2(0.25f, 0.75f);
@@ -249,6 +263,10 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsZ = 1;
 		[SerializeField, Min(0)] protected float m_graphicEffectPatternParamsW = 1;
 		[SerializeField, Min(0)] protected Vector2 m_graphicEffectPatternScale = Vector2.one;
+		// Rainbow effect properties
+		[SerializeField, Range(0, 1)] protected float m_rainbowSaturation = 1.0f;
+		[SerializeField, Range(0, 1)] protected float m_rainbowValue = 1.0f;
+		[SerializeField, Range(0, 1)] protected float m_rainbowHueOffset = 0.0f;
 		#endregion EFFECT
 
 		#endregion GRAPHIC
@@ -415,6 +433,20 @@ namespace TLab.UI.SDF
 				{
 					m_shadowColor = value;
 
+					SetAllDirty();
+				}
+			}
+		}
+
+		public EffectType shadowEffectType
+		{
+			get => m_shadowEffectType;
+			set
+			{
+				if (m_shadowEffectType != value)
+				{
+					m_shadowEffectType = value;
+					
 					SetAllDirty();
 				}
 			}
@@ -1707,6 +1739,13 @@ namespace TLab.UI.SDF
 				_materialRecord.SetFloat(PROP_GRAPHIC_GRADATION_RADIUS, m_gradationRadius);
 				_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_RANGE, m_gradationRange);
 				_materialRecord.SetVector(PROP_GRAPHIC_GRADATION_OFFSET, m_gradationOffset);
+				
+				// Set rainbow gradient properties - only apply when effect type is Rainbow
+				bool useRainbowGradient = m_graphicEffectType == EffectType.Rainbow;
+				_materialRecord.SetFloat(PROP_GRAPHIC_USE_RAINBOW, useRainbowGradient ? 1 : 0);
+				_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_SATURATION, m_rainbowSaturation);
+				_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
+				_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
 			}
 
 			if (m_onion)
@@ -1758,6 +1797,16 @@ namespace TLab.UI.SDF
 				MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
 				_materialRecord.SetVector(PROP_SHADOW_OFFSET, sizeOffset);
 
+				// Set shadow rainbow properties
+				bool shadowUseRainbowGradient = m_shadowEffectType == EffectType.Rainbow;
+				_materialRecord.SetFloat(PROP_SHADOW_USE_RAINBOW, shadowUseRainbowGradient ? 1 : 0);
+				if (shadowUseRainbowGradient)
+				{
+					_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_SATURATION, m_rainbowSaturation);
+					_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
+					_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
+				}
+
 				_materialRecord.EnableKeyword(KEYWORD_SHADOW);
 			}
 			else
@@ -1794,6 +1843,15 @@ namespace TLab.UI.SDF
 						_materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_ANGLE, Mathf.PI * m_graphicEffectAngle);
 						_materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
 						_materialRecord.SetVector(PROP_GRAPHIC_EFFECT_OFFSET, m_graphicEffectOffset);
+						break;
+					case EffectType.Rainbow:
+						_materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY, KEYWORD_GRAPHIC_EFFECT_PATTERN);
+						
+						// Set rainbow gradient properties
+						_materialRecord.SetFloat(PROP_GRAPHIC_USE_RAINBOW, 1);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_SATURATION, m_rainbowSaturation);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
 						break;
 				}
 			}
@@ -1863,6 +1921,10 @@ namespace TLab.UI.SDF
 						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
 						_materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
 						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
+
+						// Set outline rainbow properties
+						bool outlineUseRainbowGradient = m_outlineEffectType == EffectType.Rainbow;
+						_materialRecord.SetFloat(PROP_OUTLINE_USE_RAINBOW, outlineUseRainbowGradient ? 1 : 0);
 						break;
 					case EffectType.Pattern:
 						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
@@ -1877,6 +1939,15 @@ namespace TLab.UI.SDF
 						_materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
 						_materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
 						_materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
+						break;
+					case EffectType.Rainbow:
+						_materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY, KEYWORD_OUTLINE_EFFECT_PATTERN);
+						
+						// Set outline rainbow properties
+						_materialRecord.SetFloat(PROP_OUTLINE_USE_RAINBOW, 1);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_SATURATION, m_rainbowSaturation);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
+						_materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
 						break;
 				}
 			}
@@ -1916,6 +1987,45 @@ namespace TLab.UI.SDF
 			materialDirty = true;
 
 			UpdateMaterialRecord();
+		}
+
+		public float rainbowSaturation
+		{
+			get => m_rainbowSaturation;
+			set
+			{
+				if (m_rainbowSaturation != value)
+				{
+					m_rainbowSaturation = Mathf.Clamp01(value);
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float rainbowValue
+		{
+			get => m_rainbowValue;
+			set
+			{
+				if (m_rainbowValue != value)
+				{
+					m_rainbowValue = Mathf.Clamp01(value);
+					SetAllDirty();
+				}
+			}
+		}
+
+		public float rainbowHueOffset
+		{
+			get => m_rainbowHueOffset;
+			set
+			{
+				if (m_rainbowHueOffset != value)
+				{
+					m_rainbowHueOffset = Mathf.Clamp01(value);
+					SetAllDirty();
+				}
+			}
 		}
 	}
 }

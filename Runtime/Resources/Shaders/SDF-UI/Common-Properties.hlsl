@@ -21,6 +21,18 @@ float4 _GraphicGradationLayer;
 float4 _GraphicGradationRange;
 float4 _GraphicGradationOffset;
 
+// Rainbow gradient properties
+float _GraphicUseRainbow;
+float _GraphicRainbowSaturation;
+float _GraphicRainbowValue;
+float _GraphicRainbowHueOffset;
+
+// Outline rainbow property
+float _OutlineUseRainbow;
+
+// Shadow rainbow property
+float _ShadowUseRainbow;
+
 float _OutlineWidth;
 float _OutlineBorder;
 float _OutlineInnerBlur;

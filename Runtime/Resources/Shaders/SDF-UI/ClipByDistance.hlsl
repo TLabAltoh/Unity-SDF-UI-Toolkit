@@ -60,7 +60,21 @@ float2 shadowGradationPosition = rotate(pRotated - shadowGradationOffset, shadow
 float4 shadowMixedColor0 = linearGradation(shadowGradationPosition, shadowGradationSmooth, _ShadowColor, _ShadowGradationColor);
 float4 shadowMixedColor1 = radialGradation(shadowGradationPosition, shadowGradationRadius, shadowGradationSmooth, _ShadowColor, _ShadowGradationColor);
 float4 shadowMixedColor2 = conicalGradation(shadowGradationPosition, shadowGradationSmooth, _ShadowGradationRange, _ShadowColor, _ShadowGradationColor);
-float4 shadowColor = select(_ShadowGradationLayer, _ShadowColor, shadowMixedColor0, shadowMixedColor1, shadowMixedColor2);
+
+// Rainbow gradient implementation for shadow
+float4 shadowRainbowMixedColor0 = rainbowLinearGradation(shadowGradationPosition, shadowGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 shadowRainbowMixedColor1 = rainbowRadialGradation(shadowGradationPosition, shadowGradationRadius, shadowGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 shadowRainbowMixedColor2 = rainbowConicalGradation(shadowGradationPosition, shadowGradationSmooth, _ShadowGradationRange, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+
+// Apply alpha from shadow gradation color to rainbow colors
+shadowRainbowMixedColor0.a = _ShadowGradationColor.a;
+shadowRainbowMixedColor1.a = _ShadowGradationColor.a;
+shadowRainbowMixedColor2.a = _ShadowGradationColor.a;
+
+// Select between normal gradation and rainbow gradation for shadow
+float4 shadowNormalGradation = select(_ShadowGradationLayer, _ShadowColor, shadowMixedColor0, shadowMixedColor1, shadowMixedColor2);
+float4 shadowRainbowGradation = select(_ShadowGradationLayer, _ShadowColor, shadowRainbowMixedColor0, shadowRainbowMixedColor1, shadowRainbowMixedColor2);
+float4 shadowColor = lerp(shadowNormalGradation, shadowRainbowGradation, _ShadowUseRainbow);
 #else
 float4 shadowColor = _ShadowColor;
 #endif
@@ -133,7 +147,21 @@ float2 outlineGradationPosition = rotate(pRotated - outlineGradationOffset, outl
 float4 outlineMixedColor0 = linearGradation(outlineGradationPosition, outlineGradationSmooth, _OutlineColor, _OutlineGradationColor);
 float4 outlineMixedColor1 = radialGradation(outlineGradationPosition, outlineGradationRadius, outlineGradationSmooth, _OutlineColor, _OutlineGradationColor);
 float4 outlineMixedColor2 = conicalGradation(outlineGradationPosition, outlineGradationSmooth, _OutlineGradationRange, _OutlineColor, _OutlineGradationColor);
-float4 outlineColor = select(_OutlineGradationLayer, _OutlineColor, outlineMixedColor0, outlineMixedColor1, outlineMixedColor2);
+
+// Rainbow gradient implementation for outline
+float4 outlineRainbowMixedColor0 = rainbowLinearGradation(outlineGradationPosition, outlineGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 outlineRainbowMixedColor1 = rainbowRadialGradation(outlineGradationPosition, outlineGradationRadius, outlineGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 outlineRainbowMixedColor2 = rainbowConicalGradation(outlineGradationPosition, outlineGradationSmooth, _OutlineGradationRange, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+
+// Apply alpha from outline gradation color to rainbow colors
+outlineRainbowMixedColor0.a = _OutlineGradationColor.a;
+outlineRainbowMixedColor1.a = _OutlineGradationColor.a;
+outlineRainbowMixedColor2.a = _OutlineGradationColor.a;
+
+// Select between normal gradation and rainbow gradation for outline
+float4 outlineNormalGradation = select(_OutlineGradationLayer, _OutlineColor, outlineMixedColor0, outlineMixedColor1, outlineMixedColor2);
+float4 outlineRainbowGradation = select(_OutlineGradationLayer, _OutlineColor, outlineRainbowMixedColor0, outlineRainbowMixedColor1, outlineRainbowMixedColor2);
+float4 outlineColor = lerp(outlineNormalGradation, outlineRainbowGradation, _OutlineUseRainbow);
 #else
 float4 outlineColor = _OutlineColor;
 #endif
@@ -159,7 +187,21 @@ float2 graphicGradationPosition = rotate(pRotated - graphicGradationOffset, grap
 float4 graphicMixedColor0 = linearGradation(graphicGradationPosition, graphicGradationSmooth, color, _GraphicGradationColor);
 float4 graphicMixedColor1 = radialGradation(graphicGradationPosition, graphicGradationRadius, graphicGradationSmooth, color, _GraphicGradationColor);
 float4 graphicMixedColor2 = conicalGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicGradationRange, color, _GraphicGradationColor);
-float4 graphicColor = select(_GraphicGradationLayer, color, graphicMixedColor0, graphicMixedColor1, graphicMixedColor2);
+
+// Rainbow gradient implementation
+float4 rainbowMixedColor0 = rainbowLinearGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 rainbowMixedColor1 = rainbowRadialGradation(graphicGradationPosition, graphicGradationRadius, graphicGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+float4 rainbowMixedColor2 = rainbowConicalGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicGradationRange, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
+
+// Apply alpha from gradation color to rainbow colors
+rainbowMixedColor0.a = _GraphicGradationColor.a;
+rainbowMixedColor1.a = _GraphicGradationColor.a;
+rainbowMixedColor2.a = _GraphicGradationColor.a;
+
+// Select between normal gradation and rainbow gradation
+float4 normalGradation = select(_GraphicGradationLayer, color, graphicMixedColor0, graphicMixedColor1, graphicMixedColor2);
+float4 rainbowGradation = select(_GraphicGradationLayer, color, rainbowMixedColor0, rainbowMixedColor1, rainbowMixedColor2);
+float4 graphicColor = lerp(normalGradation, rainbowGradation, _GraphicUseRainbow);
 #else
 float4 graphicColor = color;
 #endif

@@ -48,6 +48,15 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
         <td><img src="Media/demo.14.jpg" width="256"><img></td>
     </tr>
 </table>
+
+<table>
+    <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a></caption>
+    <tr>
+        <td><img src="Media/demo.15.jpg" width="768"><img></td>
+    </tr>
+    
+    
+</table>
 <table>
     <caption>Editor for creating Custom Shapes</caption>
     <tr>
@@ -81,6 +90,7 @@ https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
+- Set the ```ColorSpace``` to ```Linear``` in ```ProjectSettins/Player/OtherSettings/Rendering``` (if ```Gamma``` is selected, the HDR color will appear little different).
 
 ## Feature
 ### Vector UI
