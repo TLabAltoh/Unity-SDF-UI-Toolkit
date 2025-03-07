@@ -156,6 +156,95 @@ inline float4 linearGradation(float2 p, float angle, float rectAngle, float smoo
 }
 
 /**
+* HSV to RGB conversion
+*/
+inline float3 hsv2rgb(float3 hsv) {
+    float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    float3 p = abs(frac(hsv.xxx + K.xyz) * 6.0 - K.www);
+    return hsv.z * lerp(K.xxx, saturate(p - K.xxx), hsv.y);
+}
+
+/**
+* Rainbow gradient functions
+*/
+inline float4 rainbowLinearGradation(float2 p, float smooth, float saturation, float value, float hueOffset) {
+    float tmp = 0.0;
+    tmp = select(smooth > 0.0, 
+                (p.x + smooth) / (2.0 * smooth), 
+                (p.x + smooth) / (2.0 * smooth));
+    tmp = frac(tmp + hueOffset);
+    float3 hsv = float3(tmp, saturation, value);
+    float3 rgb = hsv2rgb(hsv);
+    return float4(rgb, 1.0);
+}
+
+inline float4 rainbowLinearGradation(float2 p, float smooth, float saturation, float value) {
+    return rainbowLinearGradation(p, smooth, saturation, value, 0.0);
+}
+
+inline float4 rainbowLinearGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float saturation, float value, float hueOffset) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return rainbowLinearGradation(p, smooth, saturation, value, hueOffset);
+}
+
+inline float4 rainbowLinearGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float saturation, float value) {
+    return rainbowLinearGradation(p, angle, rectAngle, smooth, offset, saturation, value, 0.0);
+}
+
+inline float4 rainbowRadialGradation(float2 p, float radius, float smooth, float saturation, float value, float hueOffset) {
+    float tmp = sqrt((p.x * p.x) + (p.y * p.y));
+    tmp = (tmp - (radius - smooth)) / (2.0 * smooth);
+    tmp = frac(tmp + hueOffset);
+    float3 hsv = float3(tmp, saturation, value);
+    float3 rgb = hsv2rgb(hsv);
+    return float4(rgb, 1.0);
+}
+
+inline float4 rainbowRadialGradation(float2 p, float radius, float smooth, float saturation, float value) {
+    return rainbowRadialGradation(p, radius, smooth, saturation, value, 0.0);
+}
+
+inline float4 rainbowRadialGradation(float2 p, float angle, float rectAngle, float radius, float smooth, float2 offset, float saturation, float value, float hueOffset) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return rainbowRadialGradation(p, radius, smooth, saturation, value, hueOffset);
+}
+
+inline float4 rainbowRadialGradation(float2 p, float angle, float rectAngle, float radius, float smooth, float2 offset, float saturation, float value) {
+    return rainbowRadialGradation(p, angle, rectAngle, radius, smooth, offset, saturation, value, 0.0);
+}
+
+inline float4 rainbowConicalGradation(float2 p, float smooth, float2 range, float saturation, float value, float hueOffset) {
+    float tmp = 0.0;
+    tmp = select(p.y >= 0.0, atan2(p.y, p.x), tmp);
+    tmp = select(p.y < 0.0, PI * 2.0 + atan2(p.y, p.x), tmp);
+    
+    tmp = tmp / (2.0 * PI);
+    
+    if (range.x != 0.0 || range.y != 1.0) {
+        tmp = range.x + tmp * (range.y - range.x);
+    }
+    
+    tmp = frac(tmp + hueOffset);
+    
+    float3 hsv = float3(tmp, saturation, value);
+    float3 rgb = hsv2rgb(hsv);
+    return float4(rgb, 1.0);
+}
+
+inline float4 rainbowConicalGradation(float2 p, float smooth, float2 range, float saturation, float value) {
+    return rainbowConicalGradation(p, smooth, range, saturation, value, 0.0);
+}
+
+inline float4 rainbowConicalGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float2 range, float saturation, float value, float hueOffset) {
+    p = rotate(p, rectAngle); p = rotate(p - offset, angle);
+    return rainbowConicalGradation(p, smooth, range, saturation, value, hueOffset);
+}
+
+inline float4 rainbowConicalGradation(float2 p, float angle, float rectAngle, float smooth, float2 offset, float2 range, float saturation, float value) {
+    return rainbowConicalGradation(p, angle, rectAngle, smooth, offset, range, saturation, value, 0.0);
+}
+
+/**
 *
 *
 */
