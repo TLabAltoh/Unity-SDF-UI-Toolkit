@@ -52,10 +52,10 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 <table>
     <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a></caption>
     <tr>
-        <td><img src="Media/demo.15.jpg" width="768"><img></td>
+        <td><img src="Media/demo.15.jpg" width="256"><img></td>
+        <td><img src="Media/demo.16.jpg" width="256"><img></td>
+        <td><img src="Media/demo.17.jpg" width="256"><img></td>
     </tr>
-    
-    
 </table>
 <table>
     <caption>Editor for creating Custom Shapes</caption>
