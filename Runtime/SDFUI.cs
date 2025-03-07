@@ -271,11 +271,6 @@ namespace TLab.UI.SDF
 
 		#endregion GRAPHIC
 
-		#region RAINBOW
-		[SerializeField, LeftToggle] protected bool m_useRainbow = false;
-		[SerializeField, LeftToggle] protected bool m_outlineUseRainbow = false;
-		#endregion RAINBOW
-
 		protected SDFUI()
 		{
 			useLegacyMeshGeneration = false;
@@ -2028,21 +2023,6 @@ namespace TLab.UI.SDF
 				if (m_rainbowHueOffset != value)
 				{
 					m_rainbowHueOffset = Mathf.Clamp01(value);
-					SetAllDirty();
-				}
-			}
-		}
-
-		// Add the property accessor for outline rainbow
-		public bool outlineUseRainbow
-		{
-			get => m_outlineUseRainbow;
-			set
-			{
-				if (m_outlineUseRainbow != value)
-				{
-					m_outlineUseRainbow = value;
-					
 					SetAllDirty();
 				}
 			}
