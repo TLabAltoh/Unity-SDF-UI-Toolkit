@@ -22,9 +22,9 @@ namespace TLab.UI.SDF
 		[SerializeField, Min(0)] private float m_maxDist = 50;
 		[SerializeField] private Texture2D m_sdfTexture;
 
-		private static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
-		private static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
-		private static readonly int PROP_MAXDIST = Shader.PropertyToID("_MaxDist");
+		internal static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		internal static readonly int PROP_SDFTEX = Shader.PropertyToID("_SDFTex");
+		internal static readonly int PROP_MAXDIST = Shader.PropertyToID("_MaxDist");
 
 		public float radius
 		{

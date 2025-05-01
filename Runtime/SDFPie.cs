@@ -17,9 +17,10 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Pie/Outline";
 
-		private static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
+		[SerializeField, Range(0, 1)]
+		private float m_roundness = 0.1f;
 
-		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;
+		internal static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
 
 		protected override float m_extraMargin
 		{

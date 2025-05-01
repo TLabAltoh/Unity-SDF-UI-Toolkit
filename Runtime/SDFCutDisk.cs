@@ -19,8 +19,8 @@ namespace TLab.UI.SDF
 
 		[SerializeField, Range(0f, 1f)] private float m_fillAmount = 0.5f;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
-		public static readonly int PROP_HEIGHT = Shader.PropertyToID("_Height");
+		internal static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		internal static readonly int PROP_HEIGHT = Shader.PropertyToID("_Height");
 
 		public float fillAmount
 		{

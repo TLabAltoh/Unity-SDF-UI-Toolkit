@@ -22,14 +22,12 @@ namespace TLab.UI.SDF
 		[SerializeField] private Vector2 m_corner1 = new Vector2(0.45f, -0.45f);
 		[SerializeField] private Vector2 m_corner2 = new Vector2(0.0f, 0.45f);
 
-		private static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
-		private static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
-		private static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
-		private static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
+		internal static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
+		internal static readonly int PROP_CORNER0 = Shader.PropertyToID("_Corner0");
+		internal static readonly int PROP_CORNER1 = Shader.PropertyToID("_Corner1");
+		internal static readonly int PROP_CORNER2 = Shader.PropertyToID("_Corner2");
 
 		private string THIS_NAME => "[" + this.GetType() + "] ";
-
-		public int length => 3;
 
 		public float roundness
 		{
