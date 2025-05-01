@@ -23,10 +23,10 @@ namespace TLab.UI.SDF
 		[SerializeField] private float m_startAngle = 0;
 		[SerializeField, Range(0, 1)] protected float m_ratio = 0.45f;
 
-		public static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
-		public static readonly int PROP_CIRCLE_BORDER = Shader.PropertyToID("_CircleBorder");
-		public static readonly int PROP_ANGLE_OFFSET = Shader.PropertyToID("_AngleOffset");
-		public static readonly int PROP_CORNERS_ROUNDING = Shader.PropertyToID("_CornersRounding");
+		internal static readonly int PROP_WIDTH = Shader.PropertyToID("_Width");
+		internal static readonly int PROP_CIRCLE_BORDER = Shader.PropertyToID("_CircleBorder");
+		internal static readonly int PROP_ANGLE_OFFSET = Shader.PropertyToID("_AngleOffset");
+		internal static readonly int PROP_CORNERS_ROUNDING = Shader.PropertyToID("_CornersRounding");
 
 		public float ratio
 		{

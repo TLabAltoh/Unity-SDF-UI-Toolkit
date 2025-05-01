@@ -16,7 +16,7 @@ float dist, onion;
 
 #if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE) || defined(SDF_UI_STEP_SHADOW)
 
-dist = sdParallelogram(p, halfSize.x, halfSize.y, _Slide);
+dist = sdParallelogram(p, halfSize.x - 10, halfSize.y - 10, _Slide);
 
 onion = abs(dist) - _OnionWidth;
 

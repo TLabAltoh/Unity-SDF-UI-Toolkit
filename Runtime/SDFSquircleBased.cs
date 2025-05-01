@@ -6,8 +6,8 @@ namespace TLab.UI.SDF
     {
         [SerializeField, Min(1)] protected float m_roundness = 2.4f;
 
-        public static readonly int PROP_MIN_SIZE = Shader.PropertyToID("_MinSize");
-        public static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
+        internal static readonly int PROP_MIN_SIZE = Shader.PropertyToID("_MinSize");
+        internal static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
 
         public float roundness
         {

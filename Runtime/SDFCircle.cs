@@ -17,13 +17,13 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Circle/Outline";
 
-		[Range(0, 1), SerializeField]
-		public float m_min = 0;
+		[SerializeField, Range(0, 1)]
+		private float m_min = 0;
 
-		[Range(0, 1), SerializeField]
-		public float m_max = 1;
+		[SerializeField, Range(0, 1)]
+		private float m_max = 1;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		internal static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
 
 		public float min
 		{

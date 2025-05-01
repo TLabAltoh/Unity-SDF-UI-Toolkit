@@ -4,11 +4,11 @@ namespace TLab.UI.SDF
 {
 	public abstract class SDFCircleBased : SDFUI
 	{
-		[Range(-1, 1), SerializeField]
+		[SerializeField, Range(-1, 1)]
 		protected float m_fillAmount = 0.5f;
 
-		public static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
-		public static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
+		internal static readonly int PROP_RADIUSE = Shader.PropertyToID("_Radius");
+		internal static readonly int PROP_THETA = Shader.PropertyToID("_Theta");
 
 		public float fillAmount
 		{

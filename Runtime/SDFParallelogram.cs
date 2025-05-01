@@ -18,8 +18,10 @@ namespace TLab.UI.SDF
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Parallelogram/Outline";
 
 		[SerializeField] private float m_slide = 0;
+		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;
 
-		public static readonly int PROP_SLIDE = Shader.PropertyToID("_Slide");
+		internal static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
+		internal static readonly int PROP_SLIDE = Shader.PropertyToID("_Slide");
 
 		public float slide
 		{
@@ -35,10 +37,25 @@ namespace TLab.UI.SDF
 			}
 		}
 
+		public float roundness
+		{
+			get => m_roundness;
+			set
+			{
+				if (m_roundness != value)
+				{
+					m_roundness = value;
+
+					SetAllDirty();
+				}
+			}
+		}
+
 		protected override void UpdateMaterial()
 		{
 			base.UpdateMaterial();
 
+			var minSize = this.minSize;
 			_materialRecord.SetFloat(PROP_SLIDE, (minSize * 0.5f) * m_slide);
 		}
 	}

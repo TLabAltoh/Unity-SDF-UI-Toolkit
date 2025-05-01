@@ -19,7 +19,7 @@ namespace TLab.UI.SDF
 
         [SerializeField, Min(1)] protected int m_iteration = 4;
 
-        public static readonly int PROP_ITERATION = Shader.PropertyToID("_Iteration");
+        internal static readonly int PROP_ITERATION = Shader.PropertyToID("_Iteration");
 
         public int iteration
         {
