@@ -1855,7 +1855,7 @@ MonoBehaviour:
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
   m_slide: -0.225
-  m_roundness: 0.249
+  m_roundness: 0.192
 --- !u!1 &3522970763213088703
 GameObject:
   m_ObjectHideFlags: 0
