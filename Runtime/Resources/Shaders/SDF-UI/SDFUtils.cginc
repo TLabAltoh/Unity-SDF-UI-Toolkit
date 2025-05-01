@@ -492,6 +492,21 @@ inline float sdBezier(float2 pos, float2 A, float2 B, float2 C) {
 }
 #endif
 
+#ifdef SDF_UI_PARALLELOGRAM
+float sdParallelogram(float2 p, float wi, float he, float sk)
+{
+    float2 e = float2(sk, he);
+    p = (p.y < 0.0) ? -p : p;
+    float2  w = p - e; w.x -= clamp(w.x, -wi, wi);
+    float2  d = float2(dot(w, w), -w.y);
+    float s = p.x * e.y - p.y * e.x;
+    p = (s < 0.0) ? -p : p;
+    float2  v = p - float2(wi, 0); v -= e * clamp(dot(v, e) / dot(e, e), -1.0, 1.0);
+    d = min(d, float2(dot(v, v), wi * he - abs(s)));
+    return sqrt(d.x) * sign(-d.y);
+}
+#endif
+
 #if defined(SDF_UI_OUTLINE_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_SHINY)
 inline float shiny(float2 p, float width, float angle, float blur) {
     float fill = width >= PI; float empty = width == 0;
