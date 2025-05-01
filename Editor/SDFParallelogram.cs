@@ -20,6 +20,7 @@ namespace TLab.UI.SDF.Editor
 			base.DrawShapeProp();
 			EditorGUI.indentLevel++;
 			serializedObject.TryDrawProperty("m_" + nameof(m_instance.slide), "Slide");
+			serializedObject.TryDrawProperty("m_" + nameof(m_instance.roundness), "Roundness");
 			EditorGUI.indentLevel--;
 		}
 	}

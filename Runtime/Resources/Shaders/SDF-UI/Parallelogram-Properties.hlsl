@@ -7,3 +7,4 @@
 #include "Common-Properties.hlsl"
 
 float _Slide;
+float _Roundness;

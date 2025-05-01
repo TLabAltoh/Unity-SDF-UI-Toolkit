@@ -1,7 +1,7 @@
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine;
 
 namespace TLab.UI.SDF
 {
@@ -17,7 +17,7 @@ namespace TLab.UI.SDF
 
 		protected override string SHADER_NAME => "Hidden/UI/SDF/Parallelogram/Outline";
 
-		[SerializeField] private float m_slide = 0;
+		[SerializeField, Range(-1, 1)] private float m_slide = 0;
 		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;
 
 		internal static readonly int PROP_ROUNDNESS = Shader.PropertyToID("_Roundness");
@@ -55,8 +55,12 @@ namespace TLab.UI.SDF
 		{
 			base.UpdateMaterial();
 
-			var minSize = this.minSize;
-			_materialRecord.SetFloat(PROP_SLIDE, (minSize * 0.5f) * m_slide);
+			var halfHorizontalSize = rectTransform.sizeDelta.x * 0.5f;
+			var slide = halfHorizontalSize * m_slide;
+			var round = halfHorizontalSize * m_roundness;
+			var space = halfHorizontalSize - Mathf.Abs(slide);
+			_materialRecord.SetFloat(PROP_SLIDE, slide);
+			_materialRecord.SetFloat(PROP_ROUNDNESS, Mathf.Abs(round) < space ? round : Mathf.Sign(round) * Mathf.Abs(space));
 		}
 	}
 }
