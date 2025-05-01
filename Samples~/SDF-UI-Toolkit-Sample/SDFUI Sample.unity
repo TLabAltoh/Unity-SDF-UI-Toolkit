@@ -198,19 +198,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!21 &35672323
+--- !u!21 &33888836
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: -1388136555
-  m_Shader: {fileID: 4800000, guid: 32a02d256651a0948bd9a6d6a6f1c5be, type: 3}
+  m_Name: -1545049998
+  m_Shader: {fileID: 4800000, guid: f939f2f46a339fa44bb557ea076fa0c3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - SDF_UI_AA
+  - SDF_UI_SHADOW
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -234,7 +235,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _EulerZ: 0
-    - _GraphicBorder: -8
+    - _GraphicBorder: -6.25
     - _GraphicEffectAngle: 0
     - _GraphicEffectShinyBlur: 0
     - _GraphicEffectShinyWidth: 0
@@ -243,24 +244,126 @@ Material:
     - _Onion: 0
     - _OnionWidth: 0
     - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0.03141593
+    - _OutlineEffectAngle: 0
     - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 8.201795
-    - _OutlineEffectShinyWidth: 0.7853982
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
     - _OutlineGradationAngle: 0
     - _OutlineGradationSmooth: 0.5
     - _OutlineInnerBlur: 0
     - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 8
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: 4.14
-    - _ShadowGaussian: 0
+    - _OutlineWidth: 6.25
+    - _Padding: 22.72
+    - _Radius: 50
+    - _Roundness: 5
+    - _ShadowBlur: 17.72
+    - _ShadowBorder: 16.72
+    - _ShadowGaussian: 1
     - _ShadowGradationAngle: 0
-    - _ShadowGradationSmooth: 0
+    - _ShadowGradationSmooth: 0.5
     - _ShadowPower: 0
-    - _ShadowWidth: 0
-    - _Slide: -13.5
+    - _ShadowWidth: 17.72
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 2.3561945
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.9974991, g: 1, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0.9974991, g: 1, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &53966901
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 167812649
+  m_Shader: {fileID: 4800000, guid: 59d96a5ca475adf4e9e5eca527d020c1, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SDFTex:
+        m_Texture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -24.2
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _MaxDist: 50
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 24.2
+    - _Padding: 0
+    - _Radius: 0
+    - _ShadowBlur: 35
+    - _ShadowBorder: 34
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 35
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -275,22 +378,22 @@ Material:
     - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
     - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0.53150964, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineGradationColor: {r: 0, g: 0.53150964, b: 1, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
     - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
     - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _OutlineGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
-    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationRange: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 150, g: 150, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 1, b: 0.06005001, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 1, b: 0.06005001, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &70337491
 Material:
@@ -387,101 +490,6 @@ Material:
     - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowOffset: {r: -0.125, g: -0.125, b: -15, a: -15}
-  m_BuildTextureStacks: []
---- !u!21 &79579396
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 1511824229
-  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _EulerZ: 0
-    - _GraphicBorder: 0
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _GraphicGradationAngle: 0
-    - _GraphicGradationSmooth: 0.25
-    - _Onion: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineGradationAngle: 0.789
-    - _OutlineGradationSmooth: 0.645
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 0
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: 30.92
-    - _ShadowGaussian: 1
-    - _ShadowGradationAngle: 0
-    - _ShadowGradationSmooth: 0.5
-    - _ShadowPower: 0
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicGradationLayer: {r: 0, g: 0, b: 1, a: 0}
-    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _GraphicGradationRange: {r: 0, g: 1, b: 0, a: 0}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
-    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &96230055
 GameObject:
@@ -1438,6 +1446,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334514098}
   m_CullTransparentMesh: 1
+--- !u!21 &376338567
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1485879346
+  m_Shader: {fileID: 4800000, guid: 31ef02593fd983d4fb5008a9b47a7706, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 85a96932a444ae84684ab86bb0b3974d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -6.83
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 6.83
+    - _Padding: 15
+    - _Radius: 50
+    - _ShadowBlur: 15
+    - _ShadowBorder: 14
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+    - _ShadowGradationColor: {r: 0.73635197, g: 0, b: 1, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &418351715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,6 +1703,293 @@ Material:
     - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowGradationRange: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &442287404
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -1211534162
+  m_Shader: {fileID: 4800000, guid: 26168e358bfd58746bf4a67da34e3e75, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -2.12
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Num: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 2.12
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: 9
+    - _ShadowGaussian: 0
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    - _Width: 5.65
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationRange: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &495049980
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -2145794619
+  m_Shader: {fileID: 4800000, guid: b3e4e2a259f88274ab2874a8a66ff118, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -5.2
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Height: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.2
+    - _Padding: 10
+    - _Radius: 50
+    - _ShadowBlur: 5
+    - _ShadowBorder: 9
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 10
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.13039613, g: 1, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0.13039613, g: 1, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &507048916
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1474886169
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -8
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0.2
+    - _GraphicGradationSmooth: 0.3
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0.2
+    - _OutlineGradationSmooth: 0.3
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 8
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: 0
+    - _ShadowGaussian: 0
+    - _ShadowGradationAngle: 0.2
+    - _ShadowGradationSmooth: 0.3
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0.25, g: 0.25, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0.25, g: 0.25, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.20149253, g: 0.74067163, b: 0, a: 0}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0.4661703, b: 1, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0.4661703, b: 1, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _ShadowOffset: {r: -0.125, g: -0.125, b: -15, a: -15}
   m_BuildTextureStacks: []
 --- !u!21 &547160148
 Material:
@@ -2074,7 +2464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bfa46edb710064fb60144606c4893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1054230632}
+  m_Material: {fileID: 1971137436}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2410,6 +2800,101 @@ Material:
     - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!21 &741766565
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -11792654
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: 0
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.25
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0.789
+    - _OutlineGradationSmooth: 0.645
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 0
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: 30.92
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 0, g: 0, b: 1, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!21 &804352139
 Material:
   serializedVersion: 8
@@ -2494,6 +2979,106 @@ Material:
     - _ShadowGradationColorA: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowGradationColorB: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &834323041
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -21930554
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ActualWidth: 0
+    - _CircleBorder: 14.925
+    - _ColorMask: 15
+    - _EulerZ: -6.2831855
+    - _GraphicBorder: -5.14
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.14
+    - _Padding: 8.86
+    - _Radius: 35.075
+    - _ShadowBlur: 4.43
+    - _ShadowBorder: 8.86
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 8.86
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 2.3561945
+    - _UseUIAlphaClip: 0
+    - _Width: 19.85
+    m_Colors:
+    - _AngleOffset: {r: 1, g: 0.000000011924881, b: 0, a: 0}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+    - _ShadowGradationColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &878257078
@@ -2761,7 +3346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bfa46edb710064fb60144606c4893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2030538422}
+  m_Material: {fileID: 1274545032}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3460,102 +4045,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051571447}
   m_CullTransparentMesh: 0
---- !u!21 &1054230632
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 373701801
-  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _EulerZ: 0
-    - _GraphicBorder: 0
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _GraphicGradationAngle: 0
-    - _GraphicGradationSmooth: 0
-    - _Onion: 0
-    - _OnionWidth: 0
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineGradationAngle: 0.789
-    - _OutlineGradationSmooth: 0.645
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 0
-    - _Padding: 30.92
-    - _ShadowBlur: 35.18
-    - _ShadowBorder: 30.92
-    - _ShadowGaussian: 1
-    - _ShadowGradationAngle: 0
-    - _ShadowGradationSmooth: 0.8
-    - _ShadowPower: 0
-    - _ShadowWidth: 30.92
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicGradationLayer: {r: 0, g: 1, b: 0, a: 0}
-    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _GraphicGradationRange: {r: 0, g: 1, b: 0, a: 0}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
-    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
-    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowGradationColor: {r: 1, g: 1, b: 1, a: 0.5058824}
-    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!21 &1219834793
 Material:
   serializedVersion: 8
@@ -3716,6 +4205,391 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!21 &1274545032
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2002225056
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -8
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.78
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.7
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 8
+    - _Padding: 0
+    - _ShadowBlur: 35.18
+    - _ShadowBorder: 30.92
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.8
+    - _ShadowPower: 0
+    - _ShadowWidth: 30.92
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 0, g: 1, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.20149253, g: 0.74067163, b: 0, a: 0}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowGradationColor: {r: 1, g: 1, b: 1, a: 0.5058824}
+    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &1295189215
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -11792670
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -9.34
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 1
+    - _OnionWidth: 19.6
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0.789
+    - _OutlineGradationSmooth: 0.645
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 9.34
+    - _Padding: 0
+    - _ShadowBlur: 0
+    - _ShadowBorder: -1
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &1314960063
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2142113235
+  m_Shader: {fileID: 4800000, guid: 32a02d256651a0948bd9a6d6a6f1c5be, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -8
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 8
+    - _Padding: 0
+    - _Roundness: 11.52
+    - _ShadowBlur: 0
+    - _ShadowBorder: 4.14
+    - _ShadowGaussian: 0
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Slide: -13.5
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0.53150964, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 0.53150964, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationRange: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &1326550989
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -21930557
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ActualWidth: 0
+    - _CircleBorder: 17.225
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: -8.4
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0.796
+    - _OutlineGradationSmooth: 0.604
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 8.4
+    - _Padding: 0
+    - _Radius: 32.775
+    - _ShadowBlur: 0
+    - _ShadowBorder: 10
+    - _ShadowGaussian: 0
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0
+    - _ShadowPower: 0
+    - _ShadowWidth: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 1.5707964
+    - _UseUIAlphaClip: 0
+    - _Width: 0
+    m_Colors:
+    - _AngleOffset: {r: 1, g: -0.00000004371139, b: 0, a: 0}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 0.24280253, b: 0, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 1, g: 0.24280253, b: 0, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationRange: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1335178054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4357,6 +5231,105 @@ Material:
     - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!21 &1709996881
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: -21930557
+  m_Shader: {fileID: 4800000, guid: e27dd0f100a81b645a5c082d3f4312cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ActualWidth: 0
+    - _CircleBorder: 14.85
+    - _ColorMask: 15
+    - _EulerZ: 0.009424844
+    - _GraphicBorder: -5.49
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 1
+    - _OnionWidth: 11.5
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0.5
+    - _OutlineGradationSmooth: 0.5
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 5.49
+    - _Padding: 0
+    - _Radius: 35.15
+    - _ShadowBlur: 4.43
+    - _ShadowBorder: 5.49
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 8.86
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Theta: 2.3656194
+    - _UseUIAlphaClip: 0
+    - _Width: 29.7
+    m_Colors:
+    - _AngleOffset: {r: 0.9999556, g: -0.009424885, b: 0, a: 0}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+    - _ShadowGradationColor: {r: 0.9528302, g: 0.16629584, b: 0.16629584, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1817816409
 GameObject:
   m_ObjectHideFlags: 0
@@ -4808,7 +5781,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 35672323}
+      objectReference: {fileID: 1314960063}
     - target: {fileID: 2629568452742628567, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Material
@@ -4895,6 +5868,102 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1941739169}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1971137436
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 1541312271
+  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: 0
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 0
+    - _Padding: 30.92
+    - _ShadowBlur: 35.18
+    - _ShadowBorder: 30.92
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.8
+    - _ShadowPower: 0
+    - _ShadowWidth: 30.92
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 0, g: 1, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationRange: {r: 0, g: 0, b: 0, a: 1}
+    - _Radius: {r: 40, g: 40, b: 40, a: 40}
+    - _RectSize: {r: 120, g: 120, b: 0, a: 0}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowGradationColor: {r: 1, g: 1, b: 1, a: 0.5058824}
+    - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1985943273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,7 +6031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bfa46edb710064fb60144606c4893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 79579396}
+  m_Material: {fileID: 741766565}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5078,102 +6147,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985943273}
   m_CullTransparentMesh: 0
---- !u!21 &1988192588
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 373708713
-  m_Shader: {fileID: 4800000, guid: b4ed624ed7135534aa5a37d3e2eb9864, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SDF_UI_AA
-  - SDF_UI_SHADOW
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OutlineEffectPatternTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _EulerZ: 0
-    - _GraphicBorder: -9.34
-    - _GraphicEffectAngle: 0
-    - _GraphicEffectShinyBlur: 0
-    - _GraphicEffectShinyWidth: 0
-    - _GraphicGradationAngle: 0
-    - _GraphicGradationSmooth: 0.5
-    - _Onion: 1
-    - _OnionWidth: 19.6
-    - _OutlineBorder: 0
-    - _OutlineEffectAngle: 0
-    - _OutlineEffectPatternRow: 0
-    - _OutlineEffectShinyBlur: 0
-    - _OutlineEffectShinyWidth: 0
-    - _OutlineGradationAngle: 0.789
-    - _OutlineGradationSmooth: 0.645
-    - _OutlineInnerBlur: 0
-    - _OutlineInnerGaussian: 0
-    - _OutlineWidth: 9.34
-    - _Padding: 0
-    - _ShadowBlur: 0
-    - _ShadowBorder: -1
-    - _ShadowGaussian: 1
-    - _ShadowGradationAngle: 0
-    - _ShadowGradationSmooth: 0.5
-    - _ShadowPower: 0
-    - _ShadowWidth: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineGradationColor: {r: 0, g: 1, b: 1, a: 1}
-    - _OutlineGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _OutlineGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _Radius: {r: 40, g: 40, b: 40, a: 40}
-    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
-    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &2007221786
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +6388,104 @@ Material:
     - _ShadowGradationLayer: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowGradationRange: {r: 0, g: 1, b: 0, a: 0}
+    - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &2055500484
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 806042405
+  m_Shader: {fileID: 4800000, guid: 00979378acd93c6438b7f248a1f7151e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - SDF_UI_AA
+  - SDF_UI_SHADOW
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineEffectPatternTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _EulerZ: 0
+    - _GraphicBorder: 0
+    - _GraphicEffectAngle: 0
+    - _GraphicEffectShinyBlur: 0
+    - _GraphicEffectShinyWidth: 0
+    - _GraphicGradationAngle: 0
+    - _GraphicGradationSmooth: 0.5
+    - _Onion: 0
+    - _OnionWidth: 0
+    - _OutlineBorder: 0
+    - _OutlineEffectAngle: 0
+    - _OutlineEffectPatternRow: 0
+    - _OutlineEffectShinyBlur: 0
+    - _OutlineEffectShinyWidth: 0
+    - _OutlineGradationAngle: 0
+    - _OutlineGradationSmooth: 0
+    - _OutlineInnerBlur: 0
+    - _OutlineInnerGaussian: 0
+    - _OutlineWidth: 0
+    - _Padding: 10
+    - _ShadowBlur: 5
+    - _ShadowBorder: 10
+    - _ShadowGaussian: 1
+    - _ShadowGradationAngle: 0
+    - _ShadowGradationSmooth: 0.5
+    - _ShadowPower: 0
+    - _ShadowWidth: 10
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    - __Roundness: 0
+    m_Colors:
+    - _Corner0: {r: -45, g: -45, b: 0, a: 0}
+    - _Corner1: {r: 45, g: -45, b: 0, a: 0}
+    - _Corner2: {r: 0, g: 45, b: 0, a: 0}
+    - _GraphicEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _GraphicGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GraphicGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _GraphicGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _GraphicGradationRange: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineEffectColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternParams: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineEffectPatternScale: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineGradationLayer: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationOffset: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineGradationRange: {r: 0, g: 0, b: 0, a: 1}
+    - _RectSize: {r: 100, g: 100, b: 0, a: 0}
+    - _ShadowColor: {r: 0.8901961, g: 0, b: 1, a: 1}
+    - _ShadowGradationColor: {r: 0.8901961, g: 0, b: 1, a: 1}
+    - _ShadowGradationLayer: {r: 1, g: 0, b: 0, a: 0}
+    - _ShadowGradationOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowGradationRange: {r: 0.5, g: 1.5, b: 0, a: 0}
     - _ShadowOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &2057124446

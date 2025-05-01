@@ -19,6 +19,7 @@ Shader "Hidden/UI/SDF/Parallelogram/Outline" {
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
         _Slide("Slide", Float) = 0
+        _Roundness("Roundness", Float) = 0
 
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
