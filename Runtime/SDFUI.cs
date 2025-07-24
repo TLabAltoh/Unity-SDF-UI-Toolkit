@@ -1792,6 +1792,8 @@ namespace TLab.UI.SDF
 
         protected virtual void UpdateMaterialRecord()
         {
+            _materialRecord.ResetKeywords();
+
             var minSize = this.minSize;
             var maxSize = this.maxSize;
 
