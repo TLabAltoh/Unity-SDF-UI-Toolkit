@@ -389,10 +389,11 @@ namespace TLab.UI.SDF
         {
             get
             {
+                var shadowWidth = m_shadow ? m_shadowWidth : 0;
                 switch (m_outlineType)
                 {
-                    case OutlineType.Inside: return (m_shadow ? m_shadowWidth : 0);
-                    case OutlineType.Outside: return (m_shadow ? m_shadowWidth : 0) + (m_outline ? m_outlineWidth : 0);
+                    case OutlineType.Inside: return shadowWidth;
+                    case OutlineType.Outside: return shadowWidth + (m_outline ? m_outlineWidth : 0);
                 }
                 return 0;
             }
