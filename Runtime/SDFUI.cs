@@ -359,6 +359,12 @@ namespace TLab.UI.SDF
         [SerializeField, Range(0, 1)] protected float m_rainbowHueOffset = 0.0f;
         #endregion EFFECT
 
+        #region LIQUID_GLASS
+
+        [SerializeField] protected bool m_useLiquidGlass = false;
+
+        #endregion LIQUID_GLASS
+
         #endregion GRAPHIC
 
         #endregion FIELD
@@ -1612,6 +1618,24 @@ namespace TLab.UI.SDF
         }
 
         #endregion RAINBOW
+
+        #region LIQUID_GLASS
+
+        public bool useLiquidGlass
+        {
+            get => m_useLiquidGlass;
+            set
+            {
+                if (m_useLiquidGlass != value)
+                {
+                    m_useLiquidGlass = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        #endregion LIQUID_GLASS
 
         #endregion PROPERTYS
 
