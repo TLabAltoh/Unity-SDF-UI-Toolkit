@@ -1961,11 +1961,8 @@ namespace TLab.UI.SDF
                     _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
                     _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                 }
-
-                _materialRecord.EnableKeyword(KEYWORD_SHADOW);
             }
-            else
-                _materialRecord.DisableKeyword(KEYWORD_SHADOW);
+            _materialRecord.SetKeywordActive(KEYWORD_SHADOW, m_shadow);
 
             {
                 var patternType = m_graphicEffectType;
@@ -1975,8 +1972,8 @@ namespace TLab.UI.SDF
                         _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY, KEYWORD_GRAPHIC_EFFECT_PATTERN);
                         break;
                     case EffectType.Shiny:
-                        _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
-                        _materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_PATTERN, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_SHINY, true);
 
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_WIDTH, Mathf.PI * m_graphicEffectShinyWidth);
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_BLUR, hminSize * m_graphicEffectShinyBlur);
@@ -1986,8 +1983,8 @@ namespace TLab.UI.SDF
                         _materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
                         break;
                     case EffectType.Pattern:
-                        _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
-                        _materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_SHINY, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_PATTERN, true);
 
                         _materialRecord.SetTexture(PROP_GRAPHIC_EFFECT_PATTERN_TEX, m_graphicEffectPatternTexture);
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_PATTERN_ROW, m_graphicEffectPatternRow);
@@ -2011,7 +2008,7 @@ namespace TLab.UI.SDF
                 }
             }
 
-            if (m_outline && m_outlineWidth > 0)
+            if (m_outline && (m_outlineWidth > 0))
             {
                 _materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
                 _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
@@ -2070,8 +2067,8 @@ namespace TLab.UI.SDF
                         _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY, KEYWORD_OUTLINE_EFFECT_PATTERN);
                         break;
                     case EffectType.Shiny:
-                        _materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
-                        _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_SHINY, true);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_PATTERN, false);
 
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_WIDTH, Mathf.PI * m_outlineEffectShinyWidth);
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_BLUR, hminSize * m_outlineEffectShinyBlur);
@@ -2085,8 +2082,8 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_OUTLINE_USE_RAINBOW, outlineUseRainbowGradient ? 1 : 0);
                         break;
                     case EffectType.Pattern:
-                        _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
-                        _materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_SHINY, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_PATTERN, true);
 
                         _materialRecord.SetTexture(PROP_OUTLINE_EFFECT_PATTERN_TEX, m_outlineEffectPatternTexture);
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_PATTERN_ROW, m_outlineEffectPatternRow);
