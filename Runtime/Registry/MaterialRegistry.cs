@@ -64,6 +64,7 @@ namespace TLab.UI.SDF.Registry
 			}
 			Material material = GetNewMaterial(materialRecord.ShaderName);
 			material.name = $"{materialRecord.GetHashCode()}";
+			material.hideFlags = HideFlags.HideAndDontSave;
 			data = new MaterialUsage(material);
 			materialRecord.Populate(data.Material);
 			_materialsInUse[materialRecord] = data;
