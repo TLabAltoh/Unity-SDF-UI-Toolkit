@@ -265,11 +265,11 @@ namespace TLab.UI.SDF
         [SerializeField, Min(0f)] protected float m_outlineWidth = 10;
         [SerializeField, Min(0f)] protected float m_outlineInnerSoftWidth = 0;
         [SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.0f;
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = Color.cyan;
+        [SerializeField] protected Color m_outlineColor = Color.cyan;
         [SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
         #region GRADATION
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineGradationColor = Color.cyan;
+        [SerializeField] protected Color m_outlineGradationColor = Color.cyan;
         [SerializeField, Range(0, 2)] protected float m_outlineGradationAngle = 0;
         [SerializeField, Min(0)] protected float m_outlineGradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_outlineGradationSmooth = 0.5f;
@@ -280,7 +280,7 @@ namespace TLab.UI.SDF
 
         #region EFFECT
         [SerializeField] protected EffectType m_outlineEffectType = EffectType.None;
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineEffectColor = Color.white;
+        [SerializeField] protected Color m_outlineEffectColor = Color.white;
         [SerializeField] protected Vector2 m_outlineEffectOffset;
         [SerializeField, Range(-1, 1)] protected float m_outlineEffectAngle = 0.0f;
         [SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
@@ -305,11 +305,11 @@ namespace TLab.UI.SDF
         [SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.0f;
         [SerializeField, Min(0f)] protected float m_shadowDilate = 0;
         [SerializeField] protected Vector2 m_shadowOffset;
-        [SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
+        [SerializeField] protected Color m_shadowColor = Color.black;
         [SerializeField] protected EffectType m_shadowEffectType = EffectType.None;
 
         #region GRADATION
-        [SerializeField, ColorUsage(true, true)] protected Color m_shadowGradationColor = Color.black;
+        [SerializeField] protected Color m_shadowGradationColor = Color.black;
         [SerializeField, Range(0, 2)] protected float m_shadowGradationAngle = 0;
         [SerializeField, Min(0)] protected float m_shadowGradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_shadowGradationSmooth = 0.5f;
@@ -322,14 +322,14 @@ namespace TLab.UI.SDF
 
         #region GRAPHIC
 
-        [SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
+        [SerializeField] protected Color m_fillColor = Color.white;
         [SerializeField] protected ActiveImageType m_activeImageType;
         [SerializeField] protected Sprite m_sprite;
         [SerializeField] protected Texture m_texture;
         [SerializeField] protected Rect m_uvRect = new Rect(0f, 0f, 1f, 1f);
 
         #region GRADATION
-        [SerializeField, ColorUsage(true)] protected Color m_gradationColor = Color.white;
+        [SerializeField] protected Color m_gradationColor = Color.white;
         [SerializeField, Range(0, 2)] protected float m_gradationAngle = 0;
         [SerializeField, Min(0)] protected float m_gradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_gradationSmooth = 0.5f;
@@ -340,7 +340,7 @@ namespace TLab.UI.SDF
 
         #region EFFECT
         [SerializeField] protected EffectType m_graphicEffectType = EffectType.None;
-        [SerializeField, ColorUsage(true, true)] protected Color m_graphicEffectColor = Color.white;
+        [SerializeField] protected Color m_graphicEffectColor = Color.white;
         [SerializeField] protected Vector2 m_graphicEffectOffset;
         [SerializeField, Range(0, 1)] protected float m_graphicEffectAngle = 0.0f;
         [SerializeField, Range(0, 1)] protected float m_graphicEffectShinyBlur = 0.0f;
