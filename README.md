@@ -149,10 +149,7 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
 
 ## Features under consideration
-- Implementation of Liquid Glass effect
-
-[issue:32](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/issues/32)
-
+- [Implementation of Liquid Glass effect](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/issues/32)
 [branch:experimental-liquid-glass](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/tree/experimental-liquid-glass)
 
 ## Lisence
