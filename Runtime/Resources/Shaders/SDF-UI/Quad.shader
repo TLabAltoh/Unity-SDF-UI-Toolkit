@@ -19,6 +19,8 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
+        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
+
         _Radius("Radius", Vector) = (0, 0, 0, 0)
 
         _Onion("Onion", Float) = 0
@@ -102,10 +104,9 @@ Shader "Hidden/UI/SDF/Quad/Outline" {
 #define SDF_UI_QUAD
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
 
             #include "Quad-Properties.hlsl"
-
+            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

@@ -18,6 +18,8 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
+        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
+
         __Roundness("Roundness", Float) = 0
 
         _Corner0("Corner 0", Vector) = (0, 0, 0, 0)
@@ -105,9 +107,9 @@ Shader "Hidden/UI/SDF/Triangle/Outline" {
 #define SDF_UI_TRIANGLE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
 
             #include "Triangle-Properties.hlsl"
+            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

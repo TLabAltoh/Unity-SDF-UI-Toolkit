@@ -18,6 +18,8 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
+        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
+
         _Radius("Radius", Float) = 0
         _Width("Width", Float) = 0
         _ActualWidth("Actual Width", Float) = 0
@@ -106,10 +108,9 @@ Shader "Hidden/UI/SDF/Arc/Outline" {
 #define SDF_UI_ARC
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
 
             #include "Arc-Properties.hlsl"
-
+            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

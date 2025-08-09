@@ -4,6 +4,8 @@
 
 float4 _RectSize;
 
+float _Gamma;
+
 float _Padding;
 float _EulerZ;
 float4 _OuterUV;

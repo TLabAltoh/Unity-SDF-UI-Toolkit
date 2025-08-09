@@ -18,6 +18,8 @@ Shader "Hidden/UI/SDF/ApproxSquircle/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
+        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
+
         _Roundness("Roundness", Float) = 0
         _Iteration("Iteration", Float) = 0
         [HideInInspector] _MinSize("MinSize", Float) = 0
@@ -103,10 +105,9 @@ Shader "Hidden/UI/SDF/ApproxSquircle/Outline" {
 #define SDF_UI_APPROX_SQUIRCLE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
 
             #include "ApproxSquircle-Properties.hlsl"
-
+            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

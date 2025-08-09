@@ -18,6 +18,8 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
+        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
+
         _Radius("Radius", Float) = 0
         _Theta("Theta", Float) = 0
         _Roundness("Roundness", Float) = 0
@@ -103,10 +105,9 @@ Shader "Hidden/UI/SDF/Pie/Outline" {
 #define SDF_UI_PIE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
-            #include "SDFUtils.cginc"
 
             #include "Pie-Properties.hlsl"
-
+            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

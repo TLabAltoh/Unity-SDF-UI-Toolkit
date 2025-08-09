@@ -41,6 +41,8 @@ namespace TLab.UI.SDF
 
         #region SHAPE
 
+        internal static readonly int PROP_GAMMA = Shader.PropertyToID("_Gamma");
+
         internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
         internal static readonly int PROP_EULER_Z = Shader.PropertyToID("_EulerZ");
         internal static readonly int PROP_OUTERUV = Shader.PropertyToID("_OuterUV");
@@ -1815,6 +1817,38 @@ namespace TLab.UI.SDF
             return new Color(color.r, color.g, color.b, 0.0f);
         }
 
+        public static Color InverseGammaCorrect(Color srgbColor)
+        {
+            // sRGBからリニアへの正確な変換
+            float toLinear(float srgbValue)
+            {
+                // 0-1の範囲に正規化
+                float norm = srgbValue / 255.0f;
+
+                // sRGBの計算式を適用
+                if (norm <= 0.04045f)
+                {
+                    return norm / 12.92f;
+                }
+                else
+                {
+                    return (float)math.pow((norm + 0.055f) / 1.055f, 2.4f);
+                }
+            }
+
+            // 各チャンネルに変換を適用
+            float linearR = toLinear(srgbColor.r);
+            float linearG = toLinear(srgbColor.g);
+            float linearB = toLinear(srgbColor.b);
+
+            // 0-255の範囲に戻してColor構造体を作成
+            int finalR = (int)(math.min(1.0f, math.max(0.0f, linearR)) * 255.0f);
+            int finalG = (int)(math.min(1.0f, math.max(0.0f, linearG)) * 255.0f);
+            int finalB = (int)(math.min(1.0f, math.max(0.0f, linearB)) * 255.0f);
+
+            return new Color(finalR, finalG, finalB, srgbColor.a);
+        }
+
         protected virtual void UpdateMaterialRecord()
         {
             _materialRecord.ResetKeywords();
@@ -1824,6 +1858,26 @@ namespace TLab.UI.SDF
 
             var hminSize = minSize * .5f;
             var hmaxSize = maxSize * .5f;
+
+            Color outlineColor, shadowColor, outlineGradationColor, shadowGradationColor;
+            float gamma;
+            if (PlayerSettings.colorSpace == ColorSpace.Gamma)
+            {
+                gamma = 1.0f / 2.2f;
+                outlineColor = m_outlineColor.gamma;
+                shadowColor = m_shadowColor.gamma;
+                outlineGradationColor = m_outlineGradationColor.gamma;
+                shadowGradationColor = m_shadowGradationColor.gamma;
+            }
+            else
+            {
+                gamma = 1.0f;
+                outlineColor = m_outlineColor;
+                shadowColor = m_shadowColor;
+                outlineGradationColor = m_outlineGradationColor;
+                shadowGradationColor = m_shadowGradationColor;
+            }
+            _materialRecord.SetFloat(PROP_GAMMA, gamma);
 
             _materialRecord.ShaderName = SHADER_NAME;
 
@@ -1918,7 +1972,7 @@ namespace TLab.UI.SDF
                 _materialRecord.SetFloat(PROP_SHADOW_WIDTH, m_shadowWidth);
                 _materialRecord.SetFloat(PROP_SHADOW_BLUR, m_shadowSoftness * (m_shadowWidth + m_shadowInnerSoftWidth));
                 _materialRecord.SetFloat(PROP_SHADOW_DILATE, m_shadowDilate);
-                _materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
+                _materialRecord.SetColor(PROP_SHADOW_COLOR, shadowColor);
                 _materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, (m_shadowSoftness > 0) ? 1 : 0);
 
                 _materialRecord.SetFloat(PROP_SHADOW_GRADATION_ANGLE, m_shadowGradationAngle);
@@ -1928,7 +1982,7 @@ namespace TLab.UI.SDF
                 _materialRecord.SetVector(PROP_SHADOW_GRADATION_OFFSET, m_shadowGradationOffset);
 
                 var gradationShape = m_shadowGradationShape;
-                var gradationColor = m_shadowGradationColor;
+                var gradationColor = shadowGradationColor;
                 var gradationLayer = new float4(0, 0, 0, 0);
                 switch (gradationShape)
                 {
@@ -2016,7 +2070,7 @@ namespace TLab.UI.SDF
             if (m_outline && (m_outlineWidth > 0))
             {
                 _materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
-                _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
+                _materialRecord.SetColor(PROP_OUTLINE_COLOR, outlineColor);
                 _materialRecord.SetFloat(PROP_OUTLINE_INNER_BLUR, m_outlineInnerSoftness * m_outlineInnerSoftWidth);
                 _materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, (m_outlineInnerSoftness > 0) && (m_outlineInnerSoftWidth > 0) ? 1 : 0);
 
@@ -2044,7 +2098,7 @@ namespace TLab.UI.SDF
                 _materialRecord.SetFloat(PROP_GRAPHIC_BORDER, graphicBorder);
 
                 var gradationShape = m_outlineGradationShape;
-                var gradationColor = m_outlineGradationColor;
+                var gradationColor = outlineGradationColor;
                 var gradationLayer = new float4(0, 0, 0, 0);
                 switch (gradationShape)
                 {

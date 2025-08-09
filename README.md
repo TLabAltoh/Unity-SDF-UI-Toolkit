@@ -90,7 +90,6 @@ https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
-- Set the ```ColorSpace``` to ```Linear``` in ```ProjectSettins/Player/OtherSettings/Rendering``` (if ```Gamma``` is selected, the HDR color will appear little different).
 
 ## Feature
 ### Vector UI
