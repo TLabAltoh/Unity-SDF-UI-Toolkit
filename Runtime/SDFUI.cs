@@ -2006,6 +2006,11 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                         break;
                 }
+
+                if (m_useLiquidGlass)
+                {
+
+                }
             }
 
             if (m_outline && (m_outlineWidth > 0))
