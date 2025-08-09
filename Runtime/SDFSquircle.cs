@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
         }
 #endif
 
-        protected override string SHADER_NAME => "Hidden/UI/SDF/Squircle/Outline";
+        protected override string SHADER_NAME => $"Hidden/UI/SDF/Squircle/{SHADER_TYPE}/Outline";
 
         [SerializeField, Min(1)] protected int m_iteration = 4;
 

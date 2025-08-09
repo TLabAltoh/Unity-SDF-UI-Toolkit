@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Quad/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Quad/{SHADER_TYPE}/Outline";
 
 		[SerializeField, LeftToggle] private bool m_independent = false;
 

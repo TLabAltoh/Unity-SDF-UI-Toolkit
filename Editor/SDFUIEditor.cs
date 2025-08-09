@@ -208,6 +208,16 @@ namespace TLab.UI.SDF.Editor
 					break;
 			}
 			EditorGUI.indentLevel--;
+
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlass), "Liquid Glass");
+			EditorGUI.indentLevel++;
+			bool drawLiquidGlass = m_baseInstance.liquidGlass;
+			if (drawLiquidGlass)
+			{
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassThickness), "Thickness");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassIndex), "Index");
+			}
+			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 

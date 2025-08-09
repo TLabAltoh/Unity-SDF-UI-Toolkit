@@ -14,6 +14,6 @@ namespace TLab.UI.SDF
         }
 #endif
 
-        protected override string SHADER_NAME => "Hidden/UI/SDF/ApproxSquircle/Outline";
+        protected override string SHADER_NAME => $"Hidden/UI/SDF/ApproxSquircle/{SHADER_TYPE}/Outline";
     }
 }

@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Triangle/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Triangle/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;
 		[SerializeField] private Vector2 m_corner0 = new Vector2(-0.45f, -0.45f);

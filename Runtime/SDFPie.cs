@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Pie/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Pie/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Range(0, 1)]
 		private float m_roundness = 0.1f;

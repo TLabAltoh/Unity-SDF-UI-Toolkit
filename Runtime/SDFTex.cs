@@ -16,7 +16,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Tex/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Tex/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Min(0)] private float m_radius = 40;
 		[SerializeField, Min(0)] private float m_maxDist = 50;

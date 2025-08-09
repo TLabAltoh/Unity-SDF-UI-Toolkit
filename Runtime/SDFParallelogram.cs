@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Parallelogram/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Parallelogram/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Range(-1, 1)] private float m_slide = 0;
 		[SerializeField, Range(0, 1)] private float m_roundness = 0.1f;

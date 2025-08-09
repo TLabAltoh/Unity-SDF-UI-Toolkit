@@ -30,7 +30,7 @@ namespace TLab.UI.SDF
         }
 #endif
 
-        protected override string SHADER_NAME => "Hidden/UI/SDF/Spline/Outline";
+        protected override string SHADER_NAME => $"Hidden/UI/SDF/Spline/{SHADER_TYPE}/Outline";
 
         internal const string KEYWORD_SPLINE_FILL = SHADER_KEYWORD_PREFIX + "SPLINE_FILL";
 

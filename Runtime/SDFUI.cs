@@ -15,6 +15,8 @@ namespace TLab.UI.SDF
     [RequireComponent(typeof(CanvasRenderer))]
     public abstract class SDFUI : MaskableGraphic
     {
+        protected virtual string SHADER_TYPE { get; set; } = "Default";
+
         protected virtual string SHADER_NAME => "";
 
         #region SHADER_KEYWORD
@@ -213,6 +215,17 @@ namespace TLab.UI.SDF
 
         #endregion RAINBOW
 
+        #region LIQUID_GLASS
+
+        internal const string PREFIX_LIQUID_GLASS = "LiquidGlass";
+
+        internal static readonly int PROP_LIQUID_GLASS_OFFSET = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Offset");
+        internal static readonly int PROP_LIQUID_GLASS_INDEX = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Index");
+        internal static readonly int PROP_LIQUID_GLASS_THICKNESS = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Thickness");
+        internal static readonly int PROP_LIQUID_GLASS_BASE_HEIGHT = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}BaseHeight");
+
+        #endregion LIQUID_GLASS
+
         #endregion SHADER_PROPERTYS
 
         #region ENUM
@@ -363,7 +376,9 @@ namespace TLab.UI.SDF
 
         #region LIQUID_GLASS
 
-        [SerializeField] protected bool m_useLiquidGlass = false;
+        [SerializeField] protected bool m_liquidGlass = false;
+        [SerializeField, Min(0)] protected float m_liquidGlassThickness = 10.0f;
+        [SerializeField, Min(0)] protected float m_liquidGlassIndex = 1.5f;
 
         #endregion LIQUID_GLASS
 
@@ -1624,14 +1639,44 @@ namespace TLab.UI.SDF
 
         #region LIQUID_GLASS
 
-        public bool useLiquidGlass
+        public bool liquidGlass
         {
-            get => m_useLiquidGlass;
+            get => m_liquidGlass;
             set
             {
-                if (m_useLiquidGlass != value)
+                if (m_liquidGlass != value)
                 {
-                    m_useLiquidGlass = value;
+                    m_liquidGlass = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float liquidGlassThickness
+        {
+            get => m_liquidGlassThickness;
+            set
+            {
+                var tmp = Mathf.Clamp(value, 0, float.MaxValue);
+                if (m_liquidGlassThickness != tmp)
+                {
+                    m_liquidGlassThickness = tmp;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float liquidGlassIndex
+        {
+            get => m_liquidGlassIndex;
+            set
+            {
+                var tmp = Mathf.Clamp(value, 0, float.MaxValue);
+                if (m_liquidGlassIndex != tmp)
+                {
+                    m_liquidGlassIndex = tmp;
 
                     SetAllDirty();
                 }
@@ -1879,6 +1924,16 @@ namespace TLab.UI.SDF
             }
             _materialRecord.SetFloat(PROP_GAMMA, gamma);
 
+            if (m_liquidGlass)
+            {
+                _materialRecord.SetFloat(PROP_LIQUID_GLASS_INDEX, m_liquidGlassIndex);
+                _materialRecord.SetFloat(PROP_LIQUID_GLASS_THICKNESS, m_liquidGlassThickness);
+                _materialRecord.SetFloat(PROP_LIQUID_GLASS_BASE_HEIGHT, m_liquidGlassThickness * 8.0f);
+                SHADER_TYPE = "LiquidGlass";
+            }
+            else
+                SHADER_TYPE = "Default";
+
             _materialRecord.ShaderName = SHADER_NAME;
 
             _materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
@@ -2059,11 +2114,6 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
                         _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                         break;
-                }
-
-                if (m_useLiquidGlass)
-                {
-
                 }
             }
 

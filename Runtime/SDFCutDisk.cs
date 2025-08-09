@@ -15,7 +15,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/CutDisk/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/CutDisk/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Range(0f, 1f)] private float m_fillAmount = 0.5f;
 

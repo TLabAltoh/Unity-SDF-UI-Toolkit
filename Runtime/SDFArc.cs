@@ -16,7 +16,7 @@ namespace TLab.UI.SDF
 		}
 #endif
 
-		protected override string SHADER_NAME => "Hidden/UI/SDF/Arc/Outline";
+		protected override string SHADER_NAME => $"Hidden/UI/SDF/Arc/{SHADER_TYPE}/Outline";
 
 		[SerializeField, Min(0)] private float m_cornersRounding = 0;
 
