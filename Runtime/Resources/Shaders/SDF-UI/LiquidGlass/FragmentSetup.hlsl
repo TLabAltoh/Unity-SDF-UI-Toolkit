@@ -88,9 +88,11 @@ float2 texSample;
 texSample.x = (1. - i.uv.x) * _OuterUV.x + i.uv.x * _OuterUV.z;
 texSample.y = (1. - i.uv.y) * _OuterUV.y + i.uv.y * _OuterUV.w;
 
-// half4 texcr = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd);
+half4 texcr = (tex2D(_MainTex, TRANSFORM_TEX(texSample, _MainTex)) + _TextureSampleAdd);
+half4 color = texcr;
+half4 gradationColor = texcr;
 
-float2 grabUV = i.grabPosition.xy / i.grabPosition.w;
-half4 texcr = tex2D(_GrabTexture, float4(grabUV, 0, 1));
+_Color = half4(lerp(half3(1.0,1.0,1.0), _Color.rgb, _Color.a).rgb, _Color.a);
+_GraphicGradationColor = half4(lerp(half3(1.0,1.0,1.0), _GraphicGradationColor.rgb, _GraphicGradationColor.a).rgb, _GraphicGradationColor.a);
 
 half4 effects;

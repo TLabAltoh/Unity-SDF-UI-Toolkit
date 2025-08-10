@@ -727,6 +727,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_width: 0.381
   m_fill: 0
   m_splines:
@@ -886,6 +887,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1058,6 +1060,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1377,6 +1380,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1543,6 +1547,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_width: 0.621
   m_fill: 0
   m_splines:
@@ -1701,6 +1706,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_roundness: 0.1
   m_corner0: {x: -0.34785607, y: -0.39216864}
   m_corner1: {x: 0.35612702, y: 0.0037889672}
@@ -2033,6 +2039,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_independent: 0
   m_radius: 34.88
   m_radiusX: 40
@@ -2260,6 +2267,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_fillAmount: 0.591
   m_roundness: 0.098
 --- !u!222 &1817816412
@@ -2280,11 +2288,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 106449154058105960, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -290.4
+      value: -313.9
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105960, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 256
+      value: 306
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_shadow
@@ -2296,11 +2304,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_corner0.x
-      value: -0.30432215
+      value: -0.2704485
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_corner0.y
-      value: 0.305535
+      value: 0.25472498
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_corner1.x
@@ -2323,8 +2331,48 @@ PrefabInstance:
       value: 0.148
       objectReference: {fileID: 0}
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_liquidGlass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationShape
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationColor.r
+      value: 0.027571797
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_liquidGlassOverrideMainTex
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 106449154209904384, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Camera
@@ -2430,14 +2478,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 106449154359137038, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
-      propertyPath: m_liquidGlass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 106449154359137038, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
-      propertyPath: m_liquidGlassThickness
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 106449154651375640, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_outline
       value: 1
@@ -2451,12 +2491,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_sprite
+      value: 
+      objectReference: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_outline
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_fillColor.b
@@ -2468,7 +2516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_fillColor.r
-      value: 0.00965035
+      value: 0.007843018
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_liquidGlass
@@ -2479,6 +2527,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationShape
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_graphicEffectType
       value: 0
       objectReference: {fileID: 0}
@@ -2486,13 +2538,25 @@ PrefabInstance:
       propertyPath: m_graphicEffectOffset.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_graphicEffectShinyBlur
+      value: 0.305
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_graphicEffectShinyWidth
+      value: 0.107
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_liquidGlassOverrideMainTex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 106449154655706014, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -164.8
+      value: -181.9
       objectReference: {fileID: 0}
     - target: {fileID: 106449154655706014, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 315
+      value: 303.8
       objectReference: {fileID: 0}
     - target: {fileID: 106449154935094096, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_onion
@@ -2504,11 +2568,11 @@ PrefabInstance:
       objectReference: {fileID: 1219834793}
     - target: {fileID: 106449154935094100, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -51.4
+      value: -66.7
       objectReference: {fileID: 0}
     - target: {fileID: 106449154935094100, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 251.4
+      value: 293.5
       objectReference: {fileID: 0}
     - target: {fileID: 106449155009625092, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
@@ -2607,6 +2671,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_liquidGlass
       value: 1
       objectReference: {fileID: 0}
@@ -2619,6 +2687,10 @@ PrefabInstance:
       value: 5.36
       objectReference: {fileID: 0}
     - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_gradationShape
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_liquidGlassIndex
       value: 1.5
       objectReference: {fileID: 0}
@@ -2628,7 +2700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_liquidGlassThickness
-      value: 10
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
@@ -2826,6 +2898,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -2992,6 +3065,7 @@ MonoBehaviour:
   m_liquidGlass: 0
   m_liquidGlassThickness: 10
   m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
   m_fillAmount: 0.614
   m_cornersRounding: 37.99
   m_startAngle: -129.09

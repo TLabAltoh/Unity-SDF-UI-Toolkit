@@ -216,6 +216,7 @@ namespace TLab.UI.SDF.Editor
 			{
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassThickness), "Thickness");
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassIndex), "Index");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassOverrideMainTex), "OverrideMainTex");
 			}
 			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;

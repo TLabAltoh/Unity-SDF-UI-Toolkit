@@ -166,37 +166,44 @@ float4 outlineColor = _OutlineColor;
 
 /**
 *
-*
+* Liquid Glass Effect
 *
 */
 
-float4 colorBase = float4(1.0, 1.0, 1.0, 0.0);
 float3 normal = getNormal(dist - _GraphicBorder, _LiquidGlassThickness);
 
-// A ray going -z hits the top of the pad, where would it hit on
-// the z = -base_height plane?
-float3 incident = float3(0.0, 0.0, -1.0); // Should be normalized.
+float3 incident = float3(0.0, 0.0, -1.0);
 float3 refractVec = refract(incident, normal, 1.0 / _LiquidGlassIndex);
 float h = height(dist, _LiquidGlassThickness);
 float refractLength = (h + _LiquidGlassBaseHeight) / dot(float3(0.0, 0.0, -1.0), refractVec);
 
+float2 grabUV = i.grabPosition.xy / i.grabPosition.w;
 float2 distortionCoord = grabUV + refractVec.xy * refractLength / 100;
-
-// Apply Gaussian blur to the refracted background
-// The blur amount can be adjusted based on the glass thickness or distance
 float4 refractColor = tex2D(_GrabTexture, float4(distortionCoord, 0, 1));
-
-// Reflection
 float3 reflectVec = reflect(incident, normal);
 float4 reflectColor = float4(0.0, 0.0, 0.0, 0.0);
 
 float c = clamp(abs(reflectVec.x - reflectVec.y), 0.0, 1.0);
 reflectColor = float4(c, c, c, 0.0);
 
-half4 color = lerp(refractColor, reflectColor, (1.0 - normal.z) * 2.0);
-color = clamp(color, 0., 1.);
-_GraphicGradationColor = color;
-color *= _Color;
+half4 bg = lerp(refractColor, reflectColor, (1.0 - normal.z) * 2.0);
+bg = clamp(bg, 0., 1.);
+
+{
+	half3 layer0, layer1;
+	
+	gradationColor.rgb = (bg.rgb * _IsWhiteTexUsed) + (bg.rgb * (1.0 - gradationColor.a) + gradationColor.rgb * gradationColor.a) * (1.0 - _IsWhiteTexUsed);
+	layer0 = ((gradationColor.rgb * _GraphicGradationColor.rgb) * _IsWhiteTexUsed) + (gradationColor.rgb * gradationColor.a + gradationColor.rgb * _GraphicGradationColor.rgb * (1.0 - gradationColor.a)) * (1.0 - _IsWhiteTexUsed);
+	layer1 = ((gradationColor.rgb * _GraphicGradationColor.rgb));
+	gradationColor.rgb = select(_LiquidGlassOverrideMainTex, layer1.rgb, layer0.rgb);
+	gradationColor.a = bg.a;
+
+	color.rgb = (bg.rgb * _IsWhiteTexUsed) + (bg.rgb * (1.0 - color.a) + color.rgb * color.a) * (1.0 - _IsWhiteTexUsed);
+	layer0 = ((color.rgb * _Color.rgb) * _IsWhiteTexUsed) + (color.rgb * color.a + color.rgb * _Color.rgb * (1.0 - color.a)) * (1.0 - _IsWhiteTexUsed);
+	layer1 = ((color.rgb * _Color.rgb));
+	color.rgb = select(_LiquidGlassOverrideMainTex, layer1.rgb, layer0.rgb);
+	color.a = bg.a;
+}
 
 #if 1
 float graphicGradationAngle = PI * _GraphicGradationAngle;
@@ -210,9 +217,9 @@ float graphicGradationRadius = _GraphicGradationRadius * minSize;
 float2 graphicGradationOffset = _GraphicGradationOffset.xy * _RectSize.xy;
 #endif
 float2 graphicGradationPosition = rotate(pRotated - graphicGradationOffset, graphicGradationAngle);
-float4 graphicMixedColor0 = linearGradation(graphicGradationPosition, graphicGradationSmooth, color, _GraphicGradationColor);
-float4 graphicMixedColor1 = radialGradation(graphicGradationPosition, graphicGradationRadius, graphicGradationSmooth, color, _GraphicGradationColor);
-float4 graphicMixedColor2 = conicalGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicGradationRange, color, _GraphicGradationColor);
+float4 graphicMixedColor0 = linearGradation(graphicGradationPosition, graphicGradationSmooth, color, gradationColor);
+float4 graphicMixedColor1 = radialGradation(graphicGradationPosition, graphicGradationRadius, graphicGradationSmooth, color, gradationColor);
+float4 graphicMixedColor2 = conicalGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicGradationRange, color, gradationColor);
 
 // Rainbow gradient implementation
 float4 rainbowMixedColor0 = rainbowLinearGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
@@ -220,9 +227,9 @@ float4 rainbowMixedColor1 = rainbowRadialGradation(graphicGradationPosition, gra
 float4 rainbowMixedColor2 = rainbowConicalGradation(graphicGradationPosition, graphicGradationSmooth, _GraphicGradationRange, _GraphicRainbowSaturation, _GraphicRainbowValue, _GraphicRainbowHueOffset);
 
 // Apply alpha from gradation color to rainbow colors
-rainbowMixedColor0.a = _GraphicGradationColor.a;
-rainbowMixedColor1.a = _GraphicGradationColor.a;
-rainbowMixedColor2.a = _GraphicGradationColor.a;
+rainbowMixedColor0.a = gradationColor.a;
+rainbowMixedColor1.a = gradationColor.a;
+rainbowMixedColor2.a = gradationColor.a;
 
 // Select between normal gradation and rainbow gradation
 float4 normalGradation = select(_GraphicGradationLayer, color, graphicMixedColor0, graphicMixedColor1, graphicMixedColor2);
@@ -248,6 +255,8 @@ float4 graphicColor = color;
 #else
 	half4 layer0 = outlineColor;
 #endif
+
+	
 
 #if defined(SDF_UI_GRAPHIC_EFFECT_SHINY) || defined(SDF_UI_GRAPHIC_EFFECT_PATTERN)
 #if SDF_UI_GRAPHIC_EFFECT_PATTERN

@@ -4,9 +4,11 @@
 
 float4 _RectSize;
 
+float _IsWhiteTexUsed;
 float _LiquidGlassThickness;
 float _LiquidGlassIndex;
 float _LiquidGlassBaseHeight;
+float _LiquidGlassOverrideMainTex;
 
 float _Gamma;
 sampler2D _GrabTexture;

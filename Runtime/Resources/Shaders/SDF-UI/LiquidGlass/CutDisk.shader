@@ -20,9 +20,11 @@ Shader "Hidden/UI/SDF/CutDisk/LiquidGlass/Outline" {
 
         [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
 
+	_IsWhiteTexUsed("IsWhiteTexUsed", Float) = 1
         _LiquidGlassThickness("LiquidGlassThickness", Float) = 0
         _LiquidGlassIndex("LiquidGlassIndex", Float) = 0
         _LiquidGlassBaseHeight("LiquidGlassBaseHeight", Float) = 0
+        _LiquidGlassOverrideMainTex("LiquidGlassOverrideMainTex", Float) = 0
 
         _Radius("Radius", Float) = 0
         _Height("Height", Float) = 0

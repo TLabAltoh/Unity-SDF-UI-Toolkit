@@ -43,6 +43,7 @@ namespace TLab.UI.SDF
 
         #region SHAPE
 
+	internal static readonly int PROP_IS_WHITE_TEX_USED = Shader.PropertyToID("_IsWhiteTexUsed");
         internal static readonly int PROP_GAMMA = Shader.PropertyToID("_Gamma");
 
         internal static readonly int PROP_PADDING = Shader.PropertyToID("_Padding");
@@ -219,6 +220,7 @@ namespace TLab.UI.SDF
 
         internal const string PREFIX_LIQUID_GLASS = "LiquidGlass";
 
+        internal static readonly int PROP_LIQUID_GLASS_OVERRIDE_MAINTEX = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}OverrideMainTex");
         internal static readonly int PROP_LIQUID_GLASS_OFFSET = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Offset");
         internal static readonly int PROP_LIQUID_GLASS_INDEX = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Index");
         internal static readonly int PROP_LIQUID_GLASS_THICKNESS = Shader.PropertyToID($"_{PREFIX_LIQUID_GLASS}Thickness");
@@ -379,6 +381,7 @@ namespace TLab.UI.SDF
         [SerializeField] protected bool m_liquidGlass = false;
         [SerializeField, Min(0)] protected float m_liquidGlassThickness = 10.0f;
         [SerializeField, Min(0)] protected float m_liquidGlassIndex = 1.5f;
+        [SerializeField] protected bool m_liquidGlassOverrideMainTex = false;
 
         #endregion LIQUID_GLASS
 
@@ -1683,6 +1686,20 @@ namespace TLab.UI.SDF
             }
         }
 
+        public bool liquidGlassOverrideMainTex
+        {
+            get => m_liquidGlassOverrideMainTex;
+            set
+            {
+                if (m_liquidGlassOverrideMainTex != value)
+                {
+                    m_liquidGlassOverrideMainTex = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
         #endregion LIQUID_GLASS
 
         #endregion PROPERTYS
@@ -1862,38 +1879,6 @@ namespace TLab.UI.SDF
             return new Color(color.r, color.g, color.b, 0.0f);
         }
 
-        public static Color InverseGammaCorrect(Color srgbColor)
-        {
-            // sRGBからリニアへの正確な変換
-            float toLinear(float srgbValue)
-            {
-                // 0-1の範囲に正規化
-                float norm = srgbValue / 255.0f;
-
-                // sRGBの計算式を適用
-                if (norm <= 0.04045f)
-                {
-                    return norm / 12.92f;
-                }
-                else
-                {
-                    return (float)math.pow((norm + 0.055f) / 1.055f, 2.4f);
-                }
-            }
-
-            // 各チャンネルに変換を適用
-            float linearR = toLinear(srgbColor.r);
-            float linearG = toLinear(srgbColor.g);
-            float linearB = toLinear(srgbColor.b);
-
-            // 0-255の範囲に戻してColor構造体を作成
-            int finalR = (int)(math.min(1.0f, math.max(0.0f, linearR)) * 255.0f);
-            int finalG = (int)(math.min(1.0f, math.max(0.0f, linearG)) * 255.0f);
-            int finalB = (int)(math.min(1.0f, math.max(0.0f, linearB)) * 255.0f);
-
-            return new Color(finalR, finalG, finalB, srgbColor.a);
-        }
-
         protected virtual void UpdateMaterialRecord()
         {
             _materialRecord.ResetKeywords();
@@ -1926,10 +1911,11 @@ namespace TLab.UI.SDF
 
             if (m_liquidGlass)
             {
+                SHADER_TYPE = "LiquidGlass";
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_INDEX, m_liquidGlassIndex);
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_THICKNESS, m_liquidGlassThickness);
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_BASE_HEIGHT, m_liquidGlassThickness * 8.0f);
-                SHADER_TYPE = "LiquidGlass";
+            	_materialRecord.SetFloat(PROP_LIQUID_GLASS_OVERRIDE_MAINTEX, m_liquidGlassOverrideMainTex ? 1.0f : 0.0f);
             }
             else
                 SHADER_TYPE = "Default";
@@ -1941,33 +1927,47 @@ namespace TLab.UI.SDF
             _materialRecord.TextureUV = new float4(uvRect.x, uvRect.y, uvRect.size.x, uvRect.size.y);
             _materialRecord.TextureColor = m_fillColor;
 
+	    Texture texture;
+	    float isWhiteTexUsed;
+
             var activeImageType = m_activeImageType;
             switch (activeImageType)
             {
                 case ActiveImageType.Sprite:
                     {
                         var activeSprite = this.activeSprite;
-                        Texture texture;
                         float4 outerUV;
                         if (activeSprite == null)
                         {
+                            isWhiteTexUsed = 1.0f;
                             texture = s_WhiteTexture;
                             outerUV = defaultOuterUV;
                         }
                         else
                         {
+                            isWhiteTexUsed = 0.0f;
                             texture = activeSprite.texture;
                             outerUV = DataUtility.GetOuterUV(activeSprite);
                         }
                         _materialRecord.Texture = texture;
                         _materialRecord.SetVector(PROP_OUTERUV, outerUV);
+	                _materialRecord.SetFloat(PROP_IS_WHITE_TEX_USED, isWhiteTexUsed);
                     }
                     break;
                 case ActiveImageType.Texture:
                     {
                         var activeTexture = this.activeTexture;
-                        _materialRecord.Texture = (activeTexture == null) ? s_WhiteTexture : activeTexture;
+                        if (activeTexture == null) {
+                        	isWhiteTexUsed = 1.0f;
+                        	texture = s_WhiteTexture;
+                        	
+                        } else {
+                        	isWhiteTexUsed = 0.0f;
+                        	texture = activeTexture;
+                        }
+	                _materialRecord.Texture = texture;
                         _materialRecord.SetVector(PROP_OUTERUV, defaultOuterUV);
+	                _materialRecord.SetFloat(PROP_IS_WHITE_TEX_USED, isWhiteTexUsed);
                     }
                     break;
             }
