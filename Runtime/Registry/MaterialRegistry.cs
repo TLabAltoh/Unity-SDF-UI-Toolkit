@@ -13,7 +13,7 @@ namespace TLab.UI.SDF.Registry
 		static MaterialRegistry()
 		{
 #if UNITY_EDITOR
-			SDFUISettings.AASettingsChanged += OnSettingsChanged;
+			SDFUISettings.SettingsChanged += OnSettingsChanged;
 #endif
 		}
 

@@ -18,6 +18,7 @@ namespace TLab.UI.SDF
 		[SerializeField] private bool _useShadow;
 		[SerializeField] private Color _shadowColor = new(0, 0, 0, 0.25f);
 		[SerializeField] private Vector2 _shadowOffset = new(0, 4);
+		[SerializeField] private bool _useHDRColor;
 
 		public AntialiasingType DefaultAA => _defaultAA;
 		public bool UseOutline => _useOutline;
@@ -28,9 +29,10 @@ namespace TLab.UI.SDF
 		public bool UseShadow => _useShadow;
 		public Color ShadowColor => _shadowColor;
 		public Vector2 ShadowOffset => _shadowOffset;
+		public bool UseHDRColor => _useHDRColor;
 
 #if UNITY_EDITOR
-		public static event Action AASettingsChanged;
+		public static event Action SettingsChanged;
 #endif
 
 		public static SDFUISettings Instance
@@ -58,6 +60,7 @@ namespace TLab.UI.SDF
 		}
 
 		private AntialiasingType oldAA = AntialiasingType.Default;
+		private bool oldUseHDRColor = false;
 
 		private static SDFUISettings instance;
 
@@ -70,8 +73,13 @@ namespace TLab.UI.SDF
 				oldAA = _defaultAA;
 			if (_defaultAA != oldAA)
 			{
-				AASettingsChanged?.Invoke();
+				SettingsChanged?.Invoke();
 				oldAA = _defaultAA;
+			}
+			if (oldUseHDRColor != _useHDRColor)
+			{
+				SettingsChanged?.Invoke();
+				oldUseHDRColor = _useHDRColor;
 			}
 		}
 

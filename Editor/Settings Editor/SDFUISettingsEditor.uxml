@@ -27,6 +27,9 @@
                 <uie:ColorField label="Color" value="#00000040" name="shadow-color" binding-path="_shadowColor" />
                 <uie:Vector2Field label="Offset" binding-path="_shadowOffset" />
             </ui:Foldout>
+            <ui:Foldout text="HDR" name="hdr">
+                <ui:Toggle label="Enable" name="hdr-enable" binding-path="_useHDRColor" />
+            </ui:Foldout>
         </ui:GroupBox>
     </ui:ScrollView>
 </ui:UXML>
