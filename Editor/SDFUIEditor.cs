@@ -130,14 +130,14 @@ namespace TLab.UI.SDF.Editor
 					}
 					break;
 			}
-			serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor");
+			serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.fillColor), "FillColor", m_baseInstance.useHDR);
 
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.gradationShape), "Gradation Shape");
 			EditorGUI.indentLevel++;
 			bool drawGradationColor = m_baseInstance.gradationShape != SDFUI.GradationShape.None;
 			if (drawGradationColor)
 			{
-				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.gradationColor), "Color");
+				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.gradationColor), "Color", m_baseInstance.useHDR);
 				switch (m_baseInstance.gradationShape)
 				{
 					case SDFUI.GradationShape.Linear:
@@ -165,14 +165,14 @@ namespace TLab.UI.SDF.Editor
 				case SDFUI.EffectType.None:
 					break;
 				case SDFUI.EffectType.Shiny:
-					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color");
+					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color", m_baseInstance.useHDR);
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectAngle), "Angle");
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectShinyWidth), "Width");
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectShinyBlur), "Blur");
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectOffset), "Offset");
 					break;
 				case SDFUI.EffectType.Pattern:
-					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color");
+					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.graphicEffectColor), "Color", m_baseInstance.useHDR);
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectAngle), "Angle");
 
 					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.graphicEffectPatternTexture), "Texture");
@@ -223,14 +223,14 @@ namespace TLab.UI.SDF.Editor
 			if (m_baseInstance.outline)
 			{
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineWidth), "Width");
-				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineColor), "Color");
+				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineColor), "Color", m_baseInstance.useHDR);
 
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineGradationShape), "Gradation Shape");
 				EditorGUI.indentLevel++;
 				bool drawGradationColor = m_baseInstance.outlineGradationShape != SDFUI.GradationShape.None;
 				if (drawGradationColor)
 				{
-					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineGradationColor), "Color");
+					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineGradationColor), "Color", m_baseInstance.useHDR);
 					switch (m_baseInstance.outlineGradationShape)
 					{
 						case SDFUI.GradationShape.Linear:
@@ -263,14 +263,14 @@ namespace TLab.UI.SDF.Editor
 					case SDFUI.EffectType.None:
 						break;
 					case SDFUI.EffectType.Shiny:
-						serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color");
+						serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color", m_baseInstance.useHDR);
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectAngle), "Angle");
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectShinyWidth), "Width");
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectShinyBlur), "Blur");
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectOffset), "Offset");
 						break;
 					case SDFUI.EffectType.Pattern:
-						serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color");
+						serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.outlineEffectColor), "Color", m_baseInstance.useHDR);
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectAngle), "Angle");
 
 						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outlineEffectPatternTexture), "Texture");
@@ -327,14 +327,14 @@ namespace TLab.UI.SDF.Editor
 			EditorGUI.indentLevel++;
 			if (m_baseInstance.shadow)
 			{
-				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.shadowColor), "Color");
+				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.shadowColor), "Color", m_baseInstance.useHDR);
 
 				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.shadowGradationShape), "Gradation Shape");
 				EditorGUI.indentLevel++;
 				bool drawGradationColor = m_baseInstance.shadowGradationShape != SDFUI.GradationShape.None;
 				if (drawGradationColor)
 				{
-					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.shadowGradationColor), "Color");
+					serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.shadowGradationColor), "Color", m_baseInstance.useHDR);
 					switch (m_baseInstance.shadowGradationShape)
 					{
 						case SDFUI.GradationShape.Linear:
@@ -387,6 +387,11 @@ namespace TLab.UI.SDF.Editor
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.antialiasing), "Antialiasing");
 		}
 
+		protected void DrawUseHDRProp()
+		{
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.useHDR), "Use HDR");
+		}
+
 		protected virtual void DrawOtherProp()
 		{
 			EditorGUILayout.LabelField("Others", labelStyle);
@@ -397,6 +402,7 @@ namespace TLab.UI.SDF.Editor
 			SetShowNativeSize(false);
 			NativeSizeButtonGUI();
 			DrawAntialiasingProp();
+			DrawUseHDRProp();
 			EditorGUI.indentLevel--;
 		}
 

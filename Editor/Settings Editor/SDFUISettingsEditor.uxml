@@ -28,7 +28,7 @@
                 <uie:Vector2Field label="Offset" binding-path="_shadowOffset" />
             </ui:Foldout>
             <ui:Foldout text="HDR" name="hdr">
-                <ui:Toggle label="Enable" name="hdr-enable" binding-path="_useHDRColor" />
+                <ui:Toggle label="Enable" name="hdr-enable" binding-path="_useHDR" />
             </ui:Foldout>
         </ui:GroupBox>
     </ui:ScrollView>
