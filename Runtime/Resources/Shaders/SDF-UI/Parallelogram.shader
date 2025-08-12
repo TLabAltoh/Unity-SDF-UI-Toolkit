@@ -18,8 +18,6 @@ Shader "Hidden/UI/SDF/Parallelogram/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
-        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
-
         _Slide("Slide", Float) = 0
         _Roundness("Roundness", Float) = 0
 
@@ -104,9 +102,10 @@ Shader "Hidden/UI/SDF/Parallelogram/Outline" {
 #define SDF_UI_PARALLELOGRAM
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
+            #include "SDFUtils.cginc"
 
             #include "Parallelogram-Properties.hlsl"
-            #include "SDFUtils.cginc"
+
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

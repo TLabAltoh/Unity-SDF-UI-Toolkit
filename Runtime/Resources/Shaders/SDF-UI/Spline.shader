@@ -18,8 +18,6 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
-        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
-
         [HideInInspector] _Num("Num", Int) = 0
 
         _Width("Width", Float) = 0
@@ -105,9 +103,9 @@ Shader "Hidden/UI/SDF/Spline/Outline" {
 #define SDF_UI_SPLINE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
+            #include "SDFUtils.cginc"
 
             #include "Spline-ShaderSetup.hlsl"
-            #include "SDFUtils.cginc"
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

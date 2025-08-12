@@ -161,7 +161,7 @@ inline float4 linearGradation(float2 p, float angle, float rectAngle, float smoo
 inline float3 hsv2rgb(float3 hsv) {
     float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     float3 p = abs(frac(hsv.xxx + K.xyz) * 6.0 - K.www);
-    return pow(hsv.z * lerp(K.xxx, saturate(p - K.xxx), hsv.y), _Gamma);
+    return hsv.z * lerp(K.xxx, saturate(p - K.xxx), hsv.y);
 }
 
 /**
