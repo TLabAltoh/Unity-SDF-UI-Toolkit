@@ -1,6 +1,7 @@
 Shader "Hidden/UI/SDF/Pie/Default/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
+        [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil("Stencil ID", Float) = 0
         [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
@@ -17,8 +18,6 @@ Shader "Hidden/UI/SDF/Pie/Default/Outline" {
         [HideInInspector] _GraphicBorder("Graphic Border", Float) = 0
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
-
-        [HideInInspector] _Gamma("Gamma", Float) = 0.455 // 1.0 / 2.2
 
         _Radius("Radius", Float) = 0
         _Theta("Theta", Float) = 0
@@ -43,8 +42,8 @@ Shader "Hidden/UI/SDF/Pie/Default/Outline" {
         _OutlineGradationRange("Outline Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)
         _OutlineGradationLayer("Outline Gradation Layer", Vector) = (0.0, 0.0, 0.0, 1.0)
         _OutlineGradationOffset("Outline Gradation Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
-        [HDR] _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
-        [HDR] _OutlineGradationColor("Outline Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineColor("Outline Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineGradationColor("Outline Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         _ShadowWidth("Shadow Width", Float) = 0
         _ShadowBlur("Shadow Blur", Float) = 0
@@ -56,14 +55,14 @@ Shader "Hidden/UI/SDF/Pie/Default/Outline" {
         _ShadowGradationRange("Shadow Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)
         _ShadowGradationLayer("Shadow Gradation Layer", Vector) = (0.0, 0.0, 0.0, 1.0)
         _ShadowGradationOffset("Shadow Gradation Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
-        [HDR] _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
-        [HDR] _ShadowGradationColor("Shadow Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowColor("Shadow Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _ShadowGradationColor("Shadow Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         _GraphicEffectAngle("Graphic Effect Angle", Float) = 0
-        [HDR] _GraphicEffectColor("Graphic Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicEffectColor("Graphic Effect Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _GraphicEffectOffset("Graphic Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
         _OutlineEffectAngle("Outline Effect Angle", Float) = 0
-        [HDR] _OutlineEffectColor("Outline Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineEffectColor("Outline Effect Color", Color) = (0.0, 0.0, 0.0, 1.0)
         _OutlineEffectOffset("Outline Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
         _GraphicEffectShinyWidth("Graphic Effect Shiny Width", Float) = 0
@@ -105,9 +104,10 @@ Shader "Hidden/UI/SDF/Pie/Default/Outline" {
 #define SDF_UI_PIE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
+            #include "SDFUtils.cginc"
 
             #include "Pie-Properties.hlsl"
-            #include "SDFUtils.cginc"
+
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert

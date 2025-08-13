@@ -217,6 +217,19 @@ namespace TLab.UI.SDF.Editor
 			return false;
 		}
 
+		public static bool TryDrawColorProperty(this SerializedObject serializedObject, string name, string label, bool hdr)
+		{
+			var prop = serializedObject.FindProperty(name);
+			if (prop != null)
+			{
+				var color = prop.colorValue;
+				color = EditorGUILayout.ColorField(new GUIContent(label), color, true, true, hdr);
+				prop.colorValue = color;
+				return true;
+			}
+			return false;
+		}
+
 		public static void Call(this SerializedObject serializedObject, UnityAction action)
 		{
 			serializedObject.ApplyModifiedProperties();

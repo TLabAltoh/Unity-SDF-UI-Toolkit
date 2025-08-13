@@ -4,8 +4,6 @@
 
 float4 _RectSize;
 
-float _Gamma;
-
 float _Padding;
 float _EulerZ;
 float4 _OuterUV;
@@ -90,6 +88,7 @@ float4 _ShadowGradationOffset;
 float4 _ClipRect;
 float _UIMaskSoftnessX;
 float _UIMaskSoftnessY;
+int _UIVertexColorAlwaysGammaSpace;
 
 sampler2D _MainTex;
 float4 _MainTex_ST;
