@@ -648,6 +648,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -808,6 +809,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -981,6 +983,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -1301,6 +1304,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -1468,6 +1472,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 28.87
   m_outlineInnerSoftWidth: 0
@@ -1627,6 +1632,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -1960,6 +1966,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 22
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 12.47
   m_outlineInnerSoftWidth: 0
@@ -2188,6 +2195,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 22.67
   m_outlineInnerSoftWidth: 0
@@ -2631,6 +2639,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 7423b7ab075646a49bdacbc8c93a1301, type: 3}
     - target: {fileID: 2499189625634831424, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_useHDR
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499189625634831424, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
@@ -2657,6 +2669,10 @@ PrefabInstance:
     - target: {fileID: 6199476683982691062, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641370025972352552, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_useHDR
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6641370025972352552, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Material
@@ -2819,6 +2835,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -2986,6 +3003,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 12.5
   m_outlineInnerSoftWidth: 0

@@ -10,7 +10,6 @@ float _LiquidGlassIndex;
 float _LiquidGlassBaseHeight;
 float _LiquidGlassOverrideMainTex;
 
-float _Gamma;
 sampler2D _GrabTexture;
 float4 _GrabTexture_ST;
 
@@ -98,6 +97,7 @@ float4 _ShadowGradationOffset;
 float4 _ClipRect;
 float _UIMaskSoftnessX;
 float _UIMaskSoftnessY;
+int _UIVertexColorAlwaysGammaSpace;
 
 sampler2D _MainTex;
 float4 _MainTex_ST;
