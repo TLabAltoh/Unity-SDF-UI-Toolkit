@@ -81,7 +81,7 @@ float4 shadowColor = _ShadowColor;
 
 /**
 *
-*
+* Shadow Effect
 *
 */
 
@@ -126,7 +126,7 @@ graphicAlpha = lerp(softAlpha0, softAlpha1, _OutlineInnerGaussian);
 
 /**
 *
-*
+* Outline Gradation Effect
 *
 */
 
@@ -179,7 +179,7 @@ float refractLength = (h + _LiquidGlassBaseHeight) / dot(float3(0.0, 0.0, -1.0),
 
 float2 grabUV = i.grabPosition.xy / i.grabPosition.w;
 float2 distortionCoord = grabUV + refractVec.xy * refractLength / 100;
-float4 refractColor = tex2D(_GrabTexture, float4(distortionCoord, 0, 1));
+float4 refractColor = blur(float4(distortionCoord, 0, 1), 9.0, 5.0);
 float3 reflectVec = reflect(incident, normal);
 float4 reflectColor = float4(0.0, 0.0, 0.0, 0.0);
 
@@ -202,7 +202,7 @@ bg = clamp(bg, 0., 1.);
 	layer0 = ((color.rgb * _Color.rgb) * _IsWhiteTexUsed) + (color.rgb * color.a + color.rgb * _Color.rgb * (1.0 - color.a)) * (1.0 - _IsWhiteTexUsed);
 	layer1 = ((color.rgb * _Color.rgb));
 	color.rgb = select(_LiquidGlassOverrideMainTex, layer1.rgb, layer0.rgb);
-	color.a = bg.a;
+	color.a = 1.0;
 }
 
 #if 1

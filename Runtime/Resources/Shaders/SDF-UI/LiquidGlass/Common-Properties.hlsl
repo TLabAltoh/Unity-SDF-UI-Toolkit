@@ -12,6 +12,7 @@ float _LiquidGlassOverrideMainTex;
 
 sampler2D _GrabTexture;
 float4 _GrabTexture_ST;
+float4 _GrabTexture_TexelSize;
 
 float _Padding;
 float _EulerZ;

@@ -19,7 +19,7 @@ Shader "Hidden/UI/SDF/Quad/LiquidGlass/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
-	_IsWhiteTexUsed("IsWhiteTexUsed", Float) = 1
+		    _IsWhiteTexUsed("IsWhiteTexUsed", Float) = 1
         _LiquidGlassThickness("LiquidGlassThickness", Float) = 0
         _LiquidGlassIndex("LiquidGlassIndex", Float) = 0
         _LiquidGlassBaseHeight("LiquidGlassBaseHeight", Float) = 0
@@ -142,7 +142,7 @@ Shader "Hidden/UI/SDF/Quad/LiquidGlass/Outline" {
 #undef SDF_UI_QUAD
             ENDCG
         }
-        GrabPass { }
+				GrabPass { }
         Pass {
             CGPROGRAM
 #define SDF_UI_QUAD

@@ -576,13 +576,28 @@ float height(float sd, float thickness)
     return sqrt(thickness * thickness - x * x);
 }
 
-float4 bgImage(float2 uv)
-{
-    // return texture(iChannel0, uv);
-    return float4(0, 0, 0, 0);
-}
+/**
+* 1-pass-blur (The 1-pass blur algorithm is heavy process, so plan to replace it with a 2-pass algorithm in the futhre.
+* However in order to implement 2-pass gaussian blur, it is necessary to generate GrabTexture off-screen, and it may 
+* only be possible to implement this with a custom SRP (which is likely to be hard to implement), so it is likely to 
+* take a log time).
+*/
 
-float4 bg(float2 uv)
-{
-    return bgImage(uv);
+fixed4 blur(float4 uv, float blur, float sigma) {
+      float weight_total=0, const_v0 = 2.0 * sigma * sigma;
+      fixed4 col = fixed4(0,0,0,0);
+
+      blur = max(1, blur);
+
+      [loop]
+      for (float x = -blur; x <= blur; x++) {
+        [loop]
+        for (float y = -blur; y <= blur; y++) {
+          float distance_normalized = dot(float2(x,y), float2(y,x));
+          float weight = 1.0 / (PI * const_v0) * exp(-(x * x + y * y) / const_v0);
+          weight_total += weight;
+          col += tex2D(_GrabTexture, uv.xy + float2(x, y) * _GrabTexture_TexelSize.xy) * weight;
+        }
+      }
+      return col / weight_total;
 }
