@@ -22,6 +22,15 @@ v2f vert(appdata v) {
     o.worldPosition = v.vertex;
     o.vertex = UnityObjectToClipPos(v.vertex);
     o.uv = v.uv;
+
+    if (_UIVertexColorAlwaysGammaSpace)
+    {
+        if(!IsGammaSpace())
+        {
+            v.color.rgb = UIGammaToLinear(v.color.rgb);
+        }
+    }
+
     o.color = v.color;
 
     // This implementation is taken from Unity's build in shader UI-Default.shader.

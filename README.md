@@ -50,11 +50,13 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 </table>
 
 <table>
-    <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a></caption>
+    <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a> (Most of the implementation)  
+and  
+<a href="https://github.com/shino-a">shino</a> (Gamma space support, color suggestions)</caption>
     <tr>
-        <td><img src="Media/demo.15.jpg" width="256"><img></td>
-        <td><img src="Media/demo.16.jpg" width="256"><img></td>
-        <td><img src="Media/demo.17.jpg" width="256"><img></td>
+        <td><img src="Media/rawindow.0.png" width="256"><img></td>
+        <td><img src="Media/raindow.1.png" width="256"><img></td>
+        <td><img src="Media/rawindow.2.png" width="256"><img></td>
     </tr>
 </table>
 <table>
@@ -90,7 +92,6 @@ https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
 
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
-- Set the ```ColorSpace``` to ```Linear``` in ```ProjectSettins/Player/OtherSettings/Rendering``` (if ```Gamma``` is selected, the HDR color will appear little different).
 
 ## Feature
 ### Vector UI
@@ -148,6 +149,10 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 #### Implementation Approach
 ##### Cu2Qu
 It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
+
+## Features under consideration
+- [Implementation of Liquid Glass effect](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/issues/32)
+[branch:experimental-liquid-glass](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/tree/experimental-liquid-glass)
 
 ## Lisence
 This repository is MIT licensed.

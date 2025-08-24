@@ -216,6 +216,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_roundness: 0
   m_corner0: {x: -0.45, y: -0.45}
   m_corner1: {x: 0.45, y: -0.45}
@@ -493,6 +494,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_radius: 0
   m_maxDist: 50
   m_sdfTexture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
@@ -640,6 +642,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_fillAmount: 0.5
   m_cornersRounding: 40
   m_startAngle: 180
@@ -805,6 +808,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -971,6 +975,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_fillAmount: -0.753
   m_cornersRounding: 0
   m_startAngle: -45
@@ -1119,6 +1124,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_fillAmount: 0.75
   m_roundness: 0.1
 --- !u!1 &106449155051947346
@@ -1265,6 +1271,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1415,6 +1422,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_fillAmount: 0.75
   m_cornersRounding: 10
   m_startAngle: -135
@@ -1563,6 +1571,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_min: 0
   m_max: 1
 --- !u!1 &106449155371979679
@@ -1709,6 +1718,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_fillAmount: 0.5
 --- !u!1 &778120786416423926
 GameObject:
@@ -1854,6 +1864,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_slide: -0.225
   m_roundness: 0.192
 --- !u!1 &3522970763213088703
@@ -2001,6 +2012,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_width: 0.113
   m_fill: 0
   m_splines:
@@ -2172,6 +2184,7 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_roundness: 2.4
 --- !u!1 &8972358074308158159
 GameObject:
@@ -2318,5 +2331,6 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
+  m_useLiquidGlass: 0
   m_roundness: 2.5
   m_iteration: 4

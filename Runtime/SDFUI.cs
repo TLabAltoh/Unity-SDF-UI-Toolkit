@@ -258,6 +258,7 @@ namespace TLab.UI.SDF
         [SerializeField, Min(0f)] protected float m_onionWidth = 10;
 
         [SerializeField] protected AntialiasingType m_antialiasing = AntialiasingType.Default;
+        [SerializeField] protected bool m_useHDR = false;
 
         #region OUTLINE
 
@@ -265,11 +266,11 @@ namespace TLab.UI.SDF
         [SerializeField, Min(0f)] protected float m_outlineWidth = 10;
         [SerializeField, Min(0f)] protected float m_outlineInnerSoftWidth = 0;
         [SerializeField, Range(0, 1)] protected float m_outlineInnerSoftness = 0.0f;
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineColor = Color.cyan;
+        [SerializeField] protected Color m_outlineColor = Color.cyan;
         [SerializeField] protected OutlineType m_outlineType = OutlineType.Inside;
 
         #region GRADATION
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineGradationColor = Color.cyan;
+        [SerializeField] protected Color m_outlineGradationColor = Color.cyan;
         [SerializeField, Range(0, 2)] protected float m_outlineGradationAngle = 0;
         [SerializeField, Min(0)] protected float m_outlineGradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_outlineGradationSmooth = 0.5f;
@@ -280,7 +281,7 @@ namespace TLab.UI.SDF
 
         #region EFFECT
         [SerializeField] protected EffectType m_outlineEffectType = EffectType.None;
-        [SerializeField, ColorUsage(true, true)] protected Color m_outlineEffectColor = Color.white;
+        [SerializeField] protected Color m_outlineEffectColor = Color.white;
         [SerializeField] protected Vector2 m_outlineEffectOffset;
         [SerializeField, Range(-1, 1)] protected float m_outlineEffectAngle = 0.0f;
         [SerializeField, Range(0, 1)] protected float m_outlineEffectShinyBlur = 0.0f;
@@ -305,11 +306,11 @@ namespace TLab.UI.SDF
         [SerializeField, Range(0, 1)] protected float m_shadowSoftness = 0.0f;
         [SerializeField, Min(0f)] protected float m_shadowDilate = 0;
         [SerializeField] protected Vector2 m_shadowOffset;
-        [SerializeField, ColorUsage(true, true)] protected Color m_shadowColor = Color.black;
+        [SerializeField] protected Color m_shadowColor = Color.black;
         [SerializeField] protected EffectType m_shadowEffectType = EffectType.None;
 
         #region GRADATION
-        [SerializeField, ColorUsage(true, true)] protected Color m_shadowGradationColor = Color.black;
+        [SerializeField] protected Color m_shadowGradationColor = Color.black;
         [SerializeField, Range(0, 2)] protected float m_shadowGradationAngle = 0;
         [SerializeField, Min(0)] protected float m_shadowGradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_shadowGradationSmooth = 0.5f;
@@ -322,14 +323,14 @@ namespace TLab.UI.SDF
 
         #region GRAPHIC
 
-        [SerializeField, ColorUsage(true)] protected Color m_fillColor = Color.white;
+        [SerializeField] protected Color m_fillColor = Color.white;
         [SerializeField] protected ActiveImageType m_activeImageType;
         [SerializeField] protected Sprite m_sprite;
         [SerializeField] protected Texture m_texture;
         [SerializeField] protected Rect m_uvRect = new Rect(0f, 0f, 1f, 1f);
 
         #region GRADATION
-        [SerializeField, ColorUsage(true)] protected Color m_gradationColor = Color.white;
+        [SerializeField] protected Color m_gradationColor = Color.white;
         [SerializeField, Range(0, 2)] protected float m_gradationAngle = 0;
         [SerializeField, Min(0)] protected float m_gradationRadius = 0.5f;
         [SerializeField, Min(0)] protected float m_gradationSmooth = 0.5f;
@@ -340,7 +341,7 @@ namespace TLab.UI.SDF
 
         #region EFFECT
         [SerializeField] protected EffectType m_graphicEffectType = EffectType.None;
-        [SerializeField, ColorUsage(true, true)] protected Color m_graphicEffectColor = Color.white;
+        [SerializeField] protected Color m_graphicEffectColor = Color.white;
         [SerializeField] protected Vector2 m_graphicEffectOffset;
         [SerializeField, Range(0, 1)] protected float m_graphicEffectAngle = 0.0f;
         [SerializeField, Range(0, 1)] protected float m_graphicEffectShinyBlur = 0.0f;
@@ -358,6 +359,12 @@ namespace TLab.UI.SDF
         [SerializeField, Range(0, 1)] protected float m_rainbowValue = 1.0f;
         [SerializeField, Range(0, 1)] protected float m_rainbowHueOffset = 0.0f;
         #endregion EFFECT
+
+        #region LIQUID_GLASS
+
+        [SerializeField] protected bool m_useLiquidGlass = false;
+
+        #endregion LIQUID_GLASS
 
         #endregion GRAPHIC
 
@@ -383,10 +390,11 @@ namespace TLab.UI.SDF
         {
             get
             {
+                var shadowWidth = m_shadow ? m_shadowWidth : 0;
                 switch (m_outlineType)
                 {
-                    case OutlineType.Inside: return (m_shadow ? m_shadowWidth : 0);
-                    case OutlineType.Outside: return (m_shadow ? m_shadowWidth : 0) + (m_outline ? m_outlineWidth : 0);
+                    case OutlineType.Inside: return shadowWidth;
+                    case OutlineType.Outside: return shadowWidth + (m_outline ? m_outlineWidth : 0);
                 }
                 return 0;
             }
@@ -1092,6 +1100,20 @@ namespace TLab.UI.SDF
             }
         }
 
+        public bool useHDR
+        {
+            get => m_useHDR;
+            set
+            {
+                if (m_useHDR != value)
+                {
+                    m_useHDR = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
         public virtual Color fillColor
         {
             get => m_fillColor;
@@ -1613,6 +1635,24 @@ namespace TLab.UI.SDF
 
         #endregion RAINBOW
 
+        #region LIQUID_GLASS
+
+        public bool useLiquidGlass
+        {
+            get => m_useLiquidGlass;
+            set
+            {
+                if (m_useLiquidGlass != value)
+                {
+                    m_useLiquidGlass = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        #endregion LIQUID_GLASS
+
         #endregion PROPERTYS
 
         internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
@@ -1708,6 +1748,7 @@ namespace TLab.UI.SDF
         protected override void Reset()
         {
             m_antialiasing = AntialiasingType.Default;
+            m_useHDR = SDFUISettings.Instance.UseHDR;
             m_outline = SDFUISettings.Instance.UseOutline;
             m_outlineWidth = SDFUISettings.Instance.OutlineWidth;
             m_outlineColor = SDFUISettings.Instance.OutlineColor;
@@ -1805,7 +1846,7 @@ namespace TLab.UI.SDF
             _materialRecord.SetVector(PROP_RECTSIZE, new float4(((RectTransform)transform).rect.size, 0, 0));
 
             _materialRecord.TextureUV = new float4(uvRect.x, uvRect.y, uvRect.size.x, uvRect.size.y);
-            _materialRecord.TextureColor = m_fillColor;
+            _materialRecord.TextureColor = m_useHDR ? m_fillColor.gamma : m_fillColor;
 
             var activeImageType = m_activeImageType;
             switch (activeImageType)
@@ -1859,7 +1900,7 @@ namespace TLab.UI.SDF
                         break;
                 }
 
-                _materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, gradationColor);
+                _materialRecord.SetColor(PROP_GRAPHIC_GRADATION_COLOR, m_useHDR ? gradationColor.gamma : gradationColor);
                 _materialRecord.SetVector(PROP_GRAPHIC_GRADATION_LAYER, gradationLayer);
 
                 _materialRecord.SetFloat(PROP_GRAPHIC_GRADATION_ANGLE, m_gradationAngle);
@@ -1893,7 +1934,7 @@ namespace TLab.UI.SDF
                 _materialRecord.SetFloat(PROP_SHADOW_WIDTH, m_shadowWidth);
                 _materialRecord.SetFloat(PROP_SHADOW_BLUR, m_shadowSoftness * (m_shadowWidth + m_shadowInnerSoftWidth));
                 _materialRecord.SetFloat(PROP_SHADOW_DILATE, m_shadowDilate);
-                _materialRecord.SetColor(PROP_SHADOW_COLOR, m_shadowColor);
+                _materialRecord.SetColor(PROP_SHADOW_COLOR, m_useHDR ? m_shadowColor.gamma : m_shadowColor);
                 _materialRecord.SetFloat(PROP_SHADOW_GAUSSIAN, (m_shadowSoftness > 0) ? 1 : 0);
 
                 _materialRecord.SetFloat(PROP_SHADOW_GRADATION_ANGLE, m_shadowGradationAngle);
@@ -1921,7 +1962,7 @@ namespace TLab.UI.SDF
                         gradationLayer.w = 1;
                         break;
                 }
-                _materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, gradationColor);
+                _materialRecord.SetColor(PROP_SHADOW_GRADATION_COLOR, m_useHDR ? gradationColor.gamma : gradationColor);
                 _materialRecord.SetVector(PROP_SHADOW_GRADATION_LAYER, gradationLayer);
 
                 MeshUtils.ShadowSizeOffset(rectTransform.rect.size, m_shadowOffset, rectTransform.eulerAngles.z, out float4 sizeOffset);
@@ -1936,11 +1977,8 @@ namespace TLab.UI.SDF
                     _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_VALUE, m_rainbowValue);
                     _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                 }
-
-                _materialRecord.EnableKeyword(KEYWORD_SHADOW);
             }
-            else
-                _materialRecord.DisableKeyword(KEYWORD_SHADOW);
+            _materialRecord.SetKeywordActive(KEYWORD_SHADOW, m_shadow);
 
             {
                 var patternType = m_graphicEffectType;
@@ -1950,19 +1988,19 @@ namespace TLab.UI.SDF
                         _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY, KEYWORD_GRAPHIC_EFFECT_PATTERN);
                         break;
                     case EffectType.Shiny:
-                        _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
-                        _materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_PATTERN, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_SHINY, true);
 
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_WIDTH, Mathf.PI * m_graphicEffectShinyWidth);
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_SHINY_BLUR, hminSize * m_graphicEffectShinyBlur);
                         _materialRecord.SetVector(PROP_GRAPHIC_EFFECT_OFFSET, m_graphicEffectOffset);
 
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_ANGLE, Mathf.PI * m_graphicEffectAngle);
-                        _materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
+                        _materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_useHDR ? m_graphicEffectColor.gamma : m_graphicEffectColor);
                         break;
                     case EffectType.Pattern:
-                        _materialRecord.DisableKeyword(KEYWORD_GRAPHIC_EFFECT_SHINY);
-                        _materialRecord.EnableKeyword(KEYWORD_GRAPHIC_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_SHINY, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_GRAPHIC_EFFECT_PATTERN, true);
 
                         _materialRecord.SetTexture(PROP_GRAPHIC_EFFECT_PATTERN_TEX, m_graphicEffectPatternTexture);
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_PATTERN_ROW, m_graphicEffectPatternRow);
@@ -1971,7 +2009,7 @@ namespace TLab.UI.SDF
                         _materialRecord.SetVector(PROP_GRAPHIC_EFFECT_PATTERN_PARAMS, new float4(m_graphicEffectPatternParamsX, m_graphicEffectPatternParamsY, m_graphicEffectPatternParamsZ, m_graphicEffectPatternParamsW));
 
                         _materialRecord.SetFloat(PROP_GRAPHIC_EFFECT_ANGLE, Mathf.PI * m_graphicEffectAngle);
-                        _materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_graphicEffectColor);
+                        _materialRecord.SetColor(PROP_GRAPHIC_EFFECT_COLOR, m_useHDR ? m_graphicEffectColor.gamma : m_graphicEffectColor);
                         _materialRecord.SetVector(PROP_GRAPHIC_EFFECT_OFFSET, m_graphicEffectOffset);
                         break;
                     case EffectType.Rainbow:
@@ -1984,12 +2022,17 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                         break;
                 }
+
+                if (m_useLiquidGlass)
+                {
+
+                }
             }
 
-            if (m_outline && m_outlineWidth > 0)
+            if (m_outline && (m_outlineWidth > 0))
             {
                 _materialRecord.SetFloat(PROP_OUTLINE_WIDTH, m_outlineWidth);
-                _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_outlineColor);
+                _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_useHDR ? m_outlineColor.gamma : m_outlineColor);
                 _materialRecord.SetFloat(PROP_OUTLINE_INNER_BLUR, m_outlineInnerSoftness * m_outlineInnerSoftWidth);
                 _materialRecord.SetFloat(PROP_OUTLINE_INNER_GAUSSIAN, (m_outlineInnerSoftness > 0) && (m_outlineInnerSoftWidth > 0) ? 1 : 0);
 
@@ -2035,7 +2078,7 @@ namespace TLab.UI.SDF
                         gradationLayer.w = 1;
                         break;
                 }
-                _materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, gradationColor);
+                _materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_useHDR ? gradationColor.gamma : gradationColor);
                 _materialRecord.SetVector(PROP_OUTLINE_GRADATION_LAYER, gradationLayer);
 
                 var patternType = m_outlineEffectType;
@@ -2045,14 +2088,14 @@ namespace TLab.UI.SDF
                         _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY, KEYWORD_OUTLINE_EFFECT_PATTERN);
                         break;
                     case EffectType.Shiny:
-                        _materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
-                        _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_SHINY, true);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_PATTERN, false);
 
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_WIDTH, Mathf.PI * m_outlineEffectShinyWidth);
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_SHINY_BLUR, hminSize * m_outlineEffectShinyBlur);
 
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
-                        _materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
+                        _materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_useHDR ? m_outlineEffectColor.gamma : m_outlineEffectColor);
                         _materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
 
                         // Set outline rainbow properties
@@ -2060,8 +2103,8 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_OUTLINE_USE_RAINBOW, outlineUseRainbowGradient ? 1 : 0);
                         break;
                     case EffectType.Pattern:
-                        _materialRecord.DisableKeyword(KEYWORD_OUTLINE_EFFECT_SHINY);
-                        _materialRecord.EnableKeyword(KEYWORD_OUTLINE_EFFECT_PATTERN);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_SHINY, false);
+                        _materialRecord.SetKeywordActive(KEYWORD_OUTLINE_EFFECT_PATTERN, true);
 
                         _materialRecord.SetTexture(PROP_OUTLINE_EFFECT_PATTERN_TEX, m_outlineEffectPatternTexture);
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_PATTERN_ROW, m_outlineEffectPatternRow);
@@ -2070,7 +2113,7 @@ namespace TLab.UI.SDF
                         _materialRecord.SetVector(PROP_OUTLINE_EFFECT_PATTERN_PARAMS, new float4(m_outlineEffectPatternParamsX, m_outlineEffectPatternParamsY, m_outlineEffectPatternParamsZ, m_outlineEffectPatternParamsW));
 
                         _materialRecord.SetFloat(PROP_OUTLINE_EFFECT_ANGLE, Mathf.PI * m_outlineEffectAngle);
-                        _materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_outlineEffectColor);
+                        _materialRecord.SetColor(PROP_OUTLINE_EFFECT_COLOR, m_useHDR ? m_outlineEffectColor.gamma : m_outlineEffectColor);
                         _materialRecord.SetVector(PROP_OUTLINE_EFFECT_OFFSET, m_outlineEffectOffset);
                         break;
                     case EffectType.Rainbow:
@@ -2087,8 +2130,8 @@ namespace TLab.UI.SDF
             else
             {
                 _materialRecord.SetFloat(PROP_OUTLINE_WIDTH, 0);
-                _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_fillColor);
-                _materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_fillColor);
+                _materialRecord.SetColor(PROP_OUTLINE_COLOR, m_useHDR ? m_fillColor.gamma : m_fillColor);
+                _materialRecord.SetColor(PROP_OUTLINE_GRADATION_COLOR, m_useHDR ? m_fillColor.gamma : m_fillColor);
 
                 _materialRecord.SetFloat(PROP_SHADOW_BORDER, (m_shadowWidth - m_shadowDilate));
                 _materialRecord.SetFloat(PROP_OUTLINE_BORDER, 0);
