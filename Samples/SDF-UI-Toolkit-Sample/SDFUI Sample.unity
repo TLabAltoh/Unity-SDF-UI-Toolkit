@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -648,6 +648,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -805,6 +806,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -974,6 +976,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -1291,6 +1294,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -1457,6 +1461,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 28.87
   m_outlineInnerSoftWidth: 0
@@ -1613,6 +1618,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 1
   m_outlineInnerSoftWidth: 0
@@ -1941,6 +1947,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 22
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 12.47
   m_outlineInnerSoftWidth: 0
@@ -2165,6 +2172,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 22.67
   m_outlineInnerSoftWidth: 0
@@ -2636,6 +2644,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -2802,6 +2811,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 12.5
   m_outlineInnerSoftWidth: 0
