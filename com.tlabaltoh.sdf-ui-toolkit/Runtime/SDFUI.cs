@@ -256,6 +256,12 @@ namespace TLab.UI.SDF
             ON = 1,
         }
 
+        public enum ProjectType
+        {
+            BIRP = 0,
+            URP = 1,
+        }
+
         public enum ActiveImageType
         {
             Sprite = 0,
@@ -2020,7 +2026,10 @@ namespace TLab.UI.SDF
             {
                 SHADER_TYPE = "LiquidGlass";
                 AddBlurTargetRegistry(this);
-                _materialRecord.SetFloat(PROP_LIQUID_GLASS_IS_POST_PROCESS_PASS, 0);
+                if (SDFUISettings.Instance.ProjectType == ProjectType.URP)
+                    _materialRecord.SetFloat(PROP_LIQUID_GLASS_IS_POST_PROCESS_PASS, 0);
+                else
+                    _materialRecord.SetFloat(PROP_LIQUID_GLASS_IS_POST_PROCESS_PASS, 1);
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_INDEX, m_liquidGlassIndex);
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_THICKNESS, m_liquidGlassThickness);
                 _materialRecord.SetFloat(PROP_LIQUID_GLASS_BASE_HEIGHT, m_liquidGlassThickness * 8.0f);
