@@ -1,0 +1,22 @@
+{
+    "name": "com.tlabaltoh.sdf-ui-toolkit-urp-blur",
+    "version": "0.0.0",
+    "displayName": "SDF-UI-Toolkit",
+    "description": "Extension Package for Implementing UI Blur in URP",
+    "author": {
+        "name": "tlabaltoh",
+        "url": "https://tlab-games.com"
+    },
+    "dependencies": {
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.burst": "1.8.17",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.render-pipelines.core": "14.0.10",
+        "com.unity.render-pipelines.universal": "14.0.10"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git"
+    },
+    "license": "MIT License"
+}

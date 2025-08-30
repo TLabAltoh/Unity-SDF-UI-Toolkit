@@ -1,1 +1,0 @@
-#include "Spline-Properties.hlsl"

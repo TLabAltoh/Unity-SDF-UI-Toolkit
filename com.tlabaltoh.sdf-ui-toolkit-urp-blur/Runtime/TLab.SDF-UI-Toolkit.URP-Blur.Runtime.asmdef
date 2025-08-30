@@ -1,0 +1,20 @@
+{
+    "name": "TLab.SDF-UI-Toolkit.URP-Blur.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "TLab.SDF-UI-Toolkit.Runtime",
+        "Unity.Burst",
+        "Unity.Mathematics",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
