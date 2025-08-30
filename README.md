@@ -165,7 +165,7 @@ It is difficult to calculate distance from cubic Bezier mathematically.  So ```S
 When using the Liquid Glass effect (or blur effect) in URP, please import the following additional package into your project.
 
 ```
-https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-upm-blur#upm
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-urp-blur#upm
 ```
 
 After importing the package, add the `LiquidGlassRenderPass` to the RendererFeature you are using.
