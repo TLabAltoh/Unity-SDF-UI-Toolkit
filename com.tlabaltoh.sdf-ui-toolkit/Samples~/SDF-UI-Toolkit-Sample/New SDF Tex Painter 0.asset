@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222c946049b965d4b917c69e3cfde75e, type: 3}
+  m_Name: New SDF Tex Painter 0
+  m_EditorClassIdentifier: 
+  size: {x: 512, y: 512}
+  texScale: 100
+  areaBorderCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  areaPos: {x: 0, y: 0}
+  areaScale: 1
+  rasterizeOptions:
+    maxDist: 20
+  previewMode: 0
+  bezierPainter:
+    handleRadius: 5
+    anchorColor: {r: 0, g: 1, b: 0, a: 1}
+    bezierColor: {r: 0, g: 1, b: 0, a: 1}
+    controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    selectColor: {r: 1, g: 0, b: 1, a: 1}
+    showHandle: 1
+    split: 0
+    maxNum: 50
+    maxErr: 5
+    editMode: 0
+    primitiveSettings:
+      primitiveType: 1
+      numPoints: 4
+      scale: 25
+      fitCanvasX: 1
+    thickness: 10
+    isClosed: 1
+    draw: 1
+    beziers:
+    - handles:
+      - anchor: {x: -179.81032, y: -11.013601}
+        controlA: {x: 99.99967, y: -31.110569}
+        controlB: {x: 59.49476, y: 80.448364}
+      - anchor: {x: 78.04, y: -34.880768}
+        controlA: {x: 86.392654, y: 130.82663}
+        controlB: {x: -109.9953, y: 82.64754}
+      - anchor: {x: -22.639154, y: 184.09587}
+        controlA: {x: -61.550224, y: -73.99409}
+        controlB: {x: 116.77391, y: 15.212551}
+      isClosed: 1
+      thickness: 20
+      draw: 2
+    - handles:
+      - anchor: {x: 15.761126, y: 59.096268}
+        controlA: {x: 44.645676, y: -46.42119}
+        controlB: {x: -32.516354, y: 37.34442}
+      - anchor: {x: 155.5883, y: 117.49326}
+        controlA: {x: -30.40715, y: 45.48108}
+        controlB: {x: -78.02008, y: -82.90992}
+      - anchor: {x: 85.656456, y: 200.6601}
+        controlA: {x: -90.527145, y: -94.310295}
+        controlB: {x: 34.64837, y: -34.1799}
+      isClosed: 1
+      thickness: 40
+      draw: 2
+    - handles:
+      - anchor: {x: -143.08203, y: -251.29636}
+        controlA: {x: 35.614384, y: 35.614384}
+        controlB: {x: -35.614384, y: -35.614384}
+      - anchor: {x: -143.08203, y: -122.32524}
+        controlA: {x: -35.614388, y: 35.61438}
+        controlB: {x: 35.614388, y: -35.61438}
+      - anchor: {x: -272.05313, y: -122.32529}
+        controlA: {x: -35.61437, y: -35.614395}
+        controlB: {x: 35.61437, y: 35.614395}
+      - anchor: {x: -272.0531, y: -251.29636}
+        controlA: {x: 35.614384, y: -35.614384}
+        controlB: {x: -35.614384, y: 35.614384}
+      isClosed: 1
+      thickness: 10
+      draw: 2
+    - handles:
+      - anchor: {x: -93.58163, y: -134.74269}
+        controlA: {x: 25.286448, y: 25.286448}
+        controlB: {x: -25.286448, y: -25.286448}
+      - anchor: {x: -93.581635, y: -43.172356}
+        controlA: {x: -25.286451, y: 25.286444}
+        controlB: {x: 25.286451, y: -25.286444}
+      - anchor: {x: -185.15198, y: -43.17238}
+        controlA: {x: -25.286438, y: -25.286455}
+        controlB: {x: 25.286438, y: 25.286455}
+      - anchor: {x: -185.15195, y: -134.74269}
+        controlA: {x: 25.286448, y: -25.286448}
+        controlB: {x: -25.286448, y: 25.286448}
+      isClosed: 1
+      thickness: 10
+      draw: 2
+    - handles:
+      - anchor: {x: 196.07977, y: -212.88286}
+        controlA: {x: 39.51002, y: 39.51002}
+        controlB: {x: -39.51002, y: -39.51002}
+      - anchor: {x: 196.07974, y: -69.8044}
+        controlA: {x: -39.510025, y: 39.510014}
+        controlB: {x: 39.510025, y: -39.510014}
+      - anchor: {x: 53.001297, y: -69.80443}
+        controlA: {x: -39.510006, y: -39.510033}
+        controlB: {x: 39.510006, y: 39.510033}
+      - anchor: {x: 53.00132, y: -212.88286}
+        controlA: {x: 39.51002, y: -39.51002}
+        controlB: {x: -39.51002, y: 39.51002}
+      isClosed: 1
+      thickness: 40
+      draw: 0
+    - handles:
+      - anchor: {x: 51.917053, y: 102.689285}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -27.595318, y: 226.57312}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -151.47913, y: 147.06073}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -71.96681, y: 23.176926}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      isClosed: 1
+      thickness: 10
+      draw: 1
+  sdfTex: {fileID: 0}
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-sample.asset

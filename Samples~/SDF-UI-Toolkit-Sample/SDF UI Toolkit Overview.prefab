@@ -140,6 +140,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 9.69
   m_outlineInnerSoftWidth: 0
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 0, y: 0}
-  m_shadow: 1
+  m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
   m_shadowSoftness: 0.5
@@ -216,11 +217,17 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
-  m_roundness: 0
-  m_corner0: {x: -0.45, y: -0.45}
-  m_corner1: {x: 0.45, y: -0.45}
-  m_corner2: {x: 0, y: 0.45}
+  m_liquidGlass: 1
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 1
+  m_roundness: 0.148
+  m_corner0: {x: -0.2704485, y: 0.25472498}
+  m_corner1: {x: -0.05000087, y: -0.29133344}
+  m_corner2: {x: 0.27885872, y: 0.26770344}
 --- !u!1 &106449154209904388
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +425,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 24.2
   m_outlineInnerSoftWidth: 0
@@ -494,7 +502,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_radius: 0
   m_maxDist: 50
   m_sdfTexture: {fileID: 2800000, guid: da3f43e720f49bf45a54d43b85fb7bca, type: 2}
@@ -566,6 +580,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 8.4
   m_outlineInnerSoftWidth: 0
@@ -642,7 +657,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.5
   m_cornersRounding: 40
   m_startAngle: 180
@@ -730,7 +751,8 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
-  m_outline: 1
+  m_useHDR: 0
+  m_outline: 0
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
   m_outlineInnerSoftness: 0
@@ -758,7 +780,7 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 0
   m_outlineEffectPatternParamsW: 0.9
   m_outlineEffectPatternScale: {x: 1.58, y: 1.38}
-  m_shadow: 1
+  m_shadow: 0
   m_shadowWidth: 0
   m_shadowInnerSoftWidth: 0
   m_shadowSoftness: 0
@@ -775,7 +797,7 @@ MonoBehaviour:
   m_shadowGradationShape: 0
   m_fillColor: {r: 1, g: 1, b: 1, a: 1}
   m_activeImageType: 0
-  m_sprite: {fileID: 21300000, guid: 172e7de62252b4f41b42a50b35461a8d, type: 3}
+  m_sprite: {fileID: 0}
   m_texture: {fileID: 0}
   m_uvRect:
     serializedVersion: 2
@@ -808,7 +830,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 1
+  m_liquidGlassThickness: 20
+  m_liquidGlassIndex: 1.01
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 100
+  m_liquidGlassBlurOffset: 2
+  m_liquidGlassEdgeReflect: 1.1
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -899,6 +927,7 @@ MonoBehaviour:
   m_onion: 1
   m_onionWidth: 11.5
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 5.49
   m_outlineInnerSoftWidth: 0
@@ -975,7 +1004,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: -0.753
   m_cornersRounding: 0
   m_startAngle: -45
@@ -1048,6 +1083,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 16.75
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 6.25
   m_outlineInnerSoftWidth: 0
@@ -1124,7 +1160,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.75
   m_roundness: 0.1
 --- !u!1 &106449155051947346
@@ -1195,6 +1237,7 @@ MonoBehaviour:
   m_onion: 1
   m_onionWidth: 19.6
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 9.34
   m_outlineInnerSoftWidth: 0
@@ -1271,7 +1314,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1346,6 +1395,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 5.14
   m_outlineInnerSoftWidth: 0
@@ -1422,7 +1472,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.75
   m_cornersRounding: 10
   m_startAngle: -135
@@ -1495,6 +1551,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 23
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 6.83
   m_outlineInnerSoftWidth: 0
@@ -1571,7 +1628,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_min: 0
   m_max: 1
 --- !u!1 &106449155371979679
@@ -1642,6 +1705,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 5.2
   m_outlineInnerSoftWidth: 0
@@ -1718,7 +1782,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.5
 --- !u!1 &778120786416423926
 GameObject:
@@ -1788,6 +1858,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 8
   m_outlineInnerSoftWidth: 0
@@ -1864,7 +1935,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_slide: -0.225
   m_roundness: 0.192
 --- !u!1 &3522970763213088703
@@ -1936,6 +2013,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: 1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 2.12
   m_outlineInnerSoftWidth: 0
@@ -2012,7 +2090,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_width: 0.113
   m_fill: 0
   m_splines:
@@ -2108,6 +2192,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 0
   m_outlineWidth: 4.66
   m_outlineInnerSoftWidth: 0
@@ -2184,7 +2269,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_roundness: 2.4
 --- !u!1 &8972358074308158159
 GameObject:
@@ -2254,6 +2345,7 @@ MonoBehaviour:
   m_onion: 0
   m_onionWidth: 10
   m_antialiasing: -1
+  m_useHDR: 0
   m_outline: 1
   m_outlineWidth: 10.71
   m_outlineInnerSoftWidth: 0
@@ -2331,6 +2423,12 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_roundness: 2.5
   m_iteration: 4

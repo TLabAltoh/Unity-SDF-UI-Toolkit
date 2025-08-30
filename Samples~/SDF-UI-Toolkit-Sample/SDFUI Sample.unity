@@ -725,7 +725,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_width: 0.381
   m_fill: 0
   m_splines:
@@ -883,7 +889,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1055,7 +1067,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1373,7 +1391,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0.57
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -1538,7 +1562,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_width: 0.621
   m_fill: 0
   m_splines:
@@ -1695,7 +1725,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_roundness: 0.1
   m_corner0: {x: -0.34785607, y: -0.39216864}
   m_corner1: {x: 0.35612702, y: 0.0037889672}
@@ -2024,7 +2060,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 34.88
   m_radiusX: 40
@@ -2249,7 +2291,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.591
   m_roundness: 0.098
 --- !u!222 &1817816412
@@ -2270,14 +2318,74 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_gradationShape
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_gradationColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_gradationColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_gradationColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154058105963, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_gradationColor.r
+      value: 0.027571797
       objectReference: {fileID: 0}
     - target: {fileID: 106449154209904384, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 253278504}
+    - target: {fileID: 106449154209904384, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154209904384, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 106449154209904384, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -2418,6 +2526,46 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.b
+      value: 0.18396229
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.r
+      value: 0.20316765
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_outlineType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectShinyBlur
+      value: 0.305
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449154655705988, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectShinyWidth
+      value: 0.107
+      objectReference: {fileID: 0}
     - target: {fileID: 106449154935094096, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_onion
@@ -2460,8 +2608,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452262, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 106449155371979674, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
@@ -2491,6 +2649,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 2499189625634831424, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
+      propertyPath: m_useHDR
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499189625634831424, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
@@ -2498,6 +2661,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766697416882325221, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 132.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766697416882325221, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -121.1
       objectReference: {fileID: 0}
     - target: {fileID: 5618969891840910918, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
@@ -2516,6 +2689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6641370025972352552, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
+      propertyPath: m_useHDR
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641370025972352552, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
@@ -2526,13 +2704,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_fillColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_liquidGlassIndex
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586444286865846871, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_liquidGlassThickness
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_outlineType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_shadowColor.a
+      value: 0.48235294
       objectReference: {fileID: 0}
     - target: {fileID: 8888328784086608473, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
@@ -2723,7 +2931,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
   m_radiusX: 40
@@ -2888,7 +3102,13 @@ MonoBehaviour:
   m_rainbowSaturation: 1
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
-  m_useLiquidGlass: 0
+  m_liquidGlass: 0
+  m_liquidGlassThickness: 10
+  m_liquidGlassIndex: 1.5
+  m_liquidGlassOverrideMainTex: 0
+  m_liquidGlassBlur: 0
+  m_liquidGlassBlurOffset: 0
+  m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.614
   m_cornersRounding: 37.99
   m_startAngle: -129.09
