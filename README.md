@@ -48,7 +48,6 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
         <td><img src="Media/demo.14.jpg" width="256"><img></td>
     </tr>
 </table>
-
 <table>
     <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a> (Most of the implementation)  
 and  
@@ -57,6 +56,12 @@ and
         <td><img src="Media/rawindow.0.png" width="256"><img></td>
         <td><img src="Media/raindow.1.png" width="256"><img></td>
         <td><img src="Media/rawindow.2.png" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <caption>Liquid Glass</caption>
+    <tr>
+        <td><img src="Media/liquidglass.gif" width="512"><img></td>
     </tr>
 </table>
 <table>
@@ -73,6 +78,13 @@ and
 - [com.unity.nuget.newtonsoft-json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html)
 
 ## Install
+
+### Unity Package Manager
+add package from git URL ...
+```
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit#upm
+```
+
 ### Git
 Clone this repository with the following command
 ```
@@ -84,11 +96,9 @@ or
 ```
 git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
 ```
-### Unity Package Manager
-add package from git URL ...
-```
-https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git#upm
-```
+
+> [!NOTE]
+> Use this option only if your project uses URP. Regardless of whether you use BRIP or URP, we generally recommend downloading packages from the UPM.
 
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
@@ -149,10 +159,6 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 #### Implementation Approach
 ##### Cu2Qu
 It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
-
-## Features under consideration
-- [Implementation of Liquid Glass effect](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/issues/32)
-[branch:experimental-liquid-glass](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/tree/experimental-liquid-glass)
 
 ## Lisence
 This repository is MIT licensed.

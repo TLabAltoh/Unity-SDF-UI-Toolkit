@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222c946049b965d4b917c69e3cfde75e, type: 3}
+  m_Name: New SDF Tex Painter 1
+  m_EditorClassIdentifier: 
+  size: {x: 512, y: 512}
+  texScale: 100
+  areaBorderCol: {r: 1, g: 0.920817, b: 0, a: 0.5882353}
+  areaPos: {x: 0, y: 0}
+  areaScale: 2.27
+  rasterizeOptions:
+    maxDist: 50
+  previewMode: 0
+  bezierPainter:
+    handleRadius: 10
+    anchorColor: {r: 0, g: 1, b: 0, a: 1}
+    bezierColor: {r: 0, g: 1, b: 0, a: 1}
+    controlColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    selectColor: {r: 1, g: 0, b: 1, a: 1}
+    showHandle: 1
+    split: 0
+    maxNum: 50
+    maxErr: 5
+    editMode: 2
+    primitiveSettings:
+      primitiveType: 1
+      numPoints: 4
+      scale: 25
+      fitCanvasX: 1
+    thickness: 10
+    isClosed: 1
+    draw: 1
+    beziers:
+    - handles:
+      - anchor: {x: 98.20777, y: 65.59787}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: 195.60233, y: -22.805193}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: 42.197037, y: -34.396786}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -16.196144, y: -190.40216}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -71.50247, y: -32.50112}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -201.50691, y: -22.100758}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -118.30408, y: 84.502914}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -139.10478, y: 206.7071}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: -22.100761, y: 149.50514}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      - anchor: {x: 123.50424, y: 204.10703}
+        controlA: {x: 0, y: 0}
+        controlB: {x: 0, y: 0}
+      isClosed: 1
+      thickness: 10
+      draw: 1
+  sdfTex: {fileID: 0}
+  savePath: Assets/TLab/Unity-SDF-UI-Toolkit/Samples/SDF-UI-Toolkit-Sample/sdf-ui-toolkit-pattern.asset
