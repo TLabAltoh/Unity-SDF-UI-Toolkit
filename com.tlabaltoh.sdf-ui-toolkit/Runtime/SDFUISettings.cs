@@ -9,6 +9,7 @@ namespace TLab.UI.SDF
 	{
 		private const string Path = "Assets/SDF-UI-Toolkit/Resources";
 		private const float D9 = 217f / 255f;
+		[SerializeField] private ProjectType _projectType = ProjectType.BIRP;
 		[SerializeField] private AntialiasingType _defaultAA = AntialiasingType.ON;
 		[SerializeField] private bool _useOutline;
 		[SerializeField, Min(0)] private float _outlineWidth = 1;
@@ -20,6 +21,7 @@ namespace TLab.UI.SDF
 		[SerializeField] private Vector2 _shadowOffset = new(0, 4);
 		[SerializeField] private bool _useHDR;
 
+		public ProjectType ProjectType => _projectType;
 		public AntialiasingType DefaultAA => _defaultAA;
 		public bool UseOutline => _useOutline;
 		public float OutlineWidth => _outlineWidth;

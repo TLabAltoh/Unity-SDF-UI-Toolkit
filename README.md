@@ -160,6 +160,18 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 ##### Cu2Qu
 It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
 
+### Liquid Glass
+
+When using the Liquid Glass effect (or blur effect) in URP, please import the following additional package into your project.
+
+```
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-upm-blur#upm
+```
+
+After importing the package, add the `LiquidGlassRenderPass` to the RendererFeature you are using.
+
+In the URP environment, since the Liquid Glass effect is rendered in the post-process, please change the UI Canvas to Camera Space. Currently, only URP supports the blur effect. BIRP will be supported once the implementation policy is finalized.
+
 ## Lisence
 This repository is MIT licensed.
 
@@ -167,3 +179,4 @@ This repository is MIT licensed.
 - [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners) created by [kirevdokimov](https://github.com/kirevdokimov)
 - [Unity-UI-SDF](https://github.com/BlenMiner/Unity-UI-SDF) created by [BlenMiner](https://github.com/BlenMiner)
 - [distfunctions2d](https://iquilezles.org/articles/distfunctions2d/)
+- [liquidglass](https://www.shadertoy.com/view/wccSDf)
