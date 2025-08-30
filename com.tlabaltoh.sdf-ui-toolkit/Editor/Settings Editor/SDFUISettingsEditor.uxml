@@ -9,6 +9,7 @@
         </ui:VisualElement>
         <ui:HelpBox text="Settings can&apos;t be modified in play mode" message-type="Info" name="help-box" />
         <ui:GroupBox name="settings" style="display: flex; visibility: visible; opacity: 1;">
+            <uie:EnumField label="ProjectType" value="Center" name="project-type" binding-path="_projectType" />
             <ui:Foldout text="Anti-Aliasing" name="anti-aliasing">
                 <ui:DropdownField label="Default Algorithm" name="aa-algorithm" />
                 <ui:HelpBox text="&lt;b&gt;OFF&lt;/b&gt; - rendering without anti-aliasing&#10;&lt;b&gt;ON&lt;/b&gt; - rendering with distance-based anti-aliasing done by shader" message-type="None" name="anti-aliasing-help" style="-unity-paragraph-spacing: 50px;" />
