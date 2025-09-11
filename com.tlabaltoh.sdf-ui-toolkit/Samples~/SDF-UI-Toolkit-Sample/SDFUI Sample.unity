@@ -731,6 +731,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_width: 0.381
   m_fill: 0
@@ -895,6 +897,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
@@ -1073,6 +1077,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
@@ -1397,6 +1403,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
@@ -1568,6 +1576,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_width: 0.621
   m_fill: 0
@@ -1731,6 +1741,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_roundness: 0.1
   m_corner0: {x: -0.34785607, y: -0.39216864}
@@ -2066,6 +2078,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 34.88
@@ -2297,6 +2311,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.591
   m_roundness: 0.098
@@ -2742,6 +2758,21 @@ PrefabInstance:
       propertyPath: m_shadowColor.a
       value: 0.48235294
       objectReference: {fileID: 0}
+    - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726164489675252388, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
+        type: 3}
+      propertyPath: m_graphicEffectColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8888328784086608473, guid: 11c7c2eb28e28654f8ac02d2c0d0426b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2937,6 +2968,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_independent: 0
   m_radius: 40
@@ -3108,6 +3141,8 @@ MonoBehaviour:
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 0
   m_liquidGlassBlurOffset: 0
+  m_liquidGlassFlipBlurTexX: 0
+  m_liquidGlassFlipBlurTexY: 0
   m_liquidGlassEdgeReflect: 0
   m_fillAmount: 0.614
   m_cornersRounding: 37.99

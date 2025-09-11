@@ -37,7 +37,7 @@ graphicPatternPos *= _GraphicEffectPatternRow;
 graphicPatternPos *= _GraphicEffectPatternScale.x;
 
 float2 graphicPatternId = float2(floor(graphicPatternPos.x), floor(graphicPatternPos.y));
-float IsGraphicPatternEven = graphicPatternId.x % 2 == 0;
+float IsGraphicPatternEven = (fmod(graphicPatternId.x, 2.0) == 0.0) ? 1.0 : 0.0;
 graphicPatternPos = IsGraphicPatternEven * graphicPatternPos + (1. - IsGraphicPatternEven) * (graphicPatternPos - float2(.0, _GraphicEffectPatternParams.y));
 graphicPatternId = max(graphicPatternId + graphicPatternFade1, 0);
 
@@ -49,7 +49,7 @@ float graphicPatternScale = graphicPatternPower * _GraphicEffectPatternScale.y +
 
 graphicPatternSample -= .5;
 graphicPatternSample *= graphicPatternScale;
-graphicPatternSample = clamp(0, 1, graphicPatternSample + .5);
+graphicPatternSample = clamp(graphicPatternSample + .5, 0, 1);
 #endif
 
 #ifdef SDF_UI_OUTLINE_EFFECT_PATTERN
@@ -69,7 +69,7 @@ outlinePatternPos *= _OutlineEffectPatternRow;
 outlinePatternPos *= _OutlineEffectPatternScale.x;
 
 float2 outlinePatternId = float2(floor(outlinePatternPos.x), floor(outlinePatternPos.y));
-float IsOutlinePatternEven = outlinePatternId.x % 2 == 0;
+float IsOutlinePatternEven = (fmod(outlinePatternId.x, 2.0) == 0.0) ? 1.0 : 0.0;
 outlinePatternPos = IsOutlinePatternEven * outlinePatternPos + (1. - IsOutlinePatternEven) * (outlinePatternPos - float2(.0, _OutlineEffectPatternParams.y));
 outlinePatternId = max(outlinePatternId + outlinePatternFade1, 0);
 
@@ -81,7 +81,7 @@ float outlinePatternScale = outlinePatternPower * _OutlineEffectPatternScale.y +
 
 outlinePatternSample -= .5;
 outlinePatternSample *= outlinePatternScale;
-outlinePatternSample = clamp(0, 1, outlinePatternSample + .5);
+outlinePatternSample = clamp(outlinePatternSample + .5, 0, 1);
 #endif
 
 float2 texSample;

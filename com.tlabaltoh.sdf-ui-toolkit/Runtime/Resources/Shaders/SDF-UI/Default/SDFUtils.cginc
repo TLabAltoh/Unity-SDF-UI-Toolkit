@@ -5,7 +5,7 @@
 * https://www.shadertoy.com/view/7stcR4
 **/
 
-#define PI 3.14
+#define PI 3.14159265358979323846
 
 /**
 *
@@ -13,19 +13,19 @@
 */
 
 inline float select(bool boolean, float a0, float a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float2 select(bool boolean, float2 a0, float2 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float3 select(bool boolean, float3 a0, float3 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float4 select(bool boolean, float4 a0, float4 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 /**
