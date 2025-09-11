@@ -110,6 +110,7 @@ Shader "Hidden/UI/SDF/Quad/Default/Outline" {
 
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 3.0
 
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
