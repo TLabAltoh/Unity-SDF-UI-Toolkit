@@ -2,6 +2,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+#if UNITY_6000_0_OR_NEWER && false
+using UnityEngine.Rendering.RenderGraphModule;
+#endif
 
 namespace TLab.UI.SDF
 {
@@ -21,6 +24,22 @@ namespace TLab.UI.SDF
         private int m_blurWeightsID = 0;
         private int m_blurOffsetsID = 0;
         private int m_grabBlurTextureID = 0;
+
+        private bool m_disposed = false;
+        public bool disposed => m_disposed;
+        public Material blurMaterial => m_blurMaterial;
+
+        public bool TryDispose(out Material material)
+        {
+            material = null;
+            if (m_disposed)
+            {
+                return false;
+            }
+            material = m_blurMaterial;
+            m_disposed = true;
+            return true;
+        }
 
         public LiquidGlassRenderPass()
         {
@@ -80,6 +99,113 @@ namespace TLab.UI.SDF
             return dst;
         }
 
+#if UNITY_6000_0_OR_NEWER && false // RenderGraph support is in development
+        private class PassData
+        {
+            public UniversalCameraData cameraData;
+        }
+
+        public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
+        {
+            // https://docs.unity3d.com/6000.0/Documentation/Manual/urp/renderer-features/create-custom-renderer-feature.html
+            // https://docs.unity3d.com/6000.2/Documentation/Manual/urp/render-graph-draw-objects-in-a-pass.html
+
+            var resourceData = frameData.Get<UniversalResourceData>();
+            var cameraData = frameData.Get<UniversalCameraData>();
+            if (resourceData.isActiveTargetBackBuffer || cameraData.isPreviewCamera)
+                return;
+
+            // -----------
+
+            using (var builder = renderGraph.AddRenderPass<PassData>(NAME, out var passData))
+            {
+                passData.cameraData = cameraData;
+                builder.SetRenderFunc((PassData data, RenderGraphContext context) =>
+                    ExecutePass(passData, context));
+            }
+        }
+
+        private void ExecutePass(PassData passData, RenderGraphContext context)
+        {
+            using (new ProfilingScope(context.cmd, new ProfilingSampler(NAME)))
+            {
+                var targets = SDFUI.blurTargets;
+                var targetsCount = targets.Count();
+                if (targetsCount == 0)
+                    return;
+                var meshTargetPool = SDFUI.blurTargetMeshPool;
+
+                ref var cam = ref passData.cameraData.camera;
+                if (passData.cameraData.isSceneViewCamera)
+                    return;
+
+                var targetDescriptor = passData.cameraData.cameraTargetDescriptor;
+                context.cmd.GetTemporaryRT(m_screenCopyID, targetDescriptor, FilterMode.Bilinear);
+                context.cmd.GetTemporaryRT(m_blurredTempID1, targetDescriptor, FilterMode.Bilinear);
+                context.cmd.GetTemporaryRT(m_blurredTempID2, targetDescriptor, FilterMode.Bilinear);
+
+                int pass;
+                for (int i = 0; i < targetsCount; i++)
+                {
+                    var target = targets.ElementAt(i);
+
+                    if (!target.IsDestroyed() && target.transform is RectTransform rectTransform)
+                    {
+                        var screenPos = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.position);
+                        RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, screenPos, cam, out var worldPoint);
+                        var matrix = Matrix4x4.TRS(worldPoint, Quaternion.identity, rectTransform.lossyScale);
+
+                        var mesh = target.canvasRenderer.GetMesh();
+                        if (mesh == null)
+                            continue;
+
+                        // [Internal Unity bug?] Only the Transform's Rotation property is not applied to the Mesh obtained from the CanvasRenderer.
+
+                        var meshOld = mesh;
+                        mesh = meshTargetPool.ElementAt(i);
+                        MeshCopy(in meshOld, ref mesh);
+
+                        var material = target.materialForRendering;
+
+                        material.SetFloat(SDFUI.PROP_LIQUID_GLASS_IS_POST_PROCESS_PASS, 1);
+
+                        pass = target.material.FindPass("Shadow");
+                        context.cmd.DrawMesh(mesh, matrix, material, 0, pass);
+
+                        context.cmd.Blit(m_currentTarget, m_screenCopyID);
+
+                        Vector2Int scaledPixelSize = new Vector2Int(cam.scaledPixelWidth, cam.scaledPixelHeight);
+                        float x = target.liquidGlassBlurOffset / scaledPixelSize.x;
+                        float y = target.liquidGlassBlurOffset / scaledPixelSize.y;
+
+                        if (target.liquidGlassBlur > 0)
+                        {
+                            UpdateWeights(target.liquidGlassBlur);
+                            context.cmd.SetGlobalFloatArray(m_blurWeightsID, m_blurWeights);
+
+                            context.cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(x, 0, 0, 0));
+                            context.cmd.Blit(m_screenCopyID, m_blurredTempID1, m_blurMaterial);
+
+                            context.cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(0, y, 0, 0));
+                            context.cmd.Blit(m_blurredTempID1, m_blurredTempID2, m_blurMaterial);
+                        }
+                        else
+                            context.cmd.Blit(m_screenCopyID, m_blurredTempID2);
+
+                        context.cmd.SetGlobalTexture(m_grabBlurTextureID, m_blurredTempID2);
+
+                        pass = target.material.FindPass("ShapeOutline");
+                        context.cmd.SetRenderTarget(m_currentTarget);
+                        context.cmd.DrawMesh(mesh, matrix, material, 0, pass);
+                    }
+                }
+
+                context.cmd.ReleaseTemporaryRT(m_screenCopyID);
+                context.cmd.ReleaseTemporaryRT(m_blurredTempID1);
+                context.cmd.ReleaseTemporaryRT(m_blurredTempID2);
+            }
+        }
+#else
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             if (renderingData.cameraData.isPreviewCamera)
@@ -168,5 +294,6 @@ namespace TLab.UI.SDF
             context.ExecuteCommandBuffer(cmd);
             CommandBufferPool.Release(cmd);
         }
+#endif
     }
 }

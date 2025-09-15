@@ -22,5 +22,25 @@ namespace TLab.UI.SDF
         {
             m_liquidGlassRenderPass.SetRenderTarget(renderer.cameraColorTargetHandle);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if ((m_liquidGlassRenderPass == null) || (m_liquidGlassRenderPass.disposed))
+            {
+                return;
+            }
+
+            if (m_liquidGlassRenderPass.TryDispose(out var material))
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(material);
+                }
+                else
+                {
+                    DestroyImmediate(material);
+                }
+            }
+        }
     }
 }
