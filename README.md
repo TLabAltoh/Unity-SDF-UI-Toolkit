@@ -172,6 +172,11 @@ After importing the package, add the `LiquidGlassRenderPass` to the RendererFeat
 
 In the URP environment, since the Liquid Glass effect is rendered in the post-process, please change the UI Canvas to Camera Space. Currently, only URP supports the blur effect. BIRP will be supported once the implementation policy is finalized.
 
+> [!NOTE]  
+> RenderGraph is enabled by default in Unity 6 + URP, but this package isn't compatible with it yet. To use the package, you'll need to disable RenderGraph. You can do this by enabling `Capability mode (RenderGraph disable)` in the `Project Settings/Graphics` menu ([related issue](https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit/issues/24)).
+
+<img src="Media/urp-liquidglass-projectsettings-0.png" width="512"></img>
+
 ## Lisence
 This repository is MIT licensed.
 
