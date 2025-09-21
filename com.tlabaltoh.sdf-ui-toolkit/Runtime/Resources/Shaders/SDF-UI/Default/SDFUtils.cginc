@@ -88,11 +88,24 @@ inline float round(float4 d, float r) {
 }
 
 inline float saturaterange(float a, float b, float x) {
+    if (b == a) {
+        if (x <= a) {
+            return 0.0;
+        }
+        else {
+            return 1.0;
+        }
+    }
     return saturate((x - a) / (b - a));
 }
 
 inline float4 saturaterange(float4 a, float4 b, float4 x) {
-    return saturate((x - a) / (b - a));
+    float4 result;
+    result.a = saturaterange(a.a, b.a, x.a);
+    result.r = saturaterange(a.r, b.r, x.r);
+    result.g = saturaterange(a.g, b.g, x.g);
+    result.b = saturaterange(a.b, b.b, x.b);
+    return result;
 }
 
 /**

@@ -103,6 +103,21 @@ git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
 
+#### Liquid Glass
+`RenderGraph` is enabled by default in Unity 6 + URP, so this package utilizes RenderGraph for the Liquid Glass effect in Unity 6 and newer versions.
+If you need to use the Liquid Glass effect without the RenderGraph API, you must first disable RenderGraph. To do this, enable Capability mode (RenderGraph disable) in the `Project Settings/Graphics` menu.
+
+<img src="Media/urp-liquidglass-projectsettings-0.png" width="512"></img>
+
+Additionally, please add the following as a `Scripting Define Symbol` in the `Project Settings/Player`.
+
+```
+URP_COMPATIBILITY_MODE
+```
+
+> [!WARNING]
+> In Unity 6, there is a bug where the Gaussian blur processing in Liquid Glass does not function until entering Play Mode (likely because the material for the Gaussian blur is not generated correctly). Since the Gaussian blur processing works when entering Play Mode and in the built executable (.exe), I do not consider this a critical issue, but I would like to resolve it at some point.
+
 ## Feature
 ### Vector UI
 Vector UI offers advantages in quality and dynamic UI creation. This plugin includes the ```SDFUI``` class, and most of the main components inherit from it. Additionally, most ```SDFUI``` components render graphics as Vector UI using signed distance functions.
