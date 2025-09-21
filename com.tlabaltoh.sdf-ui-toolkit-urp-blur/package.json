@@ -1,6 +1,6 @@
 {
     "name": "com.tlabaltoh.sdf-ui-toolkit-urp-blur",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "displayName": "SDF-UI-Toolkit",
     "description": "Extension Package for Implementing UI Blur in URP",
     "author": {
