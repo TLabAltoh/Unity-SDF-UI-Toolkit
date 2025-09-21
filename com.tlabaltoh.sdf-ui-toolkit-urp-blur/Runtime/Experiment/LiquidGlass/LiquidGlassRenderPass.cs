@@ -43,10 +43,8 @@ namespace TLab.UI.SDF
             return true;
         }
 
-        public LiquidGlassRenderPass(RenderPassEvent renderPassEvent)
+        public LiquidGlassRenderPass()
         {
-            this.renderPassEvent = renderPassEvent;
-
             m_blurShader = Shader.Find("Hidden/UI/SDF/URP/Blur");
             m_blurMaterial = new Material(m_blurShader);
 

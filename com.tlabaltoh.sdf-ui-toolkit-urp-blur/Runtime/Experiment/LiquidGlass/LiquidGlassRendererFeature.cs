@@ -10,8 +10,13 @@ namespace TLab.UI.SDF
 
         public override void Create()
         {
-            if (m_liquidGlassRenderPass == null)
-                m_liquidGlassRenderPass = new LiquidGlassRenderPass(m_renderPassEvent);
+            if ((m_liquidGlassRenderPass == null) || m_liquidGlassRenderPass.disposed)
+            {
+                m_liquidGlassRenderPass = new LiquidGlassRenderPass()
+                {
+                    renderPassEvent = m_renderPassEvent
+                };
+            }
         }
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
@@ -28,7 +33,7 @@ namespace TLab.UI.SDF
 
         protected override void Dispose(bool disposing)
         {
-            if ((m_liquidGlassRenderPass == null) || (m_liquidGlassRenderPass.disposed))
+            if ((m_liquidGlassRenderPass == null) || !disposing || m_liquidGlassRenderPass.disposed)
             {
                 return;
             }
