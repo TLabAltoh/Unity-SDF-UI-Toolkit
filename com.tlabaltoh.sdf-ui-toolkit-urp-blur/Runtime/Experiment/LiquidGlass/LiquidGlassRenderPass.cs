@@ -103,7 +103,7 @@ namespace TLab.UI.SDF
             return dst;
         }
 
-#if URP_COMPATIBILITY_MODE
+#if !UNITY_6000_0_OR_NEWER || URP_COMPATIBILITY_MODE
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             if (renderingData.cameraData.isPreviewCamera)
