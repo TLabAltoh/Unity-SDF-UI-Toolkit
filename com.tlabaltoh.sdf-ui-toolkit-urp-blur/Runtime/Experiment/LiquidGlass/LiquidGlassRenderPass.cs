@@ -135,7 +135,7 @@ namespace TLab.UI.SDF
                     {
                         var screenPos = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.position);
                         RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, screenPos, cam, out var worldPoint);
-                        var matrix = Matrix4x4.TRS(worldPoint, Quaternion.identity, rectTransform.lossyScale);
+                        var matrix = Matrix4x4.TRS(worldPoint, rectTransform.rotation, rectTransform.lossyScale);
 
                         var mesh = target.canvasRenderer.GetMesh();
                         if (mesh == null)
@@ -248,7 +248,7 @@ namespace TLab.UI.SDF
                     {
                         var screenPos = RectTransformUtility.WorldToScreenPoint(cam, rectTransform.position);
                         RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, screenPos, cam, out var worldPoint);
-                        var matrix = Matrix4x4.TRS(worldPoint, Quaternion.identity, rectTransform.lossyScale);
+                        var matrix = Matrix4x4.TRS(worldPoint, rectTransform.rotation, rectTransform.lossyScale);
 
                         var mesh = target.canvasRenderer.GetMesh();
                         if (mesh == null)
