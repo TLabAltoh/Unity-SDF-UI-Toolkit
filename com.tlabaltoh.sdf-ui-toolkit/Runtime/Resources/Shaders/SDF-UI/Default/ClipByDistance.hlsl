@@ -2,8 +2,6 @@
 * SDF fragment after determined distance
 */
 
-#define PI 3.14
-
 //////////////////////////////////////////////////////////////
 
 #ifdef SDF_UI_STEP_SETUP
