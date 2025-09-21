@@ -24,7 +24,7 @@ float graphicEffect;
 outlineEffect = shiny(p - _OutlineEffectOffset * halfSize, _OutlineEffectShinyWidth, _OutlineEffectAngle + _EulerZ, _OutlineEffectShinyBlur);
 #elif SDF_UI_OUTLINE_EFFECT_PATTERN
 
-outlineEffect = -(tex2D(_OutlineEffectPatternTex, float2(outlinePatternSample.x, 1.0 - outlinePatternSample.y)).a;
+outlineEffect = -(tex2D(_OutlineEffectPatternTex, float2(outlinePatternSample.x, 1.0 - outlinePatternSample.y))).a;
 outlineEffect = outlineEffect * 2.0 + 1.0;
 
 #ifdef SDF_UI_AA
