@@ -3,6 +3,7 @@ using TLab.UI.SDF.Registry;
 using Unity.Mathematics;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.SceneManagement;
 #endif
 using UnityEngine;
 using UnityEngine.UI;
@@ -1843,7 +1844,12 @@ namespace TLab.UI.SDF
             GameObject gameObject = new();
             gameObject.name = typeof(TSDFUI).Name;
             TSDFUI sdfUI = gameObject.AddComponent<TSDFUI>();
-            GameObjectUtility.SetParentAndAlign(gameObject, menuCommand.context as GameObject);
+
+            var parent = menuCommand.context is GameObject contextParent ? contextParent
+                : PrefabStageUtility.GetCurrentPrefabStage() is PrefabStage prefabStage ? prefabStage.prefabContentsRoot
+                : null;
+            GameObjectUtility.SetParentAndAlign(gameObject, parent);
+
             Undo.RegisterCreatedObjectUndo(gameObject, "Create " + gameObject.name);
             Selection.activeObject = gameObject;
             return sdfUI;
