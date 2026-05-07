@@ -427,13 +427,13 @@ namespace TLab.UI.SDF
             get
             {
                 var shadowWidth = m_shadow ? m_shadowWidth : 0;
-                switch (m_outlineType)
-                {
-                    case OutlineType.Inside: return shadowWidth;
-                    case OutlineType.Outside: return shadowWidth + (m_outline ? m_outlineWidth : 0);
-                }
-                return 0;
-            }
+				return m_outlineType switch
+				{
+					OutlineType.Inside => shadowWidth,
+					OutlineType.Outside => shadowWidth + (m_outline ? m_outlineWidth : 0),
+					_ => 0,
+				};
+			}
         }
 
         #region PROPERTYS
@@ -1909,7 +1909,8 @@ namespace TLab.UI.SDF
             materialDirty = true;
 
             base.OnEnable();
-        }
+			OnLateUpdate();
+		}
 
         protected override void OnDisable()
         {
