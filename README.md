@@ -85,27 +85,30 @@ add package from git URL ...
 https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit#upm
 ```
 
-### Git
-Clone this repository with the following command
-```
-git clone https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
-```
-
-or
-
-```
-git submodule add https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git
-```
-
-> [!NOTE]
-> Use this option only if your project uses URP. Regardless of whether you use BRIP or URP, we generally recommend downloading packages from the UPM.
-
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
 
 #### Liquid Glass
-`RenderGraph` is enabled by default in Unity 6 + URP, so this package utilizes RenderGraph for the Liquid Glass effect in Unity 6 and newer versions.
-If you need to use the Liquid Glass effect without the RenderGraph API, you must first disable RenderGraph. To do this, enable Capability mode (RenderGraph disable) in the `Project Settings/Graphics` menu.
+
+To use the LiquidGlass effect in both URP and BIRP, an additional package must be imported into your project.
+
+```
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-liquidglass#upm
+```
+---
+
+When using the Liquid Glass blur effect in URP, please import the following additional package into your project.
+
+```
+https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-urp-blur#upm
+```
+
+After importing the package, add the `LiquidGlassRenderPass` to the RendererFeature you are using.
+
+In the URP environment, the Liquid Glass effect is rendered as a post‑process pass, so please set the UI Canvas to Camera Space. Currently, only URP supports the LiquidGlass blur effect. Support for BIRP will be added once the implementation policy is finalized.
+
+Additionally, because `RenderGraph` is enabled by default in Unity 6 when using URP, this package uses RenderGraph to implement the Liquid Glass effect in Unity 6 and newer versions.
+If you need to use the Liquid Glass effect without the RenderGraph API, you must disable RenderGraph first. To do this, enable Capability Mode (RenderGraph disabled) in the `Project Settings / Graphics` menu.
 
 <img src="Media/urp-liquidglass-projectsettings-0.png" width="512"></img>
 
@@ -118,7 +121,14 @@ URP_COMPATIBILITY_MODE
 > [!WARNING]
 > In Unity 6, there is a bug where the Gaussian blur processing in Liquid Glass does not function until entering Play Mode (likely because the material for the Gaussian blur is not generated correctly). Since the Gaussian blur processing works when entering Play Mode and in the built executable (.exe), I do not consider this a critical issue, but I would like to resolve it at some point.
 
+> [!WARNING]
+> Please note that starting from Unity 6.6, disabling the RenderGraph system is no longer supported.
+
 ## Feature
+
+<details>
+<summary>Vector UI</summary>
+
 ### Vector UI
 Vector UI offers advantages in quality and dynamic UI creation. This plugin includes the ```SDFUI``` class, and most of the main components inherit from it. Additionally, most ```SDFUI``` components render graphics as Vector UI using signed distance functions.
 
@@ -138,9 +148,18 @@ Here you can set the default value of ```SFUUI```.
 This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
 
 </details>
+</details>
+
+<details>
+<summary>Batch rendering</summary>
 
 ### Batch rendering
 To optimise performance, this plugin will batch-render ```SDFUI```s that have the same properties. This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
+
+</details>
+
+<details>
+<summary>SDF Texture Painter</summary>
 
 ### SDF Texture Painter
 If the shape is complex (like an ```SDFSpline```, which might be the only one at the moment), it can significantly impact performance. If you want to use a complex shape while considering app performance, replacing the current shape with an ```SDFTex``` might be more efficient. The ```SDF Tex Painter``` has the ability to edit cubic Bezier curves and convert them to SDF textures (```Texture2D```).
@@ -171,21 +190,11 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 ##### EditMode "Primitive"
 - ```Left Click```: Add new Bezier Primitive (```Circle``` or ```Box```)
 
+</details>
+
 #### Implementation Approach
 ##### Cu2Qu
 It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
-
-### Liquid Glass
-
-When using the Liquid Glass effect (or blur effect) in URP, please import the following additional package into your project.
-
-```
-https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-urp-blur#upm
-```
-
-After importing the package, add the `LiquidGlassRenderPass` to the RendererFeature you are using.
-
-In the URP environment, since the Liquid Glass effect is rendered in the post-process, please change the UI Canvas to Camera Space. Currently, only URP supports the blur effect. BIRP will be supported once the implementation policy is finalized.
 
 ## Lisence
 This repository is MIT licensed.
