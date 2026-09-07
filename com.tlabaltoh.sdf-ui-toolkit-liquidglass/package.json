@@ -1,7 +1,7 @@
 {
   "name": "com.tlabaltoh.sdf-ui-toolkit-liquidglass",
   "version": "0.0.0",
-  "displayName": "SDF-UI-Toolkit",
+  "displayName": "SDF-UI-Toolkit-LiquidGlass",
   "description": "A package that consolidates all essential resources required to implement the LiquidGlass effect.",
   "author": {
     "name": "tlabaltoh",
