@@ -101,9 +101,20 @@ namespace TLab.UI.SDF
             return dst;
         }
 
-#if !UNITY_6000_0_OR_NEWER || URP_COMPATIBILITY_MODE
+        /**
+         * In Unity 6.6, Render Graph is strictly forced, and the legacy 'URP_COMPATIBILITY_MODE'
+         * is no longer supported or functional. All custom rendering passes must follow 
+         * Render Graph paths (or use UnsafePass for legacy command execution).
+         **/
+#if !UNITY_6000_0_OR_NEWER || !UNITY_6000_6_OR_NEWER && URP_COMPATIBILITY_MODE
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            /**
+             * 
+             * Note: 
+             * 
+             **/
+
             if (renderingData.cameraData.isPreviewCamera)
                 return;
 
@@ -204,13 +215,25 @@ namespace TLab.UI.SDF
             // https://docs.unity3d.com/6000.0/Documentation/Manual/urp/renderer-features/create-custom-renderer-feature.html
             // https://docs.unity3d.com/6000.2/Documentation/Manual/urp/render-graph-draw-objects-in-a-pass.html
 
-            renderGraph.nativeRenderPassesEnabled = false;
-
+#if !UNITY_6000_5_OR_NEWER
+            // Unity 6000.5 or newer sets this automatically, making this property obsolete.
+            renderGraph.nativeRenderPassesEnabled = true;
+#endif
             var resourceData = frameData.Get<UniversalResourceData>();
             var cameraData = frameData.Get<UniversalCameraData>();
             if (resourceData.isActiveTargetBackBuffer || cameraData.isPreviewCamera)
                 return;
 
+#if UNITY_6000_6_OR_NEWER
+            using (var renderPassBuilder = renderGraph.AddUnsafePass<PassData>(NAME, out var renderPassData))
+            {
+                renderPassData.cameraData = cameraData;
+                renderPassData.activeColorTexture = resourceData.activeColorTexture;
+                renderPassBuilder.AllowPassCulling(false);
+                renderPassBuilder.SetRenderFunc((PassData data, UnsafeGraphContext context) =>
+                    ExecutePass(data, context));
+            }
+#else
             using (var renderPassBuilder = renderGraph.AddRenderPass<PassData>(NAME, out var renderPassData))
             {
                 renderPassData.cameraData = cameraData;
@@ -218,11 +241,25 @@ namespace TLab.UI.SDF
                 renderPassBuilder.SetRenderFunc((PassData data, RenderGraphContext context) =>
                     ExecutePass(data, context));
             }
+#endif
         }
 
+#if UNITY_6000_6_OR_NEWER
+        private void ExecutePass(PassData passData, UnsafeGraphContext context)
+        {
+            /*
+             * [Unity 6 Render Graph Compatibility]
+             * RasterCommandBuffer does not allow GetTemporaryRT, Blit, or SetRenderTarget.
+             * To retain these legacy operations, we use AddUnsafePass on the caller side 
+             * and extract the native CommandBuffer here.
+             */
+            CommandBuffer cmd = CommandBufferHelpers.GetNativeCommandBuffer(context.cmd);
+#else
         private void ExecutePass(PassData passData, RenderGraphContext context)
         {
-            using (new ProfilingScope(context.cmd, new ProfilingSampler(NAME)))
+            CommandBuffer cmd = context.cmd;
+#endif
+            using (new ProfilingScope(cmd, new ProfilingSampler(NAME)))
             {
                 var targets = SDFUI.blurTargets;
                 var targetsCount = targets.Count();
@@ -235,9 +272,9 @@ namespace TLab.UI.SDF
                     return;
 
                 var targetDescriptor = passData.cameraData.cameraTargetDescriptor;
-                context.cmd.GetTemporaryRT(m_screenCopyID, targetDescriptor, FilterMode.Bilinear);
-                context.cmd.GetTemporaryRT(m_blurredTempID1, targetDescriptor, FilterMode.Bilinear);
-                context.cmd.GetTemporaryRT(m_blurredTempID2, targetDescriptor, FilterMode.Bilinear);
+                cmd.GetTemporaryRT(m_screenCopyID, targetDescriptor, FilterMode.Bilinear);
+                cmd.GetTemporaryRT(m_blurredTempID1, targetDescriptor, FilterMode.Bilinear);
+                cmd.GetTemporaryRT(m_blurredTempID2, targetDescriptor, FilterMode.Bilinear);
 
                 int pass;
                 for (int i = 0; i < targetsCount; i++)
@@ -265,9 +302,9 @@ namespace TLab.UI.SDF
                         material.SetFloat(SDFUI.PROP_LIQUID_GLASS_IS_POST_PROCESS_PASS, 1);
 
                         pass = target.material.FindPass("Shadow");
-                        context.cmd.DrawMesh(mesh, matrix, material, 0, pass);
+                        cmd.DrawMesh(mesh, matrix, material, 0, pass);
 
-                        context.cmd.Blit(passData.activeColorTexture, m_screenCopyID);
+                        cmd.Blit(passData.activeColorTexture, m_screenCopyID);
 
                         Vector2Int scaledPixelSize = new Vector2Int(cam.scaledPixelWidth, cam.scaledPixelHeight);
                         float x = target.liquidGlassBlurOffset / scaledPixelSize.x;
@@ -276,28 +313,28 @@ namespace TLab.UI.SDF
                         if (target.liquidGlassBlur > 0)
                         {
                             UpdateWeights(target.liquidGlassBlur);
-                            context.cmd.SetGlobalFloatArray(m_blurWeightsID, m_blurWeights);
+                            cmd.SetGlobalFloatArray(m_blurWeightsID, m_blurWeights);
 
-                            context.cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(x, 0, 0, 0));
-                            context.cmd.Blit(m_screenCopyID, m_blurredTempID1, m_blurMaterial);
+                            cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(x, 0, 0, 0));
+                            cmd.Blit(m_screenCopyID, m_blurredTempID1, m_blurMaterial);
 
-                            context.cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(0, y, 0, 0));
-                            context.cmd.Blit(m_blurredTempID1, m_blurredTempID2, m_blurMaterial);
+                            cmd.SetGlobalVector(m_blurOffsetsID, new Vector4(0, y, 0, 0));
+                            cmd.Blit(m_blurredTempID1, m_blurredTempID2, m_blurMaterial);
                         }
                         else
-                            context.cmd.Blit(m_screenCopyID, m_blurredTempID2);
+                            cmd.Blit(m_screenCopyID, m_blurredTempID2);
 
-                        context.cmd.SetGlobalTexture(m_grabBlurTextureID, m_blurredTempID2);
+                        cmd.SetGlobalTexture(m_grabBlurTextureID, m_blurredTempID2);
 
                         pass = target.material.FindPass("ShapeOutline");
-                        context.cmd.SetRenderTarget(passData.activeColorTexture);
-                        context.cmd.DrawMesh(mesh, matrix, material, 0, pass);
+                        cmd.SetRenderTarget(passData.activeColorTexture);
+                        cmd.DrawMesh(mesh, matrix, material, 0, pass);
                     }
                 }
 
-                context.cmd.ReleaseTemporaryRT(m_screenCopyID);
-                context.cmd.ReleaseTemporaryRT(m_blurredTempID1);
-                context.cmd.ReleaseTemporaryRT(m_blurredTempID2);
+                cmd.ReleaseTemporaryRT(m_screenCopyID);
+                cmd.ReleaseTemporaryRT(m_blurredTempID1);
+                cmd.ReleaseTemporaryRT(m_blurredTempID2);
             }
         }
 #endif

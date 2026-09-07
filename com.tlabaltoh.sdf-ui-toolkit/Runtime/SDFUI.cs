@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TLab.UI.SDF.Registry;
 using Unity.Mathematics;
 #if UNITY_EDITOR
@@ -408,7 +409,10 @@ namespace TLab.UI.SDF
 
         protected SDFUI()
         {
+#if UNITY_6000_0_OR_NEWER
+#else
             useLegacyMeshGeneration = false;
+#endif
         }
 
         protected Sprite m_overrideSprite;
@@ -436,13 +440,13 @@ namespace TLab.UI.SDF
 			}
         }
 
-        #region PROPERTYS
+#region PROPERTYS
 
         public float minSize => Mathf.Min(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
         public float maxSize => Mathf.Max(rectTransform.rect.size.x, rectTransform.rect.size.y);
 
-        #region ONION
+#region ONION
 
         public bool onion
         {
@@ -472,9 +476,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion ONION
+#endregion ONION
 
-        #region SHADOW
+#region SHADOW
 
         public bool shadow
         {
@@ -588,7 +592,7 @@ namespace TLab.UI.SDF
             }
         }
 
-        #region GRADATION
+#region GRADATION
 
         public Color shadowGradationColor
         {
@@ -694,11 +698,11 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion GRADATION
+#endregion GRADATION
 
-        #endregion SHADOW
+#endregion SHADOW
 
-        #region OUTLINE
+#region OUTLINE
 
         public bool outline
         {
@@ -784,9 +788,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion OUTLINE
+#endregion OUTLINE
 
-        #region GRADATION
+#region GRADATION
 
         public Color outlineGradationColor
         {
@@ -892,9 +896,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion GRADATION
+#endregion GRADATION
 
-        #region EFFECT
+#region EFFECT
 
         public EffectType outlineEffectType
         {
@@ -1104,9 +1108,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion EFFECT
+#endregion EFFECT
 
-        #region GRAPHIC
+#region GRAPHIC
 
         public Rect uvRect
         {
@@ -1164,7 +1168,7 @@ namespace TLab.UI.SDF
             }
         }
 
-        #region GRADATION
+#region GRADATION
 
         public Color gradationColor
         {
@@ -1270,9 +1274,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion GRADATION
+#endregion GRADATION
 
-        #region EFFECT
+#region EFFECT
 
         public EffectType graphicEffectType
         {
@@ -1481,11 +1485,11 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion EFFECT
+#endregion EFFECT
 
-        #endregion GRAPHIC
+#endregion GRAPHIC
 
-        #region MATERIAL
+#region MATERIAL
 
         public override Material material
         {
@@ -1509,9 +1513,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion MATERIAL
+#endregion MATERIAL
 
-        #region IMAGE
+#region IMAGE
 
         public ActiveImageType activeImageType
         {
@@ -1620,9 +1624,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion IMAGE
+#endregion IMAGE
 
-        #region RAINBOW
+#region RAINBOW
 
         public float rainbowSaturation
         {
@@ -1669,9 +1673,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion RAINBOW
+#endregion RAINBOW
 
-        #region LIQUID_GLASS
+#region LIQUID_GLASS
 
         public bool liquidGlass
         {
@@ -1804,9 +1808,9 @@ namespace TLab.UI.SDF
             }
         }
 
-        #endregion LIQUID_GLASS
+#endregion LIQUID_GLASS
 
-        #endregion PROPERTYS
+#endregion PROPERTYS
 
         internal MaterialRecord MaterialRecord => (MaterialRecord)_materialRecord.Clone();
         private protected MaterialRecord _materialRecord { get; } = new();
@@ -1834,8 +1838,21 @@ namespace TLab.UI.SDF
         protected static void RemoveBlurTargetRegistry(SDFUI blurTarget)
         {
             if (m_blurTargets.Remove(blurTarget))
-                for (int i = 0; i < m_blurTargets.Count; i++)
-                    m_blurTargetMeshPool.Add(new Mesh());
+            {
+                if (m_blurTargets.Count < m_blurTargetMeshPool.Count)
+                {
+                    var targetsToRemove = m_blurTargetMeshPool.Take(m_blurTargetMeshPool.Count - m_blurTargets.Count).ToList();
+                    foreach (var mesh in targetsToRemove)
+                    {
+                        if (mesh != null)
+                        {
+                            if (Application.isPlaying) Object.Destroy(mesh);
+                            else Object.DestroyImmediate(mesh);
+                        }
+                        m_blurTargetMeshPool.Remove(mesh);
+                    }
+                }
+            }
         }
 
 #if UNITY_EDITOR
@@ -1899,7 +1916,7 @@ namespace TLab.UI.SDF
         {
             Validate();
 
-            ClearBlurTargetRegistry();
+            // ClearBlurTargetRegistry();
 
 #if UNITY_EDITOR
             if (EditorApplication.isPlaying)
@@ -1921,7 +1938,8 @@ namespace TLab.UI.SDF
 
             MaterialRegistry.StopUsingMaterial(this);
 
-            ClearBlurTargetRegistry();
+            RemoveBlurTargetRegistry(this);
+            // ClearBlurTargetRegistry();
 
             base.OnDisable();
         }
