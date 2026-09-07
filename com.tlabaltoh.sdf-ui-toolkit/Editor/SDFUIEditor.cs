@@ -1,14 +1,19 @@
 using UnityEngine;
+using System;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UI;
+using PackageManagerInfo = UnityEditor.PackageManager.PackageInfo;
 #endif
 
 namespace TLab.UI.SDF.Editor
 {
 	public class SDFUIEditor : GraphicEditor
 	{
+		private const string LiquidGlassPackageName = "com.tlabaltoh.sdf-ui-toolkit-liquidglass";
+
 		protected SerializedProperty m_texture;
 		protected SerializedProperty m_sprite;
 		protected SerializedProperty m_uvRect;
@@ -106,6 +111,12 @@ namespace TLab.UI.SDF.Editor
 				Mathf.RoundToInt(Mathf.Abs(sdfUI.rectTransform.rect.height)));
 
 			return text;
+		}
+
+		private static bool IsPackageInstalled(string packageName)
+		{
+			return PackageManagerInfo.GetAllRegisteredPackages()
+				.Any(package => string.Equals(package.name, packageName, StringComparison.Ordinal));
 		}
 
 		protected virtual void DrawProp()
@@ -209,21 +220,24 @@ namespace TLab.UI.SDF.Editor
 			}
 			EditorGUI.indentLevel--;
 
-			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlass), "Liquid Glass");
-			EditorGUI.indentLevel++;
-			bool drawLiquidGlass = m_baseInstance.liquidGlass;
-			if (drawLiquidGlass)
-			{
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassThickness), "Thickness");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassIndex), "Index");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassBlur), "Blur");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassBlurOffset), "BlurOffset");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassFlipBlurTexX), "FlipBlurTexX");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassFlipBlurTexY), "FlipBlurTexY");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassEdgeReflect), "EdgeReflect");
-				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassOverrideMainTex), "OverrideMainTex");
+			if (IsPackageInstalled(LiquidGlassPackageName))
+            {
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlass), "Liquid Glass");
+				EditorGUI.indentLevel++;
+				bool drawLiquidGlass = m_baseInstance.liquidGlass;
+				if (drawLiquidGlass)
+				{
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassThickness), "Thickness");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassIndex), "Index");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassBlur), "Blur");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassBlurOffset), "BlurOffset");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassFlipBlurTexX), "FlipBlurTexX");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassFlipBlurTexY), "FlipBlurTexY");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassEdgeReflect), "EdgeReflect");
+					serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.liquidGlassOverrideMainTex), "OverrideMainTex");
+				}
+				EditorGUI.indentLevel--;
 			}
-			EditorGUI.indentLevel--;
 			EditorGUI.indentLevel--;
 		}
 
