@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TLab.UI.SDF.Registry;
 using Unity.Mathematics;
 #if UNITY_EDITOR
@@ -1838,9 +1839,19 @@ namespace TLab.UI.SDF
         {
             if (m_blurTargets.Remove(blurTarget))
             {
-                m_blurTargetMeshPool.Clear();
-                for (int i = 0; i < m_blurTargets.Count; i++)
-                    m_blurTargetMeshPool.Add(new Mesh());
+                if (m_blurTargets.Count < m_blurTargetMeshPool.Count)
+                {
+                    var targetsToRemove = m_blurTargetMeshPool.Take(m_blurTargetMeshPool.Count - m_blurTargets.Count).ToList();
+                    foreach (var mesh in targetsToRemove)
+                    {
+                        if (mesh != null)
+                        {
+                            if (Application.isPlaying) Object.Destroy(mesh);
+                            else Object.DestroyImmediate(mesh);
+                        }
+                        m_blurTargetMeshPool.Remove(mesh);
+                    }
+                }
             }
         }
 

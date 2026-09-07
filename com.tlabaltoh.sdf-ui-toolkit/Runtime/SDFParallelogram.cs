@@ -51,14 +51,14 @@ namespace TLab.UI.SDF
 			}
 		}
 
-		protected override void UpdateMaterial()
+		protected override void UpdateMaterialRecord()
 		{
-			base.UpdateMaterial();
+			base.UpdateMaterialRecord();
 
-			var halfHorizontalSize = rectTransform.sizeDelta.x * 0.5f;
-			var slide = halfHorizontalSize * m_slide;
-			var round = halfHorizontalSize * m_roundness;
-			var space = halfHorizontalSize - Mathf.Abs(slide);
+			var halfSize = ((RectTransform)transform).rect.size.x * 0.5f;
+			var slide = halfSize * m_slide;
+			var round = halfSize * m_roundness;
+			var space = halfSize - Mathf.Abs(slide);
 			_materialRecord.SetFloat(PROP_SLIDE, slide);
 			_materialRecord.SetFloat(PROP_ROUNDNESS, Mathf.Abs(round) < space ? round : Mathf.Sign(round) * Mathf.Abs(space));
 		}
