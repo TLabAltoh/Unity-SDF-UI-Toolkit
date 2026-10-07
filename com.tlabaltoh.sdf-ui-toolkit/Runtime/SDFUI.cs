@@ -1846,8 +1846,13 @@ namespace TLab.UI.SDF
                     {
                         if (mesh != null)
                         {
-                            if (Application.isPlaying) Object.Destroy(mesh);
-                            else Object.DestroyImmediate(mesh);
+                            if (Application.isPlaying)
+                            {
+                                // Removed asset destruction in EditorMode due to errors in Unity 6000.6.01f.
+                                // Resources are now freed in PlayMode only, though this leaves a potential memory leak in the editor.
+                                // "Destroying Mesh assets immediately is not permitted during physics trigger/contact, animation event callbacks, rendering callbacks or OnValidate. You must use Destroy instead."
+                                Object.Destroy(mesh);
+                            }
                         }
                         m_blurTargetMeshPool.Remove(mesh);
                     }
