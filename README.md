@@ -80,18 +80,18 @@ and
     </tr>
 </table>
 <table>
+    <caption>Liquid Glass</caption>
+    <tr>
+        <td><img src="Media/liquidglass.gif" width="512"><img></td>
+    </tr>
+</table>
+<table>
     <caption>Shapes added in updates</caption>
     <tr>
         <td><img src="Media/demo.20.png" height="256"><img></td>
         <td><img src="Media/demo.21.png" height="256"><img></td>
         <td><img src="Media/demo.22.png" height="256"><img></td>
         <td><img src="Media/demo.23.png" height="256"><img></td>
-    </tr>
-</table>
-<table>
-    <caption>Liquid Glass</caption>
-    <tr>
-        <td><img src="Media/liquidglass.gif" width="512"><img></td>
     </tr>
 </table>
 <table>
