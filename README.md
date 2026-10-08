@@ -70,6 +70,15 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
     </tr>
 </table>
 <table>
+    <caption>Shapes added in updates</caption>
+    <tr>
+        <td><img src="Media/demo.20.jpg" width="256"><img></td>
+        <td><img src="Media/demo.21.jpg" width="256"><img></td>
+        <td><img src="Media/demo.22.jpg" width="256"><img></td>
+        <td><img src="Media/demo.23.jpg" width="256"><img></td>
+    </tr>
+</table>
+<table>
     <caption>Rainbow Gradation Effect (works with any gradation)</br>This feature was implemented thanks to <a href="https://github.com/tomgiagtz">tomgiagtz</a> (Most of the implementation)  
 and  
 <a href="https://github.com/shino-a">shino</a> (Gamma space support, color suggestions)</caption>
