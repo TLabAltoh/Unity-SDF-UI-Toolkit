@@ -11,18 +11,30 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
     </tr>
 </table>
 <table>
+    <caption>Auto-Fitting Shapes to RectTransform & Shape Outlines and Shadows</caption>
     <tr>
         <td><img src="Media/demo.0.gif" width="256"><img></td>
         <td><img src="Media/demo.1.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <caption>Parameter-Based Shape Adjustment</caption>
+    <tr>
         <td><img src="Media/demo.2.gif" width="256"><img></td>
         <td><img src="Media/demo.3.gif" width="256"><img></td>
         <td><img src="Media/demo.4.gif" width="256"><img></td>
     </tr>
 </table>
 <table>
+    <caption>Inner Fade for Outlines</caption>
     <tr>
         <td><img src="Media/demo.5.gif" width="256"><img></td>
         <td><img src="Media/demo.6.gif" width="256"><img></td>
+    </tr>
+</table>
+<table>
+    <caption>Spline Features (Supporting B-Spline and Polygon)</caption>
+    <tr>
         <td><img src="Media/demo.7.gif" width="256"><img></td>
     </tr>
 </table>
@@ -88,7 +100,7 @@ https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui
 ### Setup
 - Enable ```CachingPreprocesser``` in ```ProjectSettins/Editor/ShaderCompilation```
 
-#### Liquid Glass
+#### To Enable Liquid Glass Features
 
 To use the LiquidGlass effect in both URP and BIRP, an additional package must be imported into your project.
 
@@ -124,18 +136,9 @@ URP_COMPATIBILITY_MODE
 > [!WARNING]
 > Please note that starting from Unity 6.6, disabling the RenderGraph system is no longer supported.
 
-## Feature
+---
 
-<details>
-<summary>Vector UI</summary>
-
-### Vector UI
-Vector UI offers advantages in quality and dynamic UI creation. This plugin includes the ```SDFUI``` class, and most of the main components inherit from it. Additionally, most ```SDFUI``` components render graphics as Vector UI using signed distance functions.
-
-> [!NOTE]  
-> ```SDFSpline``` is not supported in [WebGL](https://docs.unity3d.com/Manual/webgl.html) platform because ```SDFSpline``` uses [```StructuredBuffer```](https://docs.unity3d.com/ScriptReference/GraphicsBuffer.Target.Structured.html) and WebGL doesn't support it.
-
-<details><summary>How to set the default option of SDFUI</summary>
+#### How to set the default option of SDFUI
 
 Please open ```SDFUISettings``` from ```TLab\UI\SDF\Settings```.
 
@@ -147,19 +150,22 @@ Here you can set the default value of ```SFUUI```.
 
 This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
 
-</details>
-</details>
+---
 
-<details>
-<summary>Batch rendering</summary>
+## Feature
+
+### Vector UI
+Vector UI offers advantages in quality and dynamic UI creation. This plugin includes the ```SDFUI``` class, and most of the main components inherit from it. Additionally, most ```SDFUI``` components render graphics as Vector UI using signed distance functions.
+
+> [!NOTE]  
+> ```SDFSpline``` is not supported in [WebGL](https://docs.unity3d.com/Manual/webgl.html) platform because ```SDFSpline``` uses [```StructuredBuffer```](https://docs.unity3d.com/ScriptReference/GraphicsBuffer.Target.Structured.html) and WebGL doesn't support it.
+
+---
 
 ### Batch rendering
 To optimise performance, this plugin will batch-render ```SDFUI```s that have the same properties. This feature was implemented thanks to [AAAYaKo](https://github.com/AAAYaKo).
 
-</details>
-
-<details>
-<summary>SDF Texture Painter</summary>
+---
 
 ### SDF Texture Painter
 If the shape is complex (like an ```SDFSpline```, which might be the only one at the moment), it can significantly impact performance. If you want to use a complex shape while considering app performance, replacing the current shape with an ```SDFTex``` might be more efficient. The ```SDF Tex Painter``` has the ability to edit cubic Bezier curves and convert them to SDF textures (```Texture2D```).
@@ -170,7 +176,7 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 #### How to Edit a Bezier Path
 <img src="Media/sdf-tex-painter-bezier-prop.png" width="256"></img>  
 
-##### Common
+##### General Operations
 
 - ```Shift``` + ```Left Click```: Select Anchor Handles
 - ```Shift``` + ```Ctrl``` + ```Left Click```: Select all Handles of the Bezier segment
@@ -190,11 +196,10 @@ Select ```Create/TLab/UI/SDF/SDF Tex Painter```
 ##### EditMode "Primitive"
 - ```Left Click```: Add new Bezier Primitive (```Circle``` or ```Box```)
 
-</details>
-
 #### Implementation Approach
-##### Cu2Qu
-It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
+*Cu2Qu*: It is difficult to calculate distance from cubic Bezier mathematically.  So ```SDF Text Painter``` converts the cubic Bezier curve to a quadratic Bezier curve based on [this code](https://github.com/googlefonts/cu2qu). 
+
+---
 
 ## Lisence
 This repository is MIT licensed.
