@@ -424,6 +424,97 @@ inline float sdApproxSquircle(float2 p, float n)
 }
 #endif
 
+#ifdef SDF_UI_VESICA
+/***
+* p: position
+* w: width
+* h: height
+*/
+inline float sdVesica(float2 p, float w, float h)
+{
+    p = abs(p);
+
+    if (w > h)
+    {
+        float d = 0.5 * (w * w - h * h) / h;
+        float3 c = (w * p.y < d* (p.x - w)) ? float3(0.0, w, 0.0) : float3(-d, 0.0, d + h);
+        return length(p - c.yx) - c.z;
+    }
+    else
+    {
+        float d = 0.5 * (h * h - w * w) / w;
+        float3 c = (h * p.x < d* (p.y - h)) ? float3(0.0, h, 0.0) : float3(-d, 0.0, d + w);
+        return length(p - c.xy) - c.z;
+    }
+}
+#endif
+
+#ifdef SDF_UI_MOON
+/***
+* p: position
+* d: distance
+* ra: radius A
+* rb: radius B
+*/
+inline float sdMoon(float2 p, float d, float ra, float rb)
+{
+    if (abs(d) < 0.00001)
+    {
+        return max(length(p) - ra, -(length(p) - rb));
+    }
+
+    p.y = abs(p.y);
+    float a = (ra * ra - rb * rb + d * d) / (2.0 * d);
+    float b = sqrt(max(ra * ra - a * a, 0.0));
+    if (d * (p.x * b - p.y * a) > d * d * max(b - p.y, 0.0))
+        return length(p - float2(a, b));
+    return max((length(p) - ra), -(length(p - float2(d, 0)) - rb));
+}
+#endif
+
+#ifdef SDF_UI_EGG
+/***
+* p: position (pixel coordinates to evaluate)
+* he: height (distance between the centers of the bottom and top circles)
+* ra: radius A (radius of the bottom circle)
+* rb: radius B (radius of the top circle)
+* bu: bulge (bulge factor of the sides, must be between >0.0 and <=1.0)
+*/
+inline float sdEgg(float2 p, float he, float ra, float rb, float bu)
+{
+    // all this can be precomputed for any given shape
+    float r = 0.5 * (he + ra + rb) / bu;
+    float da = r - ra;
+    float db = r - rb;
+    float y = (db * db - da * da - he * he) / (2.0 * he);
+    float x = sqrt(da * da - y * y);
+
+    // only this needs to be run per pixel
+    p.x = abs(p.x);
+    float k = p.y * x - p.x * y;
+    if (k > 0.0 && k < he * (p.x + x)) {
+        return length(p + float2(x, y)) - r;
+    }
+    return min(length(p) - ra, length(float2(p.x, p.y - he)) - rb);
+}
+#endif
+
+#ifdef SDF_UI_ELLIPSE
+/***
+* p: position
+* ab: (width, height)
+*/
+float sdEllipse(float2 p, float2 ab)
+{
+    if (ab.x <= 0.00001 || ab.y <= 0.00001) return length(p);
+
+    float k1 = length(p / ab);
+    float k2 = length(p / (ab * ab));
+
+    return k1 * (k1 - 1.0) / k2;
+}
+#endif
+
 #ifdef SDF_UI_SPLINE
 inline float udSegment(float2 p, float2 a, float2 b) {
     float2 pa = p - a;
@@ -662,6 +753,10 @@ SdfOp LoadSdfOp(Texture2D<float4> opTex, int index)
 #define SDFSHAPE_TRIANGLE      2
 #define SDFSHAPE_QUAD          3
 #define SDFSHAPE_PARALLELOGRAM 4
+#define SDFSHAPE_VESICA        5
+#define SDFSHAPE_MOON          6
+#define SDFSHAPE_EGG           7
+#define SDFSHAPE_ELLIPSE       8
 
 #define SDFBOOLOP_UNION        0
 #define SDFBOOLOP_SUBTRACT     1
@@ -757,6 +852,60 @@ Surface EvaluateSdfOp(SdfOp op, float2 p) {
         dist = sdParallelogram(e_position, op.parameters.x - abs(op.parameters.z) - op.parameters.w, op.parameters.y - op.parameters.w, op.parameters.z);
         dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
         dist = round(dist, op.parameters.w);
+        break;
+#endif
+
+#ifdef SDF_UI_VESICA
+    case SDFSHAPE_VESICA:
+        /***
+        * x: Width
+        * y: Height
+        * z: Roundness
+        * w: None
+        */
+        dist = sdVesica(e_position, op.parameters.x, op.parameters.y);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        dist = round(dist, op.parameters.z);
+        break;
+#endif
+
+#ifdef SDF_UI_MOON
+    case SDFSHAPE_MOON:
+        /***
+        * x: Radius A
+        * y: Radius B
+        * z: Slide
+        * w: Roundness
+        */
+        dist = sdMoon(e_position, op.parameters.z, op.parameters.x, op.parameters.y);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        dist = round(dist, op.parameters.w);
+        break;
+#endif
+
+#ifdef SDF_UI_EGG
+    case SDFSHAPE_EGG:
+        /***
+        * x: Bluge
+        * y: Height
+        * z: Radius A
+        * w: Radius B
+        */
+        dist = sdEgg(e_position, op.parameters.y, op.parameters.z, op.parameters.w, op.parameters.x);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        break;
+#endif
+
+#ifdef SDF_UI_ELLIPSE
+    case SDFSHAPE_ELLIPSE:
+        /***
+        * x: Width
+        * y: Height
+        * z: None
+        * w: None
+        */
+        dist = sdEllipse(e_position, op.parameters.xy);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
         break;
 #endif
     }
