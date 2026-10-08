@@ -1,4 +1,4 @@
-Shader "Hidden/UI/SDF/Op/Default/Outline" {
+Shader "Hidden/UI/SDF/Egg/Default/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
@@ -19,8 +19,11 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
-        _OpTex("OpTex", 2D) = "white" {}
-        _ElemCount("ElemCount", Float) = 0
+        _OffsetY("Offset Y", Float) = 0
+        _Height("Height", Float) = 0
+        _RadiusA("Radius A", Float) = 0
+        _RadiusB("Radius B", Float) = 0
+        _Bluge("Bluge", Float) = 0
 
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
@@ -100,19 +103,12 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
 
         Pass {
             CGPROGRAM
-#define SDF_UI_ARC
-#define SDF_UI_QUAD
-#define SDF_UI_TRIANGLE
-#define SDF_UI_PARALLELOGRAM
-#define SDF_UI_VESICA
-#define SDF_UI_MOON
 #define SDF_UI_EGG
-#define SDF_UI_ELLIPSE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
             #include "SDFUtils.cginc"
 
-            #include "Op-Properties.hlsl"
+            #include "Egg-Properties.hlsl"
 
             #include "ShaderSetup.hlsl"
 
@@ -130,42 +126,31 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
 
             fixed4 frag(v2f i) : SV_Target {
 
-                if (!(_ElemCount > 0)) {
-                    discard;
-                }
-
                 #include "FragmentSetup.hlsl"
 
 #define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
+                #include "Egg-Distance.hlsl"
                 #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
 #define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
+                #include "Egg-Distance.hlsl"
                 #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SHAPE_AND_OUTLINE
 
 #define SDF_UI_STEP_SHADOW
                 #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
+                #include "Egg-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SHADOW
 
                 #include "FragmentOutput.hlsl"
             }
-#undef SDF_UI_ARC
-#undef SDF_UI_QUAD
-#undef SDF_UI_TRIANGLE
-#undef SDF_UI_PARALLELOGRAM
-#undef SDF_UI_VESICA
-#undef SDF_UI_MOON
 #undef SDF_UI_EGG
-#undef SDF_UI_ELLIPSE
             ENDCG
         }
     }
