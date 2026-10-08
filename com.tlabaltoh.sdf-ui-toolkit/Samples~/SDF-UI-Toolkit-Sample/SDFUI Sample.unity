@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
-  m_shadow: 0
+  m_shadow: 1
   m_shadowWidth: 6
   m_shadowInnerSoftWidth: 0
   m_shadowSoftness: 1
@@ -1378,7 +1378,7 @@ MonoBehaviour:
   m_rainbowValue: 1
   m_rainbowHueOffset: 0
   m_liquidGlass: 0
-  m_liquidGlassThickness: 10
+  m_liquidGlassThickness: 15
   m_liquidGlassIndex: 1.5
   m_liquidGlassOverrideMainTex: 0
   m_liquidGlassBlur: 100
@@ -1389,9 +1389,9 @@ MonoBehaviour:
   m_elements:
   - shape: 3
     parameters: {x: 10, y: 0, z: 0, w: 10}
-    position: {x: 5, y: 5, z: 20, w: 20}
+    position: {x: 0.74, y: 5, z: 20, w: 20}
     scale: 1
-    rotation: 146.3
+    rotation: 454
     onion: 0
     boolOp: 1
     boolSmooth: 5
