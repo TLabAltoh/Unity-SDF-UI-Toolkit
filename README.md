@@ -39,6 +39,15 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
     </tr>
 </table>
 <table>
+    <caption>SDFOp: Boolean Operations and Color Blending for Basic Shapes (Union, Subtract, Intersection)</caption>
+    <tr>
+        <td><img src="Media/demo.18.gif" width="256"><img></td>
+    </tr>
+    <tr>
+        <td><img src="Media/demo.19.png" width="256"><img></td>
+    </tr>
+</table>
+<table>
     <caption>Additional UI Effect (Shiny and SDF Tex Pattern)</caption>
     <tr>
         <td><img src="Media/demo.8.png" width="256"><img></td>
