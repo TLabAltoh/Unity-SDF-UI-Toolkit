@@ -5,31 +5,33 @@
 * https://www.shadertoy.com/view/7stcR4
 **/
 
-#define PI 3.14
+#define PI 3.14159265358979323846
 
-/**
+/***
 *
+* Selects between two float values based on a condition.
 *
 */
 
 inline float select(bool boolean, float a0, float a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float2 select(bool boolean, float2 a0, float2 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float3 select(bool boolean, float3 a0, float3 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
 inline float4 select(bool boolean, float4 a0, float4 a1) {
-    return boolean * a0 + (1. - boolean) * a1;
+    return boolean ? a0 : a1;
 }
 
-/**
+/***
 *
+* Selects between three float values based on a condition.
 *
 */
 
@@ -49,8 +51,9 @@ inline float4 select(float3 layer, float4 a0, float4 a1, float4 a2) {
     return layer.x * a0 + layer.y * a1 + layer.z * a2;
 }
 
-/**
+/***
 *
+* Selects between four float values based on a condition.
 *
 */
 
@@ -70,8 +73,9 @@ inline float4 select(float4 layer, float4 a0, float4 a1, float4 a2, float4 a3) {
     return layer.x * a0 + layer.y * a1 + layer.z * a2 + layer.w * a3;
 }
 
-/**
+/***
 *
+* Miscellaneous utility functions.
 *
 */
 
@@ -108,11 +112,6 @@ inline float4 saturaterange(float4 a, float4 b, float4 x) {
     return result;
 }
 
-/**
-*
-*
-*/
-
 inline float dot2(float2 v) {
     return dot(v, v);
 }
@@ -125,8 +124,9 @@ inline float2 rotate(float2 pos, float theta) {
     return float2(pos.x * cos(theta) - pos.y * sin(theta), pos.x * sin(theta) + pos.y * cos(theta));
 }
 
-/**
+/***
 *
+* Color gradient processing function
 *
 */
 
@@ -169,7 +169,9 @@ inline float4 linearGradation(float2 p, float angle, float rectAngle, float smoo
 }
 
 /**
+*
 * HSV to RGB conversion
+*
 */
 inline float3 hsv2rgb(float3 hsv) {
     float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
@@ -183,13 +185,16 @@ inline float3 hsv2rgb(float3 hsv) {
 }
 
 /**
+*
 * Rainbow gradient functions
+*
 */
+
 inline float4 rainbowLinearGradation(float2 p, float smooth, float saturation, float value, float hueOffset) {
     float tmp = 0.0;
-    tmp = select(smooth > 0.0, 
-                (p.x + smooth) / (2.0 * smooth), 
-                (p.x + smooth) / (2.0 * smooth));
+    tmp = select(smooth > 0.0,
+        (p.x + smooth) / (2.0 * smooth),
+        (p.x + smooth) / (2.0 * smooth));
     tmp = frac(tmp + hueOffset);
     float3 hsv = float3(tmp, saturation, value);
     float3 rgb = hsv2rgb(hsv);
@@ -235,15 +240,15 @@ inline float4 rainbowConicalGradation(float2 p, float smooth, float2 range, floa
     float tmp = 0.0;
     tmp = select(p.y >= 0.0, atan2(p.y, p.x), tmp);
     tmp = select(p.y < 0.0, PI * 2.0 + atan2(p.y, p.x), tmp);
-    
+
     tmp = tmp / (2.0 * PI);
-    
+
     if (range.x != 0.0 || range.y != 1.0) {
         tmp = range.x + tmp * (range.y - range.x);
     }
-    
+
     tmp = frac(tmp + hueOffset);
-    
+
     float3 hsv = float3(tmp, saturation, value);
     float3 rgb = hsv2rgb(hsv);
     return float4(rgb, 1.0);
@@ -262,11 +267,6 @@ inline float4 rainbowConicalGradation(float2 p, float angle, float rectAngle, fl
     return rainbowConicalGradation(p, angle, rectAngle, smooth, offset, range, saturation, value, 0.0);
 }
 
-/**
-*
-*
-*/
-
 inline float windingSign(float2 p, float2 a, float2 b) {
     float2 e = b - a;
     float2 w = p - a;
@@ -283,9 +283,9 @@ inline float windingSign(float2 p, float2 a, float2 b) {
 }
 
 #ifdef SDF_UI_QUAD
-/*
-* p:
-* h:
+/***
+* p: position
+* h: height
 */
 inline float sdRectangle(float2 p, float2 h) {
     float2 distanceToEdge = abs(p) - h;
@@ -294,10 +294,10 @@ inline float sdRectangle(float2 p, float2 h) {
     return outsideDistance + insideDistance;
 }
 
-/*
-* p:
-* h:
-* r: radius
+/***
+* p: position
+* h: height
+* r: radius (x: top right, y: bottom right, z: top left, w: bottom left)
 */
 inline float sdRoundedBox(float2 p, float2 b, float4 r) {
     r.xy = (p.x > 0.0) ? r.xy : r.zw;
@@ -308,8 +308,8 @@ inline float sdRoundedBox(float2 p, float2 b, float4 r) {
 #endif
 
 #ifdef SDF_UI_CIRCLE
-/*
-* p:
+/***
+* p: position
 * r: radius
 */
 inline float sdCircle(float2 p, float r) {
@@ -318,8 +318,8 @@ inline float sdCircle(float2 p, float r) {
 #endif
 
 #ifdef SDF_UI_PIE
-/*
-* p:
+/***
+* p: position
 * c: range (sin(theta), cos(theta))
 * r: radius
 */
@@ -333,8 +333,8 @@ inline float sdPie(float2 p, float2 c, float r)
 #endif
 
 #ifdef SDF_UI_ARC
-/*
-* p:
+/***
+* p: position
 * n: range (cos(theta), sin(theta))
 * r: raidus
 * th: width
@@ -351,12 +351,6 @@ inline float sdRing(float2 p, float2 n, float r, float th, float ru)
 #endif
 
 #ifdef SDF_UI_TRIANGLE
-/*
-* p:
-* p0:
-* p1:
-* p2:
-*/
 inline float sdTriangle(float2 p, float2 p0, float2 p1, float2 p2)
 {
     float2 e0 = p1 - p0, e1 = p2 - p1, e2 = p0 - p2;
@@ -373,11 +367,6 @@ inline float sdTriangle(float2 p, float2 p0, float2 p1, float2 p2)
 #endif
 
 #ifdef SDF_UI_CUT_DISK
-/*
-* p:
-* r:
-* h:
-*/
 inline float sdCutDisk(float2 p, float r, float h)
 {
     float w = sqrt(r * r - h * h); // constant for any given shape
@@ -613,4 +602,181 @@ fixed4 blur(float4 uv, float blur, float sigma) {
         }
       }
       return col / weight_total;
+}
+
+/**
+*
+* Boolean
+*
+*/
+
+struct Surface {
+    float sd;
+    float4 color;
+};
+
+Surface opSmoothUnion(Surface a, Surface b, float k) {
+    float h = clamp(0.5 + 0.5 * (b.sd - a.sd) / k, 0.0, 1.0);
+    Surface res;
+    res.sd = lerp(b.sd, a.sd, h) - k * h * (1.0 - h);
+    res.color = lerp(b.color, a.color, h); // GLSL: mix(b.color, a.color, h)
+    return res;
+}
+
+Surface opSmoothSubtract(Surface base, Surface cutter, float k) {
+    float h = clamp(0.5 - 0.5 * (base.sd + cutter.sd) / k, 0.0, 1.0);
+    Surface res;
+    res.sd = lerp(base.sd, -cutter.sd, h) + k * h * (1.0 - h);
+    res.color = lerp(base.color, cutter.color, h);
+    return res;
+}
+
+Surface opSmoothIntersection(Surface a, Surface b, float k) {
+    float h = clamp(0.5 - 0.5 * (b.sd - a.sd) / k, 0.0, 1.0);
+    Surface res;
+    res.sd = lerp(b.sd, a.sd, h) + k * h * (1.0 - h);
+    res.color = lerp(b.color, a.color, h);
+    return res;
+}
+
+struct SdfOp
+{
+    int shape;
+    int boolOp;
+    float onion;
+    float boolSmooth;
+    float2x2 invTransform;
+    float4 position;
+    float4 parameters;
+    float4 color;
+};
+
+SdfOp LoadSdfOp(Texture2D<float4> opTex, int index)
+{
+    SdfOp op;
+
+    int texY = index;
+    int startX = 0;
+
+    float4 data0 = opTex.Load(int3(startX + 0, texY, 0));
+    op.shape = asint(data0.x);
+    op.boolOp = asint(data0.y);
+    op.onion = data0.z;
+    op.boolSmooth = data0.w;
+
+    op.invTransform = opTex.Load(int3(startX + 1, texY, 0));
+    op.position = opTex.Load(int3(startX + 2, texY, 0));
+    op.parameters = opTex.Load(int3(startX + 3, texY, 0));
+    op.color = opTex.Load(int3(startX + 4, texY, 0));
+
+    return op;
+}
+
+#define SDFSHAPE_CIRCLE        0
+#define SDFSHAPE_ARC           1
+#define SDFSHAPE_TRIANGLE      2
+#define SDFSHAPE_QUAD          3
+#define SDFSHAPE_PARALLELOGRAM 4
+
+#define SDFBOOLOP_UNION        0
+#define SDFBOOLOP_SUBTRACT     1
+#define SDFBOOLOP_INTERSECT    2
+
+Surface EvaluateSdfOp(SdfOp op, float2 p) {
+
+    Surface result;
+    float dist, e_onion;
+    float2 e_corner0, e_corner1, e_corner2, e_position, e_cossin;
+
+    e_onion = op.onion > 1.;
+    e_position = mul(op.invTransform, p - op.position.xy);
+
+    switch (op.shape) {
+    case SDFSHAPE_CIRCLE:
+        /***
+        * x: Radius
+        * y: None
+        * z: None
+        * w: None
+        */
+        dist = length(e_position) - op.parameters.x;
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        break;
+
+#ifdef SDF_UI_ARC
+    case SDFSHAPE_ARC:
+        /***
+        * x: Theta
+        * y: Radius
+        * z: Width
+        * w: CircleBorder
+        *
+        * position.z: CornerRounding
+        */
+        // Since 'parameters' (float4) alone cannot store all the data required to draw the Arc,
+        // the remaining parameters are exceptionally packed into position.z.
+        if (op.parameters.x >= PI) {
+            dist = abs(length(e_position) - op.parameters.y) - op.parameters.w;
+        }
+        else {
+            e_cossin = float2(cos(op.parameters.x), sin(op.parameters.x));
+            dist = sdRing(e_position, e_cossin, op.parameters.y, op.parameters.z, op.position.z);
+        }
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        break;
+#endif
+
+#ifdef SDF_UI_TRIANGLE
+    case SDFSHAPE_TRIANGLE:
+        /***
+        * x: Base of a triangle
+        * y: Height of a triangle
+        * z: Roundness
+        * w: AnchorY
+        */
+        e_corner0 = float2(+op.parameters.x * 0.5, op.parameters.w);
+        e_corner1 = float2(-op.parameters.x * 0.5, op.parameters.w);
+        e_corner2 = float2(0.0, -op.parameters.y + op.parameters.w);
+        dist = sdTriangle(e_position, e_corner0.xy, e_corner1.xy, e_corner2.xy);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        dist = round(dist, op.parameters.z);
+        break;
+#endif
+
+#ifdef SDF_UI_QUAD
+    case SDFSHAPE_QUAD:
+        /***
+        * x: Top right corner radius
+        * y: Bottom right corner radius
+        * z: Top left corner radius
+        * w: Bottom left corner radius
+        *
+        * position.z: Width
+        * position.w: Height
+        */
+        // Since 'parameters' (float4) alone cannot store all the data required to draw the Quad,
+        // the remaining parameters are exceptionally packed into position.z and position.w.
+        dist = sdRoundedBox(e_position, op.position.zw, op.parameters);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        break;
+#endif
+
+#ifdef SDF_UI_PARALLELOGRAM
+    case SDFSHAPE_PARALLELOGRAM:
+        /***
+        * x: Width
+        * y: Height
+        * z: Slide
+        * w: Roundness
+        */
+        dist = sdParallelogram(e_position, op.parameters.x - abs(op.parameters.z) - op.parameters.w, op.parameters.y - op.parameters.w, op.parameters.z);
+        dist = dist * (1. - e_onion) + (abs(dist) - op.onion) * e_onion;
+        dist = round(dist, op.parameters.w);
+        break;
+#endif
+    }
+    result.sd = dist;
+    result.color = op.color;
+
+    return result;
 }
