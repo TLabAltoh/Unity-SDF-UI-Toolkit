@@ -72,10 +72,10 @@ This Unity plugin provides a UI component and utility for rendering UI graphics 
 <table>
     <caption>Shapes added in updates</caption>
     <tr>
-        <td><img src="Media/demo.20.jpg" width="256"><img></td>
-        <td><img src="Media/demo.21.jpg" width="256"><img></td>
-        <td><img src="Media/demo.22.jpg" width="256"><img></td>
-        <td><img src="Media/demo.23.jpg" width="256"><img></td>
+        <td><img src="Media/demo.20.png" height="256"><img></td>
+        <td><img src="Media/demo.21.png" height="256"><img></td>
+        <td><img src="Media/demo.22.png" height="256"><img></td>
+        <td><img src="Media/demo.23.png" height="256"><img></td>
     </tr>
 </table>
 <table>
