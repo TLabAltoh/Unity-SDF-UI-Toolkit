@@ -230,6 +230,85 @@ namespace TLab.UI.SDF.Editor {
                         val.w = Mathf.Max(0f, EditorGUI.FloatField(rect, "Roundness", val.w)); // Min = 0
                     }
                     break;
+
+                case SdfShape.Vesica:
+                    {
+                        /***
+                        * x: Width
+                        * y: Height
+                        * z: Roundness
+                        * w: None
+                        */
+                        rect.y += lineOffset;
+                        val.x = Mathf.Max(0f, EditorGUI.FloatField(rect, "Width", val.x)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.y = Mathf.Max(0f, EditorGUI.FloatField(rect, "Height", val.y)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.z = Mathf.Max(0f, EditorGUI.FloatField(rect, "Roundness", val.z)); // Min = 0
+                    }
+                    break;
+
+                case SdfShape.Moon:
+                    {
+                        /***
+                        * x: Radius A
+                        * y: Radius B
+                        * z: Slide
+                        * w: Roundness
+                        */
+                        rect.y += lineOffset;
+                        val.x = Mathf.Max(0f, EditorGUI.FloatField(rect, "Radius", val.x)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.y = Mathf.Max(0f, EditorGUI.FloatField(rect, "Crop Radius", val.y)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.z = EditorGUI.FloatField(rect, "Slide", val.z);
+
+                        rect.y += lineOffset;
+                        val.w = Mathf.Max(0f, EditorGUI.FloatField(rect, "Roundness", val.w)); // Min = 0
+                    }
+                    break;
+
+                case SdfShape.Egg:
+                    {
+                        /***
+                        * x: Bluge
+                        * y: Height
+                        * z: Radius A
+                        * w: Radius B
+                        */
+                        rect.y += lineOffset;
+                        val.x = EditorGUI.Slider(rect, "Bluge", val.x, 0f, 1f);
+
+                        rect.y += lineOffset;
+                        val.y = Mathf.Max(0f, EditorGUI.FloatField(rect, "Height", val.y)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.z = Mathf.Max(0f, EditorGUI.FloatField(rect, "Radius A", val.z)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.w = Mathf.Max(0f, EditorGUI.FloatField(rect, "Radius B", val.w)); // Min = 0
+                    }
+                    break;
+
+                case SdfShape.Ellipse:
+                    {
+                        /***
+                        * x: Width
+                        * y: Height
+                        * z: None
+                        * w: None
+                        */
+                        rect.y += lineOffset;
+                        val.x = Mathf.Max(0f, EditorGUI.FloatField(rect, "Width", val.x)); // Min = 0
+
+                        rect.y += lineOffset;
+                        val.y = Mathf.Max(0f, EditorGUI.FloatField(rect, "Height", val.y)); // Min = 0
+                    }
+                    break;
             }
 
             paramsProp.vector4Value = val;
@@ -273,6 +352,22 @@ namespace TLab.UI.SDF.Editor {
 
                     case SdfShape.Arc:
                         lineCount += 4; // Theta, Radius, Width, Corner Rounding
+                        break;
+
+                    case SdfShape.Vesica:
+                        lineCount += 3; // Width, Height, Roundness
+                        break;
+
+                    case SdfShape.Moon:
+                        lineCount += 4; // Width, Height, Slide, Roundness
+                        break;
+
+                    case SdfShape.Egg:
+                        lineCount += 4; // Bluge, Height, Radius A, Radius B
+                        break;
+
+                    case SdfShape.Ellipse:
+                        lineCount += 2; // Width, Height
                         break;
                 }
             }

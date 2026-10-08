@@ -1,7 +1,6 @@
-Shader "Hidden/UI/SDF/Op/Default/Outline" {
+Shader "Hidden/UI/SDF/Moon/LiquidGlass/Outline" {
     Properties{
         [HideInInspector] _MainTex("Texture", 2D) = "white" {}
-        [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         [HideInInspector] _StencilComp("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil("Stencil ID", Float) = 0
         [HideInInspector] _StencilOp("Stencil Operation", Float) = 0
@@ -19,8 +18,19 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
         [HideInInspector] _OutlineBorder("Outline Border", Float) = 0
         [HideInInspector] _ShadowBorder("Shadow Border", Float) = 0
 
-        _OpTex("OpTex", 2D) = "white" {}
-        _ElemCount("ElemCount", Float) = 0
+        _IsWhiteTexUsed("IsWhiteTexUsed", Float) = 1
+        _LiquidGlassThickness("LiquidGlassThickness", Float) = 0
+        _LiquidGlassIndex("LiquidGlassIndex", Float) = 0
+        _LiquidGlassBaseHeight("LiquidGlassBaseHeight", Float) = 0
+        _LiquidGlassOverrideMainTex("LiquidGlassOverrideMainTex", Float) = 0
+        _LiquidGlassFlipBlurTexX("LiquidGlassFlipBlurTexX", Float) = 0
+        _LiquidGlassFlipBlurTexY("LiquidGlassFlipBlurTexY", Float) = 0
+        [HideInInspector] _LiquidGlassIsPostProcessPass("LiquidGlassIsPostProcessPass", Float) = 0
+
+        _Slide("Slide", Float) = 0
+        _RadiusA("Radius A", Float) = 0
+        _RadiusB("Radius B", Float) = 0
+        _Roundness("Roundness", Float) = 0
 
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
@@ -58,10 +68,10 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
         _ShadowGradationColor("Shadow Gradation Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         _GraphicEffectAngle("Graphic Effect Angle", Float) = 0
-        _GraphicEffectColor("Graphic Effect Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _GraphicEffectColor("Graphic Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
         _GraphicEffectOffset("Graphic Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
         _OutlineEffectAngle("Outline Effect Angle", Float) = 0
-        _OutlineEffectColor("Outline Effect Color", Color) = (0.0, 0.0, 0.0, 1.0)
+        _OutlineEffectColor("Outline Effect Color", Vector) = (0.0, 0.0, 0.0, 1.0)
         _OutlineEffectOffset("Outline Effect Offset", Vector) = (0.0, 0.0, 0.0, 1.0)
 
         _GraphicEffectShinyWidth("Graphic Effect Shiny Width", Float) = 0
@@ -96,24 +106,18 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
         Lighting Off
         ZTest[unity_GUIZTestMode]
         ColorMask[_ColorMask]
-        Blend One OneMinusSrcAlpha
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass {
+            Name "Shadow"
+
             CGPROGRAM
-#define SDF_UI_ARC
-#define SDF_UI_QUAD
-#define SDF_UI_TRIANGLE
-#define SDF_UI_PARALLELOGRAM
-#define SDF_UI_VESICA
 #define SDF_UI_MOON
-#define SDF_UI_EGG
-#define SDF_UI_ELLIPSE
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
+
+            #include "Moon-Properties.hlsl"
             #include "SDFUtils.cginc"
-
-            #include "Op-Properties.hlsl"
-
             #include "ShaderSetup.hlsl"
 
             #pragma vertex vert
@@ -125,12 +129,9 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
             #pragma multi_compile_local _ SDF_UI_AA
             #pragma multi_compile_local _ SDF_UI_SHADOW
 
-            #pragma multi_compile_local _ SDF_UI_OUTLINE_EFFECT_SHINY SDF_UI_OUTLINE_EFFECT_PATTERN
-            #pragma multi_compile_local _ SDF_UI_GRAPHIC_EFFECT_SHINY SDF_UI_GRAPHIC_EFFECT_PATTERN
-
             fixed4 frag(v2f i) : SV_Target {
 
-                if (!(_ElemCount > 0)) {
+                if (_LiquidGlassIsPostProcessPass == 0) {
                     discard;
                 }
 
@@ -138,34 +139,69 @@ Shader "Hidden/UI/SDF/Op/Default/Outline" {
 
 #define SDF_UI_STEP_SETUP
                 #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
+                #include "Moon-Distance.hlsl"
+                #include "Pattern-Distance.hlsl"
+                #include "ClipByDistance.hlsl"
+#undef SDF_UI_STEP_SETUP
+
+#define SDF_UI_STEP_SHADOW
+                #include "SamplingPosition.hlsl"
+                #include "Moon-Distance.hlsl"
+                #include "ClipByDistance.hlsl"
+                #include "FragmentOutput.hlsl"
+#undef SDF_UI_STEP_SHADOW
+            }
+#undef SDF_UI_MOON
+            ENDCG
+        }
+        GrabPass { }
+        Pass {
+            Name "ShapeOutline"
+
+            CGPROGRAM
+#define SDF_UI_MOON
+            #include "UnityCG.cginc"
+            #include "UnityUI.cginc"
+
+            #include "Moon-Properties.hlsl"
+            #include "SDFUtils.cginc"
+            #include "ShaderSetup.hlsl"
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
+
+            #pragma multi_compile_local _ SDF_UI_AA
+
+            #pragma multi_compile_local _ SDF_UI_OUTLINE_EFFECT_SHINY SDF_UI_OUTLINE_EFFECT_PATTERN
+            #pragma multi_compile_local _ SDF_UI_GRAPHIC_EFFECT_SHINY SDF_UI_GRAPHIC_EFFECT_PATTERN
+
+            fixed4 frag(v2f i) : SV_Target {
+
+                if (_LiquidGlassIsPostProcessPass == 0) {
+                    discard;
+                }
+
+                #include "FragmentSetup.hlsl"
+
+#define SDF_UI_STEP_SETUP
+                #include "SamplingPosition.hlsl"
+                #include "Moon-Distance.hlsl"
                 #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
 #undef SDF_UI_STEP_SETUP
 
 #define SDF_UI_STEP_SHAPE_AND_OUTLINE
                 #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
+                #include "Moon-Distance.hlsl"
                 #include "Pattern-Distance.hlsl"
                 #include "ClipByDistance.hlsl"
-#undef SDF_UI_STEP_SHAPE_AND_OUTLINE
-
-#define SDF_UI_STEP_SHADOW
-                #include "SamplingPosition.hlsl"
-                #include "Op-Distance.hlsl"
-                #include "ClipByDistance.hlsl"
-#undef SDF_UI_STEP_SHADOW
-
                 #include "FragmentOutput.hlsl"
+#undef SDF_UI_STEP_SHAPE_AND_OUTLINE
             }
-#undef SDF_UI_ARC
-#undef SDF_UI_QUAD
-#undef SDF_UI_TRIANGLE
-#undef SDF_UI_PARALLELOGRAM
-#undef SDF_UI_VESICA
 #undef SDF_UI_MOON
-#undef SDF_UI_EGG
-#undef SDF_UI_ELLIPSE
             ENDCG
         }
     }

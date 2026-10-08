@@ -57,6 +57,10 @@ namespace TLab.UI.SDF
 			Triangle,
 			Quad,
 			Parallelogram,
+			Vesica,
+			Moon,
+			Egg,
+			Ellipse,
 		}
 
 		[System.Serializable]
@@ -319,15 +323,17 @@ namespace TLab.UI.SDF
 
 						op.position = new Vector4(
 							elem.position.x,                    // x: Original center X
-							elem.position.y,                    // y: Original center Y
+							elem.position.y,                   // y: Original center Y
 							arcCornerRounding * 0.5f,           // z: CornerRounding
 							0f                                  // w: Fixed value
 						);
+						op.position.y = -op.position.y;
 					}
 					else
 					{
 						// Assign default layout for shapes other than Arc
 						op.position = (Vector4)elem.position;
+						op.position.y = -op.position.y;
 						op.parameters = (Vector4)elem.parameters;
 					}
 
