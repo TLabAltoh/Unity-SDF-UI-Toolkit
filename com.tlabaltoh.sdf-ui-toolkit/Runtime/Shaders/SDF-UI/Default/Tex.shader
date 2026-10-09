@@ -27,6 +27,14 @@ Shader "Hidden/UI/SDF/Tex/Default/Outline" {
         _Onion("Onion", Float) = 0
         _OnionWidth("Onion Width", Float) = 0
 
+        _LightingParamsProfileMode("Lighting Params Profile Mode", Int) = 0
+        _LightingParamsRadius("Lighting Params Radius", Float) = 0.0
+        _LightingParamsLightDir("Lighting Params Light Dir", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _LightingParamsShadowColor("Lighting Params Shadow Color", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _LightingParamsShadowDarkness("Lighting Params Shadow Darkness", Float) = 0.0
+        _LightingParamsSpecIntensity("Lighting Params Spec Intensity", Float) = 0.0
+        _LightingParamsSpecPower("Lighting Params Spec Power", Float) = 0.0
+
         _GraphicGradationAngle("Graphic Gradation Angle", Float) = 0
         _GraphicGradationSmooth("Graphic Gradation Smooth", Float) = 0
         _GraphicGradationRange("Graphic Gradation Range", Vector) = (0.0, 0.0, 0.0, 1.0)

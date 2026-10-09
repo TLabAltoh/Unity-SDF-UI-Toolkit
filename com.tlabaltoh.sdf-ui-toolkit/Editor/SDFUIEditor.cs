@@ -246,6 +246,35 @@ namespace TLab.UI.SDF.Editor
 			EditorGUILayout.LabelField("Shape", labelStyle);
 		}
 
+		protected virtual void DrawLightingProp()
+		{
+			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lighting), "Lighting");
+			EditorGUI.indentLevel++;
+			if (m_baseInstance.lighting)
+			{
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsProfileMode), "Profile Mode");
+
+				EditorGUI.indentLevel++;
+				switch (m_baseInstance.lightingParamsProfileMode)
+				{
+					case SDFUI.ProfileMode.Linear:
+						break;
+					case SDFUI.ProfileMode.Dome:
+					case SDFUI.ProfileMode.Bevel:
+						serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsRadius), "Radius");
+						break;
+				}
+				EditorGUI.indentLevel--;
+
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsLightDirAngle), "Light Dir Angle");
+				serializedObject.TryDrawColorProperty("m_" + nameof(m_baseInstance.lightingParamsShadowColor), "Shadow Color", m_baseInstance.useHDR);
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsShadowDarkness), "Shadow Darkness");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsSpecIntensity), "Spec Intensity");
+				serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.lightingParamsSpecPower), "Spec Power");
+			}
+			EditorGUI.indentLevel--;
+		}
+
 		protected virtual void DrawOutlineProp()
 		{
 			serializedObject.TryDrawProperty("m_" + nameof(m_baseInstance.outline), "Outline");
@@ -449,6 +478,8 @@ namespace TLab.UI.SDF.Editor
 			DrawOnionProp();
 
 			DrawShadowProp();
+
+			DrawLightingProp();
 
 			DrawOtherProp();
 
