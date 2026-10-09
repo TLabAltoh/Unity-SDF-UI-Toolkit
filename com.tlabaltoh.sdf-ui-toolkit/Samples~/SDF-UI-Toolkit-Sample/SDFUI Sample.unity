@@ -633,6 +633,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 1
+  m_lightingParamsProfileMode: 2
+  m_lightingParamsRadius: 18
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -790,6 +798,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 1
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 31.38
@@ -956,6 +972,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 1
   m_shadowWidth: 0
   m_shadowInnerSoftWidth: 0
@@ -1135,6 +1159,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 0
   m_outlineEffectPatternParamsW: 0.9
   m_outlineEffectPatternScale: {x: 1.58, y: 1.38}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 1
   m_shadowWidth: 30.92
   m_shadowInnerSoftWidth: 4.26
@@ -1442,6 +1474,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 1
+  m_lightingParamsProfileMode: 1
+  m_lightingParamsRadius: 8.12
+  m_lightingParamsShadowDarkness: 0.82
+  m_lightingParamsSpecIntensity: 0.25
+  m_lightingParamsSpecPower: 2.92
+  m_lightingParamsLightDirAngle: 0.096
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -1599,6 +1639,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 1
   m_shadowWidth: 6
   m_shadowInnerSoftWidth: 0
@@ -1800,6 +1848,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 0
   m_outlineEffectPatternParamsW: 0.9
   m_outlineEffectPatternScale: {x: 1.58, y: 1.38}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 30.92
   m_shadowInnerSoftWidth: 4.26
@@ -1973,6 +2029,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -2138,6 +2202,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -2478,6 +2550,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 9.28
   m_shadowInnerSoftWidth: 0
@@ -2712,6 +2792,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -2868,6 +2956,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 1
+  m_lightingParamsProfileMode: 2
+  m_lightingParamsRadius: 10.63
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -3203,6 +3299,34 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lighting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsRadius
+      value: 14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsSpecPower
+      value: 4.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsProfileMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsLightDirAngle
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsSpecIntensity
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 106449155366452256, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
+      propertyPath: m_lightingParamsShadowDarkness
+      value: 0.31
+      objectReference: {fileID: 0}
     - target: {fileID: 106449155366452262, guid: 11c7c2eb28e28654f8ac02d2c0d0426b, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -3463,6 +3587,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 0
   m_outlineEffectPatternParamsW: 0.9
   m_outlineEffectPatternScale: {x: 1.58, y: 1.38}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 30.92
   m_shadowInnerSoftWidth: 4.26
@@ -3636,6 +3768,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 0
+  m_lightingParamsProfileMode: 0
+  m_lightingParamsRadius: 0
+  m_lightingParamsShadowDarkness: 0.3
+  m_lightingParamsSpecIntensity: 0.5
+  m_lightingParamsSpecPower: 12
+  m_lightingParamsLightDirAngle: 0
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0
@@ -3794,6 +3934,14 @@ MonoBehaviour:
   m_outlineEffectPatternParamsZ: 1
   m_outlineEffectPatternParamsW: 1
   m_outlineEffectPatternScale: {x: 1, y: 1}
+  m_lighting: 1
+  m_lightingParamsProfileMode: 2
+  m_lightingParamsRadius: 10.33
+  m_lightingParamsShadowDarkness: 2.12
+  m_lightingParamsSpecIntensity: 0.62
+  m_lightingParamsSpecPower: 12.4
+  m_lightingParamsLightDirAngle: 0.195
+  m_lightingParamsShadowColor: {r: 0.05, g: 0.05, b: 0.1, a: 1}
   m_shadow: 0
   m_shadowWidth: 10
   m_shadowInnerSoftWidth: 0

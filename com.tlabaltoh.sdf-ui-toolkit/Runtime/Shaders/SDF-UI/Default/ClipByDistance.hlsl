@@ -12,6 +12,30 @@ float delta = 0, softBorder0 = 0, softBorder1 = 0, softAlpha0 = 0, softAlpha1 = 
 
 //////////////////////////////////////////////////////////////
 
+#if defined(SDF_UI_STEP_SHAPE_AND_OUTLINE)
+
+if (_LightingParamsProfileMode > -1) {
+	LightingParams params;
+	params.profileMode = _LightingParamsProfileMode;
+	params.radius = _LightingParamsRadius;
+	params.lightDir = _LightingParamsLightDir;
+	params.shadowColor = _LightingParamsShadowColor;
+	params.shadowDarkness = _LightingParamsShadowDarkness;
+	params.specIntensity = _LightingParamsSpecIntensity;
+	params.specPower = _LightingParamsSpecPower;
+
+	// _OutlineBorder > 0 --> // Outline.Outside
+	color = applyHeightLighting(dist + _OutlineWidth * (_OutlineBorder == 0), color, params);
+
+	if (_OutlineWidth == 0) {
+		_OutlineColor = color;
+	}
+}
+
+#endif // SDF_UI_STEP_SHAPE_AND_OUTLINE
+
+//////////////////////////////////////////////////////////////
+
 #ifdef SDF_UI_STEP_SHADOW
 #ifdef SDF_UI_SHADOW
 

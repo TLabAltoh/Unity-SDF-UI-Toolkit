@@ -11,6 +11,14 @@ float4 _OuterUV;
 float _Onion;
 float _OnionWidth;
 
+float _LightingParamsProfileMode;
+float _LightingParamsRadius;
+float _LightingParamsShadowDarkness;
+float _LightingParamsSpecIntensity;
+float _LightingParamsSpecPower;
+float2 _LightingParamsLightDir;
+float3 _LightingParamsShadowColor;
+
 float _GraphicBorder;
 
 float _GraphicGradationAngle;

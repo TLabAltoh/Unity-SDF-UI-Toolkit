@@ -681,6 +681,99 @@ float4 bg(float2 uv)
 }
 
 /**
+*
+* Lighting
+*
+*/
+
+// Structure for lighting configurations
+struct LightingParams {
+    float profileMode;       // 0: Linear, 1: Dome, 2: Bevel
+    float radius;            // Object radius for profile calculation
+    float shadowDarkness;    // Shadow intensity (0.0: 100% shadow color influence ~ 1.0: no shadow)
+    float specIntensity;     // Highlight intensity
+    float specPower;         // Highlight sharpness (specular power)
+    float2 lightDir;         // Light direction (normalized)
+    float3 shadowColor;      // Shadow color (represents ambient or reflected light color)
+};
+
+// Function to calculate shading from a height map and return the color (RGBA)
+half4 applyHeightLighting(float d, half4 baseColor, LightingParams params) {
+
+    // Get the SDF distance gradient (direction) directly without depending on ddx
+    // Creates an accurate 2D vector pointing outward from the object's center using the derivative of distance d
+    float2 dD = float2(ddx(d), ddy(d));
+    float2 sD = dD / (length(dD) + 0.0001); // Prevent division by zero
+
+    float2 normal = float2(0.0, 0.0);
+    float diff = 0.0;
+    float shadow = 1.0;
+    float spec = 0.0;
+
+    if (params.profileMode == 0) {
+        // Linear
+        normal = -sD; // Inward-facing vector
+        diff = dot(normal, params.lightDir);
+        shadow = smoothstep(-1.0, 1.0, diff);
+        spec = pow(max(diff, 0.0), params.specPower);
+    }
+    else if (params.profileMode == 1) {
+        // Dome (hemispherical curve)
+        float safeRadius = max(params.radius, 0.0001);
+        float normD = clamp(-d / safeRadius, 0.0, 1.0);
+
+        // Calculate mathematically perfect hemispherical normal
+        float nz = normD;
+        float nxy = sqrt(1.0 - nz * nz);
+
+        // Basic 2D lighting
+        float rawDiff = dot(-sD, params.lightDir);
+
+        // Extrude only the slopes within the radius range (nxy > 0),
+        // and neutralize heights on the flat top plane (normD == 1.0, nxy == 0) to balance out the 2D lighting (rawDiff)
+        diff = dot(-sD * nxy, params.lightDir) + (nz * nxy);
+
+        // Smoothly fall back to the same state as other flat areas (diff = 0.0) when exiting the slope into a completely flat plane region
+        diff = lerp(0.0, diff, smoothstep(0.0, 0.1, nxy));
+
+        shadow = smoothstep(-1.0, 1.0, diff);
+        spec = pow(max(diff, 0.0), params.specPower) * nxy;
+    }
+    else if (params.profileMode == 2) {
+        // Bevel (chamfered edges: linear slope)
+        float safeBevel = max(params.radius, 0.0001);
+
+        // Process only when distance d is within the bevel width (e.g., -5.0 to 0.0)
+        if (d > -safeBevel) {
+            // Create a slope intensity (ratio) that changes linearly from 0.0 to 1.0
+            float slopeIntensity = 1.0 - (-d / safeBevel);
+
+            // Normal vector points inward toward the object
+            normal = -sD;
+            diff = dot(normal, params.lightDir);
+
+            // Directly multiply the shadow and highlight by the slope intensity (slopeIntensity)
+            shadow = lerp(1.0, smoothstep(-1.0, 1.0, diff), slopeIntensity);
+            spec = pow(max(diff, 0.0), params.specPower) * slopeIntensity;
+        }
+    }
+
+    float pSize = length(dD);
+    float edgeAA = smoothstep(0.0, -pSize, d);
+
+    // Blend with baseColor by moving shadow toward 1.0 (no shadow) closer to the boundary (as edgeAA approaches 0)
+    shadow = lerp(1.0, shadow, edgeAA);
+    spec *= edgeAA;
+
+    // Apply color
+    half4 col = baseColor;
+    col.rgb = baseColor.rgb * lerp(params.shadowDarkness, 1.0, shadow);
+    col.rgb += half3(params.specIntensity, params.specIntensity, params.specIntensity) * spec;
+
+    return col;
+}
+
+/**
 * 
 * Boolean
 * 
