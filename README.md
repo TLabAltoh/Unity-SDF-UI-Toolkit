@@ -86,7 +86,7 @@ and
     </tr>
 </table>
 <table>
-    <caption>Shapes added in updates</caption>
+    <caption>Shapes added in updates & Lighting effect</caption>
     <tr>
         <td><img src="Media/demo.20.png" height="256"><img></td>
         <td><img src="Media/demo.21.png" height="256"><img></td>

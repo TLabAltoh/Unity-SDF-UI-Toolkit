@@ -43,6 +43,7 @@ namespace TLab.UI.SDF
         internal const string PREFIX_SHADOW = "Shadow";
         internal const string PREFIX_OUTLINE = "Outline";
         internal const string PREFIX_GRAPHIC = "Graphic";
+        internal const string PREFIX_LIGHTING = "Lighting";
 
         #region SHAPE
 
@@ -75,6 +76,16 @@ namespace TLab.UI.SDF
         internal static readonly int PROP_OUTLINE_INNER_GAUSSIAN = Shader.PropertyToID($"_{PREFIX_OUTLINE}InnerGaussian");
 
         #endregion OUTLINE
+
+        #region LIGHTING
+        internal static readonly int PROP_LIGHTING_PARAMS_PROFILE_MODE = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsProfileMode");
+        internal static readonly int PROP_LIGHTING_PARAMS_RADIUS = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsRadius");
+        internal static readonly int PROP_LIGHTING_PARAMS_SHADOW_DARKNESS = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsShadowDarkness");
+        internal static readonly int PROP_LIGHTING_PARAMS_SPEC_INTENSITY = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsSpecIntensity");
+        internal static readonly int PROP_LIGHTING_PARAMS_SPEC_POWER = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsSpecPower");
+        internal static readonly int PROP_LIGHTING_PARAMS_LIGHT_DIR = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsLightDir");
+        internal static readonly int PROP_LIGHTING_PARAMS_SHADOW_COLOR = Shader.PropertyToID($"_{PREFIX_LIGHTING}ParamsShadowColor");
+        #endregion
 
         #region GRAPHIC
 
@@ -278,6 +289,13 @@ namespace TLab.UI.SDF
             Rainbow = 3,
         };
 
+        public enum ProfileMode
+        {
+            Linear = 0,
+            Dome = 1,
+            Bevel = 2
+        }
+
         #endregion ENUM
 
         #region FIELD
@@ -325,6 +343,17 @@ namespace TLab.UI.SDF
         #endregion EFFECT
 
         #endregion OUTLINE
+
+        #region LIGHTING
+        [SerializeField, LeftToggle] protected bool m_lighting = false;
+        [SerializeField] protected ProfileMode m_lightingParamsProfileMode = ProfileMode.Dome;
+        [SerializeField, Min(0)] protected float m_lightingParamsRadius = 0f;
+        [SerializeField, Min(0)] protected float m_lightingParamsShadowDarkness = 0.3f;
+        [SerializeField, Min(0)] protected float m_lightingParamsSpecIntensity = 0.5f;
+        [SerializeField, Min(0)] protected float m_lightingParamsSpecPower = 12f;
+        [SerializeField, Range(0f, 1f)] protected float m_lightingParamsLightDirAngle = 0.25f;
+        [SerializeField] protected Color m_lightingParamsShadowColor = new Color(0.05f, 0.05f, 0.1f, 1f);
+        #endregion LIGHTING
 
         #region SHADOW
 
@@ -476,9 +505,124 @@ namespace TLab.UI.SDF
             }
         }
 
-#endregion ONION
+        #endregion ONION
 
-#region SHADOW
+#region LIGHTING
+        public bool lighting
+        {
+            get => m_lighting;
+            set
+            {
+                if (m_lighting != value)
+                {
+                    m_lighting = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public ProfileMode lightingParamsProfileMode
+        {
+            get => m_lightingParamsProfileMode;
+            set
+            {
+                if (m_lightingParamsProfileMode != value)
+                {
+                    m_lightingParamsProfileMode = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float lightingParamsRadius
+        {
+            get => m_lightingParamsRadius;
+            set
+            {
+                if (m_lightingParamsRadius != value)
+                {
+                    m_lightingParamsRadius = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float lightingParamsShadowDarkness
+        {
+            get => m_lightingParamsShadowDarkness;
+            set
+            {
+                if (m_lightingParamsShadowDarkness != value)
+                {
+                    m_lightingParamsShadowDarkness = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float lightingParamsSpecIntensity
+        {
+            get => m_lightingParamsSpecIntensity;
+            set
+            {
+                if (m_lightingParamsSpecIntensity != value)
+                {
+                    m_lightingParamsSpecIntensity = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float lightingParamsSpecPower
+        {
+            get => m_lightingParamsSpecPower;
+            set
+            {
+                if (m_lightingParamsSpecPower != value)
+                {
+                    m_lightingParamsSpecPower = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public float lightingParamsLightDirAngle
+        {
+            get => m_lightingParamsLightDirAngle;
+            set
+            {
+                if (m_lightingParamsLightDirAngle != value)
+                {
+                    m_lightingParamsLightDirAngle = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+        public Color lightingParamsShadowColor
+        {
+            get => m_lightingParamsShadowColor;
+            set
+            {
+                if (m_lightingParamsShadowColor != value)
+                {
+                    m_lightingParamsShadowColor = value;
+
+                    SetAllDirty();
+                }
+            }
+        }
+
+#endregion LIGHTING
+
+        #region SHADOW
 
         public bool shadow
         {
@@ -2269,6 +2413,23 @@ namespace TLab.UI.SDF
                         _materialRecord.SetFloat(PROP_GRAPHIC_RAINBOW_HUE_OFFSET, m_rainbowHueOffset);
                         break;
                 }
+            }
+
+            if (m_lighting)
+            {
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_PROFILE_MODE, (float)m_lightingParamsProfileMode);
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_RADIUS, m_lightingParamsRadius);
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_SHADOW_DARKNESS, m_lightingParamsShadowDarkness);
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_SPEC_INTENSITY, m_lightingParamsSpecIntensity);
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_SPEC_POWER, m_lightingParamsSpecPower);
+                _materialRecord.SetColor(PROP_LIGHTING_PARAMS_SHADOW_COLOR, m_useHDR ? m_lightingParamsShadowColor.gamma : m_lightingParamsShadowColor);
+
+                float radian = m_lightingParamsLightDirAngle * Mathf.PI * 2f;
+                Vector2 lightDirVector = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+                _materialRecord.SetVector(PROP_LIGHTING_PARAMS_LIGHT_DIR, lightDirVector);
+            } else
+            {
+                _materialRecord.SetFloat(PROP_LIGHTING_PARAMS_PROFILE_MODE, -1f);
             }
 
             if (m_outline && (m_outlineWidth > 0))
